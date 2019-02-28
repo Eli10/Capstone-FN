@@ -3,10 +3,10 @@ import { Icon } from 'expo';
 
 import Colors from '../constants/Colors';
 
-export default class TabBarIcon extends React.Component {
+export default class TabBarIcon2 extends React.Component {
   render() {
     return (
-      <Icon.Ionicons
+      <Icon.fontawesome
         name={this.props.name}
         size={18}
         style={{ marginBottom: -3 }}
