@@ -32,11 +32,18 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-          <View style =  {{justifyContent: 'center', alignItems: 'center'}}>
-            <Image 
-		style = {{width: 300, height: 550}}
-		source={require('../assets/images/MAP.jpg')} />
+          <View style={styles.getStartedContainer}>
+            {this._maybeRenderDevelopmentModeWarning()}
 
+            <Text style={styles.getStartedText}>Get started by opening</Text>
+
+            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+            </View>
+
+            <Text style={styles.getStartedText}>
+             Hello Jasmine Wong .
+            </Text>
           </View>
 
           <View style={styles.helpContainer}>
