@@ -5,8 +5,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 //import TabBarIcon2 from '../components/TabBarIcon2';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SearchScreen from '../screens/SearchMaps';
+import FriendScreen from '../screens/Friendscreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome' 
 import ProfilePage from '../screens/ProfilePage';
@@ -23,18 +23,18 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-map${focused ? '' : '-outline'}`
+          ? `ios-map`
           : 'md-map'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FriendStack = createStackNavigator({
+  Links: FriendScreen,
 });
 
-LinksStack.navigationOptions = {
+FriendStack.navigationOptions = {
   tabBarLabel: 'Friends Maps',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -44,11 +44,11 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const SearchStack = createStackNavigator({
+  Settings: SearchScreen,
 });
 
-SettingsStack.navigationOptions = {
+SearchStack.navigationOptions = {
   tabBarLabel: 'Search Maps',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -91,8 +91,8 @@ ProfileStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+FriendStack,  
+SearchStack,  
   DiscoverStack,
  ProfileStack
 });
