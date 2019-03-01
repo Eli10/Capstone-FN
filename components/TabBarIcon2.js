@@ -6,7 +6,7 @@ import Colors from '../constants/Colors';
 export default class TabBarIcon2 extends React.Component {
   render() {
     return (
-      <Icon.fontawesome
+      <Icon.FontAwesome
         name={this.props.name}
         size={18}
         style={{ marginBottom: -3 }}
