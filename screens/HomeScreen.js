@@ -1,4 +1,7 @@
 import React from 'react';
+import MapView from 'react-native-maps'
+
+
 import {
   Image,
   Platform,
@@ -18,32 +21,19 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/icon.png')
-                  : require('../assets/images/icon.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
+     
 
-          <View style =  {{justifyContent: 'center', alignItems: 'center'}}>
-            <Image 
-		style = {{width: 300, height: 550}}
-		source={require('../assets/images/MAP.jpg')} />
+     return (
 
-          </View>
-
-          
-        </ScrollView>
-
-       
-      </View>
+         <MapView
+        style={ styles.map }
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     );
   }
 
@@ -92,6 +82,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19,
     textAlign: 'center',
+  },
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   contentContainer: {
     paddingTop: 30,
