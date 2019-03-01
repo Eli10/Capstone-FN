@@ -27,6 +27,17 @@ func HandleError(err error) {
 	}
 }
 
+func ExecuteMapContainsStatement(st bolt.Stmt, obj types.MapRestaurantRelationship) {
+	result, err := st.ExecNeo(map[string]interface{}{"restaurant_id": obj.RestaurantID, "mapname": obj.Mapname})
+	HandleError(err)
+	numResult, err := result.RowsAffected()
+	HandleError(err)
+	fmt.Printf("CREATED ROWS: %d\n", numResult)
+
+	// Closing the statment will also close the rows
+	st.Close()
+}
+
 func ExecuteUserFollowStatement(st bolt.Stmt, obj types.UserFollowUserRelationship) {
 	result, err := st.ExecNeo(map[string]interface{}{"a_username": obj.Username, "b_username": obj.Follows})
 	HandleError(err)

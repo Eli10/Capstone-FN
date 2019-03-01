@@ -69,6 +69,25 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteUserFollowStatement(st, userFollow)
 }
 
+
+func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
+	var mapContains types.MapRestaurantRelationship
+	json.NewDecoder(r.Body).Decode(&mapContains)
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.CreateMapRestaurantRelationship, con)
+	helpers.ExecuteMapContainsStatement(st, mapContains)
+}
+
+func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
+	var mapContains types.MapRestaurantRelationship
+	json.NewDecoder(r.Body).Decode(&mapContains)
+	fmt.Println(mapContains)
+	fmt.Printf("%T\n", mapContains.RestaurantID)
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.RemoveMapRestaurantRelationship, con)
+	helpers.ExecuteMapContainsStatement(st, mapContains)
+}
+
 // ----------------------------------------------
 
 // POST Method Handler for /maps/{name}
