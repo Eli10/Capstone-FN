@@ -30,3 +30,8 @@ type UserFollowUserRelationship struct {
 	Username string `json:"username"`
 	Follows  string `json:"follows"`
 }
+
+type MapRestaurantRelationship struct {
+	Mapname string `json:"mapname"`
+	RestaurantID int `json:"restaurant_id"`
+}

@@ -22,16 +22,23 @@ func main() {
 	// Gets all Maps for a User
 	router.HandleFunc("/maps/{username}", handlers.GetAllUserMapsHandler).Methods("GET")
 
+	// Creates CONTAINS Relationship between Maps and Restuarants {"username": string, "restaurant_id": int}
+	router.HandleFunc("/maps/contain", handlers.MapsContainsHandler).Methods("POST")
+
+	// Removes CONTAINS Relationship between Maps and Restuarants {"username": string, "restaurant_id": int}
+	router.HandleFunc("/maps/contain", handlers.RemoveMapsContainsHandler).Methods("DELETE")
+
+	// Creates Follow Relationship between Users {"username": string, "follow": string}
+	router.HandleFunc("/users/follow", handlers.UserFollowHandler).Methods("POST")
+
+
+
+
 	// Test Create a Map Node
 	router.HandleFunc("/map/{name}", handlers.PostMap).Methods("POST")
 
 	// Test Get a Map by Name
 	router.HandleFunc("/map/{name}", handlers.GetMap).Methods("GET")
-
-	// Creates Follow Relationship between Users {"username": string, "follow": string}
-	router.HandleFunc("/users/follow", handlers.UserFollowHandler).Methods("POST")
-
-	// (Eventually) Create Contains Relationship between Maps and Restuarants
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
