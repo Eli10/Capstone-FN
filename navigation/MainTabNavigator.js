@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -41,11 +42,11 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const SearchStack = createStackNavigator({
+  Search: SearchScreen,
 });
 
-SettingsStack.navigationOptions = {
+SearchStack.navigationOptions = {
   tabBarLabel: 'Search Maps',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -75,6 +76,6 @@ DiscoverStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
-  SettingsStack,
+  SearchStack,
   DiscoverStack
 });
