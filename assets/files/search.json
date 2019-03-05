@@ -1,0 +1,14 @@
+[
+    { 
+        "name": "Shake Shack",
+        "type":"american"
+    },
+    {
+        "name": "BonChon Chicken",
+        "type": "korean"
+    },
+    {
+        "name": "Starbucks",
+        "type": "cafe"
+    }
+]

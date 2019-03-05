@@ -5,12 +5,11 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 //import TabBarIcon2 from '../components/TabBarIcon2';
 import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchMaps';
 import FriendScreen from '../screens/Friendscreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
+import SearchScreen from '../screens/SearchScreen';
 import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome' 
 import ProfilePage from '../screens/ProfilePage';
-
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -45,7 +44,7 @@ FriendStack.navigationOptions = {
 };
 
 const SearchStack = createStackNavigator({
-  Settings: SearchScreen,
+  Search: SearchScreen,
 });
 
 SearchStack.navigationOptions = {
