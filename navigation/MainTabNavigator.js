@@ -3,12 +3,13 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import TabBarIcon2 from '../components/TabBarIcon2';
+//import TabBarIcon2 from '../components/TabBarIcon2';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import FriendScreen from '../screens/Friendscreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import SearchScreen from '../screens/SearchScreen';
+import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome' 
+import ProfilePage from '../screens/ProfilePage';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -21,18 +22,18 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-map${focused ? '' : '-outline'}`
+          ? `ios-map`
           : 'md-map'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FriendStack = createStackNavigator({
+  Links: FriendScreen,
 });
 
-LinksStack.navigationOptions = {
+FriendStack.navigationOptions = {
   tabBarLabel: 'Friends Maps',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -56,26 +57,41 @@ SearchStack.navigationOptions = {
   ),
 };
 
-
+//SETTINGS NEED TO BE EDITED PLS SEE DISCOVERSCREEEN.JS IN SCREENS FOLDER
 const DiscoverStack = createStackNavigator({
   Settings: DiscoverScreen,
 });
 
 DiscoverStack.navigationOptions = {
   tabBarLabel: 'Discover',
-  tabBarIcon2: ({ focused }) => (
-    <TabBarIcon2
+  tabBarIcon: ({ focused }) => (
+   <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-dyalog' : 'md-dyalog'}
+      name={Platform.OS === 'ios' ? "ios-arrow-dropright-circle" : "ios-arrow-dropright-circle"}
+    />
+  ),
+};
+
+//SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
+const ProfileStack = createStackNavigator({
+  Settings: ProfilePage,
+});
+
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
+  tabBarIcon: ({ focused }) => (
+   <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? "ios-person" : "ios-person"}
     />
   ),
 };
 
 
-
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SearchStack,
-  DiscoverStack
+FriendStack,  
+SearchStack,  
+  DiscoverStack,
+ ProfileStack
 });
