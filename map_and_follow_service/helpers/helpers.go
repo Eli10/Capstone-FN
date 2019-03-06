@@ -6,6 +6,7 @@ import (
 	"map_and_follow_service/types"
 
 	bolt "github.com/johnnadratowski/golang-neo4j-bolt-driver"
+	"github.com/johnnadratowski/golang-neo4j-bolt-driver/structures/graph"
 )
 
 func CreateConnection() bolt.Conn {
@@ -105,7 +106,7 @@ func QueryMapStatement(st bolt.Stmt, obj types.Map) bolt.Rows {
 	return rows
 }
 
-func ConsumeRows(rows bolt.Rows, st bolt.Stmt) interface{} {
+func ConsumeRows(rows bolt.Rows, st bolt.Stmt) ( interface{}, []interface{}) {
 	// This interface allows you to consume rows one-by-one, as they
 	// come off the bolt stream. This is more efficient especially
 	// if you're only looking for a particular row/set of rows, as
@@ -125,5 +126,23 @@ func ConsumeRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 	// fmt.Printf("FIELDS: %s \n", data[0].(string))                           // FIELDS: 1 2.2
 
 	st.Close()
-	return data[0].(string)
+	return data[0], data[1].([]interface{})
+}
+
+func CreateRestaurantList(list []interface{}) []types.Restaurant {
+	var restaurant_list []types.Restaurant
+
+	for _, r := range list {
+		restuatant_node := r.(graph.Node)
+		restaurant_data := restuatant_node.Properties
+		fmt.Println(restaurant_data)
+		fmt.Printf("Type of the Data: %T\n", restaurant_data)
+		restaurant_list = append(restaurant_list, types.Restaurant{
+											Name: restaurant_data["name"].(string),
+											Address: restaurant_data["address"].(string),
+											Lat: restaurant_data["lat"].(float64),
+											Lon: restaurant_data["lon"].(float64)})
+	}
+
+	return restaurant_list
 }

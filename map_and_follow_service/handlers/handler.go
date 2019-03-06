@@ -39,23 +39,18 @@ func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	results := helpers.ConsumeUserMapRows(rows, st)
 	fmt.Println(results)
 
-	var maplist []types.UserMapRelationship
+	var maplist []types.Map
 	// fmt.Println(results.([]string))
 	for _, l := range results.([][]interface{}) {
 		// inner_l := l.([]string)
 		// fmt.Printf("Type of the Data: %T\n", l)
 		// fmt.Println(l[0])
-		u_r := types.UserMapRelationship{Username: l[0].(string), Mapname: l[1].(string)}
+		restaurant_list := helpers.CreateRestaurantList(l[1].([]interface{}))
+
+
+		u_r := types.Map{Name: l[0].(string), RestaurantList: restaurant_list}
 		maplist = append(maplist, u_r)
-		// for _, r := range l.([]interface{}) {
-		// 	fmt.Println(r)
-		// }
 	}
-	// fmt.Println(list)
-	// fmt.Println(maplist)
-	// list.List = maplist
-	// fmt.Println(list)
-	// json.Marshal(maplist)
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
 
 }
@@ -115,10 +110,12 @@ func GetMap(w http.ResponseWriter, r *http.Request) {
 	st := helpers.PrepareStatement(nodes.GetMapNode, con)
 	fmt.Println(st)
 	rows := helpers.QueryMapStatement(st, my_map)
-	result := helpers.ConsumeRows(rows, st)
-	fmt.Println(result)
+	mapname, list := helpers.ConsumeRows(rows, st)
+	fmt.Println(mapname)
+	restaurant_list := helpers.CreateRestaurantList(list)
 	var result_map types.Map
-	result_map.Name = result.(string)
+	result_map.Name = mapname.(string)
+	result_map.RestaurantList = restaurant_list
 	fmt.Println(result_map)
 	json.NewEncoder(w).Encode(result_map)
 	// json.Marshal(result_map)

@@ -7,10 +7,18 @@ type Hello struct {
 
 type Map struct {
 	Name string `json:"name,omitempty"`
+	RestaurantList []Restaurant `json:"restaurants"`
+}
+
+type Restaurant struct {
+	Name 		string `json:"restaurant_name"`
+	Address string `json:"address"`
+	Lat 		float64 	`json:"lat"`
+	Lon 		float64 	`json:"lon"`
 }
 
 type MapList struct {
-	List []UserMapRelationship `json:"maps"`
+	List []Map `json:"maps"`
 }
 
 type User struct {
