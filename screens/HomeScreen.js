@@ -1,8 +1,8 @@
 import React from 'react';
 import MapView from 'react-native-maps'
 
-
 import {
+
   Image,
   Platform,
   ScrollView,
@@ -10,10 +10,16 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AppRegistry,
+  Dimensions,
 } from 'react-native';
+
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+
+
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -24,7 +30,7 @@ export default class HomeScreen extends React.Component {
      
 
      return (
-
+          
          <MapView
         style={ styles.map }
         initialRegion={{
@@ -33,7 +39,9 @@ export default class HomeScreen extends React.Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      /> 
+
+ 
     );
   }
 
@@ -133,3 +141,5 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+
