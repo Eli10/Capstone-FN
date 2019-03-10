@@ -1,8 +1,8 @@
 import React from 'react';
 import MapView from 'react-native-maps'
 
-
 import {
+
   Image,
   Platform,
   ScrollView,
@@ -10,10 +10,15 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AppRegistry,
+  Dimensions,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 
+import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
+
+
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -24,16 +29,26 @@ export default class HomeScreen extends React.Component {
      
 
      return (
+          
+         <View style={styles.container}>
+        <MapView style={styles.map}
+          initialRegion={{
+              latitude: 40.7128,
+              longitude: -74.0060,
+              latitudeDelta: 0.8,
+              longitudeDelta: 0.8,
+          }}
+        >
+        <MapView.Marker
+            coordinate={{latitude: 40.7128,
+            longitude: -74.0060}}
+            title={"Restuarnant Name"}
+            description={"Restaurant Type"}
+         />
+      </MapView>
+ </View>
 
-         <MapView
-        style={ styles.map }
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+ 
     );
   }
 
@@ -133,3 +148,5 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+
