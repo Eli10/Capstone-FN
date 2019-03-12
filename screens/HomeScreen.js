@@ -1,6 +1,7 @@
 import React from 'react';
 import MapView from 'react-native-maps'
 
+
 import {
 
   Image,
@@ -16,17 +17,42 @@ import {
 
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
+import RestaurantList from '../assets/files/TestRestaurants.json';
+
+    var restaurantObject = ['', '', '', ''];
+    var restList = [];
+         
+    for(var i = 0; i < RestaurantList.length; i++)
+        {
+            RestaurantObject = RestaurantList[i];
+            restList.push(RestaurantObject);
+            console.log(RestaurantObject);
+        } 
+        
+    for(var i = 0; i < RestaurantList.length; i++)
+        {
+            console.log(restList[i]);
+        } 
 
 
 
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
+    constructor(props) {
+    super(props);
+
+    this.state = 
+    {
+      
+        markers : restList
+    }
   };
 
   render() {
-     
+    
+
+
+  
 
      return (
           
@@ -35,17 +61,20 @@ export default class HomeScreen extends React.Component {
           initialRegion={{
               latitude: 40.7128,
               longitude: -74.0060,
-              latitudeDelta: 0.8,
-              longitudeDelta: 0.8,
+              latitudeDelta: 0.055,
+              longitudeDelta: 0.055,
           }}
         >
+
+        
+        {this.state.markers.map(shop => (
         <MapView.Marker
-            coordinate={{latitude: 40.7128,
-            longitude: -74.0060}}
-            title={"Restuarnant Name"}
-            description={"Restaurant Type"}
-         />
-      </MapView>
+            coordinate={{latitude: shop.latitude,
+            longitude: shop.longitude}}
+            title={shop.name}
+            description={shop.address}
+         /> ))}
+      </MapView> 
  </View>
 
  
