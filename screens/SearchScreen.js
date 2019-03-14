@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { View, Text, FlatList, ActivityIndicator} from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import restaurantList from '../assets/files/search.json';
 
@@ -23,9 +23,9 @@ export default class SearchScreen extends React.Component {
           <View
             style={{
               height: 1,
-              width: '86%',
+              width: '100%',
               backgroundColor: '#CED0CE',
-              marginLeft: '14%',
+              marginLeft: '0%',
             }}
           />
         );
@@ -57,6 +57,14 @@ export default class SearchScreen extends React.Component {
         );
     };
 
+    onPress = (item) => {
+      this.props.navigation.navigate('Details', {
+        name: item.name,
+        address: item.address,
+        tags: item.type
+      });
+    };
+
     render() {
         if (this.state.loading) {
             return (
@@ -70,9 +78,17 @@ export default class SearchScreen extends React.Component {
               <FlatList
                 extraData={this.state}
                 data={this.state.data}
-                renderItem={({ item }) => (
-                  <Text>{item.name} {item.type}</Text>
-                )}
+                renderItem={({ item }) => 
+
+                <TouchableOpacity onPress={this.onPress(item)}>
+                  <View>
+                    <Text style={styles.restaurant_name}>{item.name}</Text>
+                    <Text style={styles.resaturant_address}> Address: {item.address}</Text>
+                    <Text> Tags: {item.type}</Text>
+                  </View>
+                </TouchableOpacity>
+
+                }
                 ItemSeparatorComponent={this.renderSeparator}
                 ListHeaderComponent={this.renderHeader}
               />
@@ -80,3 +96,35 @@ export default class SearchScreen extends React.Component {
           );
     }
 }
+
+class DetailsScreen extends React.Component {
+  render() {
+    const { navigation } = this.props;
+    const name = navigation.getParam('name', 'NO-ID');
+    const address = navigation.getParam('address', 'no title');
+    const tags = navigation.getParam('tags', 'no tag');
+
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Details Screen</Text>
+        <Text>Name: {JSON.stringify(name)}</Text>
+        <Text>Address: {JSON.stringify(address)}</Text>
+        <Text>Tags: {JSON.stringify(tags)}</Text>
+      </View>
+    );
+  }
+}
+
+
+const styles = StyleSheet.create({
+  restaurant_name: {
+    fontFamily: 'Verdana',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  resaturant_address: {
+    fontSize:15,
+    fontWeight: 'bold',
+    color: 'grey'
+  }
+})
