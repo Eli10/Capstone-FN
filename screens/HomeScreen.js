@@ -2,7 +2,7 @@ import React from 'react';
 import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer} from 'react-navigation'
 import {Dropdown} from 'react-native-material-dropdown';
-                      
+
 
 import {
   Picker,
@@ -39,6 +39,9 @@ import RNPickerSelect from 'react-native-picker-select';
         } 
 
     var myLists = [{label: 'drinks', value: 'bubble tea'}, {label: 'drinks', value: 'pizza',}, {value: 'burgers',}, {label: 'drinks', value: 'im in a mood',}];
+
+
+
 
 
 
