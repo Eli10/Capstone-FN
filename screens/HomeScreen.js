@@ -1,9 +1,12 @@
 import React from 'react';
 import MapView from 'react-native-maps'
-
+import {Header,createStackNavigator, createAppContainer} from 'react-navigation'
+import {Dropdown} from 'react-native-material-dropdown';
+                      
 
 import {
-
+  Picker,
+  Button,
   Image,
   Platform,
   ScrollView,
@@ -18,6 +21,7 @@ import {
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import RestaurantList from '../assets/files/TestRestaurants.json';
+import RNPickerSelect from 'react-native-picker-select';
 
     var restaurantObject = ['', '', '', ''];
     var restList = [];
@@ -34,10 +38,14 @@ import RestaurantList from '../assets/files/TestRestaurants.json';
             console.log(restList[i]);
         } 
 
+    var myLists = [{label: 'drinks', value: 'bubble tea'}, {label: 'drinks', value: 'pizza',}, {value: 'burgers',}, {label: 'drinks', value: 'im in a mood',}];
+
 
 
 
 export default class HomeScreen extends React.Component {
+    static navigationOptions = {title: 'My Maps',}; 
+    
     constructor(props) {
     super(props);
 
@@ -55,8 +63,12 @@ export default class HomeScreen extends React.Component {
   
 
      return (
-          
-         <View style={styles.container}>
+         
+       <View style={styles.container}>
+       
+      
+   
+         
         <MapView style={styles.map}
           initialRegion={{
               latitude: 40.7128,
@@ -75,6 +87,8 @@ export default class HomeScreen extends React.Component {
             description={shop.address}
          /> ))}
       </MapView> 
+
+         
  </View>
 
  
@@ -116,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   map: {
-    position: 'absolute',
+    position: 'relative',
     top: 0,
     left: 0,
     right: 0,
