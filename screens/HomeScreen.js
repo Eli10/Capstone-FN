@@ -1,7 +1,7 @@
 import React from 'react';
 import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer} from 'react-navigation'
-import {Dropdown} from 'react-native-material-dropdown';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 
 import {
@@ -11,7 +11,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
+  Text, 
   TouchableOpacity,
   View,
   AppRegistry,
@@ -22,6 +22,7 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import RestaurantList from '../assets/files/TestRestaurants.json';
 import RNPickerSelect from 'react-native-picker-select';
+import menu from '../components/DropDownClassForHomeScreen.js';
 
     var restaurantObject = ['', '', '', ''];
     var restList = [];
@@ -30,19 +31,19 @@ import RNPickerSelect from 'react-native-picker-select';
         {
             RestaurantObject = RestaurantList[i];
             restList.push(RestaurantObject);
-            console.log(RestaurantObject);
+            //console.log(RestaurantObject);
         } 
         
     for(var i = 0; i < RestaurantList.length; i++)
         {
-            console.log(restList[i]);
+            //console.log(restList[i]);
         } 
 
-    var myLists = [{label: 'drinks', value: 'bubble tea'}, {label: 'drinks', value: 'pizza',}, {value: 'burgers',}, {label: 'drinks', value: 'im in a mood',}];
 
-
-
-
+var myLists = ['bubble tea', 'pizza', 'burgers', 'pizza'];
+var myLists2 = ['bubble tea', 'pizza', 'burgers', 'burgers2'];
+var myLists3 = ['bubble tea', 'pizza', 'burgers', 'food'];
+//refer to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality
 
 
 
@@ -53,8 +54,7 @@ export default class HomeScreen extends React.Component {
     super(props);
 
     this.state = 
-    {
-      
+    { 
         markers : restList
     }
   };
@@ -69,11 +69,18 @@ export default class HomeScreen extends React.Component {
          
        <View style={styles.container}>
        
+       <ModalDropdown  
+            defaultValue = 'Please select a Friends Map' 
+            style = {styles.MD} 
+            options = {myLists}   
+            dropdownStyle = {{ height: 35 * myLists.length}} 
+        />
       
    
          
-        <MapView style={styles.map}
-          initialRegion={{
+        <MapView 
+            style={styles.map} 
+            initialRegion={{
               latitude: 40.7128,
               longitude: -74.0060,
               latitudeDelta: 0.055,
@@ -115,6 +122,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   developmentModeText: {
     marginBottom: 20,
@@ -140,6 +150,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 400,
     width: 400,
+    paddingTop: 100,
   },
   contentContainer: {
     paddingTop: 30,
@@ -193,6 +204,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
-});
+  red: {color : 'red'},
+  MD : {
+    paddingBottom: 100,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flex: 1,
+
+  }
+}); 
 
 

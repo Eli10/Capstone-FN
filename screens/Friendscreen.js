@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
+import ModalDropdown from 'react-native-modal-dropdown';
 import { MonoText } from '../components/StyledText';
 
 export default class FriendScreen extends React.Component {
@@ -20,13 +20,15 @@ export default class FriendScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          
+        
+        <ModalDropdown  
+            defaultValue = 'Please select a List' 
+            style = {styles.MD} 
+            options = {['Friend 1', 'Friend 2', 'Friend 3', 'Friend 4']}   
+            
+        />
 
-         <Text> PLEASE EDIT ME </Text>
-          
-        </ScrollView>
-
+     
        
       </View>
     );
@@ -130,4 +132,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+     MD : {
+    paddingBottom: 100,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingTop: 100,
+
+  }
 });
