@@ -43,6 +43,7 @@ import menu from '../components/DropDownClassForHomeScreen.js';
 var myLists = ['bubble tea', 'pizza', 'burgers', 'pizza'];
 var myLists2 = ['bubble tea', 'pizza', 'burgers', 'burgers2'];
 var myLists3 = ['bubble tea', 'pizza', 'burgers', 'food'];
+//refer to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality
 
 
 
@@ -69,10 +70,10 @@ export default class HomeScreen extends React.Component {
        <View style={styles.container}>
        
        <ModalDropdown  
-            defaultValue = 'Please select a List' 
+            defaultValue = 'Please select a Friends Map' 
             style = {styles.MD} 
             options = {myLists}   
-            
+            dropdownStyle = {{ height: 35 * myLists.length}} 
         />
       
    
@@ -209,6 +210,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    flex: 1,
 
   }
 }); 
