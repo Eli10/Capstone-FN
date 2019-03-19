@@ -1,14 +1,17 @@
 [
     { 
         "name": "Shake Shack",
+        "address": "123 prince st",
         "type":"american"
     },
     {
         "name": "BonChon Chicken",
+        "address": "456 hello st",
         "type": "korean"
     },
     {
         "name": "Starbucks",
+        "address": "789 byebye st",
         "type": "cafe"
     }
 ]

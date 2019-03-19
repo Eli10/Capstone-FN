@@ -15,7 +15,8 @@ export default class SearchScreen extends React.Component {
             data: restaurantList,
             error: null,
             value: '',
-            ModalVisible: false
+            ModalVisible: false,
+            modalData: '',
         };
     }
 
@@ -58,17 +59,14 @@ export default class SearchScreen extends React.Component {
         );
     };
 
-    // onPress = (item) => {
-    //   this.props.navigation.navigate('Details', {
-    //     name: item.name,
-    //     address: item.address,
-    //     tags: item.type
-    //   });
-    // };
-
     showModal(visible) {
       this.setState({ModalVisible: visible});
     }
+
+    onPressShow(item) {
+      this.showModal(true);
+      this.setState({modalData: item});
+    };
 
     render() {
         if (this.state.loading) {
@@ -81,42 +79,27 @@ export default class SearchScreen extends React.Component {
           return (
             <View>
               <Modal
-          transparent={false}
- 
-          animationType={"slide"}
- 
-          visible={this.state.ModalVisible}
- 
-          onRequestClose={ () => { this.ShowModalFunction(!this.state.ModalVisible)} } >
- 
- 
-            <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
- 
- 
-                <View>
- 
- 
-                    {/* Put All Your Components Here, Which You Want To Show Inside The Modal. */}
- 
-                    <Text>Text Component With Some Sample Text In Modal. </Text>
- 
-                    <Button  title="Click Here To Hide Modal" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
- 
-                    {/* Put All Your Components Here, Which You Want To Show Inside The Modal. */}
- 
- 
+                 transparent={false}
+                 animationType={"slide"}
+                 visible={this.state.ModalVisible}
+                 onRequestClose={ () => { this.ShowModalFunction(!this.state.ModalVisible)} } >
+                 <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View>
+                    <Text style={styles.restaurant_name}>{this.state.modalData.name}</Text>
+                    <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
+                    <Text> Tags: {this.state.modalData.type}</Text>
+                    <Button title="Add to an existing map"/>
+                    <Button title="Create a new map"/>
+                    <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
+                  </View>
                 </View>
- 
-            </View>
- 
- 
-        </Modal>
+              </Modal>
               <FlatList
                 extraData={this.state}
                 data={this.state.data}
                 renderItem={({ item }) => 
 
-                <TouchableOpacity onPress={() => { this.showModal(true) }}>
+                <TouchableOpacity onPress={() => { this.onPressShow(item) }}>
                   <View>
                     <Text style={styles.restaurant_name}>{item.name}</Text>
                     <Text style={styles.resaturant_address}> Address: {item.address}</Text>
@@ -132,24 +115,6 @@ export default class SearchScreen extends React.Component {
           );
     }
 }
-
-// class DetailsScreen extends React.Component {
-//   render() {
-//     const { navigation } = this.props;
-//     const name = navigation.getParam('name', 'NO-ID');
-//     const address = navigation.getParam('address', 'no title');
-//     const tags = navigation.getParam('tags', 'no tag');
-
-//     return (
-//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//         <Text>Details Screen</Text>
-//         <Text>Name: {JSON.stringify(name)}</Text>
-//         <Text>Address: {JSON.stringify(address)}</Text>
-//         <Text>Tags: {JSON.stringify(tags)}</Text>
-//       </View>
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   restaurant_name: {
