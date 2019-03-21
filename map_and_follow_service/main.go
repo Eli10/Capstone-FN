@@ -31,6 +31,9 @@ func main() {
 	// Creates Follow Relationship between Users {"username": string, "follow": string}
 	router.HandleFunc("/users/follow", handlers.UserFollowHandler).Methods("POST")
 
+	// Returns list of restaurants name for searching purposes
+	router.HandleFunc("/restaurants", handlers.GetRestaurantListHandler).Methods("GET")
+
 
 
 

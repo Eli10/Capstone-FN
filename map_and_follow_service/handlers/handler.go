@@ -83,6 +83,32 @@ func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
+
+func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
+	var resList types.RestaurantList
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.GetRestaurants, con)
+
+	rows := helpers.QueryRestaurantNameList(st)
+
+	fmt.Printf("%T\n", rows)
+	fmt.Println(rows)
+
+	results := helpers.ConsumeRestaurantNameRows(rows, st)
+
+	fmt.Printf("%T\n", results)
+	fmt.Println(results)
+
+	for _, l := range results.([][]interface{}) {
+		fmt.Println(l[0])
+		resList.NameList = append(resList.NameList, l[0].(string))
+	}
+	fmt.Println(resList)
+	json.NewEncoder(w).Encode(resList)
+
+}
+
+
 // ----------------------------------------------
 
 // POST Method Handler for /maps/{name}

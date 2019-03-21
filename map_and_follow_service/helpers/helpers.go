@@ -146,3 +146,24 @@ func CreateRestaurantList(list []interface{}) []types.Restaurant {
 
 	return restaurant_list
 }
+
+
+func QueryRestaurantNameList(st bolt.Stmt) bolt.Rows {
+	rows, err := st.QueryNeo(map[string]interface{}{})
+	HandleError(err)
+	return rows
+}
+
+func ConsumeRestaurantNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
+
+	data, _, err := rows.All()
+	HandleError(err)
+	fmt.Println(data)
+	fmt.Printf("COLUMNS: %#v\n", rows.Metadata()["fields"].([]interface{}))
+	// fmt.Printf("FIELDS: %s %s \n", data[0].(string), data[1].(string))
+
+	st.Close()
+	fmt.Printf("Type of the Data: %T", data)
+	return data
+
+}
