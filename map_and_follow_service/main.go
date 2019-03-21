@@ -34,6 +34,8 @@ func main() {
 	// Returns list of restaurants name for searching purposes
 	router.HandleFunc("/restaurants", handlers.GetRestaurantListHandler).Methods("GET")
 
+	router.HandleFunc("/restaurants/{restaurant_name}", handlers.GetRestaurantHandler).Methods("GET")
+
 
 
 

@@ -109,6 +109,30 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 
+func GetRestaurantHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	var res types.Restaurant
+	res.Name = params["restaurant_name"]
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.GetRestaurant, con)
+	// fmt.Println(params["restaurant_name"])
+	rows := helpers.QueryRestaurantName(st, res)
+	fmt.Println(rows)
+	results := helpers.ConsumeRestaurant(rows, st)
+	fmt.Println(results)
+
+	for _, l := range results.([][]interface{}) {
+		// data := l[0].(graph.Node)
+		fmt.Println(l[0])
+		res = helpers.CreateRestaurant(l[0])
+
+	}
+	json.NewEncoder(w).Encode(res)
+
+
+}
+
+
 // ----------------------------------------------
 
 // POST Method Handler for /maps/{name}

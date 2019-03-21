@@ -147,11 +147,44 @@ func CreateRestaurantList(list []interface{}) []types.Restaurant {
 	return restaurant_list
 }
 
+func CreateRestaurant(data interface{}) types.Restaurant {
+	var res types.Restaurant
+
+	restuarant_node := data.(graph.Node)
+	restaurant_data := restuarant_node.Properties
+	fmt.Println(restaurant_data)
+	fmt.Printf("Type of the Data: %T\n", restaurant_data)
+	res.Name = restaurant_data["name"].(string)
+	res.Address = restaurant_data["address"].(string)
+	res.Lat =  restaurant_data["lat"].(float64)
+	res.Lon =  restaurant_data["lon"].(float64)
+
+	return res
+}
+
 
 func QueryRestaurantNameList(st bolt.Stmt) bolt.Rows {
 	rows, err := st.QueryNeo(map[string]interface{}{})
 	HandleError(err)
 	return rows
+}
+
+func QueryRestaurantName(st bolt.Stmt, obj types.Restaurant) bolt.Rows {
+	rows, err := st.QueryNeo(map[string]interface{}{"restaurant_name": obj.Name})
+	HandleError(err)
+	return rows
+}
+
+func ConsumeRestaurant(rows bolt.Rows, st bolt.Stmt) interface{} {
+	data, _, err := rows.All()
+	HandleError(err)
+	fmt.Println(data)
+	fmt.Printf("COLUMNS: %#v\n", rows.Metadata()["fields"].([]interface{}))
+	// fmt.Printf("FIELDS: %s %s \n", data[0].(string), data[1].(string))
+
+	st.Close()
+	fmt.Printf("Type of the Data: %T", data)
+	return data
 }
 
 func ConsumeRestaurantNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
