@@ -11,8 +11,9 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import {StackNavigator} from 'react-navigation';
 
-export default class HomeScreen extends React.Component {
+export default class ProfilePage extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -23,7 +24,7 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           
 
-         <Text> PLEASE EDIT ME </Text>
+         <Text> LoggedIn</Text>
           
         </ScrollView>
 
@@ -69,6 +70,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: '#fff',
   },
   developmentModeText: {
