@@ -7,7 +7,7 @@ import ProfilePage from '../screens/ProfilePage'
 
 const HomeNavigator= createStackNavigator ({
     Home: { screen: Login},
-    Profile: {screen: ProfilePage}
+    ProfilePage: {screen: ProfilePage}
         }, {
          navigationOptions: {
             header: false,
