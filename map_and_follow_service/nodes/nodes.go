@@ -1,7 +1,7 @@
 package nodes
 
 const (
-	URI                          = "bolt://neo4j:1234.0.0.1:7687"
+	URI                          = "bolt://neo4j:1234@127.0.0.1:7687"
 	CreateNode                   = "CREATE (n:Map {name: {name}})"
 	CreateUserMapRelationship    = "MATCH (a:User {username: {username}}) MERGE (n:Map {mapname: {mapname}}) MERGE (a)-[r:HAS]->(n)"
 	GetUserMapList               = "MATCH (u:User {username: {username}})-[]->(b:Map)-[]->(res:Restaurant) RETURN b.mapname, collect(res) AS restaurants"
