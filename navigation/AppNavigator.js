@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import Login from '../components/Login'
@@ -7,7 +7,7 @@ import ProfilePage from '../screens/ProfilePage'
 
 const HomeNavigator= createStackNavigator ({
     Home: { screen: Login},
-    Profile: {screen: Profile}
+    Profile: {screen: ProfilePage}
         }, {
          navigationOptions: {
             header: false,
