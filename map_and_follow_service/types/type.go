@@ -10,6 +10,10 @@ type Map struct {
 	RestaurantList []Restaurant `json:"restaurants"`
 }
 
+type RestaurantList struct {
+	NameList []string `json:"restaurants"`
+}
+
 type Restaurant struct {
 	Name 		string `json:"restaurant_name"`
 	Address string `json:"address"`
