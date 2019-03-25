@@ -73,7 +73,7 @@ export default class HomeScreen extends React.Component {
             style = {styles.MD} 
             options = {listnames}
             dropdownStyle = {{ height: 35 * listnames.length}}
-            onSelect={(index, value) => { this.setState({markers : popList(index)})}}
+            onSelect={(index, value) => {this.setState({markers : popList(index)})}}
         />
       
    
