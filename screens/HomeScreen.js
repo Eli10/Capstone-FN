@@ -25,20 +25,18 @@ import RNPickerSelect from 'react-native-picker-select';
 import menu from '../components/DropDownClassForHomeScreen.js';
 
     var restaurantObject = ['', '', '', ''];
+    var listnames = [];
     var restList = [];
-         
-    for(var i = 0; i < RestaurantList.length; i++)
-        {
-            RestaurantObject = RestaurantList[i];
-            restList.push(RestaurantObject);
-            //console.log(RestaurantObject);
-        } 
+
         
     for(var i = 0; i < RestaurantList.length; i++)
         {
-            //console.log(restList[i]);
-        } 
+            listnames.push(RestaurantList[i].listname);
+        }
 
+
+
+console.disableYellowBox = true;
 
 var myLists = ['bubble tea', 'pizza', 'burgers', 'pizza'];
 var myLists2 = ['bubble tea', 'pizza', 'burgers', 'burgers2'];
@@ -59,6 +57,7 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+
   render() {
     
 
@@ -70,10 +69,11 @@ export default class HomeScreen extends React.Component {
        <View style={styles.container}>
        
        <ModalDropdown  
-            defaultValue = 'Please select a Friends Map' 
+            defaultValue = 'Please select a Map'
             style = {styles.MD} 
-            options = {myLists}   
-            dropdownStyle = {{ height: 35 * myLists.length}} 
+            options = {listnames}
+            dropdownStyle = {{ height: 35 * listnames.length}}
+            onSelect={(index, value) => { this.setState({markers : popList(index)})}}
         />
       
    
@@ -109,6 +109,21 @@ export default class HomeScreen extends React.Component {
 
 
 }
+
+      popList = (index) => {
+        var tList = [];
+        for(var i = 0; i < RestaurantList[index].list.length; i++)
+        {
+
+            tList.push(RestaurantList[index].list[i]);
+
+
+
+        }
+
+        //console.log(tList);
+        return tList;
+      }
 
     const styles = StyleSheet.create({
         container: {

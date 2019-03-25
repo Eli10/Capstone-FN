@@ -14,7 +14,7 @@ import { MonoText } from '../components/StyledText';
 import MapView from 'react-native-maps'
 
 export default class FriendScreen extends React.Component {
-  static navigationOptions = {title: 'Friends Maps',};
+  static navigationOptions = {title: "Friends' Maps",};
 
 
   render() {
