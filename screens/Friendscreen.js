@@ -8,14 +8,35 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import { WebBrowser } from 'expo';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { MonoText } from '../components/StyledText';
 import MapView from 'react-native-maps'
+import RestaurantList from '../assets/files/TestRestaurants.json';
+
+var restaurantObject = ['', '', '', ''];
+var listnames = [];
+var restList = [];
+
+
+for(var i = 0; i < RestaurantList.length; i++)
+{
+  listnames.push(RestaurantList[i].listname);
+}
+
+
 
 export default class FriendScreen extends React.Component {
   static navigationOptions = {title: "Friends' Maps",};
+  constructor(props) {
+    super(props);
 
+    this.state =
+        {
+          markers : restList
+        }
+  };
 
   render() {
     return (
@@ -24,8 +45,9 @@ export default class FriendScreen extends React.Component {
         <ModalDropdown  
             defaultValue = 'Please select a List' 
             style = {styles.MD} 
-            options = {['Friend 1', 'Friend 2', 'Friend 3', 'Friend 4']}   
-            
+            options = {listnames}
+            onSelect={(index, value) => { this.setState({markers : popList(index)})}}
+            dropdownStyle = {{ height: 35 * listnames.length}}
         />
 
         <MapView
@@ -35,13 +57,37 @@ export default class FriendScreen extends React.Component {
               longitude: -74.0060,
               latitudeDelta: 0.055,
               longitudeDelta: 0.055,}}
-       />
-       
+  >
+
+
+    {this.state.markers.map(shop => (
+    <MapView.Marker
+      coordinate={{latitude: shop.latitude,
+        longitude: shop.longitude}}
+      title={shop.name}
+      description={shop.address}
+      /> ))}
+      </MapView>
+
+
       </View>
     );
   }
 
+  popList = (index) => {
+  var tList = [];
+  for(var i = 0; i < RestaurantList[index].list.length; i++)
+{
 
+  tList.push(RestaurantList[index].list[i]);
+
+
+
+}
+
+//console.log(tList);
+return tList;
+}
 
 
 }
