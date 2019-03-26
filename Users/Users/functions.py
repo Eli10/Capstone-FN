@@ -13,7 +13,7 @@ class createUser(Resource):
 		password = req_data['password']
 
 		if User(username).register(password):
-			return 200
+			return {'message':'User has been registered'}, 200
 		else:
 			return {'message': "User already registered"}, 202
 
@@ -24,10 +24,10 @@ class loginUser(Resource):
 		password = req_data['password']
 
 		if User(username).verify_password(password):
-			session['username'] = username
-			return 200
+			# session['username'] = username
+			return {'message': 'User verified'}, 200
 		else:
-			return 404
+			return {'message': 'User cannot be authenicated'}, 404
 
 
 api.add_resource(createUser, '/register')
