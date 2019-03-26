@@ -12,22 +12,23 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Returns JSON for /hello endpoint
 func GetHello(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.Hello{Message: "Hi", OtherMessage: "Yoo"})
 }
 
+
+// Creates JSON for /maps/ endpoint
 func CreateMapandUserMapRelationshipHandler(w http.ResponseWriter, r *http.Request) {
-	// params := mux.Vars(r)
 	var mr types.UserMapRelationship
 	json.NewDecoder(r.Body).Decode(&mr)
-	// m_r.Username = params["username"]
-	// m_r.Mapname = params["mapname"]
 	fmt.Println(mr)
 	con := helpers.CreateConnection()
 	st := helpers.PrepareStatement(nodes.CreateUserMapRelationship, con)
 	helpers.ExecuteUserMapStatement(st, mr)
 }
 
+// Creates JSON for /maps/{username} endpoint
 func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var user types.User
@@ -40,21 +41,15 @@ func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\nRESULTS: ", results, "\n")
 
 	var maplist []types.Map
-	// fmt.Println(results.([]string))
 	for _, l := range results.([][]interface{}) {
-		// inner_l := l.([]string)
-		// fmt.Printf("Type of the Data: %T\n", l)
-		// fmt.Println(l[0])
 		restaurant_list := helpers.CreateRestaurantList(l[1].([]interface{}))
-
-
 		u_r := types.Map{Name: l[0].(string), RestaurantList: restaurant_list}
 		maplist = append(maplist, u_r)
 	}
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
-
 }
 
+// Creates JSON for /users/follow endpoint
 func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	var userFollow types.UserFollowUserRelationship
 	json.NewDecoder(r.Body).Decode(&userFollow)
@@ -64,7 +59,7 @@ func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteUserFollowStatement(st, userFollow)
 }
 
-
+// Creates JSON for /maps/contain POST endpoint
 func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	var mapContains types.MapRestaurantRelationship
 	json.NewDecoder(r.Body).Decode(&mapContains)
@@ -73,6 +68,7 @@ func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
+// Creates JSON for /maps/contain DELETE endpoint
 func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	var mapContains types.MapRestaurantRelationship
 	json.NewDecoder(r.Body).Decode(&mapContains)
@@ -83,7 +79,7 @@ func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
-
+// Creates JSON for /restaurants endpoint
 func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 	var resList types.RestaurantList
 	con := helpers.CreateConnection()
@@ -108,6 +104,7 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Creates JSON for /maps/name/{username} endpoint
 func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var mapList types.MapNameList
@@ -133,7 +130,7 @@ func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(mapList)
 }
 
-
+// Creates JSON for /restaurants/{restaurant_name} endpoint
 func GetRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var res types.Restaurant
@@ -157,7 +154,6 @@ func GetRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
 // ----------------------------------------------
 
 // POST Method Handler for /maps/{name}
@@ -175,9 +171,6 @@ func PostMap(w http.ResponseWriter, r *http.Request) {
 // Takes name and uses it to find Map Node with same name property
 func GetMap(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	// new_string := fmt.Sprintf(GetNode2, params["name"])
-	// fmt.Println(new_string)
-	// fmt.Println(GetNode)
 	var my_map types.Map
 	my_map.Name = params["name"]
 	fmt.Println(my_map)
@@ -193,5 +186,4 @@ func GetMap(w http.ResponseWriter, r *http.Request) {
 	result_map.RestaurantList = restaurant_list
 	fmt.Println(result_map)
 	json.NewEncoder(w).Encode(result_map)
-	// json.Marshal(result_map)
 }
