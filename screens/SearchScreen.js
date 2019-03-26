@@ -2,6 +2,7 @@ import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import ModalDropdown from 'react-native-modal-dropdown';
 import restaurantList from '../assets/files/search.json';
 
 export default class SearchScreen extends React.Component {
@@ -19,7 +20,9 @@ export default class SearchScreen extends React.Component {
             error: null,
             value: '',
             ModalVisible: false,
+            MapModalVisible: false,
             modalData: '',
+            mapModalData:[],
         };
     }
 
@@ -36,11 +39,14 @@ export default class SearchScreen extends React.Component {
     }
 
     getMapsForUser = () => {
-      let url = 'http://127.0.0.1:8000/maps/' + this.state.defaultUser;
+      let url = 'http://127.0.0.1:8000/maps/name/' + this.state.defaultUser;
       console.log(url);
       fetch(url)
       .then((response) => response.json())
-      .then((resData) => console.log(resData))
+      .then((resData) => {
+      // console.log(resData.map_names)
+      this.setState({userMaps: resData.map_names});
+    })
       .catch((error) => console.log(error))
     }
 
@@ -106,6 +112,23 @@ export default class SearchScreen extends React.Component {
       this.setState({modalData: item});
     };
 
+    showMapModal(visible) {
+      this.setState({MapModalVisible: visible});
+    }
+
+    onPressShowMap(){
+      console.log('e');
+      this.showMapModal(true);
+      this.setState({mapModalData: this.state.userMaps});
+    }
+
+    showMap = () => {
+      console.log('hi');
+      this.getMapsForUser();
+      this.showModal(!this.state.ModalVisible)
+      this.onPressShowMap();
+    }
+
     render() {
         if (this.state.loading) {
             return (
@@ -120,15 +143,46 @@ export default class SearchScreen extends React.Component {
                  transparent={false}
                  animationType={"slide"}
                  visible={this.state.ModalVisible}
-                 onRequestClose={ () => { this.ShowModalFunction(!this.state.ModalVisible)} } >
+                 onRequestClose={ () => { this.ShowModal(!this.state.ModalVisible)} } >
                  <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                   <View>
                      <Text style={styles.restaurant_name}>{this.state.modalData}</Text>
                     {/* <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text> */}
                     {/* <Text> Tags: {this.state.modalData.type}</Text> */}
-                    <Button title="Add to an existing map" onPress={this.getMapsForUser}/>
+                  
+                    <Button title="Add to an existing map" onPress={this.showMap}/>
                     <Button title="Create a new map"/>
                     <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
+                  </View>
+                </View>
+              </Modal>
+
+              <Modal
+                 transparent={false}
+                 animationType={"slide"}
+                 visible={this.state.MapModalVisible}
+                 onRequestClose={ () => { this.ShowModal(!this.state.MapModalVisible)} } >
+                 <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View >
+                    <Text>hello</Text>
+                     {/* <Text style={styles.restaurant_name}>{this.state.modalData}</Text> */}
+                    {/* <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text> */}
+                    {/* <Text> Tags: {this.state.modalData.type}</Text> */}
+                    <FlatList style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}
+                      data={this.state.userMaps}
+                      renderItem={({ item }) => 
+
+                      <TouchableOpacity onPress={() => { console.log('I WORK') }}>
+                        <View>
+                          <Text style={styles.restaurant_name}>{item}</Text>
+
+                        </View>
+                      </TouchableOpacity>
+
+                      }
+                      ItemSeparatorComponent={this.renderSeparator}
+                    />
+                    <Button  title="Go back" onPress={() => { this.showMapModal(!this.state.MapModalVisible); this.showModal(!this.state.ModalVisible) } } />
                   </View>
                 </View>
               </Modal>
