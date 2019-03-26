@@ -13,11 +13,16 @@ class User:
 		self.username = username
 
 	def find(self):
-		print(dir(graph))
-		user_to_find = Node("User", username=self.username)
-		user = graph.exists(user_to_find)
-		print(user)
-		return user
+		# print(dir(graph))
+		# user_to_find = Node("User", username=self.username)
+		user_to_find = graph.nodes.match("User", username=self.username).first()
+		print(user_to_find)
+		if user_to_find == None:
+			return None
+		return user_to_find
+		# user = graph.exists(user_to_find)
+		# print("USER FOUND???: {}".format(user))
+		# return user
 
 	def register(self, password):
 		if not self.find():
@@ -29,7 +34,8 @@ class User:
 
 	def verify_password(self, password):
 		user = self.find()
+		print(user)
 		if user:
 			return bcrypt.verify(password, user['password'])
 		else:
-			return false
+			return False
