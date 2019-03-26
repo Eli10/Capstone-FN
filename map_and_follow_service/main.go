@@ -17,15 +17,17 @@ func main() {
 	router.HandleFunc("/hello", handlers.GetHello).Methods("GET")
 
 	// Create Map for User and The Relationship b/w User and Map {"username": string, "mapname": string}
+
 	router.HandleFunc("/maps/", handlers.CreateMapandUserMapRelationshipHandler).Methods("POST")
 
 	// Gets all Maps for a User
+	// Map must have relations to restaurants. For the map to get returned in the query 
 	router.HandleFunc("/maps/{username}", handlers.GetAllUserMapsHandler).Methods("GET")
 
-	// Creates CONTAINS Relationship between Maps and Restuarants {"username": string, "restaurant_id": int}
+	// Creates CONTAINS Relationship between Maps and Restuarants {"mapname": string, "restaurant_id": int}
 	router.HandleFunc("/maps/contain", handlers.MapsContainsHandler).Methods("POST")
 
-	// Removes CONTAINS Relationship between Maps and Restuarants {"username": string, "restaurant_id": int}
+	// Removes CONTAINS Relationship between Maps and Restuarants {"mapname": string, "restaurant_id": int}
 	router.HandleFunc("/maps/contain", handlers.RemoveMapsContainsHandler).Methods("DELETE")
 
 	// Creates Follow Relationship between Users {"username": string, "follow": string}
