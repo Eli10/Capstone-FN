@@ -10,6 +10,7 @@ import (
 	"map_and_follow_service/types"
 
 	"github.com/gorilla/mux"
+	"github.com/johnnadratowski/golang-neo4j-bolt-driver/structures/graph"
 )
 
 // Returns JSON for /hello endpoint
@@ -84,20 +85,22 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 	var resList types.RestaurantList
 	con := helpers.CreateConnection()
 	st := helpers.PrepareStatement(nodes.GetRestaurants, con)
-
 	rows := helpers.QueryRestaurantNameList(st)
-
-	fmt.Printf("%T\n", rows)
-	fmt.Println(rows)
-
 	results := helpers.ConsumeRestaurantNameRows(rows, st)
-
-	fmt.Printf("%T\n", results)
-	fmt.Println(results)
-
+	
 	for _, l := range results.([][]interface{}) {
-		fmt.Println(l[0])
-		resList.NameList = append(resList.NameList, l[0].(string))
+		fmt.Println(l)
+		fmt.Printf("Type of Results %T\n", l)
+
+		for _, r := range l {
+			restuatant_node := r.(graph.Node)
+			restaurant_data := restuatant_node.Properties
+			fmt.Println("DATA", restaurant_data)
+			fmt.Printf("Type of the Data: %T\n", restaurant_data)
+			resList.RestaurantList = append(resList.RestaurantList, types.Restaurant{
+												Name: restaurant_data["name"].(string),
+												Address: restaurant_data["address"].(string)})
+		}
 	}
 	fmt.Println(resList)
 	json.NewEncoder(w).Encode(resList)

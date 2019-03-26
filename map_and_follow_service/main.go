@@ -40,7 +40,7 @@ func main() {
 	// JSON Body -> {"username": string, "follow": string}
 	router.HandleFunc("/users/follow", handlers.UserFollowHandler).Methods("POST")
 
-	// Returns list of restaurants name for searching purposes
+	// Returns list of restaurants object with ({restaurant_name and address}) for searching purposes
 	router.HandleFunc("/restaurants", handlers.GetRestaurantListHandler).Methods("GET")
 
 	// Returns restaurant data for a restaurant name given
