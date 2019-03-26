@@ -25,6 +25,10 @@ type MapList struct {
 	List []Map `json:"maps"`
 }
 
+type MapNameList struct {
+	MapList []string `json:"map_names"`
+}
+
 type User struct {
 	Username string `json:"username"`
 }

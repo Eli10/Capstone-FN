@@ -76,7 +76,7 @@ func ConsumeUserMapRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 	// you don't need to load up the entire dataset into memory
 	data, _, err := rows.All()
 	HandleError(err)
-	fmt.Println(data)
+	fmt.Println("DATA: ",data, "\n")
 	fmt.Printf("COLUMNS: %#v\n", rows.Metadata()["fields"].([]interface{}))
 	// fmt.Printf("FIELDS: %s %s \n", data[0].(string), data[1].(string))
 
@@ -135,7 +135,7 @@ func CreateRestaurantList(list []interface{}) []types.Restaurant {
 	for _, r := range list {
 		restuatant_node := r.(graph.Node)
 		restaurant_data := restuatant_node.Properties
-		fmt.Println(restaurant_data)
+		fmt.Println("DATA", restaurant_data)
 		fmt.Printf("Type of the Data: %T\n", restaurant_data)
 		restaurant_list = append(restaurant_list, types.Restaurant{
 											Name: restaurant_data["name"].(string),
@@ -188,6 +188,26 @@ func ConsumeRestaurant(rows bolt.Rows, st bolt.Stmt) interface{} {
 }
 
 func ConsumeRestaurantNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
+
+	data, _, err := rows.All()
+	HandleError(err)
+	fmt.Println(data)
+	fmt.Printf("COLUMNS: %#v\n", rows.Metadata()["fields"].([]interface{}))
+	// fmt.Printf("FIELDS: %s %s \n", data[0].(string), data[1].(string))
+
+	st.Close()
+	fmt.Printf("Type of the Data: %T", data)
+	return data
+
+}
+
+func QueryMapNameList(st bolt.Stmt, obj types.User) bolt.Rows {
+	rows, err := st.QueryNeo(map[string]interface{}{"username": obj.Username})
+	HandleError(err)
+	return rows
+}
+
+func ConsumeMapNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 
 	data, _, err := rows.All()
 	HandleError(err)

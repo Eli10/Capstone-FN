@@ -35,9 +35,9 @@ func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	con := helpers.CreateConnection()
 	st := helpers.PrepareStatement(nodes.GetUserMapList, con)
 	rows := helpers.QueryUserMapListStatement(st, user)
-	fmt.Println(rows)
+	fmt.Println("ROWS: ", rows.Metadata(), "\n")
 	results := helpers.ConsumeUserMapRows(rows, st)
-	fmt.Println(results)
+	fmt.Println("\nRESULTS: ", results, "\n")
 
 	var maplist []types.Map
 	// fmt.Println(results.([]string))
@@ -106,6 +106,31 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(resList)
 	json.NewEncoder(w).Encode(resList)
 
+}
+
+func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	var mapList types.MapNameList
+	var user types.User
+	user.Username = params["username"]
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.GetUserMapNameList, con)
+	rows := helpers.QueryMapNameList(st, user)
+
+	fmt.Printf("%T\n", rows)
+	fmt.Println(rows)
+
+	results := helpers.ConsumeMapNameRows(rows, st)
+
+	fmt.Printf("%T\n", results)
+	fmt.Println(results)
+
+	for _, l := range results.([][]interface{}) {
+		fmt.Println(l[0])
+		mapList.MapList = append(mapList.MapList, l[0].(string))
+	}
+	fmt.Println(mapList)
+	json.NewEncoder(w).Encode(mapList)
 }
 
 
