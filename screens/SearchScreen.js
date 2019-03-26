@@ -14,6 +14,8 @@ export default class SearchScreen extends React.Component {
             loading: false,
             data: [],
             currentDataList: [],
+            defaultUser: "Bob",
+            userMaps: [],
             error: null,
             value: '',
             ModalVisible: false,
@@ -32,6 +34,28 @@ export default class SearchScreen extends React.Component {
 
       .catch((error) => console.log(error))
     }
+
+    getMapsForUser = () => {
+      let url = 'http://127.0.0.1:8000/maps/' + this.state.defaultUser;
+      console.log(url);
+      fetch(url)
+      .then((response) => response.json())
+      .then((resData) => console.log(resData))
+      .catch((error) => console.log(error))
+    }
+
+    // addToExisting(){
+    //   fetch('http://127.0.0.1:8000/maps/contains', {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       firstParam: 'yourvalue',
+    //     }),
+    //   });
+    // }
 
     renderSeparator = () => {
         return (
@@ -102,7 +126,7 @@ export default class SearchScreen extends React.Component {
                      <Text style={styles.restaurant_name}>{this.state.modalData}</Text>
                     {/* <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text> */}
                     {/* <Text> Tags: {this.state.modalData.type}</Text> */}
-                    <Button title="Add to an existing map"/>
+                    <Button title="Add to an existing map" onPress={this.getMapsForUser}/>
                     <Button title="Create a new map"/>
                     <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
                   </View>
