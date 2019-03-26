@@ -15,7 +15,7 @@ const HomeNavigator= createStackNavigator ({
 });
  
 
-const AppNavigator=createAppContainer(HomeNavigator);
+const AppNavigator=createAppContainer(MainTabNavigator);
 
 export default AppNavigator;
 
