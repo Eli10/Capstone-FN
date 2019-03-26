@@ -8,13 +8,34 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import { WebBrowser } from 'expo';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { MonoText } from '../components/StyledText';
+import MapView from 'react-native-maps'
+import RestaurantList from '../assets/files/TestRestaurants.json';
+
+var restaurantObject = ['', '', '', ''];
+var listnames = [];
+var restList = [];
+
+
+for(var i = 0; i < RestaurantList.length; i++)
+{
+  listnames.push(RestaurantList[i].listname);
+}
+
+
 
 export default class FriendScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
+  static navigationOptions = {title: "Friends' Maps",};
+  constructor(props) {
+    super(props);
+
+    this.state =
+        {
+          markers : restList
+        }
   };
 
   render() {
@@ -24,48 +45,51 @@ export default class FriendScreen extends React.Component {
         <ModalDropdown  
             defaultValue = 'Please select a List' 
             style = {styles.MD} 
-            options = {['Friend 1', 'Friend 2', 'Friend 3', 'Friend 4']}   
-            
+            options = {listnames}
+            onSelect={(index, value) => { this.setState({markers : popList(index)})}}
+            dropdownStyle = {{ height: 35 * listnames.length}}
         />
 
-     
-       
+        <MapView
+           style={styles.map}
+          initialRegion={{
+               latitude: 40.7128,
+              longitude: -74.0060,
+              latitudeDelta: 0.055,
+              longitudeDelta: 0.055,}}
+  >
+
+
+    {this.state.markers.map(shop => (
+    <MapView.Marker
+      coordinate={{latitude: shop.latitude,
+        longitude: shop.longitude}}
+      title={shop.name}
+      description={shop.address}
+      /> ))}
+      </MapView>
+
+
       </View>
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
+  popList = (index) => {
+  var tList = [];
+  for(var i = 0; i < RestaurantList[index].list.length; i++)
+{
 
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
+  tList.push(RestaurantList[index].list[i]);
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
 
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
+
+}
+
+//console.log(tList);
+return tList;
+}
+
+
 }
 
 const styles = StyleSheet.create({
@@ -73,71 +97,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
 
- 
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
      MD : {
-    paddingBottom: 100,
+    paddingBottom: 30,
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingTop: 100,
+    paddingTop: 30,
 
-  }
+  },
+  map: {
+    position: 'relative',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 485,
+    width: 400,
+    paddingTop: 100,
+  },
 });

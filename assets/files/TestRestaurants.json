@@ -1,5 +1,23 @@
 [
-    {"latitude": 40.7128, "longitude": -74.0060, "address": "123 map street", "name" : "pizza shop"}, 
-    {"latitude": 40.71, "longitude": -74.0060, "address": "123 map street", "name" : "bubble tea shop"}, 
-    {"latitude": 40.734, "longitude": -74.0060, "address": "123 map street", "name" : "noodle shop"} 
+
+    {"listname" : "list 1",
+        "list" :
+
+            [{"latitude": 40.7128, "longitude": -74.0060, "address": "123 map street", "name" : "pizza shop 1"},
+            {"latitude": 40.71, "longitude": -74.0060, "address": "123 map street", "name" : "bubble tea shop 1"},
+            {"latitude": 40.735, "longitude": -74.0060, "address": "123 map street", "name" : "noodle shop 1"}]},
+
+    {"listname" : "list 2",
+        "list" :
+
+        [{"latitude": 40.7128, "longitude": -74.0060, "address": "123 map street", "name" : "pizza shop 2"},
+            {"latitude": 40.71, "longitude": -74.0060, "address": "123 map street", "name" : "bubble tea shop 2"},
+            {"latitude": 40.738, "longitude": -74.00605, "address": "123 map street", "name" : "noodle shop 2"}]},
+
+    {"listname" : "list 3",
+        "list" :
+
+        [{"latitude": 40.7128, "longitude": -74.0060, "address": "123 map street", "name" : "pizza shop 3"},
+            {"latitude": 40.71, "longitude": -74.0060, "address": "123 map street", "name" : "bubble tea shop 3"},
+            {"latitude": 40.74, "longitude": -74.0061, "address": "123 map street", "name" : "noodle shop 3"}]}
 ]

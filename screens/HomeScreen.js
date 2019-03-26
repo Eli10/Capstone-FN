@@ -25,20 +25,18 @@ import RNPickerSelect from 'react-native-picker-select';
 import menu from '../components/DropDownClassForHomeScreen.js';
 
     var restaurantObject = ['', '', '', ''];
+    var listnames = [];
     var restList = [];
-         
-    for(var i = 0; i < RestaurantList.length; i++)
-        {
-            RestaurantObject = RestaurantList[i];
-            restList.push(RestaurantObject);
-            //console.log(RestaurantObject);
-        } 
+
         
     for(var i = 0; i < RestaurantList.length; i++)
         {
-            //console.log(restList[i]);
-        } 
+            listnames.push(RestaurantList[i].listname);
+        }
 
+
+
+console.disableYellowBox = true;
 
 var myLists = ['bubble tea', 'pizza', 'burgers', 'pizza'];
 var myLists2 = ['bubble tea', 'pizza', 'burgers', 'burgers2'];
@@ -59,6 +57,7 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+
   render() {
     
 
@@ -70,10 +69,11 @@ export default class HomeScreen extends React.Component {
        <View style={styles.container}>
        
        <ModalDropdown  
-            defaultValue = 'Please select a Friends Map' 
+            defaultValue = 'Please select a Map'
             style = {styles.MD} 
-            options = {myLists}   
-            dropdownStyle = {{ height: 35 * myLists.length}} 
+            options = {listnames}
+            dropdownStyle = {{ height: 35 * listnames.length}}
+            onSelect={(index, value) => {this.setState({markers : popList(index)})}}
         />
       
    
@@ -107,112 +107,46 @@ export default class HomeScreen extends React.Component {
 
  
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
 
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    position: 'relative',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 400,
-    width: 400,
-    paddingTop: 100,
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
+      popList = (index) => {
+        var tList = [];
+        for(var i = 0; i < RestaurantList[index].list.length; i++)
+        {
 
- 
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-  red: {color : 'red'},
-  MD : {
-    paddingBottom: 100,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    flex: 1,
-
-  }
-}); 
+            tList.push(RestaurantList[index].list[i]);
 
 
+
+        }
+
+        //console.log(tList);
+        return tList;
+      }
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#fff',
+        },
+
+        MD : {
+            paddingBottom: 30,
+            alignItems: 'center',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            paddingTop: 30,
+
+        },
+        map: {
+            position: 'relative',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 485,
+            width: 400,
+            paddingTop: 100,
+        },
+    });
