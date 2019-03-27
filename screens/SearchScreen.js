@@ -2,6 +2,7 @@ import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import Dialog from "react-native-dialog";
 import ModalDropdown from 'react-native-modal-dropdown';
 import restaurantList from '../assets/files/search.json';
 
@@ -23,6 +24,8 @@ export default class SearchScreen extends React.Component {
             MapModalVisible: false,
             modalData: '',
             mapModalData:[],
+            dialogVisible: false,
+            temporaryMapName: '',
         };
     }
 
@@ -50,18 +53,50 @@ export default class SearchScreen extends React.Component {
       .catch((error) => console.log(error))
     }
 
-    // addToExisting(){
-    //   fetch('http://127.0.0.1:8000/maps/contains', {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       firstParam: 'yourvalue',
-    //     }),
-    //   });
-    // }
+    addToExistingMap(map){
+      fetch('http://127.0.0.1:8000/maps/contains', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          mapname: map,
+          restaurant_id: 2,
+        }),
+      });
+    }
+
+    showDialog = () => {
+      this.setState({ dialogVisible: true });
+    };
+   
+    handleCancel = () => {
+      this.setState({ dialogVisible: false });
+    };
+   
+    // handleConfirm = () => {
+    //   createNewMap(this.state.temporaryMapName);
+    // };
+
+    createNewMapName= () => {
+      this.showDialog();
+    }
+
+    createNewMap = () => {
+      console.log(this.state.defaultUser);
+      fetch('http://127.0.0.1:8000/maps/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: this.state.defaultUser,
+          mapname: this.state.temporaryMapName,
+        }),
+        });
+    }
 
     renderSeparator = () => {
         return (
@@ -151,7 +186,17 @@ export default class SearchScreen extends React.Component {
                     {/* <Text> Tags: {this.state.modalData.type}</Text> */}
                   
                     <Button title="Add to an existing map" onPress={this.showMap}/>
-                    <Button title="Create a new map"/>
+                    <Button title="Create a new map" onPress={this.createNewMapName}/>
+                    <Dialog.Container visible={this.state.dialogVisible}>
+                      <Dialog.Title>Create a New Map</Dialog.Title>
+                      <Dialog.Description>
+                        Enter the map name.
+                      </Dialog.Description>
+                      <Dialog.Input onChangeText={(text) => this.setState({temporaryMapName: text})}/>
+                      <Dialog.Button label="Cancel" onPress={this.handleCancel} />
+                      <Dialog.Button label="Confirm" onPress={this.createNewMap}/>
+                    </Dialog.Container>
+
                     <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
                   </View>
                 </View>
