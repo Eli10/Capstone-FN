@@ -23,10 +23,9 @@ export default class ProfilePage extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          
+
 
          <Text> LoggedIn </Text>
-          //lazy load??
         </ScrollView>
       </View>
     );
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
- 
+
   navigationFilename: {
     marginTop: 5,
   },
