@@ -12,4 +12,5 @@ const (
 	RemoveMapRestaurantRelationship = "MATCH (m:Map {mapname: {mapname}})-[r]-(res:Restaurant) WHERE id(res)={restaurant_id} DELETE r"
 	GetRestaurants 									= "MATCH (res:Restaurant) RETURN res"
 	GetRestaurant										= "MATCH (res:Restaurant {name: {restaurant_name}}) RETURN res"
+	GetRestaurantId 								= "MATCH (res:Restaurant {name: {restaurant_name}, address: {address}}) RETURN id(res)"
 )

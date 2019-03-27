@@ -87,7 +87,7 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 	st := helpers.PrepareStatement(nodes.GetRestaurants, con)
 	rows := helpers.QueryRestaurantNameList(st)
 	results := helpers.ConsumeRestaurantNameRows(rows, st)
-	
+
 	for _, l := range results.([][]interface{}) {
 		fmt.Println(l)
 		fmt.Printf("Type of Results %T\n", l)
@@ -153,6 +153,32 @@ func GetRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 	json.NewEncoder(w).Encode(res)
+
+
+}
+
+
+func GetRestaurantIdHandler(w http.ResponseWriter, r *http.Request) {
+	var res types.Restaurant
+	params := mux.Vars(r)
+	restaurant_name := params["restaurant_name"]
+	address := params["address"]
+	res.Name = restaurant_name
+	res.Address = address
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.GetRestaurantId, con)
+	rows := helpers.QueryRestaurantID(st, res)
+	fmt.Println(rows)
+	results := helpers.ConsumeRestaurantIDRows(rows, st)
+	fmt.Println(results)
+
+	var id int64
+	for _, num := range results.([]interface{}) {
+		id = num.(int64)
+		fmt.Println(id)
+	}
+	json.NewEncoder(w).Encode(types.RestaurantId{ID: id})
+
 
 
 }

@@ -14,6 +14,10 @@ type RestaurantList struct {
 	RestaurantList []Restaurant `json:"restaurants"`
 }
 
+type RestaurantId struct {
+	ID int64 `json:"id"`
+}
+
 type Restaurant struct {
 	Name 		string `json:"restaurant_name"`
 	Address string `json:"address"`
