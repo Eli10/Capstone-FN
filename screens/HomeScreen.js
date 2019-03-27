@@ -56,10 +56,24 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-    printState = () =>
-    {
+    popList = (index) => {
+        tList = [];
+        console.log('HEILLO');
+        fetch ('http://10.0.2.2:8000/maps/Bob')
+        .then((response) => response.json())
+        .then((resData) => {
+        console.log(resData.maps[0].restaurants);
+        this.setState({markers : resData.maps[0].restaurants})
         console.log(this.state.markers)
-    }
+        })
+
+
+        .catch((error) => console.log(error))
+
+
+
+        }
+
 
   render() {
 
@@ -76,10 +90,10 @@ export default class HomeScreen extends React.Component {
             style = {styles.MD}
             options = {listnames}
             dropdownStyle = {{ height: 35 * listnames.length}}
-            onSelect={(index, value) => {this.setState({markers : popList(index)})}}
+            onSelect={(index, value) => {this.popList(index)}}
         />
 
-      {this.printState()}
+
 
         <MapView
             style={styles.map}
@@ -119,7 +133,7 @@ export default class HomeScreen extends React.Component {
         fetch ('http://10.0.2.2:8000/maps/Bob')
         .then((response) => response.json())
         .then((resData) => {
-        //console.log(resData.maps[0].restaurants);
+        console.log(resData.maps[0].restaurants);
         return resData.maps[0].restaurants;
         })
 
