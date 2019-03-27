@@ -35,7 +35,21 @@ import menu from '../components/DropDownClassForHomeScreen.js';
             listnames.push(RestaurantList[i].listname);
         }
 
+dropdownv = [];
+fetch ('http://10.0.2.2:8000/maps/Bob')
+    .then((response) => response.json())
+    .then((resData) => {
+    console.log("hello alina and eli ");
+    for(var i = 0; i < resData.maps.length; i++)
+    {
+        dropdownv.push(resData.maps[i].name);
+    }
+    console.log(dropdownv);
+    console.log("here now");
 
+    })
+    .catch((error) => console.log(error))
+    .done();
 
 console.disableYellowBox = true;
 
@@ -52,32 +66,32 @@ export default class HomeScreen extends React.Component {
 
     this.state =
     {
-        markers : restList
+        markers : restList,
+        dropdownlist : ['',''],
     }
   };
 
+
+
+
     popList = (index) => {
         tList = [];
-        console.log('HEILLO');
+        console.log(index);
         fetch ('http://10.0.2.2:8000/maps/Bob')
         .then((response) => response.json())
         .then((resData) => {
-        console.log(resData.maps[0].restaurants);
-        this.setState({markers : resData.maps[0].restaurants})
-        console.log(this.state.markers)
-        })
-
-
-        .catch((error) => console.log(error))
-
-
-
+            //console.log(resData.maps[0].restaurants);
+            this.setState({markers : resData.maps[index].restaurants})
+            //console.log(this.state.markers)
+            })
+        .   catch((error) => console.log(error))
         }
+            //this marker popilates the initial dropdown
+
+
 
 
   render() {
-
-
 
 
 
@@ -85,10 +99,11 @@ export default class HomeScreen extends React.Component {
 
        <View style={styles.container}>
 
+
        <ModalDropdown
             defaultValue = 'Please select a Map'
             style = {styles.MD}
-            options = {listnames}
+            options = {dropdownv}
             dropdownStyle = {{ height: 35 * listnames.length}}
             onSelect={(index, value) => {this.popList(index)}}
         />
@@ -112,7 +127,9 @@ export default class HomeScreen extends React.Component {
             longitude: shop.lon}}
             title={shop.restaurant_name}
             description={shop.address}
-         /> ))}
+         />
+
+        ))}
       </MapView>
 
 
@@ -127,22 +144,6 @@ export default class HomeScreen extends React.Component {
 
 }
 
-      popList = (index) => {
-        tList = [];
-        console.log('HEILLO');
-        fetch ('http://10.0.2.2:8000/maps/Bob')
-        .then((response) => response.json())
-        .then((resData) => {
-        console.log(resData.maps[0].restaurants);
-        return resData.maps[0].restaurants;
-        })
-
-
-        .catch((error) => console.log(error))
-
-
-        return  tList;
-    }
 
 
 
