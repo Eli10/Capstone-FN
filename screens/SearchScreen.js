@@ -117,7 +117,7 @@ export default class SearchScreen extends React.Component {
         });
 
             const newData = this.state.data.filter(item => {
-            const itemData = `${item.toUpperCase()}`;
+            const itemData = `${item.restaurant_name.toUpperCase()}`;
             // const itemData = `${item.name.toUpperCase()} ${item.type.toUpperCase()}`;
             const textData = text.toUpperCase();
             return itemData.includes(textData);
@@ -181,8 +181,8 @@ export default class SearchScreen extends React.Component {
                  onRequestClose={ () => { this.ShowModal(!this.state.ModalVisible)} } >
                  <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                   <View>
-                     <Text style={styles.restaurant_name}>{this.state.modalData}</Text>
-                    {/* <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text> */}
+                     <Text style={styles.restaurant_name}>{this.state.modalData.restaurant_name}</Text>
+                    <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
                     {/* <Text> Tags: {this.state.modalData.type}</Text> */}
                   
                     <Button title="Add to an existing map" onPress={this.showMap}/>
@@ -239,8 +239,8 @@ export default class SearchScreen extends React.Component {
 
                 <TouchableOpacity onPress={() => { this.onPressShow(item) }}>
                   <View>
-                    <Text style={styles.restaurant_name}>{item}</Text>
-                    {/* <Text style={styles.resaturant_address}> Address: {item.address}</Text> */}
+                    <Text style={styles.restaurant_name}>{item.restaurant_name}</Text>
+                    <Text style={styles.resaturant_address}> Address: {item.address}</Text>
                     {/* <Text> Tags: {item.type}</Text> */}
                   </View>
                 </TouchableOpacity>
