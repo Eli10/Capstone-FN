@@ -220,3 +220,23 @@ func ConsumeMapNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 	return data
 
 }
+
+func QueryRestaurantID(st bolt.Stmt, obj types.Restaurant) bolt.Rows {
+	rows, err := st.QueryNeo(map[string]interface{}{"restaurant_name": obj.Name, "address": obj.Address})
+	HandleError(err)
+	return rows
+
+}
+
+func ConsumeRestaurantIDRows(rows bolt.Rows, st bolt.Stmt) interface{} {
+	data, _, err := rows.NextNeo()
+	HandleError(err)
+	fmt.Println(data)
+	fmt.Printf("COLUMNS: %#v\n", rows.Metadata()["fields"].([]interface{}))
+	// fmt.Printf("FIELDS: %s %s \n", data[0].(string), data[1].(string))
+
+	st.Close()
+	fmt.Printf("Type of the Data: %T", data)
+	return data
+
+}

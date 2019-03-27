@@ -11,14 +11,18 @@ type Map struct {
 }
 
 type RestaurantList struct {
-	NameList []string `json:"restaurants"`
+	RestaurantList []Restaurant `json:"restaurants"`
+}
+
+type RestaurantId struct {
+	ID int64 `json:"id"`
 }
 
 type Restaurant struct {
 	Name 		string `json:"restaurant_name"`
 	Address string `json:"address"`
-	Lat 		float64 	`json:"lat"`
-	Lon 		float64 	`json:"lon"`
+	Lat 		float64 	`json:"lat,omitempty"`
+	Lon 		float64 	`json:"lon,omitempty"`
 }
 
 type MapList struct {

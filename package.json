@@ -1,6 +1,5 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "proxy": "http://localhost:8000",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -17,6 +16,7 @@
     "react": "^16.5.0",
     "react-dom": "^16.8.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-dialog": "^5.5.0",
     "react-native-dropdown": "0.0.6",
     "react-native-elements": "^1.1.0",
     "react-native-maps": "^0.23.0",
