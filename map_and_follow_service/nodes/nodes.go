@@ -10,7 +10,7 @@ const (
 	GetMapNode                   = "MATCH(m:Map {mapname: {name}})-[]->(res:Restaurant) RETURN m.mapname, collect(res) AS restaurants"
 	CreateMapRestaurantRelationship = "MATCH (res:Restaurant) WHERE id(res)={restaurant_id} MATCH (m:Map {mapname: {mapname}}) MERGE (m)-[r:CONTAINS]->(res)"
 	RemoveMapRestaurantRelationship = "MATCH (m:Map {mapname: {mapname}})-[r]-(res:Restaurant) WHERE id(res)={restaurant_id} DELETE r"
-	GetRestaurants 									= "MATCH (res:Restaurant) RETURN res"
+	GetRestaurants 								 	= "MATCH (res:Restaurant) RETURN res"
 	GetRestaurant										= "MATCH (res:Restaurant {name: {restaurant_name}}) RETURN res"
 	GetRestaurantId 								= "MATCH (res:Restaurant {name: {restaurant_name}, address: {address}}) RETURN id(res)"
 )

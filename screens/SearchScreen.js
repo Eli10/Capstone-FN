@@ -26,6 +26,7 @@ export default class SearchScreen extends React.Component {
             mapModalData:[],
             dialogVisible: false,
             temporaryMapName: '',
+            temporaryRestaurantId: null,
         };
     }
 
@@ -53,7 +54,19 @@ export default class SearchScreen extends React.Component {
       .catch((error) => console.log(error))
     }
 
-    addToExistingMap(map){
+    getRestaurantId = () => {
+      let url = 'http://127.0.0.1:8000/restaurants/id/' + this.state.modalData.restaurant_name + '/' + this.state.modalData.address;
+      console.log(url);
+      fetch(url)
+      .then((response) => response.json())
+      .then((resData) => {this.setState({temporaryRestaurantId: resData.id});
+      })
+      .catch((error) => console.log(error))
+    }
+
+    addToExistingMap = (map) => {
+      console.log(map);
+      console.log(this.state.temporaryRestaurantId);
       fetch('http://127.0.0.1:8000/maps/contains', {
         method: 'POST',
         headers: {
@@ -62,7 +75,7 @@ export default class SearchScreen extends React.Component {
         },
         body: JSON.stringify({
           mapname: map,
-          restaurant_id: 2,
+          restaurant_id: this.state.temporaryRestaurantId,
         }),
       });
     }
@@ -185,8 +198,8 @@ export default class SearchScreen extends React.Component {
                     <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
                     {/* <Text> Tags: {this.state.modalData.type}</Text> */}
                   
-                    <Button title="Add to an existing map" onPress={this.showMap}/>
-                    <Button title="Create a new map" onPress={this.createNewMapName}/>
+                    <Button title="Add to an existing map" onPress = { () => {this.showMap(); this.getRestaurantId()}}/>
+                    <Button title="Create a new map" onPress= { () => {this.createNewMapName(); this.getRestaurantId()}}/>
                     <Dialog.Container visible={this.state.dialogVisible}>
                       <Dialog.Title>Create a New Map</Dialog.Title>
                       <Dialog.Description>
@@ -217,7 +230,7 @@ export default class SearchScreen extends React.Component {
                       data={this.state.userMaps}
                       renderItem={({ item }) => 
 
-                      <TouchableOpacity onPress={() => { console.log('I WORK') }}>
+                      <TouchableOpacity onPress={() => { this.addToExistingMap(item) }}>
                         <View>
                           <Text style={styles.restaurant_name}>{item}</Text>
 
