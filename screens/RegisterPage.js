@@ -12,6 +12,7 @@ import {
 	Button,
 	KeyboardAvoidingView,
     AsyncStorage,
+    FlatList,
 	} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
@@ -20,35 +21,61 @@ export default class RegisterPage extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            fname: '',
-            lname: '',
-            username: '',
-            password: '',
-            rpassword: '',
+            user: []
         }
     }
+/*
+    componentDidMount () {
+        AsyncStorage.getItem("user").then(( ) => {
+            this.setState( {"user": });
+        }).done();
+    }
+*/
     render() {
          return (
             <View style= {styles.register}>
+             <FlatList user={[
+                    {fname: ''}
+                    {lname: ''}
+                    {username: ''}
+                    {password: ''} ]}
+                    keyExtractor={ (x,i) => x.username}
+//                    renderItem={({item}) => <Text>{item.username}</Text>
+            />
+        }
                 <Text style= {styles.header}>Register Page</Text>
-                <TextInput style = {styles.textInput} placeholder= "First Name"
-                underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "Last Name"
-                underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "Email/Username"
-                underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "password"
+                <TextInput style = {styles.textInput} 
+                        placeholder= "First Name"
+                        onChangeText= { (user.fname) => this.setState ( {user.fname} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Last Name"
+                        onChangeText= { (user.lname) => this.setState ( {user.lname} ) }    
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Email/Username"
+                        keyboardType='email-address'
+                        onChangeText= { (user.username) => this.setState ( {user.username} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "password"
+                        secureTextEntry={true}
+                        onChangeText= { (user.password) => this.setState ( {user.password} ) }
+                        underlineColorAndroid= {'transparent'}/>
+             /*   <TextInput style = {styles.textInput} placeholder= "confirm password"
                     secureTextEntry={true}
-                    underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "confirm password"
-                    secureTextEntry={true}
-                    underlineColorAndroid= {'transparent'}/>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.buttonText}> Register</Text>
+                    underlineColorAndroid= {'transparent'}/>*/
+                <TouchableOpacity 
+                     style={styles.btn}
+                     onPress={this.register}>
+                    <Text style={styles.buttonText}> Register </Text>
                 </TouchableOpacity>
        
             </View>
         );
+    }
+    register = () => {
+        AsyncStorage.setItem("user", user);
     }
 }
 
