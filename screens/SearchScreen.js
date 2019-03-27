@@ -25,6 +25,7 @@ export default class SearchScreen extends React.Component {
             modalData: '',
             mapModalData:[],
             dialogVisible: false,
+            confirmDialogVisible: false,
             temporaryMapName: '',
             temporaryRestaurantId: null,
         };
@@ -67,7 +68,7 @@ export default class SearchScreen extends React.Component {
     addToExistingMap = (map) => {
       console.log(map);
       console.log(this.state.temporaryRestaurantId);
-      fetch('http://127.0.0.1:8000/maps/contains', {
+      fetch('http://127.0.0.1:8000/maps/contain', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -83,18 +84,14 @@ export default class SearchScreen extends React.Component {
     showDialog = () => {
       this.setState({ dialogVisible: true });
     };
-   
-    handleCancel = () => {
+
+    handleClose = () => {
       this.setState({ dialogVisible: false });
     };
-   
-    // handleConfirm = () => {
-    //   createNewMap(this.state.temporaryMapName);
-    // };
-
+  
     createNewMapName= () => {
       this.showDialog();
-    }
+    };
 
     createNewMap = () => {
       console.log(this.state.defaultUser);
@@ -109,6 +106,13 @@ export default class SearchScreen extends React.Component {
           mapname: this.state.temporaryMapName,
         }),
         });
+    }
+
+    createMapAndAddRestaurant = () => {
+      this.createNewMap();
+      this.handleClose();
+      console.log(this.state.temporaryMapName);
+      this.addToExistingMap(this.state.temporaryMapName);
     }
 
     renderSeparator = () => {
@@ -206,9 +210,10 @@ export default class SearchScreen extends React.Component {
                         Enter the map name.
                       </Dialog.Description>
                       <Dialog.Input onChangeText={(text) => this.setState({temporaryMapName: text})}/>
-                      <Dialog.Button label="Cancel" onPress={this.handleCancel} />
-                      <Dialog.Button label="Confirm" onPress={this.createNewMap}/>
+                      <Dialog.Button label="Cancel" onPress={this.handleClose} />
+                      <Dialog.Button label="Add restaurant to map" onPress={this.createMapAndAddRestaurant}/>
                     </Dialog.Container>
+                      
 
                     <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
                   </View>
