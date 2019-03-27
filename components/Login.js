@@ -15,6 +15,7 @@ import {
 	} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
+//react-native-cookies
 
 export default class Login extends React.Component {
     constructor(props)    {
@@ -22,6 +23,7 @@ export default class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
+            value: null,
         }
     }
     componentDidMount() {
@@ -70,7 +72,7 @@ export default class Login extends React.Component {
 	}
     login = () => {
 
-        fetch('http://localhost:5000/login', {
+        fetch('../Users/functions.py', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -25,7 +26,7 @@ export default class ProfilePage extends React.Component {
           
 
          <Text> LoggedIn </Text>
-          
+          //lazy load??
         </ScrollView>
       </View>
     );
