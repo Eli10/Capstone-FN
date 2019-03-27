@@ -1,11 +1,11 @@
 import React from 'react';
 import {
 	Image,
-        Platform,
+    Platform,
  	ScrollView,
  	StyleSheet,
 	Text,
-	AppRegistry,
+ 	AppRegistry,
 	TextInput,
 	TouchableOpacity,
 	View,
@@ -16,87 +16,39 @@ import {
 
 import { createStackNavigator } from 'react-navigation';
 
-export default class Signup extends React.Component {
+export default class RegisterPage extends React.Component {
     constructor(props){
-	super(props);
-	this.state = {
-		fName = ''
-		lName = ''
-		username = ''
-		password = ''
-		rPassword = ''
-	}
+        super(props);
+        this.state={
+            fname: '',
+            lname: '',
+            username: '',
+            password: '',
+            rpassword: '',
+        }
     }
     render() {
-	    return (
-		<KeyboardAvoidingView behavior = 'padding' style= {styles.wrapper}>
-		<View style = {styles.container}>
-			<Text style ={style.header}>--SIGN UP --</Text>
-		                    <TextInput style={ styles.textInput }
-                 		       placeholder='First Name'
-              		               onChangeText={ (fName) => this.setState( {fName}) }
-                      		       underlineColorAndroid= 'transparent'
-                                     />
-		                    <TextInput style={ styles.textInput }
-                 		       placeholder='Last Name'
-              		               onChangeText={ (lName) => this.setState( {lName}) }
-                      		       underlineColorAndroid= 'transparent'
-                                     />
-		                    <TextInput style={ styles.textInput }
-                 		       placeholder='Username/Email'
-                	               keyboardType='email-address'
-              		               onChangeText={ (username) => this.setState( {username}) }
-                      		       underlineColorAndroid= 'transparent'
-                                     />
-		                    <TextInput style={ styles.textInput }
-                 		       placeholder='password'
-              		               onChangeText={ (password) => this.setState( {password}) }
-				       secureTextEntry={true}
-                      		       underlineColorAndroid= 'transparent'
-                                     />
-		                    <TextInput style={ styles.textInput }
-                 		       placeholder='verify password'
-              		               onChangeText={ (rPassword) => this.setState( {rPassword}) }
-				       secureTextEntry={true}
-                      		       underlineColorAndroid= 'transparent'
-                                     />
-			<TouchableOpacity
-				style={styles.btn}
-				onPress={this.signup}>
-				<Text>Sign Up</Text>
-			</TouchableOpacity>
-
-		</View>
-		</KeyboardAvoidingView>
- 	    );
-    }
-    signup = () => {
-		fetch('http://ipofclient/port3000/users(wheredatagets',
-		{method: 'POST',
-		headers: {
-			'Accept': 'logins/json',
-			'Content-Type': 'logins/json',		
-		},
-		body: JSON.stringfy({
-			fName: this.state.fName,
-			lName: this.state.lName,
-			username: this.state.username,
-			password: this.state.password,
-		})
-		.then((response) =>response.json())
-		.then ((res)=> {          
-
-			if (res.success === true) {
-				AsyncStorage.setItem('user', res.user);
-				this.props.navigation.navigate('Profile');
-			else{
-				alert(res.message);
-			}
-			}
-		})
-		.done();			
-		)
-
+         return (
+            <View style= {styles.register}>
+                <Text style= {styles.header}>Register Page</Text>
+                <TextInput style = {styles.textInput} placeholder= "First Name"
+                underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput} placeholder= "Last Name"
+                underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput} placeholder= "Email/Username"
+                underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput} placeholder= "password"
+                    secureTextEntry={true}
+                    underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput} placeholder= "confirm password"
+                    secureTextEntry={true}
+                    underlineColorAndroid= {'transparent'}/>
+                <TouchableOpacity style={styles.btn}>
+                    <Text style={styles.buttonText}> Register</Text>
+                </TouchableOpacity>
+       
+            </View>
+        );
     }
 }
 
@@ -107,7 +59,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-                paddingTop: 100,
+        paddingTop: 100,
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingLeft: 40,
@@ -118,21 +70,32 @@ const styles = StyleSheet.create({
 		marginBottom: 100,
 		color: '#fff',
 		fontWeight: 'bold',
+        paddingBottom: 10,
+        marginBottom: 10,
+        borderBottomColor: '#199187',
+        borderBottomWidth: 1,
+        alignItems: 'center',
 	},
 	textInput: {
-        alignSelf: 'stretch',
+        alignSelf: 'center',
         height: 40,
+        color: '#000000',
+        marginBottom: 10,
+        borderBottomColor: '#696969',
+        borderBottomWidth: 1,
 	},
 	btn: {
 		alignSelf: 'stretch',
 		backgroundColor: '#6495ed',
 		padding: 20,
 		alignItems: 'center',
+        marginHorizontal: 40,
 	},
-    text: {
-        alignSelf: 'center',
-        color: '#fff',
-        height: 100,
-
-    }
+    buttonText: {
+        color: '#fff'
+    },
+    register: {
+        alignSelf: 'stretch',
+  //      backgroundColor: '#36485f',
+    },
 });

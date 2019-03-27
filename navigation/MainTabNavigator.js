@@ -10,6 +10,8 @@ import DiscoverScreen from '../screens/DiscoverScreen';
 import SearchScreen from '../screens/SearchScreen';
 import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome' 
 import ProfilePage from '../screens/ProfilePage';
+import Login from '../components/Login';
+import RegisterPage from '../screens/RegisterPage';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -74,7 +76,13 @@ DiscoverStack.navigationOptions = {
 
 //SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
 const ProfileStack = createStackNavigator({
-  Settings: ProfilePage,
+    Home: { screen: Login},
+    ProfilePage: { screen: ProfilePage },
+    RegisterPage: { screen: RegisterPage }
+        }, {
+         navigationOptions: {
+            header: false,
+        }
 });
 
 ProfileStack.navigationOptions = {

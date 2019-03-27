@@ -30,13 +30,13 @@ export default class Login extends React.Component {
     _loadInitalState = async () => {
         var value=await AsyncStorage.getItem('user');
         if (value !== null) {
-            this.props.navigation.navigate('Profile');
+            this.props.navigation.navigate('ProfilePage');
         }
     }
     render() {
 	    return (
-            <KeyboardAvoidingView behavior = 'padding' stye= {styles.wrapper}>
-                <View style = {styles.container}>
+            <KeyboardAvoidingView behavior = 'padding' style={styles.wrapper}>
+                <View style={styles.container} >
            
                      <Text style ={styles.header}>- LOGIN -</Text>
                     <TextInput
@@ -58,14 +58,19 @@ export default class Login extends React.Component {
                          onPress={this.login}>
                         <Text style={styles.text}> Login </Text>
                     </TouchableOpacity>
-                    <Text style={styles.textInput}>Sign up</Text>
+                    <Button
+                        onPress={ ()=> {
+                            this.props.navigation.navigate('RegisterPage');
+                        } }
+                        title="Register"
+                    />
                 </View>          
             </KeyboardAvoidingView>
  	    );
 	}
     login = () => {
 
-        fetch('http://67.244.5.46:3000/users', {
+        fetch('http://localhost:5000/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -81,7 +86,7 @@ export default class Login extends React.Component {
                 alert(res.message);
                 if (res.success ===true ){
                     AsyncStorage.setItem('user', res.user);
-                    this.props.navigation.navigate('Profile');
+                    this.props.navigation.navigate('ProfilePage');
                 }
                 else{
                     alert(res.message);
@@ -101,30 +106,31 @@ const styles = StyleSheet.create({
 		flex: 1,
         paddingTop: 100,
 		alignItems: 'center',
-		justifyContent: 'center',
-		paddingLeft: 40,
-		paddingRight: 40,
+        alignContent: 'center',
+//		paddingLeft: 40,
+	//	paddingRight: 40,
 	},
 	header: {
 		fontSize: 24,
 		marginBottom: 100,
-		color: '#fff',
+		color: '#000000',
 		fontWeight: 'bold',
 	},
 	textInput: {
         alignSelf: 'stretch',
         height: 40,
+        marginHorizontal: 40,
 	},
 	btn: {
 		alignSelf: 'stretch',
 		backgroundColor: '#6495ed',
-		padding: 20,
 		alignItems: 'center',
+        marginHorizontal: 40,
 	},
     text: {
         alignSelf: 'center',
         color: '#fff',
-        height: 100,
+        height: 40,
 
     }
 });
