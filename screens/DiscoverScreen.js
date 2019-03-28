@@ -33,18 +33,44 @@ export default class DiscoverScreen extends React.Component {
 
     this.state =
         {
-          markers : restList
+          markers : restList,
+          data: [],
         }
-  };
+  }
+
+  componentDidMount(){
+    console.log('HEILLO');
+    fetch ('http://127.0.0.1:8000/restaurants')
+    .then((response) => response.json())
+    .then((resData) => {
+      // console.log(resData.restaurants);
+      this.setState({data: resData.restaurants});
+    })
+
+    .catch((error) => console.log(error))
+  }
+
+  getRestaurantNameList = () => {
+    console.log('g');
+    var restaurantNameList = [];
+    for (var i = 0; i < this.state.data.length; i++){
+      var currentRestaurant = this.state.data[i];
+      restaurantNameList.push(currentRestaurant.restaurant_name);
+    }
+    console.log(restaurantNameList);
+    return restaurantNameList;
+  }
 
   render() {
+    console.log(this.state.data);
     return (
         <View style={styles.container}>
 
         <ModalDropdown
     defaultValue = 'Please select a Randomly Generated Restaurant'
     style = {styles.MD}
-    options = {listnames}
+    options = {this.getRestaurantNameList()}
+    showsVerticalScrollIndicator = {true}
     onSelect={(index, value) => { this.setState({markers : popList(index)})}}
     dropdownStyle = {{ height: 35 * listnames.length}}
     />
