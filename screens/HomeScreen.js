@@ -53,7 +53,8 @@ export default class HomeScreen extends React.Component {
 
     this.state = 
     { 
-        markers : restList
+        markers : restList,
+        data: [],
     }
   };
 
