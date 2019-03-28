@@ -84,7 +84,11 @@ export default class Login extends React.Component {
          .then( (res) => {
            console.log(res.status)
            if (res.status < 400) {
+<<<<<<< HEAD
              Alert.alert("Login Successful");
+=======
+             alert("Login Successful");
+>>>>>>> f2b39f200900c8fa4c1db04e885e3dc6e58a807c
              this.props.navigation.navigate('ProfilePage');
            }
          })

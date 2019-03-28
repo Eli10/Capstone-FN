@@ -32,6 +32,9 @@ func main() {
 	// JSON Body -> {"mapname": string, "restaurant_id": int}
 	router.HandleFunc("/maps/contain", handlers.MapsContainsHandler).Methods("POST")
 
+	// Gets all Friends Maps for a User
+	router.HandleFunc("/maps/follow/{username}", handlers.GetAllFriendsMapsHandler).Methods("GET")
+
 	// Removes CONTAINS Relationship between Maps and Restuarants
 	// JSON Body -> {"mapname": string, "restaurant_id": int}
 	router.HandleFunc("/maps/contain", handlers.RemoveMapsContainsHandler).Methods("DELETE")

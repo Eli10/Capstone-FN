@@ -50,6 +50,29 @@ func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
 }
 
+func GetAllFriendsMapsHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	var user types.User
+	user.Username = params["username"]
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.GetUserFriendMap, con)
+	rows := helpers.QueryUserMapListStatement(st, user)
+	fmt.Println("ROWS: ", rows.Metadata(), "\n")
+	results := helpers.ConsumeUserMapRows(rows, st)
+	fmt.Println("\nRESULTS: ", results, "\n")
+
+	var maplist []types.Map
+	for _, l := range results.([][]interface{}) {
+		restaurant_list := helpers.CreateRestaurantList(l[1].([]interface{}))
+		u_r := types.Map{Name: l[0].(string), RestaurantList: restaurant_list}
+		maplist = append(maplist, u_r)
+	}
+	json.NewEncoder(w).Encode(types.MapList{List: maplist})
+}
+
+
+
+
 // Creates JSON for /users/follow endpoint
 func UserFollowHandler(w http.ResponseWriter, r *http.Request) {
 	var userFollow types.UserFollowUserRelationship
