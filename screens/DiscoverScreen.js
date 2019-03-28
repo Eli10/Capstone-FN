@@ -33,7 +33,7 @@ export default class DiscoverScreen extends React.Component {
 
     this.state =
         {
-          markers : restList,
+          markers : [],
           data: [],
         }
   }
@@ -61,6 +61,11 @@ export default class DiscoverScreen extends React.Component {
     return restaurantNameList;
   }
 
+      popList = (index) => {
+        console.log(index);
+      this.setState({markers: this.state.data[index]})
+      }
+
   render() {
     console.log(this.state.data);
     return (
@@ -71,8 +76,8 @@ export default class DiscoverScreen extends React.Component {
     style = {styles.MD}
     options = {this.getRestaurantNameList()}
     showsVerticalScrollIndicator = {true}
-    onSelect={(index, value) => { this.setState({markers : popList(index)})}}
     dropdownStyle = {{ height: 35 * listnames.length}}
+    onSelect={(index, value) => {console.log(index)}}
     />
 
     <MapView
@@ -85,13 +90,13 @@ export default class DiscoverScreen extends React.Component {
   >
 
 
-    {this.state.markers.map(shop => (
+  
     <MapView.Marker
-      coordinate={{latitude: shop.latitude,
-        longitude: shop.longitude}}
-      title={shop.name}
-      description={shop.address}
-      /> ))}
+      coordinate={{latitude: this.state.markers.latitude,
+        longitude: this.state.markers.longitude}}
+      title={this.state.markers.name}
+      description={this.state.markers.address}
+      /> 
       </MapView>
 
 
@@ -99,20 +104,6 @@ export default class DiscoverScreen extends React.Component {
     );
     }
 
-    popList = (index) => {
-      var tList = [];
-      for(var i = 0; i < RestaurantList[index].list.length; i++)
-      {
-
-        tList.push(RestaurantList[index].list[i]);
-
-
-
-      }
-
-//console.log(tList);
-      return tList;
-    }
 
 
   }
