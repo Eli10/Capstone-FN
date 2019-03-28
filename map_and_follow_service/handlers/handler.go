@@ -122,7 +122,9 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Printf("Type of the Data: %T\n", restaurant_data)
 			resList.RestaurantList = append(resList.RestaurantList, types.Restaurant{
 												Name: restaurant_data["name"].(string),
-												Address: restaurant_data["address"].(string)})
+												Address: restaurant_data["address"].(string),
+												Lat: restaurant_data["lat"].(float64),
+												Lon: restaurant_data["lon"].(float64)})
 		}
 	}
 	fmt.Println(resList)
