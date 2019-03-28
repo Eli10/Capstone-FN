@@ -26,7 +26,7 @@ for(var i = 0; i < RestaurantList.length; i++)
 }
 
 friendDD = [];
-fetch ('http://10.0.2.2:8000/maps/follow/Bob')
+fetch ('http://127.0.0.1:8000/maps/follow/Bob')
     .then((response) => response.json())
 .then((frenData) => {
 

@@ -36,7 +36,7 @@ import menu from '../components/DropDownClassForHomeScreen.js';
         }
 
 dropdownv = [];
-fetch ('http://10.0.2.2:8000/maps/Bob')
+fetch ('http://127.0.0.1:8000/maps/Bob')
     .then((response) => response.json())
     .then((resData) => {
     console.log("hello alina and eli ");
@@ -77,7 +77,7 @@ export default class HomeScreen extends React.Component {
     popList = (index) => {
         tList = [];
         console.log(index);
-        fetch ('http://10.0.2.2:8000/maps/Bob')
+        fetch ('http://127.0.0.1:8000/maps/Bob')
         .then((response) => response.json())
         .then((resData) => {
             //console.log(resData.maps[0].restaurants);

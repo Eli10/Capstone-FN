@@ -49,7 +49,6 @@ export default class SearchScreen extends React.Component {
       fetch(url)
       .then((response) => response.json())
       .then((resData) => {
-      // console.log(resData.map_names)
       this.setState({userMaps: resData.map_names});
     })
       .catch((error) => console.log(error))
@@ -88,7 +87,7 @@ export default class SearchScreen extends React.Component {
     handleClose = () => {
       this.setState({ dialogVisible: false });
     };
-  
+
     createNewMapName= () => {
       this.showDialog();
     };
@@ -126,7 +125,7 @@ export default class SearchScreen extends React.Component {
             }}
           />
         );
-      };    
+      };
 
     searchFilterFunction = text =>{
         this.setState({
@@ -165,19 +164,24 @@ export default class SearchScreen extends React.Component {
     };
 
     showMapModal(visible) {
+      console.log("Heeere");
+      console.log(visible);
       this.setState({MapModalVisible: visible});
     }
 
     onPressShowMap(){
       console.log('e');
       this.showMapModal(true);
+      // console.log(this.state.userMaps);
       this.setState({mapModalData: this.state.userMaps});
     }
 
     showMap = () => {
       console.log('hi');
       this.getMapsForUser();
-      this.showModal(!this.state.ModalVisible)
+      // console.log(this.state.userMaps);
+      this.showModal(!this.state.ModalVisible);
+      console.log('After show Modal');
       this.onPressShowMap();
     }
 
@@ -200,8 +204,8 @@ export default class SearchScreen extends React.Component {
                   <View>
                      <Text style={styles.restaurant_name}>{this.state.modalData.restaurant_name}</Text>
                     <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
-                    {/* <Text> Tags: {this.state.modalData.type}</Text> */}
-                  
+
+
                     <Button title="Add to an existing map" onPress = { () => {this.showMap(); this.getRestaurantId()}}/>
                     <Button title="Create a new map" onPress= { () => {this.createNewMapName(); this.getRestaurantId()}}/>
                     <Dialog.Container visible={this.state.dialogVisible}>
@@ -213,7 +217,7 @@ export default class SearchScreen extends React.Component {
                       <Dialog.Button label="Cancel" onPress={this.handleClose} />
                       <Dialog.Button label="Add restaurant to map" onPress={this.createMapAndAddRestaurant}/>
                     </Dialog.Container>
-                      
+
 
                     <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
                   </View>
@@ -226,14 +230,12 @@ export default class SearchScreen extends React.Component {
                  visible={this.state.MapModalVisible}
                  onRequestClose={ () => { this.ShowModal(!this.state.MapModalVisible)} } >
                  <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
-                  <View >
                     <Text>hello</Text>
-                     {/* <Text style={styles.restaurant_name}>{this.state.modalData}</Text> */}
-                    {/* <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text> */}
-                    {/* <Text> Tags: {this.state.modalData.type}</Text> */}
-                    <FlatList style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}
+                    <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
+                    <FlatList
+                    contentContainerStyle={{ flex:1, justifyContent: 'center', alignItems: 'center' }}
                       data={this.state.userMaps}
-                      renderItem={({ item }) => 
+                      renderItem={({ item }) =>
 
                       <TouchableOpacity onPress={() => { this.addToExistingMap(item) }}>
                         <View>
@@ -245,21 +247,21 @@ export default class SearchScreen extends React.Component {
                       }
                       ItemSeparatorComponent={this.renderSeparator}
                     />
+                    </View>
                     <Button  title="Go back" onPress={() => { this.showMapModal(!this.state.MapModalVisible); this.showModal(!this.state.ModalVisible) } } />
-                  </View>
                 </View>
               </Modal>
-              
+
               <FlatList
                 extraData={this.state}
                 data={this.state.currentDataList}
-                renderItem={({ item }) => 
+                renderItem={({ item }) =>
 
                 <TouchableOpacity onPress={() => { this.onPressShow(item) }}>
                   <View>
                     <Text style={styles.restaurant_name}>{item.restaurant_name}</Text>
                     <Text style={styles.resaturant_address}> Address: {item.address}</Text>
-                    {/* <Text> Tags: {item.type}</Text> */}
+
                   </View>
                 </TouchableOpacity>
 

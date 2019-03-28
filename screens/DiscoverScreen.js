@@ -57,16 +57,17 @@ export default class DiscoverScreen extends React.Component {
       var currentRestaurant = this.state.data[i];
       restaurantNameList.push(currentRestaurant.restaurant_name);
     }
-    console.log(restaurantNameList);
+    // console.log(restaurantNameList);
     return restaurantNameList;
   }
 
       popList = (index) => {
-      this.setState({markers: this.state.data[index]});
+        // console.log(this.state.data[index]);
+        this.setState({markers: this.state.data[index]});
       }
 
   render() {
-    console.log(this.state.data);
+    // console.log(this.state.data);
     return (
         <View style={styles.container}>
 
@@ -84,19 +85,19 @@ export default class DiscoverScreen extends React.Component {
     initialRegion={{
       latitude: 40.7128,
           longitude: -74.0060,
-          latitudeDelta: 0.055,
-          longitudeDelta: 0.055,}}
+          latitudeDelta: 0.105,
+          longitudeDelta: 0.305,}}
   >
 
+  {console.log(this.state.markers)}
 
-  {this.state.markers.map(item => (
     <MapView.Marker
-      coordinate={{latitude: item.lat,
-      longitude: item.lon}}
-      title={item.restaurant_name}
-      description={item.address}
-      /> 
-    ))}
+      coordinate={{latitude: this.state.markers.lat,
+      longitude: this.state.markers.lon}}
+      title={this.state.markers.restaurant_name}
+      description={this.state.markers.address}
+      />
+
       </MapView>
 
 
