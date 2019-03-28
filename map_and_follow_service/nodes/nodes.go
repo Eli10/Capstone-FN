@@ -5,6 +5,7 @@ const (
 	CreateNode                   = "CREATE (n:Map {name: {name}})"
 	CreateUserMapRelationship    = "MATCH (a:User {username: {username}}) MERGE (n:Map {mapname: {mapname}}) MERGE (a)-[r:HAS]->(n)"
 	GetUserMapList               = "MATCH (u:User {username: {username}})-[]->(b:Map)-[]->(res:Restaurant) RETURN b.mapname, collect(res) AS restaurants"
+	GetUserFriendMap    				 = "MATCH (u:User {username: {username}})-[]-(u1:User)-[]-(m:Map)-[]-(r:Restaurant) RETURN m.mapname, collect(r) AS restaurants"
 	GetUserMapNameList           = "MATCH (u:User {username: {username}})-[]->(b:Map) RETURN b.mapname as map_name"
 	CreateUserFollowRelationship = "MATCH (a:User {username:{a_username}}), (b:User {username: {b_username}}) MERGE (a)-[r:FOLLOWS]->(b)"
 	GetMapNode                   = "MATCH(m:Map {mapname: {name}})-[]->(res:Restaurant) RETURN m.mapname, collect(res) AS restaurants"
