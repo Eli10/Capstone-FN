@@ -25,6 +25,24 @@ for(var i = 0; i < RestaurantList.length; i++)
   listnames.push(RestaurantList[i].listname);
 }
 
+friendDD = [];
+fetch ('http://10.0.2.2:8000/maps/follow/Bob')
+    .then((response) => response.json())
+.then((frenData) => {
+
+//console.log(frenData)
+for(var i = 0; i < frenData.maps.length; i++)
+{
+  friendDD.push(frenData.maps[i].name);
+}
+//console.log(friendDD.length);
+
+
+})
+.catch((error) => console.log(error))
+.done();
+
+console.disableYellowBox = true;
 
 
 export default class FriendScreen extends React.Component {
@@ -34,20 +52,35 @@ export default class FriendScreen extends React.Component {
 
     this.state =
         {
-          markers : restList
+          markers2 : []
         }
   };
+
+  popList2 = (index) => {
+    tempList = [];
+    console.log(index);
+    fetch ('http://10.0.2.2:8000/maps/follow/Bob')
+    .then((response) => response.json())
+    .then((resData2) => {
+    console.log(resData2.maps[index].restaurants);
+    console.log("i have made it here")
+    this.setState({markers2 : resData2.maps[index].restaurants})
+    console.log(this.state.markers2)
+    })
+    .catch((error) => console.log(error))
+    }
+
 
   render() {
     return (
       <View style={styles.container}>
-        
-        <ModalDropdown  
-            defaultValue = 'Please select a List' 
-            style = {styles.MD} 
-            options = {listnames}
-            onSelect={(index, value) => { this.setState({markers : popList(index)})}}
-            dropdownStyle = {{ height: 35 * listnames.length}}
+
+        <ModalDropdown
+            defaultValue = 'Please select a List'
+            style = {styles.MD}
+            options = {friendDD}
+            onSelect={(index, value) => {this.popList2(index)}}
+            dropdownStyle = {{ height: 35 * friendDD.length}}
         />
 
         <MapView
@@ -60,13 +93,14 @@ export default class FriendScreen extends React.Component {
   >
 
 
-    {this.state.markers.map(shop => (
+    {this.state.markers2.map(shop => (
     <MapView.Marker
-      coordinate={{latitude: shop.latitude,
-        longitude: shop.longitude}}
-      title={shop.name}
+      coordinate={{latitude: shop.lat,
+        longitude: shop.lon}}
+      title={shop.restaurant_name}
       description={shop.address}
-      /> ))}
+      />
+    ))}
       </MapView>
 
 
