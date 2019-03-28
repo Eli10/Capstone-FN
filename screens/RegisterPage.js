@@ -24,7 +24,7 @@ export default class RegisterPage extends React.Component {
             username: '',
             password: '',
             fname: '',
-            lname: ''
+            lname: '',
         }
     }
 
@@ -151,5 +151,6 @@ const styles = StyleSheet.create({
     },
     register: {
         alignSelf: 'stretch',
+        flex: 1,
     },
 });

@@ -15,17 +15,21 @@ import { MonoText } from '../components/StyledText';
 import {StackNavigator} from 'react-navigation';
 
 export default class ProfilePage extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
+        constructor(props) {
+            super(props);
+            this.state={
+                fname: '',
+                lname: '',
+                username: '',
+            }
+        }
 
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
-
-         <Text> LoggedIn </Text>
+         
+         <Text> Hello {this.props.username} </Text>
         </ScrollView>
       </View>
     );

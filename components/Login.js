@@ -12,6 +12,7 @@ import {
 	Button,
 	KeyboardAvoidingView,
     AsyncStorage,
+    Alert,
 	} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
@@ -82,10 +83,9 @@ export default class Login extends React.Component {
       })
          .then( (res) => {
            console.log(res.status)
-           if ({res.status} < 400) {
-             alert("Login Successful");
+           if (res.status < 400) {
+             Alert.alert("Login Successful");
              this.props.navigation.navigate('ProfilePage');
-
            }
          })
 
