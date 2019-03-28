@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -14,18 +15,24 @@ import { MonoText } from '../components/StyledText';
 import {StackNavigator} from 'react-navigation';
 
 export default class ProfilePage extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
+        constructor(props) {
+            super(props);
+            this.state={
+                fname: '',
+                lname: '',
+                username: '',
+            }
+        }
 
   render() {
+    const { navigation } = this.props;
+    const name = navigation.getParam('username', 'Blah');
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          
-
-         <Text> LoggedIn </Text>
-          
+         {console.log(name)}
+         <Text> Hello {name} </Text>
         </ScrollView>
       </View>
     );
@@ -82,7 +89,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
- 
+
   navigationFilename: {
     marginTop: 5,
   },

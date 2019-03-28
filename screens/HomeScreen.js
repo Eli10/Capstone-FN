@@ -3,6 +3,7 @@ import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer} from 'react-navigation'
 import ModalDropdown from 'react-native-modal-dropdown';
 
+//you are bob for tesgting
 
 import {
   Picker,
@@ -11,7 +12,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text, 
+  Text,
   TouchableOpacity,
   View,
   AppRegistry,
@@ -28,59 +29,89 @@ import menu from '../components/DropDownClassForHomeScreen.js';
     var listnames = [];
     var restList = [];
 
-        
+
     for(var i = 0; i < RestaurantList.length; i++)
         {
             listnames.push(RestaurantList[i].listname);
         }
 
+dropdownv = [];
+fetch ('http://10.0.2.2:8000/maps/Bob')
+    .then((response) => response.json())
+    .then((resData) => {
+    console.log("hello alina and eli ");
+    for(var i = 0; i < resData.maps.length; i++)
+    {
+        dropdownv.push(resData.maps[i].name);
+    }
+    console.log(dropdownv);
+    console.log("here now");
 
+    })
+    .catch((error) => console.log(error))
+    .done();
 
 console.disableYellowBox = true;
 
-var myLists = ['bubble tea', 'pizza', 'burgers', 'pizza'];
-var myLists2 = ['bubble tea', 'pizza', 'burgers', 'burgers2'];
-var myLists3 = ['bubble tea', 'pizza', 'burgers', 'food'];
+
 //refer to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality
 
 
 
 export default class HomeScreen extends React.Component {
-    static navigationOptions = {title: 'My Maps',}; 
-    
+    static navigationOptions = {title: 'My Maps',};
+
     constructor(props) {
     super(props);
 
-    this.state = 
-    { 
+    this.state =
+    {
         markers : restList,
-        data: [],
+        dropdownlist : ['',''],
     }
   };
 
 
+
+
+    popList = (index) => {
+        tList = [];
+        console.log(index);
+        fetch ('http://10.0.2.2:8000/maps/Bob')
+        .then((response) => response.json())
+        .then((resData) => {
+            //console.log(resData.maps[0].restaurants);
+            this.setState({markers : resData.maps[index].restaurants})
+            //console.log(this.state.markers)
+            })
+        .   catch((error) => console.log(error))
+        }
+            //this marker popilates the initial dropdown
+
+
+
+
   render() {
-    
 
 
-  
 
      return (
-         
+
        <View style={styles.container}>
-       
-       <ModalDropdown  
+
+
+       <ModalDropdown
             defaultValue = 'Please select a Map'
-            style = {styles.MD} 
-            options = {listnames}
+            style = {styles.MD}
+            options = {dropdownv}
             dropdownStyle = {{ height: 35 * listnames.length}}
-            onSelect={(index, value) => {this.setState({markers : popList(index)})}}
+            onSelect={(index, value) => {this.popList(index)}}
         />
-      
-   
-         
-        <MapView 
-            style={styles.map} 
+
+
+
+        <MapView
+            style={styles.map}
             initialRegion={{
               latitude: 40.7128,
               longitude: -74.0060,
@@ -89,42 +120,32 @@ export default class HomeScreen extends React.Component {
           }}
         >
 
-        
+
         {this.state.markers.map(shop => (
         <MapView.Marker
-            coordinate={{latitude: shop.latitude,
-            longitude: shop.longitude}}
-            title={shop.name}
+            coordinate={{latitude: shop.lat,
+            longitude: shop.lon}}
+            title={shop.restaurant_name}
             description={shop.address}
-         /> ))}
-      </MapView> 
+         />
 
-         
+        ))}
+      </MapView>
+
+
  </View>
 
- 
+
     );
   }
 
- 
+
 
 
 }
 
-      popList = (index) => {
-        var tList = [];
-        for(var i = 0; i < RestaurantList[index].list.length; i++)
-        {
-
-            tList.push(RestaurantList[index].list[i]);
 
 
-
-        }
-
-        //console.log(tList);
-        return tList;
-      }
 
     const styles = StyleSheet.create({
         container: {

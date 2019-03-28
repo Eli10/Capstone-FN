@@ -12,6 +12,7 @@ import {
 	Button,
 	KeyboardAvoidingView,
     AsyncStorage,
+    FlatList,
 	} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
@@ -20,35 +21,89 @@ export default class RegisterPage extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            fname: '',
-            lname: '',
             username: '',
             password: '',
-            rpassword: '',
+            fname: '',
+            lname: '',
         }
     }
+
     render() {
          return (
             <View style= {styles.register}>
-                <Text style= {styles.header}>Register Page</Text>
-                <TextInput style = {styles.textInput} placeholder= "First Name"
-                underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "Last Name"
-                underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "Email/Username"
-                underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "password"
-                    secureTextEntry={true}
-                    underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput} placeholder= "confirm password"
-                    secureTextEntry={true}
-                    underlineColorAndroid= {'transparent'}/>
-                <TouchableOpacity style={styles.btn}>
+             <FlatList user={[
+                    {fname: ''},
+                    {lname: ''},
+                    {username: ''},
+                    {password: ''} ]}
+                    keyExtractor={ (x,i) => x.username}
+            />
+
+                <Text style={styles.header}>Register Page</Text>
+                <TextInput style = {styles.textInput}
+                        placeholder= "First Name"
+                        onChangeText= { (fname) => this.setState ( {fname} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Last Name"
+                        onChangeText= { (lname) => this.setState ( {lname} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Email/Username"
+                        keyboardType='email-address'
+                        onChangeText= { (username) => this.setState ( {username} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "password"
+                        secureTextEntry={true}
+                        onChangeText= { (password) => this.setState ( {password} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TouchableOpacity
+                     style={styles.btn}
+                     onPress={this.register}>
                     <Text style={styles.buttonText}> Register</Text>
                 </TouchableOpacity>
-       
+
             </View>
         );
+    }
+
+    verifyRegistration = (user, pass) => {
+      fetch("http://127.0.0.1:5000/register", {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          "Content-Type": 'application/json',
+        },
+        body: JSON.stringify({
+          username: user,
+          password: pass,
+        }),
+      })
+      .then((response) => {
+        console.log(response.status);
+        if(response.status == 200) {
+          alert("User was created");
+          this.goToLogin();
+        }
+        else if (response.status == 202) {
+          alert("User is already registered");
+          this.goToLogin();
+        }
+      })
+    }
+
+    goToLogin = () => {
+      console.log("im here 2")
+      this.props.navigation.navigate('Home');
+    }
+
+    register = () => {
+        console.log(this.state.username);
+        console.log(this.state.password);
+        console.log(this.state.fname);
+        console.log(this.state.lname);
+        this.verifyRegistration(this.state.username, this.state.password)
     }
 }
 
@@ -77,7 +132,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 	},
 	textInput: {
-        alignSelf: 'center',
+        alignSelf: 'stretch',
         height: 40,
         color: '#000000',
         marginBottom: 10,
@@ -96,6 +151,6 @@ const styles = StyleSheet.create({
     },
     register: {
         alignSelf: 'stretch',
-  //      backgroundColor: '#36485f',
+        flex: 1,
     },
 });

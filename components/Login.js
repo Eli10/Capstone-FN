@@ -12,6 +12,7 @@ import {
 	Button,
 	KeyboardAvoidingView,
     AsyncStorage,
+    Alert,
 	} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
@@ -22,6 +23,7 @@ export default class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
+            value: null,
         }
     }
     componentDidMount() {
@@ -35,28 +37,26 @@ export default class Login extends React.Component {
     }
     render() {
 	    return (
-            <KeyboardAvoidingView behavior = 'padding' style={styles.wrapper}>
+            <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
                 <View style={styles.container} >
-           
-                     <Text style ={styles.header}>- LOGIN -</Text>
+                  <Text style ={styles.header}>LOGIN</Text>
                     <TextInput
                         style={ styles.textInput }
                         placeholder='Username'
                         keyboardType='email-address'
                         onChangeText={ (username) => this.setState( {username}) }
-                        underlineColorAndroid= 'transparent'
+                        underlineColorAndroid='transparent'
                     />
-
                     <TextInput
                         style={styles.textInput} placeholder='Password'
                         onChangeText={ (password) => this.setState( {password}) }
-                        secureTextEntry={true} 
-                        underlineColorAndroid= 'transparent'
+                        secureTextEntry={true}
+                        underlineColorAndroid='transparent'
                     />
                     <TouchableOpacity
                          style={styles.btn}
-                         onPress={this.login}>
-                        <Text style={styles.text}> Login </Text>
+                         onPress={this.login} >
+                        <Text style={styles.text}>Login</Text>
                     </TouchableOpacity>
                     <Button
                         onPress={ ()=> {
@@ -64,37 +64,32 @@ export default class Login extends React.Component {
                         } }
                         title="Register"
                     />
-                </View>          
+                </View>
             </KeyboardAvoidingView>
  	    );
 	}
-    login = () => {
+  login = () => {
 
-        fetch('http://localhost:5000/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-           body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password,
-            })
-        })
-           .then( (response) => response.json() )
-           .then( (res) => {
-                alert(res.message);
-                if (res.success ===true ){
-                    AsyncStorage.setItem('user', res.user);
-                    this.props.navigation.navigate('ProfilePage');
-                }
-                else{
-                    alert(res.message);
-               }
+      fetch('http://127.0.0.1:5000/login', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+         body: JSON.stringify({
+              username: this.state.username,
+              password: this.state.password,
+          })
+      })
+         .then( (res) => {
+           console.log(res.status)
+           if (res.status < 400) {
+             Alert.alert("Login Successful");
+             this.props.navigation.navigate('ProfilePage', {username: this.state.username});
+           }
          })
-         .done();
 
-    }
+  }
 }
 
 
@@ -107,8 +102,6 @@ const styles = StyleSheet.create({
         paddingTop: 100,
 		alignItems: 'center',
         alignContent: 'center',
-//		paddingLeft: 40,
-	//	paddingRight: 40,
 	},
 	header: {
 		fontSize: 24,
