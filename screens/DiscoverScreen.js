@@ -89,8 +89,6 @@ export default class DiscoverScreen extends React.Component {
           longitudeDelta: 0.305,}}
   >
 
-  {console.log(this.state.markers)}
-
     <MapView.Marker
       coordinate={{latitude: this.state.markers.lat,
       longitude: this.state.markers.lon}}

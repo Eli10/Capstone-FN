@@ -16,7 +16,7 @@ export default class SearchScreen extends React.Component {
             loading: false,
             data: [],
             currentDataList: [],
-            defaultUser: "Bob",
+            defaultUser: "jamie",
             userMaps: [],
             error: null,
             value: '',

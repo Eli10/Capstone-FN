@@ -26,7 +26,7 @@ for(var i = 0; i < RestaurantList.length; i++)
 }
 
 friendDD = [];
-fetch ('http://127.0.0.1:8000/maps/follow/Bob')
+fetch ('http://127.0.0.1:8000/maps/follow/jamie')
     .then((response) => response.json())
 .then((frenData) => {
 
@@ -58,16 +58,20 @@ export default class FriendScreen extends React.Component {
 
   popList2 = (index) => {
     tempList = [];
+    let url = "http://127.0.0.1:8000/maps/follow/jamie";
     console.log(index);
-    fetch ('http://10.0.2.2:8000/maps/follow/Bob')
+    console.log(url);
+    fetch(url)
     .then((response) => response.json())
     .then((resData2) => {
-    console.log(resData2.maps[index].restaurants);
-    console.log("i have made it here")
-    this.setState({markers2 : resData2.maps[index].restaurants})
-    console.log(this.state.markers2)
+    // console.log(resData2.maps[index].restaurants);
+    console.log("i have made it here");
+    this.setState({markers2 : resData2.maps[index].restaurants});
+    // console.log(this.state.markers2);
     })
     .catch((error) => console.log(error))
+
+
     }
 
 
@@ -83,15 +87,17 @@ export default class FriendScreen extends React.Component {
             dropdownStyle = {{ height: 35 * friendDD.length}}
         />
 
+
         <MapView
            style={styles.map}
           initialRegion={{
                latitude: 40.7128,
               longitude: -74.0060,
-              latitudeDelta: 0.055,
-              longitudeDelta: 0.055,}}
+              latitudeDelta: 0.105,
+              longitudeDelta: 0.305,}}
   >
 
+  {console.log(this.state.markers2)}
 
     {this.state.markers2.map(shop => (
     <MapView.Marker
