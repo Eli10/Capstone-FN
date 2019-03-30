@@ -14,6 +14,8 @@
 - All frontend requests go to an Api Gateway written in the Node/Express framework
 - Api Gateway parse url and forwards request to proper Services
 
+- Initial Request to any endpoint may make a few seconds but afterwards the speed should increase
+
 
 ### Security
 - TODO
@@ -21,7 +23,7 @@
 
 ## Local Set-Up
 
-Ports that services are running on that gateway listens for
+Ports that services are running on that gateway (3000) listens for
 - users (5000)
 - map (8000)
 - restaurant (8001)
