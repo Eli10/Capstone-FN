@@ -1,5 +1,0 @@
-py2neo==4.2.0
-passlib
-flask_restful
-bcrypt
-Flask
