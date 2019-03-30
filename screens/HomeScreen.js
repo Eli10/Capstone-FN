@@ -2,6 +2,8 @@ import React from 'react';
 import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer} from 'react-navigation'
 import ModalDropdown from 'react-native-modal-dropdown';
+import StarRating from 'react-native-star-rating';
+
 
 //you are bob for tesgting
 
@@ -17,6 +19,8 @@ import {
   View,
   AppRegistry,
   Dimensions,
+  Component,
+  Alert,
 } from 'react-native';
 
 import { WebBrowser } from 'expo';
@@ -93,7 +97,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
 
-
+     const {navigate} = this.props.navigation;
 
      return (
 
@@ -127,8 +131,16 @@ export default class HomeScreen extends React.Component {
             longitude: shop.lon}}
             title={shop.restaurant_name}
             description={shop.address}
-         />
+         >
+            <MapView.Callout style={styles.plainView}
+             tooltip onPress={() => navigate('Search')}
 
+            >
+                    <View>
+                        <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
+                    </View>
+            </MapView.Callout>
+        </MapView.Marker>
         ))}
       </MapView>
 
@@ -152,6 +164,10 @@ export default class HomeScreen extends React.Component {
             flex: 1,
             backgroundColor: '#fff',
         },
+        customView: {
+            width: 140,
+            height: 140,
+        },
 
         MD : {
             paddingBottom: 30,
@@ -171,4 +187,14 @@ export default class HomeScreen extends React.Component {
             width: 400,
             paddingTop: 100,
         },
+            plainView: {
+            width: 'auto',
+            backgroundColor: 'white',
+            paddingHorizontal: 6,
+            paddingVertical: 6,
+            borderRadius: 12,
+            alignItems: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+            },
     });

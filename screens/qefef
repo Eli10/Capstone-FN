@@ -1,0 +1,21 @@
+
+            popDrop = () => {
+
+            dropdown = [];
+            fetch ('http://10.0.2.2:8000/maps/Bob')
+                .then((response) => response.json())
+            .then((resData) => {
+            console.log("hello alina and eli ");
+             for(var i = 0; i < resData.maps.length; i++)
+             {
+                 dropdown.push(resData.maps[i].name);
+             }
+             console.log(dropdown);
+             console.log("here now");
+             this.setState({dropdownlist : dropdown});
+
+            })
+            .catch((error) => console.log(error))
+            .done();
+            return;
+    }
