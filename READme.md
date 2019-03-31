@@ -8,7 +8,7 @@
 - User (Python/Flask)
 - Map (Go)
 - Restaurant (Go)
-- Review (TODO)
+- Review (Python/Flask)
 
 ### API Gateway
 - All frontend requests go to an Api Gateway written in the Node/Express framework
@@ -37,7 +37,6 @@ Ex) bolt://neo4j:1234@127.0.0.1:7687
 - Uncomment code in app.py if commented out
 - Keep heroku code commented out in Users.py
 - Make sure user and pass parameter are correct in Users.py
-
 
 3) Run apis for all 4 services in their respective folders
 - users -> python3 app.py
