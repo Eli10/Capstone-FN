@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView from 'react-native-maps'
-import {Header,createStackNavigator, createAppContainer} from 'react-navigation'
+import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
 import ModalDropdown from 'react-native-modal-dropdown';
 import StarRating from 'react-native-star-rating';
 
@@ -43,7 +43,7 @@ dropdownv = [];
 fetch ('http://10.0.2.2:8000/maps/Bob')
     .then((response) => response.json())
     .then((resData) => {
-    console.log("hello alina and eli ");
+    //console.log("hello alina and eli ");
     for(var i = 0; i < resData.maps.length; i++)
     {
         dropdownv.push(resData.maps[i].name);
@@ -133,7 +133,7 @@ export default class HomeScreen extends React.Component {
             description={shop.address}
          >
             <MapView.Callout style={styles.plainView}
-             tooltip onPress={() => navigate('Search')}
+             tooltip onPress={() => navigate('Star')}
 
             >
                     <View>

@@ -12,10 +12,15 @@ import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome'
 import ProfilePage from '../screens/ProfilePage';
 import Login from '../components/Login';
 import RegisterPage from '../screens/RegisterPage';
+import Maps from '../screens/HomeScreen';
+import Ratings from '../screens/StarRating';
+
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Maps: HomeScreen,
+  Star: { screen: Ratings },
 });
+
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Your Maps',
@@ -30,6 +35,12 @@ HomeStack.navigationOptions = {
     />
   ),
 };
+
+const backtomap= createStackNavigator ({
+    Star: {screen: Ratings},
+    Maps: { screen: HomeScreen},
+    },
+);
 
 const FriendStack = createStackNavigator({
   Links: FriendScreen,
