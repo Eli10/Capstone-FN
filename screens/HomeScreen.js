@@ -38,7 +38,6 @@ import menu from '../components/DropDownClassForHomeScreen.js';
         {
             listnames.push(RestaurantList[i].listname);
         }
-
 dropdownv = [];
 fetch ('http://10.0.2.2:8000/maps/Bob')
     .then((response) => response.json())
@@ -102,19 +101,19 @@ export default class HomeScreen extends React.Component {
      return (
 
        <View style={styles.container}>
+           <ModalDropdown
+               defaultValue = 'Please select a Map'
+               style = {styles.MD}
+               options = {dropdownv}
+               dropdownStyle = {{ height: 35 * listnames.length}}
+               onSelect={(index, value) => {this.popList(index)}}
+           />
 
 
-       <ModalDropdown
-            defaultValue = 'Please select a Map'
-            style = {styles.MD}
-            options = {dropdownv}
-            dropdownStyle = {{ height: 35 * listnames.length}}
-            onSelect={(index, value) => {this.popList(index)}}
-        />
 
 
 
-        <MapView
+           <MapView
             style={styles.map}
             initialRegion={{
               latitude: 40.7128,
@@ -136,7 +135,7 @@ export default class HomeScreen extends React.Component {
              tooltip onPress={() => navigate('Star')}
 
             >
-                    <View>
+                    <View styles={{textAlign: 'center',}}>
                         <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
                     </View>
             </MapView.Callout>
@@ -146,6 +145,7 @@ export default class HomeScreen extends React.Component {
 
 
  </View>
+
 
 
     );
@@ -163,6 +163,7 @@ export default class HomeScreen extends React.Component {
         container: {
             flex: 1,
             backgroundColor: '#fff',
+            position: 'relative',
         },
         customView: {
             width: 140,
@@ -170,22 +171,27 @@ export default class HomeScreen extends React.Component {
         },
 
         MD : {
-            paddingBottom: 30,
-            alignItems: 'center',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            paddingTop: 30,
-
+            justifyContent: 'center',
+            padding: 10,
+            backgroundColor: '#98FB98',
+            width: 145,
+            position: 'absolute',
+            borderRadius: 12,
         },
         map: {
-            position: 'relative',
+
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            height: 485,
-            width: 400,
+            height: Dimensions.get('window').height - 40,
+            width: Dimensions.get('window').width,
             paddingTop: 100,
+            borderColor: 'black',
+            borderStyle: 'solid',
+            borderWidth: 5,
+            position: 'relative',
+            zIndex: -1
         },
             plainView: {
             width: 'auto',
@@ -194,6 +200,7 @@ export default class HomeScreen extends React.Component {
             paddingVertical: 6,
             borderRadius: 12,
             alignItems: 'center',
+            textAlign: 'center',
             marginHorizontal: 10,
             marginVertical: 10,
             },
