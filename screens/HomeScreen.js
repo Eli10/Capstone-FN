@@ -39,7 +39,7 @@ for(var i = 0; i < RestaurantList.length; i++)
     listnames.push(RestaurantList[i].listname);
 }
 dropdownv = [];
-fetch ('http://10.0.2.2:8000/maps/Bob')
+fetch ('http://127.0.0.1:8000/maps/jamie')
     .then((response) => response.json())
 .then((resData) => {
     //console.log("hello alina and eli ");
@@ -78,6 +78,7 @@ export default class HomeScreen extends React.Component {
 
 
     popList = (index) => {
+<<<<<<< HEAD
     tList = [];
     console.log(index);
     fetch ('http://10.0.2.2:8000/maps/Bob')
@@ -122,6 +123,7 @@ render() {
             longitudeDelta: 0.055,
     }}
 >
+
 
 
     {this.state.markers.map(shop => (
@@ -205,3 +207,4 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
 });
+

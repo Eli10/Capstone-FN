@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Image,
+  Button,
   Platform,
   ScrollView,
   StyleSheet,
@@ -24,6 +25,11 @@ export default class ProfilePage extends React.Component {
             }
         }
 
+  logoutToLogin = () => {
+    console.log("Trying to logout");
+    this.props.navigation.navigate("Home");
+  }
+
   render() {
     const { navigation } = this.props;
     const name = navigation.getParam('username', 'Blah');
@@ -33,6 +39,10 @@ export default class ProfilePage extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
          {console.log(name)}
          <Text> Hello {name} </Text>
+         <Button
+              onPress={this.logoutToLogin}
+              title="Logout"
+         />
         </ScrollView>
       </View>
     );
@@ -81,6 +91,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.05)',
     borderRadius: 3,
     paddingHorizontal: 4,
+  },
+  text: {
+      alignSelf: 'center',
+      color: 'black',
+      height: 40,
+
   },
   getStartedText: {
     fontSize: 17,
