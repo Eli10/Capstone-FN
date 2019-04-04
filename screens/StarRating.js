@@ -1,4 +1,5 @@
 
+
 import React, { Component } from 'react';
 import {FlatList,
     ScrollView,
@@ -14,6 +15,7 @@ import {FlatList,
 
 import StarRating from 'react-native-star-rating';
 import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
+
 
 
 var {MAXHstar, MAXWstar} = Dimensions.get('window');
@@ -83,6 +85,7 @@ export default class App extends Component {
     }
 
     onGeneralStarRatingPress(rating) {
+
         this.setState({
             generalStarCount: rating,
         });
@@ -105,6 +108,7 @@ export default class App extends Component {
             {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
         {cancelable: false},);
+
 
         this.props.navigation.navigate('Maps')}
 
@@ -148,9 +152,11 @@ export default class App extends Component {
                 <Text> {"\n"} </Text>
                 <Button style={styles.button}
 
+
                         title="Press to Save Rating"
                         color="#DC143C"
                         onPress={() => {this.SavedRating()}}
+
                 />
                 <Text> {"\n"} </Text>
                 <ScrollView style={{  borderRadius:10,}}>
@@ -158,8 +164,10 @@ export default class App extends Component {
                         this.state.Reviews.map((item, index) => (
                             <View key = {item.username} style = {styles.item}>
                                 <Text>{item.username} : {item.rating}
+
                                     {"\n"}
                                     {item.review}</Text>
+
                             </View>
                         ))
                     }
@@ -181,9 +189,11 @@ const styles = StyleSheet.create({
         opacity: 0,
     },
     button: {
+
         paddingTop: 85,
         borderColor: 'black',
         borderWidth: 3,
+
         borderRadius:10,
     },
     rating: {
@@ -199,7 +209,9 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height / 6 ,
         width: Dimensions.get('window').width - 40,
         borderColor: 'black',
+
         borderWidth: 1,
+
     },
     item: {
         flexDirection: 'row',
@@ -210,4 +222,6 @@ const styles = StyleSheet.create({
         height: 'auto',
         width: Dimensions.get('window').width,
         borderRadius:10,
+
     }});
+

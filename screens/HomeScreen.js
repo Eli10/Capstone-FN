@@ -34,14 +34,16 @@ var listnames = [];
 var restList = [];
 
 
-for(var i = 0; i < RestaurantList.length; i++)
-{
-    listnames.push(RestaurantList[i].listname);
-}
+    for(var i = 0; i < RestaurantList.length; i++)
+        {
+            listnames.push(RestaurantList[i].listname);
+        }
+
 dropdownv = [];
 fetch ('http://127.0.0.1:8000/maps/jamie')
     .then((response) => response.json())
 .then((resData) => {
+    .then((resData) => {
     //console.log("hello alina and eli ");
     for(var i = 0; i < resData.maps.length; i++)
 {
@@ -78,7 +80,6 @@ export default class HomeScreen extends React.Component {
 
 
     popList = (index) => {
-<<<<<<< HEAD
     tList = [];
     console.log(index);
     fetch ('http://10.0.2.2:8000/maps/Bob')
@@ -101,42 +102,43 @@ render() {
 
     return (
 
-        <View style={styles.container}>
-        <ModalDropdown
-    defaultValue = 'Please select a Map'
-    style = {styles.MD}
-    options = {dropdownv}
-    dropdownStyle = {{ height: 35 * listnames.length}}
-    onSelect={(index, value) => {this.popList(index)}}
-    />
+
+       <View style={styles.container}>
+           <ModalDropdown
+               defaultValue = 'Please select a Map'
+               style = {styles.MD}
+               options = {dropdownv}
+               dropdownStyle = {{ height: 35 * listnames.length}}
+               onSelect={(index, value) => {this.popList(index)}}
+           />
 
 
 
 
 
-    <MapView
-    style={styles.map}
-    initialRegion={{
-        latitude: 40.7128,
-            longitude: -74.0060,
-            latitudeDelta: 0.055,
-            longitudeDelta: 0.055,
-    }}
->
+
+           <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 40.7128,
+              longitude: -74.0060,
+              latitudeDelta: 0.055,
+              longitudeDelta: 0.055,
+          }}
+        >
 
 
+        {this.state.markers.map(shop => (
+        <MapView.Marker
+            coordinate={{latitude: shop.lat,
+            longitude: shop.lon}}
+            title={shop.restaurant_name}
+            description={shop.address} >
 
-    {this.state.markers.map(shop => (
-    <MapView.Marker
-        coordinate={{latitude: shop.lat,
-        longitude: shop.lon}}
-        title={shop.restaurant_name}
-        description={shop.address}
-            >
             <MapView.Callout style={styles.plainView}
-        tooltip onPress={() => navigate('Star')}
+             tooltip onPress={() => navigate('Star')}>
 
-    >
+
     <View styles={{textAlign: 'center',}}>
     <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
     </View>
@@ -146,65 +148,68 @@ render() {
 </MapView>
 
 
+
     </View>
 
 
 
-);
+
+    );
+  }
+
+
+
+
+
 }
 
 
 
 
-}
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#fff',
+            position: 'relative',
+        },
+        customView: {
+            width: 140,
+            height: 140,
+        },
 
+        MD : {
+            justifyContent: 'center',
+            padding: 10,
+            backgroundColor: '#98FB98',
+            width: 145,
+            position: 'absolute',
+            borderRadius: 12,
+        },
+        map: {
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        position: 'relative',
-    },
-    customView: {
-        width: 140,
-        height: 140,
-    },
-
-    MD : {
-        justifyContent: 'center',
-        padding: 10,
-        backgroundColor: '#98FB98',
-        width: 145,
-        position: 'absolute',
-        borderRadius: 12,
-    },
-    map: {
-
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: Dimensions.get('window').height - 40,
-        width: Dimensions.get('window').width,
-        paddingTop: 100,
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: 5,
-        position: 'relative',
-        zIndex: -1
-    },
-    plainView: {
-        width: 'auto',
-        backgroundColor: 'white',
-        paddingHorizontal: 6,
-        paddingVertical: 6,
-        borderRadius: 12,
-        alignItems: 'center',
-        textAlign: 'center',
-        marginHorizontal: 10,
-        marginVertical: 10,
-    },
-});
-
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: Dimensions.get('window').height - 40,
+            width: Dimensions.get('window').width,
+            paddingTop: 100,
+            borderColor: 'black',
+            borderStyle: 'solid',
+            borderWidth: 5,
+            position: 'relative',
+            zIndex: -1
+        },
+            plainView: {
+            width: 'auto',
+            backgroundColor: 'white',
+            paddingHorizontal: 6,
+            paddingVertical: 6,
+            borderRadius: 12,
+            alignItems: 'center',
+            textAlign: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+            },
+    });

@@ -21,11 +21,24 @@ const HomeNavigator= createStackNavigator ({
 const MapNavigator= createStackNavigator ({
     Maps: { screen: HomeScreen},
     Star: {screen: Ratings}
-}, {
+    }, {
+        navigationOptions: {
+            header: false,
+    }
+});
+
+const backtomap= createStackNavigator ({
+    Star: {screen: Ratings},
+    Maps: { screen: HomeScreen},
+    }, {
     navigationOptions: {
         header: false,
     }
 });
+
+
+
+const AppNavigator=createAppContainer(MainTabNavigator);
 
 const backtomap= createStackNavigator ({
     Star: {screen: Ratings},

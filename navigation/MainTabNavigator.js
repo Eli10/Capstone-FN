@@ -17,8 +17,9 @@ import Ratings from '../screens/StarRating';
 
 
 const HomeStack = createStackNavigator({
-    Maps: HomeScreen,
-    Star: { screen: Ratings },
+
+  Maps: HomeScreen,
+  Star: { screen: Ratings },
 });
 
 
@@ -37,8 +38,9 @@ HomeStack.navigationOptions = {
 };
 
 const backtomap= createStackNavigator ({
-        Star: {screen: Ratings},
-        Maps: { screen: HomeScreen},
+
+    Star: {screen: Ratings},
+    Maps: { screen: HomeScreen},
     },
 );
 
