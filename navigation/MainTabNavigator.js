@@ -8,70 +8,81 @@ import HomeScreen from '../screens/HomeScreen';
 import FriendScreen from '../screens/Friendscreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import SearchScreen from '../screens/SearchScreen';
-import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome' 
+import FontAwesome from '../node_modules/react-native-vector-icons/FontAwesome'
 import ProfilePage from '../screens/ProfilePage';
 import Login from '../components/Login';
 import RegisterPage from '../screens/RegisterPage';
+import Maps from '../screens/HomeScreen';
+import Ratings from '../screens/StarRating';
+
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+    Maps: HomeScreen,
+    Star: { screen: Ratings },
 });
 
+
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Your Maps',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-map`
-          : 'md-map'
-      }
-    />
-  ),
+    tabBarLabel: 'Your Maps',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-map`
+                    : 'md-map'
+            }
+        />
+    ),
 };
 
+const backtomap= createStackNavigator ({
+        Star: {screen: Ratings},
+        Maps: { screen: HomeScreen},
+    },
+);
+
 const FriendStack = createStackNavigator({
-  Links: FriendScreen,
+    Links: FriendScreen,
 });
 
 FriendStack.navigationOptions = {
-  tabBarLabel: 'Friends Maps',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-contacts' : 'md-contacts'}
-    />
-  ),
+    tabBarLabel: 'Friends Maps',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-contacts' : 'md-contacts'}
+        />
+    ),
 };
 
 const SearchStack = createStackNavigator({
-  Search: SearchScreen,
+    Search: SearchScreen,
 });
 
 SearchStack.navigationOptions = {
-  tabBarLabel: 'Search Maps',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
-    />
-  ),
+    tabBarLabel: 'Search Maps',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+        />
+    ),
 };
 
 //SETTINGS NEED TO BE EDITED PLS SEE DISCOVERSCREEEN.JS IN SCREENS FOLDER
 const DiscoverStack = createStackNavigator({
-  Settings: DiscoverScreen,
+    Settings: DiscoverScreen,
 });
 
 DiscoverStack.navigationOptions = {
-  tabBarLabel: 'Discover',
-  tabBarIcon: ({ focused }) => (
-   <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? "ios-arrow-dropright-circle" : "ios-arrow-dropright-circle"}
-    />
-  ),
+    tabBarLabel: 'Discover',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? "ios-arrow-dropright-circle" : "ios-arrow-dropright-circle"}
+        />
+    ),
 };
 
 //SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
@@ -79,27 +90,27 @@ const ProfileStack = createStackNavigator({
     Home: { screen: Login},
     ProfilePage: { screen: ProfilePage },
     RegisterPage: { screen: RegisterPage }
-        }, {
-         navigationOptions: {
-            header: false,
-        }
+}, {
+    navigationOptions: {
+        header: false,
+    }
 });
 
 ProfileStack.navigationOptions = {
-  tabBarLabel: 'Profile',
-  tabBarIcon: ({ focused }) => (
-   <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? "ios-person" : "ios-person"}
-    />
-  ),
+    tabBarLabel: 'Profile',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? "ios-person" : "ios-person"}
+        />
+    ),
 };
 
 
 export default createBottomTabNavigator({
-  HomeStack,
-FriendStack,  
-SearchStack,  
-  DiscoverStack,
- ProfileStack
+    HomeStack,
+    FriendStack,
+    SearchStack,
+    DiscoverStack,
+    ProfileStack
 });

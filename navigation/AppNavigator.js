@@ -4,28 +4,40 @@ import { createAppContainer, createSwitchNavigator, createStackNavigator } from 
 import MainTabNavigator from './MainTabNavigator';
 import Login from '../components/Login'
 import ProfilePage from '../screens/ProfilePage'
-import Maps from '../screens/HomeScreen';
-import Search from '../screens/SearchScreen';
+import HomeScreen from '../screens/HomeScreen';
+import Ratings from '../screens/StarRating';
+import SearchScreen from '../screens/SearchScreen';
 
 
 const HomeNavigator= createStackNavigator ({
     Home: { screen: Login},
     ProfilePage: {screen: ProfilePage}
-        }, {
-         navigationOptions: {
-            header: false,
-    }
-});
-
-const MapNavigator= createStackNavigator ({
-    Maps: { screen: Maps},
-    Search: {screen: Search}
 }, {
     navigationOptions: {
         header: false,
     }
 });
+
+const MapNavigator= createStackNavigator ({
+    Maps: { screen: HomeScreen},
+    Star: {screen: Ratings}
+}, {
+    navigationOptions: {
+        header: false,
+    }
+});
+
+const backtomap= createStackNavigator ({
+    Star: {screen: Ratings},
+    Maps: { screen: HomeScreen},
+}, {
+    navigationOptions: {
+        header: false,
+    }
+});
+
+
+
 const AppNavigator=createAppContainer(MainTabNavigator);
 
 export default AppNavigator;
-
