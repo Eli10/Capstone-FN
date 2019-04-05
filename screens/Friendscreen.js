@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 
 import { WebBrowser } from 'expo';
@@ -25,8 +26,8 @@ for(var i = 0; i < RestaurantList.length; i++)
   listnames.push(RestaurantList[i].listname);
 }
 
-friendDD = [];
-fetch ('http://127.0.0.1:8000/maps/follow/jamie')
+var friendDD = [];
+fetch ('http://10.0.2.2:8000/maps/follow/Bob')
     .then((response) => response.json())
 .then((frenData) => {
 
@@ -57,8 +58,8 @@ export default class FriendScreen extends React.Component {
   };
 
   popList2 = (index) => {
-    tempList = [];
-    let url = "http://127.0.0.1:8000/maps/follow/jamie";
+    var tempList = [];
+    let url = "http://10.0.2.2:8000/maps/follow/Bob";
     console.log(index);
     console.log(url);
     fetch(url)
@@ -105,7 +106,15 @@ export default class FriendScreen extends React.Component {
         longitude: shop.lon}}
       title={shop.restaurant_name}
       description={shop.address}
-      />
+      >
+
+      <MapView.Callout style={styles.plainView}
+                       tooltip onPress={() => navigate('Star')}>
+        <View styles={{textAlign: 'center',}}>
+          <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
+        </View>
+      </MapView.Callout>
+    </MapView.Marker>
     ))}
       </MapView>
 
@@ -139,21 +148,37 @@ const styles = StyleSheet.create({
   },
 
      MD : {
-    paddingBottom: 30,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingTop: 30,
+       justifyContent: 'center',
+       padding: 10,
+       backgroundColor: '#98FB98',
+       width: 145,
+       position: 'absolute',
+       borderRadius: 12,
 
   },
   map: {
-    position: 'relative',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    height: 485,
-    width: 400,
+    height: Dimensions.get('window').height - 40,
+    width: Dimensions.get('window').width,
     paddingTop: 100,
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: 5,
+    position: 'relative',
+    zIndex: -1
+  },
+  plainView: {
+    width: 'auto',
+    backgroundColor: 'white',
+    paddingHorizontal: 6,
+    paddingVertical: 6,
+    borderRadius: 12,
+    alignItems: 'center',
+    textAlign: 'center',
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
 });

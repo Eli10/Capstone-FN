@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     inputbox: {
-        height: 30,
         backgroundColor: '#ffffff',
         paddingLeft: 15,
         paddingRight: 15,
@@ -214,7 +213,6 @@ const styles = StyleSheet.create({
 
     },
     item: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
