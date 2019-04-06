@@ -71,6 +71,7 @@ Restaurant
 - GET /restaurants
 - GET /restaurants/{restaurant_name}
 - GET /restaurants/id/{restaurant_name}/{address}
+- GET /restaurants/discover/{username}
 
 Reviews
 - POST /reviews
