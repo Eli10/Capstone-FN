@@ -19,4 +19,5 @@ const (
 	GetRestaurants 								 	= "MATCH (res:Restaurant) RETURN res"
 	GetRestaurant										= "MATCH (res:Restaurant {name: {restaurant_name}}) RETURN res"
 	GetRestaurantId 								= "MATCH (res:Restaurant {name: {restaurant_name}, address: {address}}) RETURN id(res)"
+	GetDiscoveredRestaurant 				= "MATCH (u:User {username: {username}})-[]-(u1:User)-[]-(m:Map)-[]-(res:Restaurant) WHERE not (u)-[]-()-[]-(res) RETURN res LIMIT 1"
 )

@@ -27,6 +27,9 @@ func main() {
 	// Returns Node Id for a restaurant using name and address
 	router.HandleFunc("/restaurants/id/{restaurant_name}/{address}", handlers.GetRestaurantIdHandler).Methods("GET")
 
+	// Return possible restaurant for user to add to a map
+	router.HandleFunc("/restaurants/discover/{username}", handlers.GetDiscoveredRestaurantHandler).Methods("GET")
+
 	port := os.Getenv("PORT") //Get port from .env file, we did not specify any port so this should return an empty string when tested locally
 	if port == "" {
 		port = "8001" //localhost
