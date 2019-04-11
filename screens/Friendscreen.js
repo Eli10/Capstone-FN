@@ -77,6 +77,9 @@ export default class FriendScreen extends React.Component {
 
 
   render() {
+
+    const {navigate} = this.props.navigation;
+
     return (
       <View style={styles.container}>
 

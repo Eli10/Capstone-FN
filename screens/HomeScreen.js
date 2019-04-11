@@ -110,10 +110,6 @@ render() {
            />
 
 
-
-
-
-
            <MapView
             style={styles.map}
             initialRegion={{
@@ -133,7 +129,7 @@ render() {
             description={shop.address} >
 
             <MapView.Callout style={styles.plainView}
-             tooltip onPress={() => navigate('Star')}>
+             tooltip onPress={() => navigate('Star', {restname: shop.restaurant_name})}>
                 <View styles={{textAlign: 'center',}}>
                 <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
                 </View>

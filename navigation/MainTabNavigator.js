@@ -45,7 +45,8 @@ const backtomap= createStackNavigator ({
 );
 
 const FriendStack = createStackNavigator({
-    Links: FriendScreen,
+    Friends: {screen: FriendScreen},
+    Star: {screen: Ratings}
 });
 
 FriendStack.navigationOptions = {
