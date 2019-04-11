@@ -29,7 +29,58 @@ export default class App extends Component {
             generalStarCount: 0,
             customStarCount: 0,
             wordcount: '',
-            Reviews: '',
+            Reviews: [
+            {
+                "username": "Eli",
+                "rating": 2,
+                "review": "hated the apple pies"
+            },
+            {
+                "username": "Bob",
+                "rating": 4,
+                "review": "Liked the apple pies"
+            },
+            {
+                "username": "Sarah",
+                "rating": 3,
+                "review": "asasdsdasdasd"
+            },
+            {
+                "username": "Kermit",
+                "rating": 5,
+                "review": "adasdasdasdasdasdasdasd"
+            },
+            {
+                "username": "Paul",
+                "rating": 2,
+                "review": "dsafdsfldsfnsdklfdf"
+            },
+            {
+                "username": "Julie",
+                "rating": 2,
+                "review": "asfadsfsdfjnsdfsdklfmfsd"
+            },
+            {
+                "username": "Opie",
+                "rating": 1,
+                "review": "sadlmdsflksdnfn"
+            },
+            {
+                "username": "Jamal",
+                "rating": 1,
+                "review": "sasDSADSADLSAD"
+            },
+            {
+                "username": "Elie",
+                "rating": 3,
+                "review": "asdasdnlkasdn"
+            },
+            {
+                "username": "Jake",
+                "rating": 4,
+                "review": "ajskdklasdnlasdn"
+            }
+        ]
         };
     }
 
@@ -58,7 +109,7 @@ export default class App extends Component {
         ],
         {cancelable: false},);
 
-_
+
         this.props.navigation.navigate('Maps')}
 
     render() {
