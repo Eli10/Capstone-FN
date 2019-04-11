@@ -58,6 +58,7 @@ Users
 - POST /users/register
 - POST /users/login
 - POST /users/follow
+- GET /users/restaurant/search/{restaurant_name}
 - GET /users/hello (TEST)
 
 Map
