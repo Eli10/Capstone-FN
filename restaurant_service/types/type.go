@@ -5,6 +5,10 @@ type Hello struct {
 	OtherMessage interface{} `json:"othermessage"`
 }
 
+type User struct {
+	Username string `json:"username"`
+}
+
 type RestaurantList struct {
 	RestaurantList []Restaurant `json:"restaurants"`
 }

@@ -2,9 +2,11 @@
 from Users import User
 from flask import Flask, request, json, session, render_template, redirect, url_for
 from flask_restful import Resource, Api
+import googlemaps
 
 app = Flask(__name__)
 api = Api(app)
+gmaps = googlemaps.Client(key='AIzaSyBYXfY11LybYeUzNeSi39xozg5YXKxSr-E')
 
 class createUser(Resource):
 	def post(self):
@@ -41,6 +43,21 @@ class UserFollows(Resource):
 		else:
 			return {'message': 'Relationship already created'}, 202
 
+class PalaceSearch(Resource):
+	def get(self, restaurant_name):
+		search_results = []
+		places = gmaps.places_nearby(location=(40.768291, -73.964494), keyword=restaurant_name,
+			language='eu-US', min_price=1, max_price=4,
+			name='bar', rank_by='distance', type='food')
+		results = places["results"]
+		for r in results:
+			res_dict = {}
+			res_dict.update(r['geometry']['location'])
+			res_dict.update({'name': r['name'], 'address': r['vicinity']})
+			print(res_dict)
+			search_results.append(res_dict)
+		return {'results': search_results}, 200
+
 
 class HelloTest(Resource):
 	def get(self):
@@ -50,3 +67,4 @@ api.add_resource(createUser, '/users/register')
 api.add_resource(loginUser, '/users/login')
 api.add_resource(UserFollows, '/users/follows')
 api.add_resource(HelloTest, '/users/hello')
+api.add_resource(PalaceSearch, '/users/restaurant/search/<string:restaurant_name>')

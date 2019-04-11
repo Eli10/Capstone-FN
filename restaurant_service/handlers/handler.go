@@ -94,7 +94,27 @@ func GetRestaurantIdHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(id)
 	}
 	json.NewEncoder(w).Encode(types.RestaurantId{ID: id})
+}
 
 
+func GetDiscoveredRestaurantHandler(w http.ResponseWriter, r *http.Request) {
+	var user types.User
+	var res types.Restaurant
+	params := mux.Vars(r)
+	user.Username = params["username"]
+	con := helpers.CreateConnection()
+	st := helpers.PrepareStatement(nodes.GetDiscoveredRestaurant, con)
+	rows := helpers.QueryDiscover(st, user)
+	fmt.Println(rows)
+	results := helpers.ConsumeRestaurant(rows, st)
+	fmt.Println(results)
+
+	for _, l := range results.([][]interface{}) {
+		// data := l[0].(graph.Node)
+		fmt.Println(l[0])
+		res = helpers.CreateRestaurant(l[0])
+
+	}
+	json.NewEncoder(w).Encode(res)
 
 }

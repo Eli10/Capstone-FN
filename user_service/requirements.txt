@@ -4,3 +4,4 @@ flask_restful
 bcrypt
 Flask
 uwsgi
+googlemaps

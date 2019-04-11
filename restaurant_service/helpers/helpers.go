@@ -141,3 +141,9 @@ func ConsumeRestaurantIDRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 	return data
 
 }
+
+func QueryDiscover(st bolt.Stmt, obj types.User) bolt.Rows {
+	rows, err := st.QueryNeo(map[string]interface{}{"username": obj.Username})
+	HandleError(err)
+	return rows
+}
