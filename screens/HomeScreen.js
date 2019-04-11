@@ -39,22 +39,19 @@ var restList = [];
             listnames.push(RestaurantList[i].listname);
         }
 
-dropdownv = [];
-fetch ('http://127.0.0.1:8000/maps/jamie')
+var dropdownv = [];
+fetch ('http://10.0.2.2:8000/maps/Bob')
     .then((response) => response.json())
-.then((resData) => {
     .then((resData) => {
-    //console.log("hello alina and eli ");
-    for(var i = 0; i < resData.maps.length; i++)
-{
-    dropdownv.push(resData.maps[i].name);
-}
-console.log(dropdownv);
-console.log("here now");
+        for (var i = 0; i < resData.maps.length; i++) {
+            dropdownv.push(resData.maps[i].name);
+        }
+        console.log(dropdownv);
+        console.log("here now");
 
-})
-.catch((error) => console.log(error))
-.done();
+    })
+        .catch((error) => console.log(error))
+        .done();
 
 console.disableYellowBox = true;
 
@@ -80,7 +77,7 @@ export default class HomeScreen extends React.Component {
 
 
     popList = (index) => {
-    tList = [];
+    var tList = [];
     console.log(index);
     fetch ('http://10.0.2.2:8000/maps/Bob')
 .then((response) => response.json())
@@ -113,10 +110,6 @@ render() {
            />
 
 
-
-
-
-
            <MapView
             style={styles.map}
             initialRegion={{
@@ -136,31 +129,20 @@ render() {
             description={shop.address} >
 
             <MapView.Callout style={styles.plainView}
-             tooltip onPress={() => navigate('Star')}>
-
-
-    <View styles={{textAlign: 'center',}}>
-    <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
-    </View>
-    </MapView.Callout>
-    </MapView.Marker>
-    ))}
-</MapView>
+             tooltip onPress={() => navigate('Star', {restname: shop.restaurant_name})}>
+                <View styles={{textAlign: 'center',}}>
+                <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
+                </View>
+            </MapView.Callout>
+        </MapView.Marker>
+        ))}
+        </MapView>
 
 
 
     </View>
-
-
-
-
     );
   }
-
-
-
-
-
 }
 
 

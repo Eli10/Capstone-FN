@@ -7,6 +7,7 @@ import ProfilePage from '../screens/ProfilePage'
 import HomeScreen from '../screens/HomeScreen';
 import Ratings from '../screens/StarRating';
 import SearchScreen from '../screens/SearchScreen';
+import FriendScreen from '../screens/Friendscreen';
 
 
 const HomeNavigator= createStackNavigator ({
@@ -27,18 +28,6 @@ const MapNavigator= createStackNavigator ({
     }
 });
 
-const backtomap= createStackNavigator ({
-    Star: {screen: Ratings},
-    Maps: { screen: HomeScreen},
-    }, {
-    navigationOptions: {
-        header: false,
-    }
-});
-
-
-
-const AppNavigator=createAppContainer(MainTabNavigator);
 
 const backtomap= createStackNavigator ({
     Star: {screen: Ratings},
@@ -49,7 +38,23 @@ const backtomap= createStackNavigator ({
     }
 });
 
+const FriendNavigator= createStackNavigator ({
+    Friends: {screen: FriendScreen},
+    Star: {screen: Ratings}
+}, {
+    navigationOptions: {
+        header: false,
+    }
+});
 
+const backtofriends = createStackNavigator ({
+    Star: {screen: Ratings},
+    Friends: {screen: FriendScreen}
+}, {
+    navigationOptions: {
+        header: false,
+    }
+})
 
 const AppNavigator=createAppContainer(MainTabNavigator);
 
