@@ -33,7 +33,7 @@ export default class SearchScreen extends React.Component {
 
     componentDidMount(){
       console.log('HEILLO');
-      fetch ('http://127.0.0.1:8000/restaurants')
+      fetch ('http://localhost:3000/restaurants')
       .then((response) => response.json())
       .then((resData) => {
         // console.log(resData.restaurants);
@@ -44,7 +44,7 @@ export default class SearchScreen extends React.Component {
     }
 
     getMapsForUser = () => {
-      let url = 'http://127.0.0.1:8000/maps/name/' + this.state.defaultUser;
+      let url = 'http://localhost:3000/maps/name/' + this.state.defaultUser;
       console.log(url);
       fetch(url)
       .then((response) => response.json())
@@ -55,7 +55,7 @@ export default class SearchScreen extends React.Component {
     }
 
     getRestaurantId = () => {
-      let url = 'http://127.0.0.1:8000/restaurants/id/' + this.state.modalData.restaurant_name + '/' + this.state.modalData.address;
+      let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.restaurant_name + '/' + this.state.modalData.address;
       console.log(url);
       fetch(url)
       .then((response) => response.json())
@@ -67,7 +67,7 @@ export default class SearchScreen extends React.Component {
     addToExistingMap = (map) => {
       console.log(map);
       console.log(this.state.temporaryRestaurantId);
-      fetch('http://127.0.0.1:8000/maps/contain', {
+      fetch('http://localhost:3000/maps/contain', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -94,7 +94,7 @@ export default class SearchScreen extends React.Component {
 
     createNewMap = () => {
       console.log(this.state.defaultUser);
-      fetch('http://127.0.0.1:8000/maps/', {
+      fetch('http://localhost:3000/maps/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

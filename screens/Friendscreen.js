@@ -27,7 +27,7 @@ for(var i = 0; i < RestaurantList.length; i++)
 }
 
 var friendDD = [];
-fetch ('http://10.0.2.2:8000/maps/follow/Bob')
+fetch ('http://localhost:3000/maps/follow/Bob')
     .then((response) => response.json())
 .then((frenData) => {
 
@@ -59,7 +59,7 @@ export default class FriendScreen extends React.Component {
 
   popList2 = (index) => {
     var tempList = [];
-    let url = "http://10.0.2.2:8000/maps/follow/Bob";
+    let url = "http://localhost:3000/maps/follow/Bob";
     console.log(index);
     console.log(url);
     fetch(url)

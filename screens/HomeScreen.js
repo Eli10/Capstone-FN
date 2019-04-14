@@ -40,7 +40,7 @@ var restList = [];
         }
 
 var dropdownv = [];
-fetch ('http://10.0.2.2:8000/maps/Bob')
+fetch ('http://localhost:3000/maps/Bob')
     .then((response) => response.json())
     .then((resData) => {
         for (var i = 0; i < resData.maps.length; i++) {
@@ -79,7 +79,7 @@ export default class HomeScreen extends React.Component {
     popList = (index) => {
     var tList = [];
     console.log(index);
-    fetch ('http://10.0.2.2:8000/maps/Bob')
+    fetch ('http://localhost:3000/maps/Bob')
 .then((response) => response.json())
 .then((resData) => {
     //console.log(resData.maps[0].restaurants);
@@ -115,8 +115,8 @@ render() {
             initialRegion={{
               latitude: 40.7128,
               longitude: -74.0060,
-              latitudeDelta: 0.055,
-              longitudeDelta: 0.055,
+              latitudeDelta: 0.355,
+              longitudeDelta: 0.355,
           }}
         >
 
