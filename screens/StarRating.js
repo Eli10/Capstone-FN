@@ -99,7 +99,7 @@ export default class App extends Component {
 
 
 
-    SavedRating = () => {Alert.alert(
+    SavedRating = (x) => {Alert.alert(
         "Rating Saved",
         "Your Rating and Review has been submitted and will be added to this Restaurant's list of reviews",
         [
@@ -109,16 +109,19 @@ export default class App extends Component {
         ],
         {cancelable: false},);
 
+        if(x == 100)
+        {this.props.navigation.navigate('Maps')}
+        else
+        {this.props.navigation.navigate('Friends')}}
 
-        this.props.navigation.navigate('Maps')}
 
-    render() {
+        render() {
 
         const { navigation } = this.props;
         const resName  = navigation.getParam('restname');
-        console.log('rest name');
-        console.log(resName);
-        console.log('rest name');
+        const pageCode  = navigation.getParam('PAGEID');
+
+
 
         return (
             <View style={styles.container}>
@@ -162,7 +165,7 @@ export default class App extends Component {
 
                         title="Press to Save Rating"
                         color="#DC143C"
-                        onPress={() => {this.SavedRating()}}
+                        onPress={() => {this.SavedRating(pageCode)}}
 
                 />
                 <Text> {"\n"} </Text>

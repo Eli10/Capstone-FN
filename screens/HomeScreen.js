@@ -32,7 +32,7 @@ import menu from '../components/DropDownClassForHomeScreen.js';
 var restaurantObject = ['', '', '', ''];
 var listnames = [];
 var restList = [];
-
+var pageID0 = 100;
 
     for(var i = 0; i < RestaurantList.length; i++)
         {
@@ -40,14 +40,14 @@ var restList = [];
         }
 
 var dropdownv = [];
-fetch ('http://localhost:3000/maps/Bob')
+fetch ('http://10.0.2.2:8000/maps/Bob')
     .then((response) => response.json())
     .then((resData) => {
         for (var i = 0; i < resData.maps.length; i++) {
             dropdownv.push(resData.maps[i].name);
         }
-        console.log(dropdownv);
-        console.log("here now");
+        //console.log(dropdownv);
+        //console.log("here now");
 
     })
         .catch((error) => console.log(error))
@@ -79,7 +79,7 @@ export default class HomeScreen extends React.Component {
     popList = (index) => {
     var tList = [];
     console.log(index);
-    fetch ('http://localhost:3000/maps/Bob')
+    fetch ('http://10.0.2.2:8000/maps/Bob')
 .then((response) => response.json())
 .then((resData) => {
     //console.log(resData.maps[0].restaurants);
@@ -129,7 +129,7 @@ render() {
             description={shop.address} >
 
             <MapView.Callout style={styles.plainView}
-             tooltip onPress={() => navigate('Star', {restname: shop.restaurant_name})}>
+             tooltip onPress={() => navigate('Star', {restname: shop.restaurant_name, PAGEID: pageID0})}>
                 <View styles={{textAlign: 'center',}}>
                 <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
                 </View>

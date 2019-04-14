@@ -19,7 +19,7 @@ import RestaurantList from '../assets/files/TestRestaurants.json';
 var restaurantObject = ['', '', '', ''];
 var listnames = [];
 var restList = [];
-
+var pageID1 = 101;
 
 for(var i = 0; i < RestaurantList.length; i++)
 {
@@ -27,7 +27,7 @@ for(var i = 0; i < RestaurantList.length; i++)
 }
 
 var friendDD = [];
-fetch ('http://localhost:3000/maps/follow/Bob')
+fetch ('http://10.0.2.2:8000/maps/follow/Bob')
     .then((response) => response.json())
 .then((frenData) => {
 
@@ -59,14 +59,14 @@ export default class FriendScreen extends React.Component {
 
   popList2 = (index) => {
     var tempList = [];
-    let url = "http://localhost:3000/maps/follow/Bob";
+    let url = "http://10.0.2.2:8000/maps/follow/Bob";
     console.log(index);
     console.log(url);
     fetch(url)
     .then((response) => response.json())
     .then((resData2) => {
     // console.log(resData2.maps[index].restaurants);
-    console.log("i have made it here");
+    //console.log("i have made it here");
     this.setState({markers2 : resData2.maps[index].restaurants});
     // console.log(this.state.markers2);
     })
@@ -112,7 +112,7 @@ export default class FriendScreen extends React.Component {
       >
 
       <MapView.Callout style={styles.plainView}
-                       tooltip onPress={() => navigate('Star')}>
+                       tooltip onPress={() => navigate('Star', {PAGEID: pageID1})}>
         <View styles={{textAlign: 'center',}}>
           <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
         </View>
