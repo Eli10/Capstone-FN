@@ -18,6 +18,12 @@ import os
 #For Connecting to local host instance
 graph = Graph(bolt=True, host="127.0.0.1", user="neo4j", password="12345")
 
+
+# For Connecting to EC2 instance
+# authenticate("52.91.176.33:7473", "neo4j", "i-0b894b0a765ce3877")
+# graph = Graph("http://52.91.176.33:7474/db/data", user="neo4j", password="i-0b894b0a765ce3877", secure=False)
+
+
 class User:
 	def __init__(self, username):
 		self.username = username
@@ -33,6 +39,14 @@ class User:
 		# user = graph.exists(user_to_find)
 		# print("USER FOUND???: {}".format(user))
 		# return user
+
+	@staticmethod
+	def all_users():
+		users = graph.find("User")
+		all_users_list = [u for u in users]
+		if all_users_list == None:
+			return []
+		return all_users_list
 
 	def register(self, password):
 		if not self.find():

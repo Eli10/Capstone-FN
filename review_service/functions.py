@@ -2,8 +2,8 @@ from Review import Review
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-app = Flask(__name__)
-api = Api(app)
+application = Flask(__name__)
+api = Api(application)
 
 
 class createReview(Resource):
@@ -36,11 +36,6 @@ class userReview(Resource):
 			return {'reviews': reviews}, 200
 		else:
 			return {'message': 'Error getting reviews'}, 404
-
-
-
-
-
 
 class HelloTest(Resource):
 	def get(self):

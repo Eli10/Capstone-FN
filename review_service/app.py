@@ -1,6 +1,7 @@
 
 # Uncomment to Run Locally Else Keep Code Commented
 
-from functions import app
+from functions import application
 
-app.run(port=5001)
+if __name__ == "__main__":
+    application.run()
