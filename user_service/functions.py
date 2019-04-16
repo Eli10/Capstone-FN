@@ -4,8 +4,8 @@ from flask import Flask, request, json, session, render_template, redirect, url_
 from flask_restful import Resource, Api
 import googlemaps
 
-app = Flask(__name__)
-api = Api(app)
+application = Flask(__name__)
+api = Api(application)
 gmaps = googlemaps.Client(key='AIzaSyBYXfY11LybYeUzNeSi39xozg5YXKxSr-E')
 
 class createUser(Resource):
@@ -58,11 +58,21 @@ class PalaceSearch(Resource):
 			search_results.append(res_dict)
 		return {'results': search_results}, 200
 
+class FindFriends(Resource):
+	def get(self):
+		users = User.all_users()
+		return {'users': users}, 200
 
 class HelloTest(Resource):
 	def get(self):
 		return {'message': 'Hello'}, 200
 
+class testWork(Resource):
+	def get(self):
+		return {'message': 'Working'}, 200
+
+api.add_resource(testWork, '/')
+api.add_resource(FindFriends, '/users/list')
 api.add_resource(createUser, '/users/register')
 api.add_resource(loginUser, '/users/login')
 api.add_resource(UserFollows, '/users/follows')
