@@ -14,6 +14,7 @@ import Login from '../components/Login';
 import RegisterPage from '../screens/RegisterPage';
 import Maps from '../screens/HomeScreen';
 import Ratings from '../screens/StarRating';
+import FindFriendsScreen from '../screens/FindFriendsScreen';
 
 
 const HomeStack = createStackNavigator({
@@ -88,6 +89,22 @@ DiscoverStack.navigationOptions = {
     ),
 };
 
+//SETTINGS NEED TO BE EDITED PLS SEE FINDFRIENDSSCREEN.JS IN SCREENS FOLDER
+const FindFriendsStack = createStackNavigator({
+    Settings: FindFriendsScreen,
+});
+
+FindFriendsStack.navigationOptions = {
+    tabBarLabel: 'Find Friends',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? "ios-people" : "md-people"}
+        />
+
+    ),
+};
+
 //SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
 const ProfileStack = createStackNavigator({
     Home: { screen: Login},
@@ -115,5 +132,6 @@ export default createBottomTabNavigator({
     FriendStack,
     SearchStack,
     DiscoverStack,
+    FindFriendsStack,
     ProfileStack
 });
