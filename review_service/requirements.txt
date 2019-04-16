@@ -3,3 +3,4 @@ passlib
 flask_restful
 Flask
 uwsgi
+gunicorn
