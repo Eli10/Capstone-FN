@@ -4,3 +4,4 @@ flask_restful
 Flask
 uwsgi
 gunicorn
+flask_jwt_extended

@@ -6,3 +6,4 @@ Flask
 uwsgi
 googlemaps
 gunicorn
+flask_jwt_extended

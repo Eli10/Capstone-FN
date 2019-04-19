@@ -3,6 +3,7 @@ module map_service
 go 1.12
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/gorilla/mux v1.7.0
 	github.com/johnnadratowski/golang-neo4j-bolt-driver v0.0.0-20181101021923-6b24c0085aae
 	github.com/kr/fs v0.1.0 // indirect

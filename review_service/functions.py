@@ -2,11 +2,19 @@ from Review import Review
 from flask import Flask, request
 from flask_restful import Resource, Api
 
+from flask_jwt_extended import JWTManager
+from flask_jwt_extended import (jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
+
+
 application = Flask(__name__)
 api = Api(application)
 
+application.config['JWT_SECRET_KEY'] = "very-secret-token-string"
+jwt = JWTManager(application)
+
 
 class createReview(Resource):
+	@jwt_required
 	def post(self):
 		req_data = request.get_json()
 		username = req_data['username']
@@ -22,6 +30,7 @@ class createReview(Resource):
 
 
 class restaurantReview(Resource):
+	@jwt_required
 	def get(self, restaurant_id):
 		reviews = Review.get_reviews_for_restaurant(restaurant_id)
 		if reviews != None:
@@ -30,6 +39,7 @@ class restaurantReview(Resource):
 			return {'message': 'Error getting reviews'}, 404
 
 class userReview(Resource):
+	@jwt_required
 	def get(self, username):
 		reviews = Review.get_reviews_for_user(username)
 		if reviews != None:
