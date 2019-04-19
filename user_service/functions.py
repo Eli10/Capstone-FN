@@ -2,11 +2,19 @@
 from Users import User
 from flask import Flask, request, json, session, render_template, redirect, url_for
 from flask_restful import Resource, Api
+
+from flask_jwt_extended import JWTManager
+from flask_jwt_extended import (create_access_token,
+create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
+
 import googlemaps
 
 application = Flask(__name__)
 api = Api(application)
 gmaps = googlemaps.Client(key='AIzaSyBYXfY11LybYeUzNeSi39xozg5YXKxSr-E')
+
+application.config['JWT_SECRET_KEY'] = "very-secret-token-string"
+jwt = JWTManager(application)
 
 class createUser(Resource):
 	def post(self):
@@ -15,7 +23,13 @@ class createUser(Resource):
 		password = req_data['password']
 
 		if User(username).register(password):
-			return {'message':'User has been registered'}, 200
+			access_token = create_access_token(identity = username)
+			refresh_token = create_refresh_token(identity = username)
+
+			return {
+				'message':'User has been registered',
+				'access_token': access_token,
+				'refresh_token': refresh_token}, 200
 		else:
 			return {'message': "User already registered"}, 202
 
@@ -27,12 +41,26 @@ class loginUser(Resource):
 
 		if User(username).verify_password(password):
 			# session['username'] = username
-			return {'message': 'User verified'}, 200
+			access_token = create_access_token(identity = username)
+			refresh_token = create_refresh_token(identity = username)
+			return {
+				'message':'User has been registered',
+				'access_token': access_token,
+				'refresh_token': refresh_token}, 200
 		else:
 			return {'message': 'User cannot be authenicated'}, 404
 
 
+class NewAccessToken(Resource):
+	@jwt_refresh_token_required
+	def get(self):
+		current_user = get_jwt_identity()
+		access_token = create_access_token(identity = current_user)
+		return {'access_token': access_token}
+
+
 class UserFollows(Resource):
+	@jwt_required
 	def post(self):
 		req_data = request.get_json()
 		username = req_data['username']
@@ -59,6 +87,7 @@ class PalaceSearch(Resource):
 		return {'results': search_results}, 200
 
 class FindFriends(Resource):
+	@jwt_required
 	def get(self):
 		users = User.all_users()
 		return {'users': users}, 200
@@ -78,3 +107,4 @@ api.add_resource(loginUser, '/users/login')
 api.add_resource(UserFollows, '/users/follows')
 api.add_resource(HelloTest, '/users/hello')
 api.add_resource(PalaceSearch, '/users/restaurant/search/<string:restaurant_name>')
+api.add_resource(NewAccessToken, '/users/refresh-token')

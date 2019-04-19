@@ -57,6 +57,7 @@ Ex) Correct -> http://localhost:3000/login
 Users
 - POST /users/register
 - POST /users/login
+- GET /users/refresh_token
 - POST /users/follow
 - GET /users/restaurant/search/{restaurant_name}
 - GET /users/list
@@ -79,3 +80,19 @@ Reviews
 - POST /reviews
 - GET /reviews/restaurant/{restaurant_name}
 - GET /reviews/user/{username}
+
+
+## API Security
+
+- Almost all endpoint are secured with JWT Authentication except /login and /register
+
+- /users/login returns your access token and refresh token
+- Access Token expires in 15 mins
+
+- Use /users/refresh_token to get a new access_token
+
+- Pass refresh_token in header to /users/refresh_token
+Ex) {"Authorization": "Bearer <refresh_token>"}
+
+- Pass access token in the headers of all api requests
+Ex) {"Authorization": "Bearer <access_token>"}

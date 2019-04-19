@@ -5,6 +5,10 @@ type Hello struct {
 	OtherMessage interface{} `json:"othermessage"`
 }
 
+type Authorized struct {
+	Message      string      `json:"message"`
+}
+
 type Map struct {
 	Name string `json:"name,omitempty"`
 	RestaurantList []Restaurant `json:"restaurants"`
