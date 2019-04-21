@@ -13,13 +13,20 @@ import (
 	"github.com/johnnadratowski/golang-neo4j-bolt-driver/structures/graph"
 )
 
-// Returns JSON for /hello endpoint
+/**
+* This method takes a http request.
+* @param httpRequest This is the first paramter to GetHello method
+* @return json
+*/
 func GetHello(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.Hello{Message: "Hi", OtherMessage: "Yoo"})
 }
 
-
-// Creates JSON for /restaurants endpoint
+/**
+* This method takes a http request.
+* @param httpRequest This is the first paramter to GetRestaurantListHandler method
+* @return json Returns a List of Restaurants
+*/
 func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 	var resList types.RestaurantList
 	con := helpers.CreateConnection()
@@ -48,8 +55,11 @@ func GetRestaurantListHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
-// Creates JSON for /restaurants/{restaurant_name} endpoint
+/**
+* This method takes a http request from /restaurants/{restaurant_name}.
+* @param httpRequest This is the first paramter to GetRestaurantHandler method
+* @return json Returns a Restaurant
+*/
 func GetRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var res types.Restaurant
@@ -69,11 +79,13 @@ func GetRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 	json.NewEncoder(w).Encode(res)
-
-
 }
 
-
+/**
+* This method takes a http request from /restaurants/id/{restaurant_name}/{address}.
+* @param httpRequest This is the first paramter to GetRestaurantHandler method
+* @return json Returns the id of Restaurant
+*/
 func GetRestaurantIdHandler(w http.ResponseWriter, r *http.Request) {
 	var res types.Restaurant
 	params := mux.Vars(r)
@@ -96,7 +108,11 @@ func GetRestaurantIdHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.RestaurantId{ID: id})
 }
 
-
+/**
+* This method takes a http request from /restaurants/discover/{username}.
+* @param httpRequest This is the first paramter to GetRestaurantHandler method
+* @return json Returns Recommened Restaurant for a User
+*/
 func GetDiscoveredRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 	var user types.User
 	var res types.Restaurant

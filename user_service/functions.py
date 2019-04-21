@@ -17,6 +17,11 @@ application.config['JWT_SECRET_KEY'] = "very-secret-token-string"
 jwt = JWTManager(application)
 
 class createUser(Resource):
+
+	"""Class Method handles registering a user
+
+    :returns: json
+    """
 	def post(self):
 		req_data = request.get_json()
 		username = req_data['username']
@@ -34,6 +39,11 @@ class createUser(Resource):
 			return {'message': "User already registered"}, 202
 
 class loginUser(Resource):
+
+	"""Class Method handles logging in a user
+
+    :returns: json
+    """
 	def post(self):
 		req_data = request.get_json()
 		username = req_data['username']
@@ -52,6 +62,11 @@ class loginUser(Resource):
 
 
 class NewAccessToken(Resource):
+
+	"""Class Method handles refreshing jwt access tokens
+
+    :returns: json
+    """
 	@jwt_refresh_token_required
 	def get(self):
 		current_user = get_jwt_identity()
@@ -60,6 +75,11 @@ class NewAccessToken(Resource):
 
 
 class UserFollows(Resource):
+
+	"""Class Method handles creating user to user relationship
+
+    :returns: json
+    """
 	@jwt_required
 	def post(self):
 		req_data = request.get_json()
@@ -72,6 +92,11 @@ class UserFollows(Resource):
 			return {'message': 'Relationship already created'}, 202
 
 class PalaceSearch(Resource):
+
+	"""Class Method handles searching for new restaurant not in the DB for a user
+
+    :returns: json
+    """
 	def get(self, restaurant_name):
 		search_results = []
 		places = gmaps.places_nearby(location=(40.768291, -73.964494), keyword=restaurant_name,
@@ -87,12 +112,22 @@ class PalaceSearch(Resource):
 		return {'results': search_results}, 200
 
 class FindFriends(Resource):
+
+	"""Class Method handles returning all users
+
+    :returns: json
+    """
 	@jwt_required
 	def get(self):
 		users = User.all_users()
 		return {'users': users}, 200
 
 class HelloTest(Resource):
+
+	"""Class Method handles hello message
+
+    :returns: json
+    """
 	def get(self):
 		return {'message': 'Hello'}, 200
 
@@ -100,6 +135,11 @@ class testWork(Resource):
 	def get(self):
 		return {'message': 'Working'}, 200
 
+"""Registering routes to api
+
+:param HandlerClass: class of route handler
+:param route: name of route
+"""
 api.add_resource(testWork, '/')
 api.add_resource(FindFriends, '/users/list')
 api.add_resource(createUser, '/users/register')

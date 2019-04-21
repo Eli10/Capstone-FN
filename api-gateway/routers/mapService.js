@@ -2,10 +2,21 @@ var express = require('express');
 var router = express.Router()
 const apiAdapter = require('./apiAdapter')
 
+/**
+* Local & Heroku Map Service URLs
+*/
 const LOCAL_BASE_URL = 'http://localhost:8000'
 const HEROKU_URL = 'https://map-service.herokuapp.com'
 const api = apiAdapter(LOCAL_BASE_URL)
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to addNum method
+* @param httpRequestObject  This is the second parameter to addNum method
+* @return None
+ */
 router.post('/maps/', (req, res) => {
     var json_data = req.body;
     console.log(json_data);
@@ -20,6 +31,14 @@ router.post('/maps/', (req, res) => {
     .catch(err =>{console.log(err)})
 })
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to addNum method
+* @param httpRequestObject  This is the second parameter to addNum method
+* @return json
+ */
 router.get('/maps/:username', (req, res) => {
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
@@ -32,6 +51,14 @@ router.get('/maps/:username', (req, res) => {
     .catch(err =>{console.log(err)})
 })
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to addNum method
+* @param httpRequestObject  This is the second parameter to addNum method
+* @return json
+ */
 router.get('/maps/name/:username', (req, res) => {
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
@@ -44,6 +71,14 @@ router.get('/maps/name/:username', (req, res) => {
     .catch(err =>{console.log(err)})
 })
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to addNum method
+* @param httpRequestObject  This is the second parameter to addNum method
+* @return json
+ */
 router.get('/maps/follow/:username', (req, res) => {
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
@@ -56,6 +91,14 @@ router.get('/maps/follow/:username', (req, res) => {
     .catch(err =>{console.log(err)})
 })
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to addNum method
+* @param httpRequestObject  This is the second parameter to addNum method
+* @return None
+ */
 router.post('/maps/contain', (req, res) => {
     var json_data = req.body;
     console.log(json_data);
@@ -70,6 +113,14 @@ router.post('/maps/contain', (req, res) => {
     .catch(err =>{console.log(err)})
 })
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to addNum method
+* @param httpRequestObject  This is the second parameter to addNum method
+* @return None
+ */
 router.delete('/maps/contain', (req, res) => {
     var json_data = req.body;
     console.log(json_data);

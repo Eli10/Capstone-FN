@@ -28,6 +28,10 @@ class User:
 	def __init__(self, username):
 		self.username = username
 
+	"""Class Method that checks if user exists in DB
+
+    :returns: User Object
+    """
 	def find(self):
 		# print(dir(graph))
 		# user_to_find = Node("User", username=self.username)
@@ -40,6 +44,10 @@ class User:
 		# print("USER FOUND???: {}".format(user))
 		# return user
 
+	"""Static Method that returns all users in DB
+
+    :returns: list of users
+    """
 	@staticmethod
 	def all_users():
 		users = graph.find("User")
@@ -48,6 +56,11 @@ class User:
 			return []
 		return all_users_list
 
+	"""Class Method that registers a user
+
+	:param password: password of user
+    :returns: boolean
+    """
 	def register(self, password):
 		if not self.find():
 			user = Node('User', username=self.username, password=bcrypt.encrypt(password))
@@ -56,6 +69,11 @@ class User:
 		else:
 			return False
 
+	"""Class Method that verifies user password with what is in the DB
+
+	:param password: password of user
+    :returns: boolean
+    """
 	def verify_password(self, password):
 		user = self.find()
 		print(user)
@@ -64,6 +82,11 @@ class User:
 		else:
 			return False
 
+	"""Class Method creates user to user relationship
+
+	:param follow_username: name of user to follow
+    :returns: boolean
+    """
 	def follow_user(self, follow_username):
 		primary_user = self.find()
 		user_to_follow = User(follow_username).find()
