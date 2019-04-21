@@ -23,6 +23,15 @@ class Review:
         self.username = username
         self.restaurant_id = restaurant_id
 
+    """Static Method creates a user review for a restaurant
+
+    :param username: name of user
+    :param restaurant_name: number of restaurant
+    :param restaurant_id: id of restaurant
+    :param comment: user comment
+    :param rating: user rating (1-5)
+    :returns: boolean
+    """
     @staticmethod
     def post_rating(username, restaurant_name, restaurant_id, comment, rating):
         query = """MATCH(u:User {username: \'"""+username+"""\'}) MATCH (r:Restaurant) WHERE id(r)="""+str(restaurant_id)+""" MERGE (u)-[:GAVE_REVIEW {rating: """+str(rating)+""", review: \'"""+comment+"""\' }]->(r)"""
@@ -37,12 +46,22 @@ class Review:
             graph.data(query)
             return True
 
+    """Static Method that gets user reviews for a restaurant
+
+    :param restaurant_id: id of restaurant
+    :returns: list of reviews
+    """
     @staticmethod
     def get_reviews_for_restaurant(restaurant_id):
         query = "MATCH (r:Restaurant)-[c:GAVE_REVIEW]-(u:User) WHERE id(r)={} RETURN u.username as username, c.rating as rating, c.review as review".format(restaurant_id)
         print(query)
         return graph.data(query)
 
+    """Static Method that gets all reviews for a user
+
+    :param user: username
+    :returns: list of reviews
+    """
     @staticmethod
     def get_reviews_for_user(user):
         query = "MATCH (u:User)-[c:GAVE_REVIEW]-(r:Restaurant) WHERE u.username = '{}' RETURN u.username as username, r.name as restaurant_name, c.rating as rating, c.review as review".format(user)
