@@ -12,13 +12,21 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Returns JSON for /hello endpoint
+/**
+* This method takes a http request.
+* @param httpRequest This is the first paramter to GetHello method
+* @return json
+*/
 func GetHello(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.Hello{Message: "Hi", OtherMessage: "Yoo"})
 }
 
-
-// Creates JSON for /maps/ endpoint
+/**
+* This method takes a http request.
+* Creates the relationship between Users and Maps
+* @param httpRequest This is the first paramter to CreateMapandUserMapRelationshipHandler method
+* @return None
+*/
 func CreateMapandUserMapRelationshipHandler(w http.ResponseWriter, r *http.Request) {
 	var mr types.UserMapRelationship
 	json.NewDecoder(r.Body).Decode(&mr)
@@ -28,7 +36,11 @@ func CreateMapandUserMapRelationshipHandler(w http.ResponseWriter, r *http.Reque
 	helpers.ExecuteUserMapStatement(st, mr)
 }
 
-// Creates JSON for /maps/{username} endpoint
+/**
+* This method takes a http request.
+* @param httpRequest This is the first paramter to GetAllUserMapsHandler method
+* @return json Returns all the maps for a Users
+*/
 func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var user types.User
@@ -49,6 +61,11 @@ func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
 }
 
+/**
+* This method takes a http request.
+* @param httpRequest This is the first paramter to GetAllFriendsMapsHandler method
+* @return json Returns all the friend's maps for a Users
+*/
 func GetAllFriendsMapsHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var user types.User
@@ -69,7 +86,12 @@ func GetAllFriendsMapsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
 }
 
-// Creates JSON for /maps/contain POST endpoint
+/**
+* This method takes a http request.
+* Creates the Relationship between Maps and Restaurants
+* @param httpRequest This is the first paramter to MapsContainsHandler method
+* @return None
+*/
 func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	var mapContains types.MapRestaurantRelationship
 	json.NewDecoder(r.Body).Decode(&mapContains)
@@ -78,7 +100,12 @@ func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
-// Creates JSON for /maps/contain DELETE endpoint
+/**
+* This method takes a http request.
+* Removes the Relationship between Maps and Restaurants
+* @param httpRequest This is the first paramter to RemoveMapsContainsHandler method
+* @return None
+*/
 func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	var mapContains types.MapRestaurantRelationship
 	json.NewDecoder(r.Body).Decode(&mapContains)
@@ -89,9 +116,11 @@ func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
-
-
-// Creates JSON for /maps/name/{username} endpoint
+/**
+* This method takes a http request.
+* @param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
+* @return MapList a list of user map names
+*/
 func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var mapList types.MapNameList
@@ -117,13 +146,12 @@ func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(mapList)
 }
 
-
-
-
-// ----------------------------------------------
-
-// POST Method Handler for /maps/{name}
-// Takes name and uses it to create a Map Node with a name property
+/**
+* This method takes a http request.
+* Creates a Map
+* @param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
+* @return None
+*/
 func PostMap(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var my_map types.Map
@@ -133,8 +161,12 @@ func PostMap(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapStatement(st, my_map)
 }
 
-// Get Method Handler for /maps/{name}
-// Takes name and uses it to find Map Node with same name property
+/**
+* This method takes a http request.
+* Return a Map By name
+* @param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
+* @return json Map Object
+*/
 func GetMap(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var my_map types.Map
