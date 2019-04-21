@@ -96,3 +96,25 @@ Ex) {"Authorization": "Bearer <refresh_token>"}
 
 - Pass access token in the headers of all api requests
 Ex) {"Authorization": "Bearer <access_token>"}
+
+
+
+## Environment Variables
+
+Credentials are not stored in plain-text anymore. For each service locally you have to set the environment variables for them.
+
+## Environment variables for Python APIs
+
+- JWT_SECRET_KEY
+- GOOGLE_MAPS_API_KEY
+
+**Already Set By Heroku**
+- GRAPHENEDB_BOLT_URL
+- GRAPHENEDB_BOLT_USER
+- GRAPHENEDB_BOLT_PASSWORD
+
+## Environment variables for Go APIs
+
+- JWT_SECRET_KEY
+- NEO4J_GO_LANG_LOCAL_DB_CREDS
+- NEO4J_GO_LANG_HEROKU_DB_CREDS
