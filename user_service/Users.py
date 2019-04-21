@@ -1,10 +1,9 @@
-
-
 from py2neo import Graph, Node, Relationship, authenticate
 from passlib.hash import bcrypt
 import json
 import uuid
 import os
+import googlemaps
 
 # For Connecting to Heroku
 
@@ -22,6 +21,8 @@ graph = Graph(bolt=True, host="127.0.0.1", user="neo4j", password="12345")
 # For Connecting to EC2 instance
 # authenticate("52.91.176.33:7473", "neo4j", "i-0b894b0a765ce3877")
 # graph = Graph("http://52.91.176.33:7474/db/data", user="neo4j", password="i-0b894b0a765ce3877", secure=False)
+
+gmaps = googlemaps.Client(key=os.environ["GOOGLE_MAPS_API_KEY"])
 
 
 class User:
@@ -98,3 +99,26 @@ class User:
 		else:
 			graph.create(follow_relationship)
 			return True
+
+	"""Static Method search for new restaurants
+
+	:param restaurant_name: name of restaurant to search for
+    :returns: list of restaurants
+    """
+	@staticmethod
+	def user_google_search(restaurant_name):
+		search_results = []
+		places = gmaps.places_nearby(location=(40.768291, -73.964494), keyword=restaurant_name,
+			language='eu-US', min_price=1, max_price=4,
+			name='bar', rank_by='distance', type='food')
+		results = places["results"]
+		for r in results:
+			res_dict = {}
+			res_dict.update(r['geometry']['location'])
+			res_dict.update({'name': r['name'], 'address': r['vicinity']})
+			print(res_dict)
+			search_results.append(res_dict)
+
+			restaurant_node = Node("Restaurant", name=res_dict['name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lng'])
+			graph.create(restaurant_node)
+		return search_results

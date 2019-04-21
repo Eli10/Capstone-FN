@@ -5,11 +5,12 @@ from flask_restful import Resource, Api
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
+import os
 
 application = Flask(__name__)
 api = Api(application)
 
-application.config['JWT_SECRET_KEY'] = "very-secret-token-string"
+application.config['JWT_SECRET_KEY'] = os.environ["JWT_SECRET_KEY"]
 jwt = JWTManager(application)
 
 

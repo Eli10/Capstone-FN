@@ -1,4 +1,3 @@
-
 from Users import User
 from flask import Flask, request, json, session, render_template, redirect, url_for
 from flask_restful import Resource, Api
@@ -7,13 +6,12 @@ from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token,
 create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
-import googlemaps
+import os
 
 application = Flask(__name__)
 api = Api(application)
-gmaps = googlemaps.Client(key='AIzaSyBYXfY11LybYeUzNeSi39xozg5YXKxSr-E')
 
-application.config['JWT_SECRET_KEY'] = "very-secret-token-string"
+application.config['JWT_SECRET_KEY'] = os.environ["JWT_SECRET_KEY"]
 jwt = JWTManager(application)
 
 class createUser(Resource):
@@ -98,17 +96,8 @@ class PalaceSearch(Resource):
     :returns: json
     """
 	def get(self, restaurant_name):
-		search_results = []
-		places = gmaps.places_nearby(location=(40.768291, -73.964494), keyword=restaurant_name,
-			language='eu-US', min_price=1, max_price=4,
-			name='bar', rank_by='distance', type='food')
-		results = places["results"]
-		for r in results:
-			res_dict = {}
-			res_dict.update(r['geometry']['location'])
-			res_dict.update({'name': r['name'], 'address': r['vicinity']})
-			print(res_dict)
-			search_results.append(res_dict)
+		search_results = User.user_google_search(restaurant_name)
+
 		return {'results': search_results}, 200
 
 class FindFriends(Resource):
