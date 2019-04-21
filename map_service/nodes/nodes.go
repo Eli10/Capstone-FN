@@ -12,7 +12,6 @@ package nodes
 * Database Statments used for querying and execution.
 */
 const (
-
 	URI                          = "bolt://neo4j:12345@127.0.0.1:7687"
 	CreateNode                   = "CREATE (n:Map {name: {name}})"
 	CreateUserMapRelationship    = "MATCH (a:User {username: {username}}) MERGE (n:Map {mapname: {mapname}}) MERGE (a)-[r:HAS]->(n)"

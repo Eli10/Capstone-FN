@@ -1,3 +1,11 @@
+/**
+* The Restaurant Micoservice
+* All restaurant requests come through here.
+*
+* @author  Elijah Augustin
+* @version 1.0
+* @since   2019-02-01
+*/
 package main
 
 import (
@@ -15,8 +23,18 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
+/**
+* JWT Secret Key
+*/
 var mySigningKey = []byte("very-secret-token-string")
 
+/**
+* This method takes a http request.
+* First checks if request has a authenticaion value in headers.
+* Then authenticates the token in header.
+* @param httpRequest This is the first paramter to isAuthorized method
+* @return httpHandler Another type of request
+*/
 func isAuthorized(endpoint func(http.ResponseWriter, *http.Request)) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
@@ -51,7 +69,10 @@ func isAuthorized(endpoint func(http.ResponseWriter, *http.Request)) http.Handle
     })
 }
 
-// our main function
+/**
+* This our main method. Entrypoint to the API
+* Has many Handlers for different routes
+*/
 func main() {
 	router := mux.NewRouter()
 
