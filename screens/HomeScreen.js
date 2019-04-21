@@ -39,20 +39,6 @@ var pageID0 = 100;
             listnames.push(RestaurantList[i].listname);
         }
 
-var dropdownv = [];
-fetch ('http://10.0.2.2:8000/maps/Bob')
-    .then((response) => response.json())
-    .then((resData) => {
-        for (var i = 0; i < resData.maps.length; i++) {
-            dropdownv.push(resData.maps[i].name);
-        }
-        //console.log(dropdownv);
-        //console.log("here now");
-
-    })
-        .catch((error) => console.log(error))
-        .done();
-
 console.disableYellowBox = true;
 
 
@@ -61,11 +47,14 @@ console.disableYellowBox = true;
 
 
 export default class HomeScreen extends React.Component {
-    static navigationOptions = {title: 'My Maps',};
+    static navigationOptions = {title: "Your Maps",};
+    componentDidMount () {
+        this.props.navigation.addListener('willFocus', (route) => {this.getmaps()});
+    }
+    navigationOptions = {title: 'My Maps',};
 
     constructor(props) {
-        super(props);
-
+        super(props)
         this.state =
             {
                 markers : restList,
@@ -73,29 +62,43 @@ export default class HomeScreen extends React.Component {
             }
     };
 
-
-
-
-    popList = (index) => {
+popList = (index) => {
     var tList = [];
-    console.log(index);
+    //console.log(index);
     fetch ('http://10.0.2.2:8000/maps/Bob')
-.then((response) => response.json())
-.then((resData) => {
-    //console.log(resData.maps[0].restaurants);
-    this.setState({markers : resData.maps[index].restaurants})
-    //console.log(this.state.markers)
-})
-.   catch((error) => console.log(error))
+    .then((response) => response.json())
+    .then((resData) => {
+        //console.log(resData.maps[0].restaurants);
+        this.setState({markers : resData.maps[index].restaurants})
+        //console.log(this.state.markers)
+    })
+    .   catch((error) => console.log(error))
 }
 //this marker popilates the initial dropdown
 
+getmaps = ()=> {
+    var dropdownv = [];
+    fetch('http://10.0.2.2:8000/maps/Bob')
+        .then((response) => response.json())
+        .then((resData) => {
+            for (var i = 0; i < resData.maps.length; i++) {
+                dropdownv.push(resData.maps[i].name);
+            }
+            //console.log(dropdownv);
+            //console.log("here now");
 
+        })
+        .catch((error) => console.log(error))
+        .done();
+    this.setState({dropdownlist : dropdownv})
+}
 
 
 render() {
 
+    var x = 1;
     const {navigate} = this.props.navigation;
+
 
     return (
 
@@ -104,7 +107,7 @@ render() {
            <ModalDropdown
                defaultValue = 'Please select a Map'
                style = {styles.MD}
-               options = {dropdownv}
+               options = {this.state.dropdownlist}
                dropdownStyle = {{ height: 35 * listnames.length}}
                onSelect={(index, value) => {this.popList(index)}}
            />

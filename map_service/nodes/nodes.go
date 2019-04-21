@@ -1,12 +1,13 @@
 package nodes
 
+
 /**
 * For Local access to Neo4j instance use
 * Local host bolt url -> bolt://neo4j:12345@127.0.0.1:7687
 * Change password to whatever you have locally
 * For Heroku Access Use
 * bolt://app129059723-YYTQIU:b.YHZyeRC7eFZf.m5yianH7o8NTkEjN@hobby-ggbgkgbadkkkgbkeedgpdpcl.dbs.graphenedb.com:24786?tls=true
-*/
+
 
 /**
 * Database Statments used for querying and execution.
