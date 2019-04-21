@@ -7,13 +7,14 @@ from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token,
 create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
+import os
 import googlemaps
 
 application = Flask(__name__)
 api = Api(application)
-gmaps = googlemaps.Client(key='AIzaSyBYXfY11LybYeUzNeSi39xozg5YXKxSr-E')
+gmaps = googlemaps.Client(key=os.environ["GOOGLE_MAPS_API_KEY"])
 
-application.config['JWT_SECRET_KEY'] = "very-secret-token-string"
+application.config['JWT_SECRET_KEY'] = os.environ["JWT_SECRET_KEY"]
 jwt = JWTManager(application)
 
 class createUser(Resource):

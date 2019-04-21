@@ -1,18 +1,22 @@
 package nodes
 
+import "os"
+ 
 /**
 * For Local access to Neo4j instance use
-* Local host bolt url -> bolt://neo4j:12345@127.0.0.1:7687
+* NEO4J_GO_LANG_LOCAL_DB_CREDS variable
 * Change password to whatever you have locally
-* For Heroku Access Use
-* bolt://app129059723-YYTQIU:b.YHZyeRC7eFZf.m5yianH7o8NTkEjN@hobby-ggbgkgbadkkkgbkeedgpdpcl.dbs.graphenedb.com:24786?tls=true
+* For Heroku Prod access use
+* NEO4J_GO_LANG_HEROKU_DB_CREDS variable
 */
 
 /**
 * Database Statments used for querying and execution.
 */
+
+var URI string = os.Getenv("NEO4J_GO_LANG_HEROKU_DB_CREDS")
+
 const (
-	URI                          		= "bolt://neo4j:12345@127.0.0.1:7687"
 	GetRestaurants 								 	= "MATCH (res:Restaurant) RETURN res"
 	GetRestaurant										= "MATCH (res:Restaurant {name: {restaurant_name}}) RETURN res"
 	GetRestaurantId 								= "MATCH (res:Restaurant {name: {restaurant_name}, address: {address}}) RETURN id(res)"

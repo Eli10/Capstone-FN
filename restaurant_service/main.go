@@ -26,7 +26,8 @@ import (
 /**
 * JWT Secret Key
 */
-var mySigningKey = []byte("very-secret-token-string")
+var envKey = os.Getenv("JWT_SECRET_KEY")
+var mySigningKey = []byte(envKey)
 
 /**
 * This method takes a http request.

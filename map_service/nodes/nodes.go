@@ -1,18 +1,22 @@
 package nodes
 
+import "os"
+
 /**
 * For Local access to Neo4j instance use
-* Local host bolt url -> bolt://neo4j:12345@127.0.0.1:7687
+* NEO4J_GO_LANG_LOCAL_DB_CREDS variable
 * Change password to whatever you have locally
-* For Heroku Access Use
-* bolt://app129059723-YYTQIU:b.YHZyeRC7eFZf.m5yianH7o8NTkEjN@hobby-ggbgkgbadkkkgbkeedgpdpcl.dbs.graphenedb.com:24786?tls=true
+* For Heroku Prod access use
+* NEO4J_GO_LANG_HEROKU_DB_CREDS variable
 */
 
 /**
 * Database Statments used for querying and execution.
 */
+
+var URI string = os.Getenv("NEO4J_GO_LANG_HEROKU_DB_CREDS")
+
 const (
-	URI                          = "bolt://neo4j:12345@127.0.0.1:7687"
 	CreateNode                   = "CREATE (n:Map {name: {name}})"
 	CreateUserMapRelationship    = "MATCH (a:User {username: {username}}) MERGE (n:Map {mapname: {mapname}}) MERGE (a)-[r:HAS]->(n)"
 	GetUserMapList               = "MATCH (u:User {username: {username}})-[]->(b:Map)-[]->(res:Restaurant) RETURN b.mapname, collect(res) AS restaurants"
