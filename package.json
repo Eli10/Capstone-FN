@@ -29,7 +29,8 @@
     "react-native-star-rating": "^1.1.0",
     "react-navigation": "^3.0.9",
     "reactstrap": "^7.1.0",
-    "watchman": "^1.0.0"
+    "watchman": "^1.0.0",
+    "react-navigation": "react-community/react-navigation#master"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",

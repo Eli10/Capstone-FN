@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, NavigationActions } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 //import TabBarIcon2 from '../components/TabBarIcon2';
@@ -14,7 +14,6 @@ import Login from '../components/Login';
 import RegisterPage from '../screens/RegisterPage';
 import Maps from '../screens/HomeScreen';
 import Ratings from '../screens/StarRating';
-
 
 const HomeStack = createStackNavigator({
 
@@ -116,4 +115,6 @@ export default createBottomTabNavigator({
     SearchStack,
     DiscoverStack,
     ProfileStack
-});
+},
+
+    );

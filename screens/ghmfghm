@@ -1,0 +1,40 @@
+
+popList = (index) => {
+    var tList = [];
+    //console.log(index);
+    fetch ('http://10.0.2.2:8000/maps/Bob')
+    .then((response) => response.json())
+    .then((resData) => {
+        //console.log(resData.maps[0].restaurants);
+        this.setState({markers : resData.maps[index].restaurants})
+        //console.log(this.state.markers)
+    })
+    .   catch((error) => console.log(error))
+}
+//this marker popilates the initial dropdown
+
+getmaps = ()=> {
+    var dropdownv = [];
+    fetch('http://10.0.2.2:8000/maps/Bob')
+        .then((response) => response.json())
+        .then((resData) => {
+            for (var i = 0; i < resData.maps.length; i++) {
+                dropdownv.push(resData.maps[i].name);
+            }
+            //console.log(dropdownv);
+            //console.log("here now");
+
+        })
+        .catch((error) => console.log(error))
+        .done();
+    this.setState({dropdownlist : dropdownv})
+}
+
+componentDidMount () {
+        this.props.navigation.addListener('willFocus', (route) => {this.forceUpdateHandler()});
+        }
+
+        componentDidMount () {
+                this.props.navigation.addListener('willFocus', (route) => {this.forceUpdateHandler()});
+                }
+                navigationOptions = {title: 'My Maps',};

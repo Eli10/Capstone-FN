@@ -4,7 +4,7 @@ package nodes
 
 For Local access to Neo4j instance use
 
-Local host bolt url -> bolt://neo4j:12345@127.0.0.1:7687
+Local host bolt url -> bolt://neo4j:capstone@127.0.0.1:7687
 
 Change password to whatever you have locally
 
