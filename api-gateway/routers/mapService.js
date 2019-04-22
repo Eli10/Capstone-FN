@@ -19,11 +19,12 @@ const api = apiAdapter(LOCAL_BASE_URL)
  */
 router.post('/maps/', (req, res) => {
     var json_data = req.body;
+    var headers = {'headers': req.headers};
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
     //Making axios request to service
-    api.post(req.path, json_data)
+    api.post(req.path, json_data, headers)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -40,10 +41,12 @@ router.post('/maps/', (req, res) => {
 * @return json
  */
 router.get('/maps/:username', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
     console.log(formatted_path);
-    api.get(formatted_path)
+    api.get(formatted_path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -60,10 +63,12 @@ router.get('/maps/:username', (req, res) => {
 * @return json
  */
 router.get('/maps/name/:username', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
     console.log(formatted_path);
-    api.get(formatted_path)
+    api.get(formatted_path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -80,10 +85,12 @@ router.get('/maps/name/:username', (req, res) => {
 * @return json
  */
 router.get('/maps/follow/:username', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
     console.log(formatted_path);
-    api.get(formatted_path)
+    api.get(formatted_path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -101,11 +108,13 @@ router.get('/maps/follow/:username', (req, res) => {
  */
 router.post('/maps/contain', (req, res) => {
     var json_data = req.body;
+    var headers = {'headers': req.headers};
+    console.log(headers);
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
     //Making axios request to service
-    api.post(req.path, json_data)
+    api.post(req.path, json_data, headers)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -123,11 +132,12 @@ router.post('/maps/contain', (req, res) => {
  */
 router.delete('/maps/contain', (req, res) => {
     var json_data = req.body;
+    var headers = {'headers': req.headers};
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
     //Making axios request to service
-    api.delete(req.path, json_data)
+    api.delete(req.path, json_data, headers)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)

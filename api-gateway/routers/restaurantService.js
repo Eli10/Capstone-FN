@@ -18,8 +18,10 @@ const api = apiAdapter(LOCAL_BASE_URL)
 * @return json
  */
 router.get('/restaurants', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
-    api.get(req.path)
+    api.get(req.path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -36,10 +38,12 @@ router.get('/restaurants', (req, res) => {
 * @return json
  */
 router.get('/restaurants/:restaurant_name', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
     console.log(formatted_path);
-    api.get(formatted_path)
+    api.get(formatted_path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -56,10 +60,12 @@ router.get('/restaurants/:restaurant_name', (req, res) => {
 * @return json
  */
 router.get('/restaurants/id/:restaurant_name/:restaurant_address', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
     console.log(formatted_path);
-    api.get(formatted_path)
+    api.get(formatted_path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -76,10 +82,12 @@ router.get('/restaurants/id/:restaurant_name/:restaurant_address', (req, res) =>
 * @return json
  */
 router.get('/restaurants/discover/:username', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     var formatted_path = req.path.replace(new RegExp("%20", 'g'), " ");
     console.log(formatted_path);
-    api.get(formatted_path)
+    api.get(formatted_path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)

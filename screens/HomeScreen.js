@@ -55,17 +55,31 @@ export default class HomeScreen extends React.Component {
 
     constructor(props) {
         super(props)
+
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'Blah');
+        const access_token = navigation.getParam('access_token', 'Blah');
+        const refresh_token = navigation.getParam('refresh_token', 'Blah');
+        console.log(username);
+
         this.state =
             {
                 markers : restList,
                 dropdownlist : ['',''],
+                username: username,
+                access_token: access_token,
+                refresh_token: refresh_token,
             }
     };
 
 popList = (index) => {
     var tList = [];
     //console.log(index);
-    fetch ('http://10.0.2.2:8000/maps/Bob')
+    fetch (`http://localhost:3000/maps/${this.state.username}`, {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+    })
     .then((response) => response.json())
     .then((resData) => {
         //console.log(resData.maps[0].restaurants);
@@ -78,7 +92,11 @@ popList = (index) => {
 
 getmaps = ()=> {
     var dropdownv = [];
-    fetch('http://10.0.2.2:8000/maps/Bob')
+    fetch(`http://localhost:3000/maps/${this.state.username}`, {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+    })
         .then((response) => response.json())
         .then((resData) => {
             for (var i = 0; i < resData.maps.length; i++) {

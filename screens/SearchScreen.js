@@ -10,13 +10,23 @@ export default class SearchScreen extends React.Component {
     static navigationOptions = {
         title: 'Search for Restaurants',
     };
+
+
+
     constructor(props) {
         super(props);
+
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'Blah');
+        const access_token = navigation.getParam('access_token', 'Blah');
+        const refresh_token = navigation.getParam('refresh_token', 'Blah');
+        console.log(access_token);
+
         this.state = {
             loading: false,
             data: [],
             currentDataList: [],
-            defaultUser: "jamie",
+            defaultUser: username,
             userMaps: [],
             error: null,
             value: '',
@@ -28,15 +38,22 @@ export default class SearchScreen extends React.Component {
             confirmDialogVisible: false,
             temporaryMapName: '',
             temporaryRestaurantId: null,
+            access_token: access_token,
+            refresh_token: refresh_token,
         };
     }
 
     componentDidMount(){
       console.log('HEILLO');
-      fetch ('http://localhost:3000/restaurants')
+
+      fetch ('http://localhost:3000/restaurants',{
+          method: 'GET',
+          mode: 'no-cors',
+          headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+      })
       .then((response) => response.json())
       .then((resData) => {
-        // console.log(resData.restaurants);
+        console.log(resData.restaurants);
         this.setState({data: resData.restaurants});
       })
 
@@ -46,7 +63,12 @@ export default class SearchScreen extends React.Component {
     getMapsForUser = () => {
       let url = 'http://localhost:3000/maps/name/' + this.state.defaultUser;
       console.log(url);
-      fetch(url)
+      var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
+      fetch(url, {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: header
+      })
       .then((response) => response.json())
       .then((resData) => {
       this.setState({userMaps: resData.map_names});
@@ -57,7 +79,11 @@ export default class SearchScreen extends React.Component {
     getRestaurantId = () => {
       let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.restaurant_name + '/' + this.state.modalData.address;
       console.log(url);
-      fetch(url)
+      fetch(url, {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+      })
       .then((response) => response.json())
       .then((resData) => {this.setState({temporaryRestaurantId: resData.id});
       })
@@ -67,12 +93,14 @@ export default class SearchScreen extends React.Component {
     addToExistingMap = (map) => {
       console.log(map);
       console.log(this.state.temporaryRestaurantId);
+      var header = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '.concat(this.state.access_token)
+      };
       fetch('http://localhost:3000/maps/contain', {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        headers: header,
         body: JSON.stringify({
           mapname: map,
           restaurant_id: this.state.temporaryRestaurantId,
@@ -99,6 +127,7 @@ export default class SearchScreen extends React.Component {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer '.concat(this.state.access_token)
         },
         body: JSON.stringify({
           username: this.state.defaultUser,
@@ -193,6 +222,7 @@ export default class SearchScreen extends React.Component {
               </View>
             );
           }
+
           return (
             <View>
               <Modal

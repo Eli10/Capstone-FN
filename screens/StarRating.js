@@ -25,10 +25,19 @@ var textwid = MAXWstar - 20;
 export default class App extends Component {
     constructor(props) {
         super(props);
+
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'Blah');
+        const access_token = navigation.getParam('access_token', 'Blah');
+        const refresh_token = navigation.getParam('refresh_token', 'Blah');
+
         this.state = {
             generalStarCount: 0,
             customStarCount: 0,
             wordcount: '',
+            username: username,
+            access_token: access_token,
+            refresh_token: refresh_token,
             Reviews: [
             {
                 "username": "Eli",
@@ -110,9 +119,17 @@ export default class App extends Component {
         {cancelable: false},);
 
         if(x == 100)
-        {this.props.navigation.navigate('Maps')}
+        {this.props.navigation.navigate('Maps', {
+            username: this.state.username,
+            access_token: this.state.access_token,
+            refresh_token: this.state.refresh_token
+        })}
         else
-        {this.props.navigation.navigate('Friends')}}
+        {this.props.navigation.navigate('Friends', {
+            username: this.state.username,
+            access_token: this.state.access_token,
+            refresh_token: this.state.refresh_token
+        })}}
 
 
         render() {
@@ -232,4 +249,3 @@ const styles = StyleSheet.create({
         borderRadius:10,
 
     }});
-

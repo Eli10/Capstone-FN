@@ -19,6 +19,7 @@ const api = apiAdapter(LOCAL_BASE_URL)
 */
 router.post('/users/register', (req, res) => {
     var json_data = req.body;
+    json_data['headers'] = req.headers;
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
@@ -41,6 +42,7 @@ router.post('/users/register', (req, res) => {
 */
 router.post('/users/login', (req, res) => {
     var json_data = req.body;
+    json_data['headers'] = req.headers;
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
@@ -63,6 +65,7 @@ router.post('/users/login', (req, res) => {
 */
 router.post('/users/follows', (req, res) => {
     var json_data = req.body;
+    json_data['headers'] = req.headers;
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
@@ -85,6 +88,7 @@ router.post('/users/follows', (req, res) => {
 */
 router.get('/users/restaurant/search/:restaurant_name', (req, res) => {
     var json_data = req.body;
+    json_data['headers'] = req.headers;
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
@@ -129,7 +133,9 @@ router.get('/users/resfresh_token', (req, res) => {
 */
 router.get('/users/list', (req, res) => {
     var json_data = req.body;
+    json_data['headers'] = req.headers;
     console.log(json_data);
+    console.log(req.headers);
     console.log(typeof json_data);
     console.log(req.path);
     //Making axios request to service

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator, NavigationActions } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 //import TabBarIcon2 from '../components/TabBarIcon2';
@@ -16,9 +16,9 @@ import Maps from '../screens/HomeScreen';
 import Ratings from '../screens/StarRating';
 import FindFriendsScreen from '../screens/FindFriendsScreen';
 
-const HomeStack = createStackNavigator({
+const HomeStack = createSwitchNavigator({
 
-  Maps: HomeScreen,
+  Maps: {screen: HomeScreen},
   Star: { screen: Ratings },
 });
 
@@ -37,14 +37,14 @@ HomeStack.navigationOptions = {
     ),
 };
 
-const backtomap= createStackNavigator ({
+const backtomap= createSwitchNavigator ({
 
     Star: {screen: Ratings},
     Maps: { screen: HomeScreen},
     },
 );
 
-const FriendStack = createStackNavigator({
+const FriendStack = createSwitchNavigator({
     Friends: {screen: FriendScreen},
     Star: {screen: Ratings}
 });
@@ -59,7 +59,7 @@ FriendStack.navigationOptions = {
     ),
 };
 
-const SearchStack = createStackNavigator({
+const SearchStack = createSwitchNavigator({
     Search: SearchScreen,
 });
 
@@ -74,8 +74,8 @@ SearchStack.navigationOptions = {
 };
 
 //SETTINGS NEED TO BE EDITED PLS SEE DISCOVERSCREEEN.JS IN SCREENS FOLDER
-const DiscoverStack = createStackNavigator({
-    Settings: DiscoverScreen,
+const DiscoverStack = createSwitchNavigator({
+    Discover: DiscoverScreen,
 });
 
 DiscoverStack.navigationOptions = {
@@ -89,8 +89,8 @@ DiscoverStack.navigationOptions = {
 };
 
 //SETTINGS NEED TO BE EDITED PLS SEE FINDFRIENDSSCREEN.JS IN SCREENS FOLDER
-const FindFriendsStack = createStackNavigator({
-    Settings: FindFriendsScreen,
+const FindFriendsStack = createSwitchNavigator({
+    FindFriends: FindFriendsScreen,
 });
 
 FindFriendsStack.navigationOptions = {
@@ -104,11 +104,8 @@ FindFriendsStack.navigationOptions = {
     ),
 };
 
-//SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
-const ProfileStack = createStackNavigator({
-    Home: { screen: Login},
-    ProfilePage: { screen: ProfilePage },
-    RegisterPage: { screen: RegisterPage }
+const ProfileStack = createSwitchNavigator({
+    Profile: ProfilePage,
 }, {
     navigationOptions: {
         header: false,
@@ -125,14 +122,43 @@ ProfileStack.navigationOptions = {
     ),
 };
 
+//SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
+const LoginStack = createStackNavigator({
+    Home: { screen: Login},
+    RegisterPage: { screen: RegisterPage }
+}, {
+    navigationOptions: {
+        header: false,
+    }
+});
 
-export default createBottomTabNavigator({
+LoginStack.navigationOptions = {
+    tabBarLabel: 'Login',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? "ios-person" : "ios-person"}
+        />
+    ),
+};
+
+const AllOtherStacks = createBottomTabNavigator({
     HomeStack,
     FriendStack,
     SearchStack,
     DiscoverStack,
-    FindFriendsStack,
-    ProfileStack
-},
+    ProfileStack,
+    FindFriendsStack
+}, {
+  initialRouteName: 'ProfileStack',
+  lazy: true
+});
 
-    );
+
+export default createStackNavigator({
+  LoginStack,
+  AllOtherStacks
+}, {
+  initialRouteName: 'LoginStack',
+  lazy: false
+});

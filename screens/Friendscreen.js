@@ -26,22 +26,7 @@ for(var i = 0; i < RestaurantList.length; i++)
   listnames.push(RestaurantList[i].listname);
 }
 
-var friendDD = [];
-fetch ('http://10.0.2.2:8000/maps/follow/Bob')
-    .then((response) => response.json())
-.then((frenData) => {
 
-//console.log(frenData)
-for(var i = 0; i < frenData.maps.length; i++)
-{
-  friendDD.push(frenData.maps[i].name);
-}
-//console.log(friendDD.length);
-
-
-})
-.catch((error) => console.log(error))
-.done();
 
 console.disableYellowBox = true;
 
@@ -51,18 +36,59 @@ export default class FriendScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'Blah');
+    const access_token = navigation.getParam('access_token', 'Blah');
+    const refresh_token = navigation.getParam('refresh_token', 'Blah');
+
     this.state =
         {
-          markers2 : []
+          markers2 : [],
+          username: username,
+          access_token: access_token,
+          refresh_token: refresh_token,
+          friendsMaps: [],
         }
   };
 
+  componentWillMount() {
+    this.getFriends();
+  }
+
+  getFriends = () => {
+    var friendDD = [];
+    fetch (`http://localhost:3000/maps/follow/${this.state.username}`,
+      {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+        })
+    .then((response) => response.json())
+    .then((frenData) => {
+
+      console.log(frenData)
+      for(var i = 0; i < frenData.maps.length; i++)
+      {
+        friendDD.push(frenData.maps[i].name);
+      }
+      //console.log(friendDD.length);
+      this.setState({friendsMaps : friendDD});
+
+    })
+    .catch((error) => console.log(error))
+    .done();
+  }
+
   popList2 = (index) => {
     var tempList = [];
-    let url = "http://10.0.2.2:8000/maps/follow/Bob";
+    let url = `http://localhost:3000/maps/follow/${this.state.username}`;
     console.log(index);
     console.log(url);
-    fetch(url)
+    fetch(url, {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+      })
     .then((response) => response.json())
     .then((resData2) => {
     // console.log(resData2.maps[index].restaurants);
@@ -80,15 +106,16 @@ export default class FriendScreen extends React.Component {
 
     const {navigate} = this.props.navigation;
 
+
     return (
       <View style={styles.container}>
 
         <ModalDropdown
             defaultValue = 'Please select a List'
             style = {styles.MD}
-            options = {friendDD}
+            options = {this.state.friendsMaps}
             onSelect={(index, value) => {this.popList2(index)}}
-            dropdownStyle = {{ height: 35 * friendDD.length}}
+            dropdownStyle = {{ height: 35 * this.state.friendsMaps.length}}
         />
 
 

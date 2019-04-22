@@ -16,6 +16,8 @@ import {
 	} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
+import { NavigationActions } from "react-navigation";
+
 
 export default class Login extends React.Component {
     constructor(props)    {
@@ -26,15 +28,15 @@ export default class Login extends React.Component {
             value: null,
         }
     }
-    componentDidMount() {
-        this._loadInitalState().done;
-    }
-    _loadInitalState = async () => {
-        var value=await AsyncStorage.getItem('user');
-        if (value !== null) {
-            this.props.navigation.navigate('ProfilePage');
-        }
-    }
+    // componentDidMount() {
+    //     this._loadInitalState().done;
+    // }
+    // _loadInitalState = async () => {
+    //     var value=await AsyncStorage.getItem('user');
+    //     if (value !== null) {
+    //         this.props.navigation.navigate('ProfilePage');
+    //     }
+    // }
     render() {
 	    return (
             <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
@@ -68,6 +70,7 @@ export default class Login extends React.Component {
             </KeyboardAvoidingView>
  	    );
 	}
+
   login = () => {
 
       fetch('http://localhost:3000/users/login', {
@@ -82,13 +85,51 @@ export default class Login extends React.Component {
           })
       })
          .then( (res) => {
+
            console.log(res.status)
            if (res.status < 400) {
              Alert.alert("Login Successful");
-             this.props.navigation.navigate('ProfilePage', {username: this.state.username});
+             // this.props.navigation.navigate('ProfilePage', {username: this.state.username});
            }
-         })
+            return res.json()
+          })
+           // console.log(res.status)
+           // if (res.status < 400) {
+           //   // console.log(res.json())
+           //   Alert.alert();
+           //   this.props.navigation.navigate('ProfilePage', {username: this.state.username});
+           // }
+         .then((resData) => {
+           console.log(resData)
+           this.props.navigation.setParams({
+            test: 'From Loggingin Page'
+          });
 
+           // this.props.navigation.navigate('AllOtherStacks', {
+           //   username: this.state.username,
+           //   access_token: resData['access_token'],
+           //   refresh_token: resData['refresh_token']
+           // });
+
+           this.props.navigation.navigate({
+              routeName: "AllOtherStacks",
+              params: { username: this.state.username,
+              access_token: resData['access_token'],
+              refresh_token: resData['refresh_token'] }
+            });
+
+          //  this.props.navigation.navigate(NavigationActions.navigate({
+          //     routeName: 'AllOtherStacks',
+          //     params: {
+          //         username: this.state.username,
+          //         access_token: resData['access_token'],
+          //         refresh_token: resData['refresh_token']
+          //     }
+          //   }
+          // ));
+
+
+         })
   }
 }
 
