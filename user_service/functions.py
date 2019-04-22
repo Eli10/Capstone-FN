@@ -1,5 +1,5 @@
 from Users import User
-from flask import Flask, request, json, session, render_template, redirect, url_for
+from flask import Flask, request, json, session, render_template, redirect, url_for, request
 from flask_restful import Resource, Api
 
 from flask_jwt_extended import JWTManager
@@ -108,6 +108,7 @@ class FindFriends(Resource):
     """
 	@jwt_required
 	def get(self):
+		print(request.headers)
 		users = User.all_users()
 		return {'users': users}, 200
 

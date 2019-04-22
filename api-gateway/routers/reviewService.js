@@ -19,11 +19,12 @@ const api = apiAdapter(LOCAL_BASE_URL)
 */
 router.post('/reviews', (req, res) => {
     var json_data = req.body;
+    var headers = {'headers': req.headers};
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
     //Making axios request to service
-    api.post(req.path, json_data)
+    api.post(req.path, json_data, headers)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -41,8 +42,10 @@ router.post('/reviews', (req, res) => {
 */
 router.get('/reviews/restaurant/:restaurant_id', (req, res) => {
     //Making axios request to service
+    var json_data = {};
+    json_data['headers'] = req.headers;
     console.log(req.path);
-    api.get(req.path)
+    api.get(req.path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
@@ -59,9 +62,11 @@ router.get('/reviews/restaurant/:restaurant_id', (req, res) => {
 * @return json
 */
 router.get('/reviews/user/:username', (req, res) => {
+    var json_data = {};
+    json_data['headers'] = req.headers;
     //Making axios request to service
     console.log(req.path);
-    api.get(req.path)
+    api.get(req.path, json_data)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)

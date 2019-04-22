@@ -3,6 +3,7 @@ import { ExpoConfigView } from '@expo/samples';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, List} from 'react-native';
 import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import axios from 'axios';
 
 export default class FindFriendsScreen extends React.Component {
     static navigationOptions = {
@@ -14,9 +15,31 @@ export default class FindFriendsScreen extends React.Component {
             tempFriends: [
                 {"first": "Jasmine", "last": "Wong"},
                 {"first": "Bob", "last": "Malone"},
-                {"first": "Mikey", "last": "Lehman"},      
+                {"first": "Mikey", "last": "Lehman"},
             ]
         };
+    }
+
+
+    componentDidMount(){
+      console.log('HEILLO');
+      const { navigation } = this.props;
+      const username = navigation.getParam('username', 'Blah');
+      const access_token = navigation.getParam('access_token', 'Blah');
+      const refresh_token = navigation.getParam('refresh_token', 'Blah');
+      console.log(access_token);
+
+      fetch ('http://localhost:3000/users/list', {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: { 'Authorization': 'Bearer '.concat(access_token) }
+      })
+      .then((response) => response.json())
+      .then((resData) => {
+        console.log(resData.users);
+        this.setState({tempFriends: resData.users});
+      })
+      .catch((error) => console.log(error))
     }
 
     renderSeparator = () => {
@@ -41,7 +64,7 @@ export default class FindFriendsScreen extends React.Component {
 
                        <TouchableOpacity onPress={() => {console.log('hello')}}>
                         <View>
-                          <Text style={styles.name}>{item.first} {item.last}</Text>
+                          <Text style={styles.name}>{item.username}</Text>
                           <Button style={styles.btn}
                             icon={
                               <Icon
@@ -60,7 +83,7 @@ export default class FindFriendsScreen extends React.Component {
                       }
                       ItemSeparatorComponent={this.renderSeparator}
                     />
-           </View> 
+           </View>
         )
     }
 }
@@ -84,14 +107,14 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderColor: 'blue'
       },
-      
+
     icon: {
         position: 'absolute',
         left:18,
         top:9,
         fontSize:30,
       },
-      
+
       wrapper: {
         padding:5,
       }

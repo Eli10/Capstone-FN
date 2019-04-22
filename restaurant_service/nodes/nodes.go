@@ -1,7 +1,7 @@
 package nodes
 
 import "os"
- 
+
 /**
 * For Local access to Neo4j instance use
 * NEO4J_GO_LANG_LOCAL_DB_CREDS variable
@@ -14,7 +14,7 @@ import "os"
 * Database Statments used for querying and execution.
 */
 
-var URI string = os.Getenv("NEO4J_GO_LANG_HEROKU_DB_CREDS")
+var URI string = os.Getenv("NEO4J_GO_LANG_LOCAL_DB_CREDS")
 
 const (
 	GetRestaurants 								 	= "MATCH (res:Restaurant) RETURN res"

@@ -39,6 +39,8 @@ var mySigningKey = []byte(envKey)
 func isAuthorized(endpoint func(http.ResponseWriter, *http.Request)) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
+				fmt.Println(r.Header)
+
         if r.Header["Authorization"] != nil {
 
 						authorization_values := r.Header["Authorization"][0]
