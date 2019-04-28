@@ -115,7 +115,7 @@ func GetRestaurantIdHandler(w http.ResponseWriter, r *http.Request) {
 */
 func GetDiscoveredRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 	var user types.User
-	var res types.Restaurant
+	var resList types.RestaurantList
 	params := mux.Vars(r)
 	user.Username = params["username"]
 	con := helpers.CreateConnection()
@@ -126,11 +126,27 @@ func GetDiscoveredRestaurantHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(results)
 
 	for _, l := range results.([][]interface{}) {
-		// data := l[0].(graph.Node)
-		fmt.Println(l[0])
-		res = helpers.CreateRestaurant(l[0])
+		fmt.Println(l)
+		fmt.Printf("Type of Results %T\n", l)
 
+		for _, r := range l {
+			restuatant_node := r.(graph.Node)
+			restaurant_data := restuatant_node.Properties
+			fmt.Println("DATA", restaurant_data)
+			fmt.Printf("Type of the Data: %T\n", restaurant_data)
+			resList.RestaurantList = append(resList.RestaurantList, types.Restaurant{
+												Name: restaurant_data["name"].(string),
+												Address: restaurant_data["address"].(string),
+												Lat: restaurant_data["lat"].(float64),
+												Lon: restaurant_data["lon"].(float64)})
+		}
 	}
-	json.NewEncoder(w).Encode(res)
+
+	if (len(resList.RestaurantList) == 0) {
+		var noRestaurant []types.Restaurant
+		resList.RestaurantList = noRestaurant
+	}
+
+	json.NewEncoder(w).Encode(resList)
 
 }

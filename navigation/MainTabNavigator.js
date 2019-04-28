@@ -123,7 +123,7 @@ ProfileStack.navigationOptions = {
 };
 
 //SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
-const LoginStack = createStackNavigator({
+const LoginStack = createSwitchNavigator({
     Home: { screen: Login},
     RegisterPage: { screen: RegisterPage }
 }, {
