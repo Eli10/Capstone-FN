@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 
 import { WebBrowser } from 'expo';
@@ -49,7 +50,7 @@ export default class DiscoverScreen extends React.Component {
 
   componentDidMount(){
     console.log('HEILLO');
-    fetch ('http://localhost:3000/restaurants', {
+    fetch ('http://localhost:3000/restaurants/discover/' + this.state.username, {
         method: 'GET',
         mode: 'no-cors',
         headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -66,6 +67,11 @@ export default class DiscoverScreen extends React.Component {
   getRestaurantNameList = () => {
     console.log('g');
     var restaurantNameList = [];
+
+    if (this.state.data == null) {
+      return []
+    }
+
     for (var i = 0; i < this.state.data.length; i++){
       var currentRestaurant = this.state.data[i];
       restaurantNameList.push(currentRestaurant.restaurant_name);
@@ -74,10 +80,10 @@ export default class DiscoverScreen extends React.Component {
     return restaurantNameList;
   }
 
-      popList = (index) => {
-        // console.log(this.state.data[index]);
-        this.setState({markers: this.state.data[index]});
-      }
+  popList = (index) => {
+    // console.log(this.state.data[index]);
+    this.setState({markers: this.state.data[index]});
+  }
 
   render() {
     // console.log(this.state.data);
@@ -85,7 +91,7 @@ export default class DiscoverScreen extends React.Component {
         <View style={styles.container}>
 
         <ModalDropdown
-    defaultValue = 'Please select a Randomly Generated Restaurant'
+    defaultValue = 'Here are Restuarants we selected for you'
     style = {styles.MD}
     options = {this.getRestaurantNameList()}
     showsVerticalScrollIndicator = {true}
@@ -119,27 +125,48 @@ export default class DiscoverScreen extends React.Component {
   }
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-    },
+        container: {
+            flex: 1,
+            backgroundColor: '#fff',
+            position: 'relative',
+        },
+        customView: {
+            width: 140,
+            height: 140,
+        },
 
-    MD : {
-      paddingBottom: 30,
-      alignItems: 'center',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      paddingTop: 30,
+        MD : {
+            justifyContent: 'center',
+            padding: 10,
+            backgroundColor: '#98FB98',
+            width: Dimensions.get('window').width,
+            position: 'absolute',
+            borderRadius: 12,
+        },
+        map: {
 
-    },
-    map: {
-      position: 'relative',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      height: 485,
-      width: 400,
-      paddingTop: 100,
-    },
-  });
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: Dimensions.get('window').height - 40,
+            width: Dimensions.get('window').width,
+            paddingTop: 100,
+            borderColor: 'black',
+            borderStyle: 'solid',
+            borderWidth: 5,
+            position: 'relative',
+            zIndex: -1
+        },
+            plainView: {
+            width: 'auto',
+            backgroundColor: 'white',
+            paddingHorizontal: 6,
+            paddingVertical: 6,
+            borderRadius: 12,
+            alignItems: 'center',
+            textAlign: 'center',
+            marginHorizontal: 10,
+            marginVertical: 10,
+            },
+    });
