@@ -11,28 +11,34 @@ export default class FindFriendsScreen extends React.Component {
     };
     constructor(props){
         super(props);
+
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'Blah');
+        const access_token = navigation.getParam('access_token', 'Blah');
+        const refresh_token = navigation.getParam('refresh_token', 'Blah');
+        console.log(username);
+
         this.state = {
-            tempFriends: [
-                {"first": "Jasmine", "last": "Wong"},
-                {"first": "Bob", "last": "Malone"},
-                {"first": "Mikey", "last": "Lehman"},
-            ]
+            tempFriends: [],
+            username: username,
+            access_token: access_token,
+            refresh_token: refresh_token,
         };
     }
 
 
     componentDidMount(){
       console.log('HEILLO');
-      const { navigation } = this.props;
-      const username = navigation.getParam('username', 'Blah');
-      const access_token = navigation.getParam('access_token', 'Blah');
-      const refresh_token = navigation.getParam('refresh_token', 'Blah');
-      console.log(access_token);
+      // const { navigation } = this.props;
+      // const username = navigation.getParam('username', 'Blah');
+      // const access_token = navigation.getParam('access_token', 'Blah');
+      // const refresh_token = navigation.getParam('refresh_token', 'Blah');
+      // console.log(access_token);
 
       fetch ('http://localhost:3000/users/list', {
           method: 'GET',
           mode: 'no-cors',
-          headers: { 'Authorization': 'Bearer '.concat(access_token) }
+          headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
       })
       .then((response) => response.json())
       .then((resData) => {
@@ -40,6 +46,28 @@ export default class FindFriendsScreen extends React.Component {
         this.setState({tempFriends: resData.users});
       })
       .catch((error) => console.log(error))
+    }
+
+    followNewFriend = (userToFollow) => {
+
+        console.log(`New friend to follow: ${userToFollow}`)
+
+        fetch ('http://localhost:3000/users/follows', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Authorization': 'Bearer '.concat(this.state.access_token),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                follows: userToFollow,
+            })
+        })
+        .then((response) => console.log(`Now Following: ${userToFollow}`))
+        .catch((error) => console.log(error))
+
     }
 
     renderSeparator = () => {
@@ -62,10 +90,11 @@ export default class FindFriendsScreen extends React.Component {
                       data={this.state.tempFriends}
                       renderItem={({ item }) =>
 
-                       <TouchableOpacity onPress={() => {console.log('hello')}}>
+                       <TouchableOpacity onPress={() => {console.log('Touched Button')}}>
                         <View>
                           <Text style={styles.name}>{item.username}</Text>
                           <Button style={styles.btn}
+                            onPress={() => { this.followNewFriend(item.username) }}
                             icon={
                               <Icon
                                 name="add-circle-outline"

@@ -65,12 +65,12 @@ router.post('/users/login', (req, res) => {
 */
 router.post('/users/follows', (req, res) => {
     var json_data = req.body;
-    json_data['headers'] = req.headers;
+    var headers = {'headers': req.headers};
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);
     //Making axios request to service
-    api.post(req.path, json_data)
+    api.post(req.path, json_data, headers)
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
