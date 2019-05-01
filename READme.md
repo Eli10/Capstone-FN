@@ -61,6 +61,7 @@ Users
 - POST /users/follow
 - GET /users/restaurant/search/{restaurant_name}
 - GET /users/list
+- GET /users/friends/{username}
 - GET /users/hello (TEST)
 
 Map

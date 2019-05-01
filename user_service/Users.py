@@ -115,10 +115,24 @@ class User:
 		for r in results:
 			res_dict = {}
 			res_dict.update(r['geometry']['location'])
-			res_dict.update({'name': r['name'], 'address': r['vicinity']})
+			print(res_dict)
+			res_dict["lon"] = res_dict.pop("lng")
+			res_dict.update({'restaurant_name': r['name'], 'address': r['vicinity']})
 			print(res_dict)
 			search_results.append(res_dict)
-
-			restaurant_node = Node("Restaurant", name=res_dict['name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lng'])
+			restaurant_node = Node("Restaurant", restaurant_name=res_dict['restaurant_name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lon'])
 			graph.create(restaurant_node)
 		return search_results
+
+	"""Class Method returns all user nodes connected to a iser
+
+    :returns: list of usernames
+    """
+	def return_friends(self):
+		results = graph.data("MATCH (u:User {username:'"+self.username+"'})-[:FOLLOWS]-(u1:User) return u1.username as username")
+
+		if results == None or results == []:
+			return []
+		else:
+			cleaned_results = [u["username"] for u in results]
+			return cleaned_results
