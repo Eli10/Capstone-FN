@@ -11,7 +11,7 @@ import json
 #
 
 #For Connecting to local host instance
-graph = Graph(bolt=True, host="127.0.0.1", user="neo4j", password="12345")
+graph = Graph(bolt=True, host=os.environ.get("NEO4J_PYTHON_HOST", 'n/a'), user=os.environ.get("NEO4J_PYTHON_USER", 'n/a'), password=os.environ.get("NEO4J_PYTHON_PASS", 'n/a'))
 
 # For Connecting to EC2 instance
 # authenticate("52.91.176.33:7473", "neo4j", "i-0b894b0a765ce3877")

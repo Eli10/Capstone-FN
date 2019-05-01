@@ -108,6 +108,9 @@ Credentials are not stored in plain-text anymore. For each service locally you h
 
 - JWT_SECRET_KEY
 - GOOGLE_MAPS_API_KEY
+- NEO4J_PYTHON_HOST
+- NEO4J_PYTHON_USER
+- NEO4J_PYTHON_PASS
 
 **Already Set By Heroku**
 - GRAPHENEDB_BOLT_URL
