@@ -117,10 +117,10 @@ class User:
 			res_dict.update(r['geometry']['location'])
 			print(res_dict)
 			res_dict["lon"] = res_dict.pop("lng")
-			res_dict.update({'restaurant_name': r['name'], 'address': r['vicinity']})
+			res_dict.update({'name': r['name'], 'address': r['vicinity']})
 			print(res_dict)
 			search_results.append(res_dict)
-			restaurant_node = Node("Restaurant", restaurant_name=res_dict['restaurant_name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lon'])
+			restaurant_node = Node("Restaurant", name=res_dict['name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lon'])
 			graph.create(restaurant_node)
 		return search_results
 

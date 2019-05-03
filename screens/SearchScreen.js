@@ -76,7 +76,7 @@ export default class SearchScreen extends React.Component {
     }
 
     getRestaurantId = () => {
-      let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.restaurant_name + '/' + this.state.modalData.address;
+      let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -160,8 +160,12 @@ export default class SearchScreen extends React.Component {
             value: text,
         });
 
+        console.log("Suppose to change state");
+        console.log(text);
+        console.log(this.state.data);
+
         const newData = this.state.data.filter(item => {
-          const itemData = `${item.restaurant_name.toUpperCase()}`;
+          const itemData = `${item.name.toUpperCase()}`;
           // const itemData = `${item.name.toUpperCase()} ${item.type.toUpperCase()}`;
           const textData = text.toUpperCase();
           return itemData.includes(textData);
@@ -173,7 +177,7 @@ export default class SearchScreen extends React.Component {
     };
 
     searchForRestaurant = (resName) => {
-        var resNameList = this.state.data.map(res => res.restaurant_name);
+        var resNameList = this.state.data.map(res => res.name);
 
         isRestaurantInList = resNameList.includes(resName);
 
@@ -257,7 +261,7 @@ export default class SearchScreen extends React.Component {
                  onRequestClose={ () => { this.ShowModal(!this.state.ModalVisible)} } >
                  <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                   <View>
-                     <Text style={styles.restaurant_name}>{this.state.modalData.restaurant_name}</Text>
+                     <Text style={styles.restaurant_name}>{this.state.modalData.name}</Text>
                     <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
 
 
@@ -314,7 +318,7 @@ export default class SearchScreen extends React.Component {
 
                 <TouchableOpacity onPress={() => { this.onPressShow(item) }}>
                   <View>
-                    <Text style={styles.restaurant_name}>{item.restaurant_name}</Text>
+                    <Text style={styles.restaurant_name}>{item.name}</Text>
                     <Text style={styles.resaturant_address}> Address: {item.address}</Text>
 
                   </View>

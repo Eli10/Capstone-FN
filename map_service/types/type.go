@@ -71,7 +71,7 @@ type MapRestaurantRelationship struct {
 * Object representing a Restuarant
 */
 type Restaurant struct {
-	Name 		string `json:"restaurant_name"`
+	Name 		string `json:"name"`
 	Address string `json:"address"`
 	Lat 		float64 	`json:"lat,omitempty"`
 	Lon 		float64 	`json:"lon,omitempty"`
