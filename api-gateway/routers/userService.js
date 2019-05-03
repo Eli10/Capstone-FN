@@ -109,8 +109,9 @@ router.get('/users/restaurant/search/:restaurant_name', (req, res) => {
 * @param httpRequestObject  This is the second parameter to http method
 * @return json
 */
-router.get('/users/resfresh_token', (req, res) => {
+router.get('/users/refresh-token', (req, res) => {
     var json_data = req.body;
+    json_data['headers'] = req.headers;
     console.log(json_data);
     console.log(typeof json_data);
     console.log(req.path);

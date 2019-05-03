@@ -150,9 +150,9 @@ render() {
             description={shop.address} >
 
             <MapView.Callout style={styles.plainView}
-             tooltip onPress={() => navigate('Star', {restname: shop.restaurant_name, PAGEID: pageID0})}>
+             tooltip onPress={() => navigate('Star', {restname: shop.name, PAGEID: pageID0})}>
                 <View styles={{textAlign: 'center',}}>
-                <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
+                <Text>{shop.name}{"\n"}{shop.address}</Text>
                 </View>
             </MapView.Callout>
         </MapView.Marker>

@@ -14,16 +14,28 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import {StackNavigator} from 'react-navigation';
+const timer = require('react-native-timer');
+
+
 
 export default class ProfilePage extends React.Component {
         constructor(props) {
             super(props);
+
+            const { navigation } = this.props;
+            const username = navigation.getParam('username', 'Blah');
+            const access_token = navigation.getParam('access_token', 'Blah');
+            const refresh_token = navigation.getParam('refresh_token', 'Blah');
+
+            {console.log("Profile Params")};
+            {console.log(this.props.navigation.state.params)};
+
             this.state={
                 fname: '',
                 lname: '',
-                username: '',
-                access_token: '',
-                refresh_token: ''
+                username: username,
+                access_token: access_token,
+                refresh_token: refresh_token
             }
         }
 
@@ -32,21 +44,39 @@ export default class ProfilePage extends React.Component {
     this.props.navigation.navigate("Home");
   }
 
+  componentDidMount() {
+    timer.setInterval(this, 'request-new-token', () => {
+      console.log("need new token");
+      this.getNewAccessToken()
+    }, 720000)
+  }
+
+  componentWillUnmount() {
+    timer.clearTimeout(this);
+  }
+
+  getNewAccessToken = () => {
+    console.log("getting new access token")
+    fetch ('http://localhost:3000/users/refresh-token', {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: { 'Authorization': 'Bearer '.concat(this.state.refresh_token) }
+    })
+    .then((response) => response.json())
+    .then((resData) => {
+      this.setState({access_token: resData.access_token});
+      this.props.navigation.setParams({access_token: resData.access_token})
+      console.log(this.state.access_token)
+    })
+    .catch((error) => console.log(error))
+  }
+
   render() {
-    const { navigation } = this.props;
-    const name = navigation.getParam('username', 'Blah');
-    const access_token = navigation.getParam('access_token', 'Blah');
-    const refresh_token = navigation.getParam('refresh_token', 'Blah');
-
-    {console.log("Profile Params")};
-    {console.log(this.props.navigation.state.params)};
-
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-         {console.log(name)}
-         <Text> Hello {name} </Text>
-         <Text> Access Token  {access_token} </Text>
+         <Text> Hello {this.state.username} </Text>
+         <Text> Access Token  {this.state.access_token} </Text>
 
          <Button
               onPress={this.logoutToLogin}

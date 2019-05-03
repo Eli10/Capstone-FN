@@ -57,7 +57,7 @@ Ex) Correct -> http://localhost:3000/login
 Users
 - POST /users/register
 - POST /users/login
-- GET /users/refresh_token
+- GET /users/refresh-token
 - POST /users/follow
 - GET /users/restaurant/search/{restaurant_name}
 - GET /users/list

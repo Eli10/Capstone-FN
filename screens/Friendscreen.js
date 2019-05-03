@@ -134,14 +134,14 @@ export default class FriendScreen extends React.Component {
     <MapView.Marker
       coordinate={{latitude: shop.lat,
         longitude: shop.lon}}
-      title={shop.restaurant_name}
+      title={shop.name}
       description={shop.address}
       >
 
       <MapView.Callout style={styles.plainView}
                        tooltip onPress={() => navigate('Star', {PAGEID: pageID1})}>
         <View styles={{textAlign: 'center',}}>
-          <Text>{shop.restaurant_name}{"\n"}{shop.address}</Text>
+          <Text>{shop.name}{"\n"}{shop.address}</Text>
         </View>
       </MapView.Callout>
     </MapView.Marker>
