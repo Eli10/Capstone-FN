@@ -15,18 +15,22 @@ import {FlatList,
 
 import StarRating from 'react-native-star-rating';
 import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
-
-
+import Icon from "react-native-vector-icons/Ionicons";
+import {Rating, AirbnbRating } from 'react-native-elements';
 
 var {MAXHstar, MAXWstar} = Dimensions.get('window');
 var textheight = MAXHstar / 4;
 var textwid = MAXWstar - 20;
 
+
+
+
+
 export default class App extends Component {
     constructor(props) {
         super(props);
 
-        const { navigation } = this.props;
+        const {navigation} = this.props;
         const username = navigation.getParam('username', 'Blah');
         const access_token = navigation.getParam('access_token', 'Blah');
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
@@ -38,58 +42,59 @@ export default class App extends Component {
             username: username,
             access_token: access_token,
             refresh_token: refresh_token,
+            newRating: "",
             Reviews: [
-            {
-                "username": "Eli",
-                "rating": 2,
-                "review": "hated the apple pies"
-            },
-            {
-                "username": "Bob",
-                "rating": 4,
-                "review": "Liked the apple pies"
-            },
-            {
-                "username": "Sarah",
-                "rating": 3,
-                "review": "asasdsdasdasd"
-            },
-            {
-                "username": "Kermit",
-                "rating": 5,
-                "review": "adasdasdasdasdasdasdasd"
-            },
-            {
-                "username": "Paul",
-                "rating": 2,
-                "review": "dsafdsfldsfnsdklfdf"
-            },
-            {
-                "username": "Julie",
-                "rating": 2,
-                "review": "asfadsfsdfjnsdfsdklfmfsd"
-            },
-            {
-                "username": "Opie",
-                "rating": 1,
-                "review": "sadlmdsflksdnfn"
-            },
-            {
-                "username": "Jamal",
-                "rating": 1,
-                "review": "sasDSADSADLSAD"
-            },
-            {
-                "username": "Elie",
-                "rating": 3,
-                "review": "asdasdnlkasdn"
-            },
-            {
-                "username": "Jake",
-                "rating": 4,
-                "review": "ajskdklasdnlasdn"
-            }
-        ]
+                {
+                    "username": "Eli",
+                    "rating": 2,
+                    "review": "hated the apple pies"
+                },
+                {
+                    "username": "Bob",
+                    "rating": 4,
+                    "review": "Liked the apple pies"
+                },
+                {
+                    "username": "Sarah",
+                    "rating": 3,
+                    "review": "asasdsdasdasd"
+                },
+                {
+                    "username": "Kermit",
+                    "rating": 5,
+                    "review": "adasdasdasdasdasdasdasd"
+                },
+                {
+                    "username": "Paul",
+                    "rating": 2,
+                    "review": "dsafdsfldsfnsdklfdf"
+                },
+                {
+                    "username": "Julie",
+                    "rating": 2,
+                    "review": "asfadsfsdfjnsdfsdklfmfsd"
+                },
+                {
+                    "username": "Opie",
+                    "rating": 1,
+                    "review": "sadlmdsflksdnfn"
+                },
+                {
+                    "username": "Jamal",
+                    "rating": 1,
+                    "review": "sasDSADSADLSAD"
+                },
+                {
+                    "username": "Elie",
+                    "rating": 3,
+                    "review": "asdasdnlkasdn"
+                },
+                {
+                    "username": "Jake",
+                    "rating": 4,
+                    "review": "ajskdklasdnlasdn"
+                }
+            ]
         };
     }
 
@@ -106,45 +111,51 @@ export default class App extends Component {
         });
     }
 
+    storeText = (text) => {
+        this.setState({newRating: text});
+        console.log(this.newRating);
+    }
+
+    SavedRating = (x) => {
+        console.log(newRating);
+        Alert.alert(
+            "Rating Saved",
+            "Your Rating and Review has been submitted and will be added to this Restaurant's list of reviews",
+            [
 
 
-    SavedRating = (x) => {Alert.alert(
-        "Rating Saved",
-        "Your Rating and Review has been submitted and will be added to this Restaurant's list of reviews",
-        [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},);
+
+        if (x == 100) {
+            this.props.navigation.navigate('Maps', {
+                username: this.state.username,
+                access_token: this.state.access_token,
+                refresh_token: this.state.refresh_token
+            })
+        } else {
+            this.props.navigation.navigate('Friends', {
+                username: this.state.username,
+                access_token: this.state.access_token,
+                refresh_token: this.state.refresh_token
+            })
+        }
+    }
 
 
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        {cancelable: false},);
+    render() {
 
-        if(x == 100)
-        {this.props.navigation.navigate('Maps', {
-            username: this.state.username,
-            access_token: this.state.access_token,
-            refresh_token: this.state.refresh_token
-        })}
-        else
-        {this.props.navigation.navigate('Friends', {
-            username: this.state.username,
-            access_token: this.state.access_token,
-            refresh_token: this.state.refresh_token
-        })}}
-
-
-        render() {
-
-        const { navigation } = this.props;
-        const resName  = navigation.getParam('restname');
-        const pageCode  = navigation.getParam('PAGEID');
-
+        const {navigation} = this.props;
+        const resName = navigation.getParam('restname');
+        const pageCode = navigation.getParam('PAGEID');
 
 
         return (
             <View style={styles.container}>
 
 
-                <Text style={styles.rating}>  Submit a Rating, Leave a Review! </Text>
+                <Text style={styles.rating}> Submit a Rating, Leave a Review! </Text>
 
 
                 <StarRating
@@ -165,15 +176,16 @@ export default class App extends Component {
                 />
                 <TextInput
                     // Inherit any props passed to it; e.g., multiline, numberOfLines below
-                    editable = {true}
-                    maxLength = {130}
-                    style = {styles.inputbox}
-                    placeholder = 'Enter Text Here, Press the Button Below to Submit'
-                    multiline = {true}
+                    editable={true}
+                    maxLength={130}
+                    style={styles.inputbox}
+                    placeholder='Enter Text Here, Press the Button Below to Submit'
+                    multiline={true}
                     onChangeText={(wordcount) => this.setState({wordcount})}
 
+
                 />
-                <Text>
+                <Text color={'white'}>
                     Characters Remaining: {130 - this.state.wordcount.length}/130
                 </Text>
                 <Text> {"\n"} </Text>
@@ -182,18 +194,32 @@ export default class App extends Component {
 
                         title="Press to Save Rating"
                         color="#DC143C"
-                        onPress={() => {this.SavedRating(pageCode)}}
+                        onPress={() => {
+                            this.SavedRating(pageCode)
+                        }}
 
                 />
                 <Text> {"\n"} </Text>
-                <ScrollView style={{  borderRadius:10,}}>
+                <ScrollView style={{borderRadius: 10,}}>
                     {
                         this.state.Reviews.map((item, index) => (
-                            <View key = {item.username} style = {styles.item}>
-                                <Text>{item.username} : {item.rating}
-
-                                    {"\n"}
-                                    {item.review}</Text>
+                            <View key={item.username} style={styles.item}>
+                                <Text style={{textVerticalAlign: 'top'}}>
+                                <Text>{item.username} :</Text>
+                             </Text>
+                                <StarRating
+                                    disabled={true}
+                                    emptyStar="md-pizza"
+                                    fullStar="md-pizza"
+                                    iconSet="Ionicons"
+                                    maxStars={item.rating}
+                                    rating={this.state.customStarCount}
+                                    fullStarColor="red"
+                                    starSize={20}
+                                    emptyStarColor="red"
+                                />
+                                <Text>{"\n"}</Text>
+                                <Text style={styles.reviewComment}>{item.review}</Text>
 
                             </View>
                         ))
@@ -204,12 +230,13 @@ export default class App extends Component {
     }
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#EBD8D8',
     },
     star: {
         paddingHorizontal: 6,
@@ -235,17 +262,37 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height / 6 ,
         width: Dimensions.get('window').width - 40,
         borderColor: 'black',
-
+        borderRadius:10,
         borderWidth: 1,
 
     },
     item: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
+
+
         flexDirection: 'row',
-        backgroundColor: '#F1E9E7',
-        height: 'auto',
-        width: Dimensions.get('window').width,
+        backgroundColor: 'pink',
+        height: 60,
+        width: Dimensions.get('window').width - 10,
         borderRadius:10,
+        borderColor: 'black',
+        borderWidth: 1,
+        margin: 5,
+
+
+    },
+    reviewUsername: {
+        textAlignVertical:'top',
+        textAlign:'left',
+        margin:0,
+        position:'relative'
+
+    },
+    reviewComment:{
+        textAlignVertical:'bottom',
+        textAlign:'left',
+        position:'absolute',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        top: 20,
 
     }});

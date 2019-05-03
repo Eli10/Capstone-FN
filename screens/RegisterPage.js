@@ -69,7 +69,7 @@ export default class RegisterPage extends React.Component {
     }
 
     verifyRegistration = (user, pass) => {
-      fetch("http://localhost:3000/users/register", {
+      fetch("http://10.0.2.2:3000/users/register", {
         method: 'POST',
         headers: {
           Accept: 'application/json',

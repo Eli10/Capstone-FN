@@ -33,6 +33,9 @@ console.disableYellowBox = true;
 
 export default class FriendScreen extends React.Component {
   static navigationOptions = {title: "Friends' Maps",};
+    componentDidMount () {
+        this.props.navigation.addListener('willFocus', (route) => {this.getFriends()});
+    }
   constructor(props) {
     super(props);
 
@@ -57,7 +60,7 @@ export default class FriendScreen extends React.Component {
 
   getFriends = () => {
     var friendDD = [];
-    fetch (`http://localhost:3000/maps/follow/${this.state.username}`,
+    fetch (`http://10.0.2.2:3000/maps/follow/${this.state.username}`,
       {
             method: 'GET',
             mode: 'no-cors',
@@ -66,7 +69,7 @@ export default class FriendScreen extends React.Component {
     .then((response) => response.json())
     .then((frenData) => {
 
-      console.log(frenData)
+      //console.log(frenData)
       for(var i = 0; i < frenData.maps.length; i++)
       {
         friendDD.push(frenData.maps[i].name);
@@ -81,7 +84,7 @@ export default class FriendScreen extends React.Component {
 
   popList2 = (index) => {
     var tempList = [];
-    let url = `http://localhost:3000/maps/follow/${this.state.username}`;
+    let url = `http://10.0.2.2:3000/maps/follow/${this.state.username}`;
     console.log(index);
     console.log(url);
     fetch(url, {
