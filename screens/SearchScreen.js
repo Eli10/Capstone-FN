@@ -7,11 +7,10 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import restaurantList from '../assets/files/search.json';
 
 export default class SearchScreen extends React.Component {
+
     static navigationOptions = {
         title: 'Search for Restaurants',
     };
-
-
 
     constructor(props) {
         super(props);
@@ -77,7 +76,7 @@ export default class SearchScreen extends React.Component {
     }
 
     getRestaurantId = () => {
-      let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.restaurant_name + '/' + this.state.modalData.address;
+      let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -156,22 +155,51 @@ export default class SearchScreen extends React.Component {
         );
       };
 
-    searchFilterFunction = text =>{
+    searchFilterFunction = text => {
         this.setState({
             value: text,
         });
 
-            const newData = this.state.data.filter(item => {
-            const itemData = `${item.restaurant_name.toUpperCase()}`;
-            // const itemData = `${item.name.toUpperCase()} ${item.type.toUpperCase()}`;
-            const textData = text.toUpperCase();
-            return itemData.includes(textData);
-          });
+        console.log("Suppose to change state");
+        console.log(text);
+        console.log(this.state.data);
+
+        const newData = this.state.data.filter(item => {
+          const itemData = `${item.name.toUpperCase()}`;
+          // const itemData = `${item.name.toUpperCase()} ${item.type.toUpperCase()}`;
+          const textData = text.toUpperCase();
+          return itemData.includes(textData);
+        });
 
         this.setState({
             currentDataList: newData,
         });
     };
+
+    searchForRestaurant = (resName) => {
+        var resNameList = this.state.data.map(res => res.name);
+
+        isRestaurantInList = resNameList.includes(resName);
+
+        if (!isRestaurantInList) {
+            this.googleNewRestaurants(resName);
+        }
+    }
+
+    googleNewRestaurants = (resName) => {
+        fetch ('http://localhost:3000/users/restaurant/search/'+resName,{
+            method: 'GET',
+            mode: 'no-cors',
+            headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+        })
+        .then((response) => response.json())
+        .then((resData) => {
+            this.setState({data: this.state.data.concat(resData.results)});
+            this.searchFilterFunction(resName);
+        })
+
+        .catch((error) => console.log(error))
+    }
 
     renderHeader = () => {
         return (
@@ -179,6 +207,7 @@ export default class SearchScreen extends React.Component {
                 placeholder="Type..."
                 value={this.state.value}
                 onChangeText={text => this.searchFilterFunction(text)}
+                onEndEditing={() => this.searchForRestaurant(this.state.value)}
                 />
         );
     };
@@ -232,7 +261,7 @@ export default class SearchScreen extends React.Component {
                  onRequestClose={ () => { this.ShowModal(!this.state.ModalVisible)} } >
                  <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                   <View>
-                     <Text style={styles.restaurant_name}>{this.state.modalData.restaurant_name}</Text>
+                     <Text style={styles.restaurant_name}>{this.state.modalData.name}</Text>
                     <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
 
 
@@ -289,7 +318,7 @@ export default class SearchScreen extends React.Component {
 
                 <TouchableOpacity onPress={() => { this.onPressShow(item) }}>
                   <View>
-                    <Text style={styles.restaurant_name}>{item.restaurant_name}</Text>
+                    <Text style={styles.restaurant_name}>{item.name}</Text>
                     <Text style={styles.resaturant_address}> Address: {item.address}</Text>
 
                   </View>

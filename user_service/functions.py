@@ -89,7 +89,7 @@ class UserFollows(Resource):
 		else:
 			return {'message': 'Relationship already created'}, 202
 
-class PalaceSearch(Resource):
+class PlaceSearch(Resource):
 
 	"""Class Method handles searching for new restaurant not in the DB for a user
 
@@ -111,6 +111,19 @@ class FindFriends(Resource):
 		print(request.headers)
 		users = User.all_users()
 		return {'users': users}, 200
+
+
+class UserFriends(Resource):
+
+	"""Class Method handles returning all friends of a user
+
+    :returns: json
+    """
+	@jwt_required
+	def get(self, username):
+		friends = User(username).return_friends()
+		# print(friends)
+		return {'friends': friends}, 200
 
 class HelloTest(Resource):
 
@@ -135,6 +148,7 @@ api.add_resource(FindFriends, '/users/list')
 api.add_resource(createUser, '/users/register')
 api.add_resource(loginUser, '/users/login')
 api.add_resource(UserFollows, '/users/follows')
+api.add_resource(UserFriends, '/users/friends/<string:username>')
 api.add_resource(HelloTest, '/users/hello')
-api.add_resource(PalaceSearch, '/users/restaurant/search/<string:restaurant_name>')
+api.add_resource(PlaceSearch, '/users/restaurant/search/<string:restaurant_name>')
 api.add_resource(NewAccessToken, '/users/refresh-token')

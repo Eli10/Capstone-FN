@@ -15,7 +15,11 @@ import googlemaps
 #
 
 #For Connecting to local host instance
+<<<<<<< HEAD
 graph = Graph(bolt=True, host="127.0.0.1", user="neo4j", password="capstone")
+=======
+graph = Graph(bolt=True, host=os.environ.get("NEO4J_PYTHON_HOST", 'n/a'), user=os.environ.get("NEO4J_PYTHON_USER", 'n/a'), password=os.environ.get("NEO4J_PYTHON_PASS", 'n/a'))
+>>>>>>> 564cdd642238f8dc1acccae60689c3d8b82fd1a3
 
 
 # For Connecting to EC2 instance
@@ -115,10 +119,24 @@ class User:
 		for r in results:
 			res_dict = {}
 			res_dict.update(r['geometry']['location'])
+			print(res_dict)
+			res_dict["lon"] = res_dict.pop("lng")
 			res_dict.update({'name': r['name'], 'address': r['vicinity']})
 			print(res_dict)
 			search_results.append(res_dict)
-
-			restaurant_node = Node("Restaurant", name=res_dict['name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lng'])
+			restaurant_node = Node("Restaurant", name=res_dict['name'], address=res_dict['address'], lat=res_dict['lat'], lon=res_dict['lon'])
 			graph.create(restaurant_node)
 		return search_results
+
+	"""Class Method returns all user nodes connected to a iser
+
+    :returns: list of usernames
+    """
+	def return_friends(self):
+		results = graph.data("MATCH (u:User {username:'"+self.username+"'})-[:FOLLOWS]-(u1:User) return u1.username as username")
+
+		if results == None or results == []:
+			return []
+		else:
+			cleaned_results = [u["username"] for u in results]
+			return cleaned_results
