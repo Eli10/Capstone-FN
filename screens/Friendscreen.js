@@ -85,8 +85,8 @@ export default class FriendScreen extends React.Component {
   popList2 = (index) => {
     var tempList = [];
     let url = `http://10.0.2.2:3000/maps/follow/${this.state.username}`;
-    console.log(index);
-    console.log(url);
+    //console.log(index);
+    //console.log(url);
     fetch(url, {
           method: 'GET',
           mode: 'no-cors',
