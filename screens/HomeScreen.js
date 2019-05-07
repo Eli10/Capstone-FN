@@ -72,98 +72,98 @@ export default class HomeScreen extends React.Component {
             }
     };
 
-popList = (index) => {
-    var tList = [];
-    //console.log(index);
-    fetch (`http://10.0.2.2:3000/maps/${this.state.username}`, {
-        method: 'GET',
-        mode: 'no-cors',
-        headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
-    })
-    .then((response) => response.json())
-    .then((resData) => {
-        //console.log(resData.maps[0].restaurants);
-        this.setState({markers : resData.maps[index].restaurants})
-        //console.log(this.state.markers)
-    })
-    .   catch((error) => console.log(error))
-}
-//this marker popilates the initial dropdown
-
-getmaps = ()=> {
-    var dropdownv = [];
-    fetch(`http://10.0.2.2:3000/maps/${this.state.username}`, {
-        method: 'GET',
-        mode: 'no-cors',
-        headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
-    })
+    popList = (index) => {
+        var tList = [];
+        //console.log(index);
+        fetch (`http://localhost:3000/maps/${this.state.username}`, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+        })
         .then((response) => response.json())
         .then((resData) => {
-            for (var i = 0; i < resData.maps.length; i++) {
-                dropdownv.push(resData.maps[i].name);
-            }
-            //console.log(dropdownv);
-            //console.log("here now");
-
+            //console.log(resData.maps[0].restaurants);
+            this.setState({markers : resData.maps[index].restaurants})
+            //console.log(this.state.markers)
         })
-        .catch((error) => console.log(error))
-        .done();
-    this.setState({dropdownlist : dropdownv})
-}
+        .   catch((error) => console.log(error))
+    }
+//this marker popilates the initial dropdown
+
+    getmaps = ()=> {
+        var dropdownv = [];
+        fetch(`http://localhost:3000/maps/${this.state.username}`, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+        })
+            .then((response) => response.json())
+            .then((resData) => {
+                for (var i = 0; i < resData.maps.length; i++) {
+                    dropdownv.push(resData.maps[i].name);
+                }
+                //console.log(dropdownv);
+                //console.log("here now");
+
+            })
+            .catch((error) => console.log(error))
+            .done();
+        this.setState({dropdownlist : dropdownv})
+    }
 
 
-render() {
+    render() {
 
-    var x = 1;
-    const {navigate} = this.props.navigation;
-
-
-    return (
+        var x = 1;
+        const {navigate} = this.props.navigation;
 
 
-       <View style={styles.container}>
-           <ModalDropdown
-               defaultValue = 'Please select a Map'
-               style = {styles.MD}
-               options = {this.state.dropdownlist}
-               dropdownStyle = {{ height: 35 * listnames.length}}
-               onSelect={(index, value) => {this.popList(index)}}
-           />
+        return (
 
 
-           <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: 40.7128,
-              longitude: -74.0060,
-              latitudeDelta: 0.355,
-              longitudeDelta: 0.355,
-          }}
-        >
+           <View style={styles.container}>
+               <ModalDropdown
+                   defaultValue = 'Please select a Map'
+                   style = {styles.MD}
+                   options = {this.state.dropdownlist}
+                   dropdownStyle = {{ height: 35 * listnames.length}}
+                   onSelect={(index, value) => {this.popList(index)}}
+               />
 
 
-        {this.state.markers.map(shop => (
-        <MapView.Marker
-            coordinate={{latitude: shop.lat,
-            longitude: shop.lon}}
-            title={shop.restaurant_name}
-            description={shop.address} >
-
-            <MapView.Callout style={styles.plainView}
-             tooltip onPress={() => navigate('Star', {restname: shop.name, PAGEID: pageID0})}>
-                <View styles={{textAlign: 'center',}}>
-                <Text>{shop.name}{"\n"}{shop.address}</Text>
-                </View>
-            </MapView.Callout>
-        </MapView.Marker>
-        ))}
-        </MapView>
+               <MapView
+                style={styles.map}
+                initialRegion={{
+                  latitude: 40.7128,
+                  longitude: -74.0060,
+                  latitudeDelta: 0.355,
+                  longitudeDelta: 0.355,
+              }}
+            >
 
 
+            {this.state.markers.map(shop => (
+            <MapView.Marker
+                coordinate={{latitude: shop.lat,
+                longitude: shop.lon}}
+                title={shop.restaurant_name}
+                description={shop.address} >
 
-    </View>
-    );
-  }
+                <MapView.Callout style={styles.plainView}
+                 tooltip onPress={() => navigate('Star', {restname: shop.name, PAGEID: pageID0, restAddr: shop.address })}>
+                    <View styles={{textAlign: 'center',}}>
+                    <Text>{shop.name}{"\n"}{shop.address}</Text>
+                    </View>
+                </MapView.Callout>
+            </MapView.Marker>
+            ))}
+            </MapView>
+
+
+
+        </View>
+        );
+      }
 }
 
 

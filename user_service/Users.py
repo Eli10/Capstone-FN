@@ -15,11 +15,7 @@ import googlemaps
 #
 
 #For Connecting to local host instance
-<<<<<<< HEAD
-graph = Graph(bolt=True, host="127.0.0.1", user="neo4j", password="capstone")
-=======
 graph = Graph(bolt=True, host=os.environ.get("NEO4J_PYTHON_HOST", 'n/a'), user=os.environ.get("NEO4J_PYTHON_USER", 'n/a'), password=os.environ.get("NEO4J_PYTHON_PASS", 'n/a'))
->>>>>>> 564cdd642238f8dc1acccae60689c3d8b82fd1a3
 
 
 # For Connecting to EC2 instance
