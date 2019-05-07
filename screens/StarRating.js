@@ -211,11 +211,15 @@ export default class App extends Component {
                 refresh_token: this.state.refresh_token
             })
         }
+
+        console.log("i am here");
+        console.log(y);
+        console.log("i am here");
     }
 
 
     render() {
-
+      
         return (
             <View style={styles.container}>
 
@@ -246,7 +250,7 @@ export default class App extends Component {
                     style={styles.inputbox}
                     placeholder='Enter Text Here, Press the Button Below to Submit'
                     multiline={true}
-                    onChangeText={(wordcount) => this.setState({wordcount})}
+                    onChangeText={(wordcount) => {this.setState({wordcount})}}
 
 
                 />
@@ -270,7 +274,7 @@ export default class App extends Component {
                         this.state.Reviews.map((item, index) => (
                             <View key={item.username} style={styles.item}>
                                 <Text style={{textVerticalAlign: 'top'}}>
-                                <Text>{item.username} :</Text>
+                                <Text style={styles.reviewUsername}>{item.username} :</Text>
                              </Text>
                                 <StarRating
                                     disabled={true}
@@ -348,7 +352,7 @@ const styles = StyleSheet.create({
     reviewUsername: {
         textAlignVertical:'top',
         textAlign:'left',
-        margin:0,
+        margin:10,
         position:'relative'
 
     },
@@ -359,5 +363,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         top: 20,
+        margin:5,
 
     }});
