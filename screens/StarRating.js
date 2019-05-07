@@ -35,6 +35,12 @@ export default class App extends Component {
         const access_token = navigation.getParam('access_token', 'Blah');
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
 
+        const resName = navigation.getParam('restname');
+        const resAddr = navigation.getParam('restAddr');
+        const pageCode = navigation.getParam('PAGEID');
+        console.log(resName);
+        console.log(resAddr);
+
         this.state = {
             generalStarCount: 0,
             customStarCount: 0,
@@ -42,6 +48,10 @@ export default class App extends Component {
             username: username,
             access_token: access_token,
             refresh_token: refresh_token,
+            resName: resName,
+            resAddr: resAddr,
+            pageCode: pageCode,
+            temporaryRestaurantId: 0,
             newRating: "",
             Reviews: [
                 {
@@ -98,6 +108,65 @@ export default class App extends Component {
         };
     }
 
+    componentDidMount() {
+        this.getRestaurantId()
+
+    }
+
+    getRestaurantId = (resName, resAddr) => {
+      let url = 'http://localhost:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
+      console.log(url);
+      fetch(url, {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+      })
+      .then((response) => response.json())
+      .then((resData) => {
+          this.setState({temporaryRestaurantId: resData.id});
+          console.log(this.state.temporaryRestaurantId);
+          this.getRatings(this.state.temporaryRestaurantId)
+      })
+      .catch((error) => console.log(error))
+    }
+
+    getRatings = (resId) => {
+
+        let url = 'http://localhost:3000/reviews/restaurant/' + resId;
+        console.log(url);
+        fetch(url, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+        })
+        .then((response) => response.json())
+        .then((resData) => {this.setState({Reviews: resData.reviews});
+        })
+      .catch((error) => console.log(error))
+    }
+
+    postRating = () => {
+
+        console.log(`Rest ID: ${this.state.temporaryRestaurantId}`);
+        var header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '.concat(this.state.access_token)
+        };
+        fetch('http://localhost:3000/reviews', {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify({
+                username: this.state.username,
+                restaurant_id: this.state.temporaryRestaurantId,
+                restaurant_name: this.state.resName,
+                comment: this.state.wordcount,
+                rating: this.state.customStarCount,
+
+            }),
+      });
+    }
+
     onGeneralStarRatingPress(rating) {
 
         this.setState({
@@ -113,11 +182,12 @@ export default class App extends Component {
 
     storeText = (text) => {
         this.setState({newRating: text});
-        console.log(this.newRating);
+        console.log(this.state.newRating);
     }
 
     SavedRating = (x) => {
-        console.log(newRating);
+        console.log(`Rating ${this.state.newRating}`);
+        this.postRating();
         Alert.alert(
             "Rating Saved",
             "Your Rating and Review has been submitted and will be added to this Restaurant's list of reviews",
@@ -145,11 +215,6 @@ export default class App extends Component {
 
 
     render() {
-
-        const {navigation} = this.props;
-        const resName = navigation.getParam('restname');
-        const pageCode = navigation.getParam('PAGEID');
-
 
         return (
             <View style={styles.container}>
@@ -195,7 +260,7 @@ export default class App extends Component {
                         title="Press to Save Rating"
                         color="#DC143C"
                         onPress={() => {
-                            this.SavedRating(pageCode)
+                            this.SavedRating(this.state.pageCode)
                         }}
 
                 />
