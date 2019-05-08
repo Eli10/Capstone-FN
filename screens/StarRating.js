@@ -114,7 +114,7 @@ export default class App extends Component {
     }
 
     getRestaurantId = (resName, resAddr) => {
-      let url = 'http://localhost:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
+      let url = 'http://10.0.2.2:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -132,7 +132,7 @@ export default class App extends Component {
 
     getRatings = (resId) => {
 
-        let url = 'http://localhost:3000/reviews/restaurant/' + resId;
+        let url = 'http://10.0.2.2:3000/reviews/restaurant/' + resId;
         console.log(url);
         fetch(url, {
             method: 'GET',
@@ -153,11 +153,12 @@ export default class App extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '.concat(this.state.access_token)
         };
-        fetch('http://localhost:3000/reviews', {
+        fetch('http://10.0.2.2:3000/reviews', {
             method: 'POST',
             headers: header,
             body: JSON.stringify({
                 username: this.state.username,
+
                 restaurant_id: this.state.temporaryRestaurantId,
                 restaurant_name: this.state.resName,
                 comment: this.state.wordcount,
@@ -212,9 +213,7 @@ export default class App extends Component {
             })
         }
 
-        console.log("i am here");
-        console.log(y);
-        console.log("i am here");
+
     }
 
 
