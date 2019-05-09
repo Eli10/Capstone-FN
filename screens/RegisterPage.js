@@ -25,20 +25,15 @@ export default class RegisterPage extends React.Component {
             password: '',
             fname: '',
             lname: '',
+            age: 0,
+            gender: '',
+            favBorough: '',
         }
     }
 
     render() {
          return (
             <View style= {styles.register}>
-             <FlatList user={[
-                    {fname: ''},
-                    {lname: ''},
-                    {username: ''},
-                    {password: ''} ]}
-                    keyExtractor={ (x,i) => x.username}
-            />
-
                 <Text style={styles.header}>REGISTER</Text>
                 <TextInput style = {styles.textInput}
                         placeholder= "First Name"
@@ -47,6 +42,18 @@ export default class RegisterPage extends React.Component {
                 <TextInput style = {styles.textInput}
                         placeholder= "Last Name"
                         onChangeText= { (lname) => this.setState ( {lname} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Age"
+                        onChangeText= { (age) => this.setState ( {age} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Gender"
+                        onChangeText= { (gender) => this.setState ( {gender} ) }
+                        underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Favorite Borough"
+                        onChangeText= { (favBorough) => this.setState ( {favBorough} ) }
                         underlineColorAndroid= {'transparent'}/>
                 <TextInput style = {styles.textInput}
                         placeholder= "Email/Username"
@@ -157,6 +164,8 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     register: {
+        alignItems: 'center',
+        justifyContent: 'center',
         alignSelf: 'stretch',
         flex: 1,
         backgroundColor: '#FFA500'

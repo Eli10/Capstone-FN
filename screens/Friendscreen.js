@@ -71,7 +71,7 @@ export default class FriendScreen extends React.Component {
     }
   getFriends = () => {
     var friendDD = [];
-    fetch (`http://10.0.2.2:3000/maps/follow/${this.state.username}`,
+    fetch (`http://localhost:3000/maps/follow/${this.state.username}`,
       {
             method: 'GET',
             mode: 'no-cors',
@@ -95,7 +95,7 @@ export default class FriendScreen extends React.Component {
 
   popList2 = (index) => {
     var tempList = [];
-    let url = `http://10.0.2.2:3000/maps/follow/${this.state.username}`;
+    let url = `http://localhost:3000/maps/follow/${this.state.username}`;
     console.log(index);
     console.log(url);
     fetch(url, {
@@ -153,7 +153,12 @@ export default class FriendScreen extends React.Component {
       >
 
       <MapView.Callout style={styles.plainView}
-                       tooltip onPress={() => navigate('Star', {PAGEID: pageID1})}>
+                       tooltip onPress={() => navigate('Star', {
+                         restname: shop.name,
+                         PAGEID: pageID1,
+                         restAddr: shop.address,
+                         token: this.state.access_token,
+                         user: this.state.username })}>
         <View styles={{textAlign: 'center',}}>
           <Text>{shop.name}{"\n"}{shop.address}</Text>
         </View>
