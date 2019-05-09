@@ -41,7 +41,7 @@ export default class Login extends React.Component {
 	    return (
             <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
                 <View style={styles.container} >
-                  <Text style ={styles.header}>LOGIN</Text>
+                  <Text style ={styles.header}>FOOD NETWORK</Text>
                     <TextInput
                         style={ styles.textInput }
                         placeholder='Username'
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
         paddingTop: 100,
 		alignItems: 'center',
         alignContent: 'center',
+        backgroundColor: '#FFA500',
 	},
 	header: {
 		fontSize: 24,
@@ -152,19 +153,25 @@ const styles = StyleSheet.create({
 	},
 	textInput: {
         alignSelf: 'stretch',
-        height: 40,
+        height: 50,
         marginHorizontal: 40,
+        backgroundColor: "white",
+        borderRadius: 10,
+        marginBottom: 10,
 	},
 	btn: {
-		alignSelf: 'stretch',
-		backgroundColor: '#6495ed',
+		alignSelf: 'center',
+		backgroundColor: 'black',
 		alignItems: 'center',
         marginHorizontal: 40,
+        borderRadius: 50,
+        width: 120,
 	},
     text: {
         alignSelf: 'center',
         color: '#fff',
-        height: 40,
+        fontSize: 20,
+        padding: 10,
 
     }
 });
