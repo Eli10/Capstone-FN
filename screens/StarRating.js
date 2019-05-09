@@ -27,6 +27,9 @@ var textwid = MAXWstar - 20;
 
 
 export default class App extends Component {
+    componentDidMount () {
+        this.props.navigation.addListener('willFocus', (route) => {this.getRatings()});
+    }
     constructor(props) {
         super(props);
 
@@ -55,55 +58,10 @@ export default class App extends Component {
             newRating: "",
             Reviews: [
                 {
-                    "username": "Eli",
-                    "rating": 2,
-                    "review": "hated the apple pies"
-                },
-                {
-                    "username": "Bob",
-                    "rating": 4,
-                    "review": "Liked the apple pies"
-                },
-                {
-                    "username": "Sarah",
-                    "rating": 3,
-                    "review": "asasdsdasdasd"
-                },
-                {
-                    "username": "Kermit",
+                    "username": "Hey It's Us!",
                     "rating": 5,
-                    "review": "adasdasdasdasdasdasdasd"
+                    "review": "No one has reviewed this restaurant yet...be the first!"
                 },
-                {
-                    "username": "Paul",
-                    "rating": 2,
-                    "review": "dsafdsfldsfnsdklfdf"
-                },
-                {
-                    "username": "Julie",
-                    "rating": 2,
-                    "review": "asfadsfsdfjnsdfsdklfmfsd"
-                },
-                {
-                    "username": "Opie",
-                    "rating": 1,
-                    "review": "sadlmdsflksdnfn"
-                },
-                {
-                    "username": "Jamal",
-                    "rating": 1,
-                    "review": "sasDSADSADLSAD"
-                },
-                {
-                    "username": "Elie",
-                    "rating": 3,
-                    "review": "asdasdnlkasdn"
-                },
-                {
-                    "username": "Jake",
-                    "rating": 4,
-                    "review": "ajskdklasdnlasdn"
-                }
             ]
         };
     }
@@ -113,8 +71,9 @@ export default class App extends Component {
 
     }
 
-    getRestaurantId = (resName, resAddr) => {
+    getRestaurantId = () => {
       let url = 'http://10.0.2.2:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
+
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -124,7 +83,9 @@ export default class App extends Component {
       .then((response) => response.json())
       .then((resData) => {
           this.setState({temporaryRestaurantId: resData.id});
-          console.log(this.state.temporaryRestaurantId);
+          console.log(resData);
+          console.log(resData.id);
+          console.log(resData.id);
           this.getRatings(this.state.temporaryRestaurantId)
       })
       .catch((error) => console.log(error))
@@ -158,14 +119,14 @@ export default class App extends Component {
             headers: header,
             body: JSON.stringify({
                 username: this.state.username,
-
                 restaurant_id: this.state.temporaryRestaurantId,
                 restaurant_name: this.state.resName,
                 comment: this.state.wordcount,
                 rating: this.state.customStarCount,
 
             }),
-      });
+      })
+            .catch(err => console.log(err))
     }
 
     onGeneralStarRatingPress(rating) {
@@ -205,8 +166,13 @@ export default class App extends Component {
                 access_token: this.state.access_token,
                 refresh_token: this.state.refresh_token
             })
+            this.props.navigation.navigate('Profile', {
+                username: this.state.username,
+                access_token: this.state.access_token,
+                refresh_token: this.state.refresh_token
+            })
         } else {
-            this.props.navigation.navigate('Friends', {
+            this.props.navigation.navigate('Profile', {
                 username: this.state.username,
                 access_token: this.state.access_token,
                 refresh_token: this.state.refresh_token

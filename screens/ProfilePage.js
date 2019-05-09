@@ -57,7 +57,7 @@ export default class ProfilePage extends React.Component {
 
   getNewAccessToken = () => {
     console.log("getting new access token")
-    fetch ('http://localhost:3000/users/refresh-token', {
+    fetch ('http://10.0.2.2:3000/users/refresh-token', {
         method: 'GET',
         mode: 'no-cors',
         headers: { 'Authorization': 'Bearer '.concat(this.state.refresh_token) }

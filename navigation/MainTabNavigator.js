@@ -44,6 +44,13 @@ const backtomap= createSwitchNavigator ({
     },
 );
 
+const hackeryfromRating = createSwitchNavigator ({
+
+        Star: {screen: Ratings},
+        Profile: { screen: ProfilePage},
+    },
+);
+
 const FriendStack = createSwitchNavigator({
     Friends: {screen: FriendScreen},
     Star: {screen: Ratings}
