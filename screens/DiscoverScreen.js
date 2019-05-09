@@ -142,6 +142,7 @@ export default class DiscoverScreen extends React.Component {
             width: Dimensions.get('window').width,
             position: 'absolute',
             borderRadius: 12,
+            top: 30,
         },
         map: {
 
