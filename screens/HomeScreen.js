@@ -60,7 +60,8 @@ export default class HomeScreen extends React.Component {
         const username = navigation.getParam('username', 'Blah');
         const access_token = navigation.getParam('access_token', 'Blah');
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
-        console.log(username);
+        console.log(`Your Maps State User: ${username}`);
+        console.log(`Your Maps State Token: ${access_token}`);
 
         this.state =
             {
@@ -75,7 +76,7 @@ export default class HomeScreen extends React.Component {
     popList = (index) => {
         var tList = [];
         //console.log(index);
-        fetch (`http://10.0.2.2:3000/maps/${this.state.username}`, {
+        fetch (`http://localhost:3000/maps/${this.state.username}`, {
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -92,7 +93,7 @@ export default class HomeScreen extends React.Component {
 
     getmaps = ()=> {
         var dropdownv = [];
-        fetch(`http://10.0.2.2:3000/maps/${this.state.username}`, {
+        fetch(`http://localhost:3000/maps/${this.state.username}`, {
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -150,7 +151,7 @@ export default class HomeScreen extends React.Component {
                 description={shop.address} >
 
                 <MapView.Callout style={styles.plainView}
-                 tooltip onPress={() => navigate('Star', {restname: shop.name, PAGEID: pageID0, restAddr: shop.address })}>
+                 tooltip onPress={() => navigate('Star', {restname: shop.name, PAGEID: pageID0, restAddr: shop.address, token: this.state.access_token })}>
                     <View styles={{textAlign: 'center',}}>
                     <Text>{shop.name}{"\n"}{shop.address}</Text>
                     </View>
