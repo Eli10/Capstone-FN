@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
        width: 145,
        position: 'absolute',
        borderRadius: 12,
+       top:30
 
   },
   map: {
