@@ -60,12 +60,13 @@ export default class Login extends React.Component {
                          onPress={this.login} >
                         <Text style={styles.text}>Login</Text>
                     </TouchableOpacity>
-                    <Button
+                    <TouchableOpacity
+                        style={styles.btn}
                         onPress={ ()=> {
                             this.props.navigation.navigate('RegisterPage');
-                        } }
-                        title="Register"
-                    />
+                        } }>
+                        <Text style={styles.text}>Register</Text>
+                    </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
  	    );
