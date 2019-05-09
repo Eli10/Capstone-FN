@@ -34,8 +34,7 @@ export default class App extends Component {
         super(props);
 
         const {navigation} = this.props;
-        const username = navigation.getParam('username', 'Blah');
-        // const access_token = navigation.getParam('access_token', 'Blah');
+        const username = navigation.getParam('user');
         // const refresh_token = navigation.getParam('refresh_token', 'Blah');
 
         const resName = navigation.getParam('restname');

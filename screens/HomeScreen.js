@@ -151,7 +151,11 @@ export default class HomeScreen extends React.Component {
                 description={shop.address} >
 
                 <MapView.Callout style={styles.plainView}
-                 tooltip onPress={() => navigate('Star', {restname: shop.name, PAGEID: pageID0, restAddr: shop.address, token: this.state.access_token })}>
+                 tooltip onPress={() => navigate('Star', {restname: shop.name,
+                     PAGEID: pageID0,
+                     restAddr: shop.address,
+                     token: this.state.access_token,
+                     user: this.state.username })}>
                     <View styles={{textAlign: 'center',}}>
                     <Text>{shop.name}{"\n"}{shop.address}</Text>
                     </View>

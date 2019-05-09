@@ -19,7 +19,6 @@ export default class SearchScreen extends React.Component {
         const username = navigation.getParam('username', 'Blah');
         const access_token = navigation.getParam('access_token', 'Blah');
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
-        console.log(access_token);
 
         this.state = {
             loading: false,
