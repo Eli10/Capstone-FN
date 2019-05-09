@@ -95,7 +95,7 @@ export default class RegisterPage extends React.Component {
                     onPress={this.goToLogin}>
                     <Text>I already have an account!</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     }
     onContentSizeChange = (contentWidth, contentHeight) => {

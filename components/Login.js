@@ -55,10 +55,9 @@ export default class Login extends React.Component {
                     <TouchableOpacity style= {styles.txt}
                         onPress={ ()=> {
                             this.props.navigation.navigate('RegisterPage');
-                        } }
+                        } } >
                         <Text>Register</Text>
-                    <TouchableOpacity>
-                    />
+                    </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
  	    );
