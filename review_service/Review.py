@@ -4,15 +4,15 @@ import os
 
 # For Connecting to Heroku
 
-# graphenedb_url = os.environ.get("GRAPHENEDB_BOLT_URL", 'blah')
-# graphenedb_user = os.environ.get("GRAPHENEDB_BOLT_USER", 'blah')
-# graphenedb_pass = os.environ.get("GRAPHENEDB_BOLT_PASSWORD", 'blah')
-# authenticate(graphenedb_url.strip("bolt://").replace("24787", "24780"), graphenedb_user, graphenedb_pass)
-# graph = Graph(graphenedb_url, user=graphenedb_user, password=graphenedb_pass, bolt = True, secure = True, http_port = 24789, https_port = 24780)
-#
+graphenedb_url = os.environ.get("GRAPHENEDB_BOLT_URL", 'blah')
+graphenedb_user = os.environ.get("GRAPHENEDB_BOLT_USER", 'blah')
+graphenedb_pass = os.environ.get("GRAPHENEDB_BOLT_PASSWORD", 'blah')
+authenticate(graphenedb_url.strip("bolt://").replace("24787", "24780"), graphenedb_user, graphenedb_pass)
+graph = Graph(graphenedb_url, user=graphenedb_user, password=graphenedb_pass, bolt = True, secure = True, http_port = 24789, https_port = 24780)
+
 
 #For Connecting to local host instance
-graph = Graph(bolt=True, host=os.environ.get("NEO4J_PYTHON_HOST", 'n/a'), user=os.environ.get("NEO4J_PYTHON_USER", 'n/a'), password=os.environ.get("NEO4J_PYTHON_PASS", 'n/a'))
+# graph = Graph(bolt=True, host=os.environ.get("NEO4J_PYTHON_HOST", 'n/a'), user=os.environ.get("NEO4J_PYTHON_USER", 'n/a'), password=os.environ.get("NEO4J_PYTHON_PASS", 'n/a'))
 
 # For Connecting to EC2 instance
 # authenticate("52.91.176.33:7473", "neo4j", "i-0b894b0a765ce3877")

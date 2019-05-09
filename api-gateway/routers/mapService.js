@@ -7,7 +7,7 @@ const apiAdapter = require('./apiAdapter')
 */
 const LOCAL_BASE_URL = 'http://localhost:8000'
 const HEROKU_URL = 'https://map-service.herokuapp.com'
-const api = apiAdapter(LOCAL_BASE_URL)
+const api = apiAdapter(HEROKU_URL)
 
 /**
 * This method takes a path string and a request.

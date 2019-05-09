@@ -1,0 +1,102 @@
+# npm start or node server.js
+http:
+  port: ${PORT}
+https:
+  port: ${PORT}
+apiEndpoints:
+  userApi:
+    host: capstone-express-gateway.herokuapp.com
+    paths:
+      - '/users/register'
+      - '/users/login'
+      - '/users/hello'
+      - '/users/:username'
+      - '/users/refresh-token'
+      - '/users/follow'
+      - '/users/restaurant/search/:restaurant_name'
+      - '/users/list'
+      - '/users/friends/:username'
+    methods: ["POST", "GET"]
+  restaurantApi:
+    host: capstone-express-gateway.herokuapp.com
+    paths:
+      - '/restaurants'
+      - '/restaurants/:restaurant_name'
+      - '/restaurants/id/:restaurant_name/:address'
+      - '/restaurants/discover/:username'
+    methods: ["GET"]
+  reviewApi:
+    host: https://capstone-review-service.herokuapp.com
+    paths:
+      - '/reviews'
+      - '/reviews/restaurant/:restaurant_name'
+      - '/reviews/user/:username'
+    methods: ["POST", "GET"]
+  mapApi:
+    host: capstone-express-gateway.herokuapp.com
+    paths:
+      - '/maps/'
+      - '/maps/:username'
+      - '/maps/name/:username'
+      - '/maps/contain'
+      - '/maps/follow/:username'
+    methods: ["POST", "GET", "DELETE"]
+serviceEndpoints:
+  userService:
+    url: 'https://test-user-api.herokuapp.com'
+  restaurantService:
+    url: 'https://capstone-restaurant-service.herokuapp.com'
+  reviewService:
+    url: 'https://capstone-review-service.herokuapp.com'
+  mapService:
+    url: 'https://map-service.herokuapp.com'
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  usersPipeline:
+    apiEndpoints:
+      - userApi
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: userService
+              changeOrigin: true
+  restaurantPipeline:
+    apiEndpoints:
+      - restaurantApi
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: restaurantService
+              changeOrigin: true
+  reviewPipeline:
+    apiEndpoints:
+      - reviewApi
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: reviewService
+              changeOrigin: true
+  mapPipeline:
+    apiEndpoints:
+      - mapApi
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: mapService
+              changeOrigin: true

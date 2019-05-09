@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router()
 const apiAdapter = require('./apiAdapter')
+const axios = require('axios');
+
 
 /**
 * Local & Heroku User Service URLs
 */
 const LOCAL_BASE_URL = 'http://127.0.0.1:5000'
 const HEROKU_URL = 'https://test-user-api.herokuapp.com'
-const api = apiAdapter(LOCAL_BASE_URL)
+const api = apiAdapter(HEROKU_URL)
 
 /**
 * This method takes a path string and a request.
@@ -135,12 +137,24 @@ router.get('/users/refresh-token', (req, res) => {
 router.get('/users/list', (req, res) => {
     var json_data = req.body;
     json_data['headers'] = req.headers;
-    console.log(json_data);
-    console.log(req.headers);
-    console.log(typeof json_data);
-    console.log(req.path);
+    // console.log(json_data);
+    // console.log(req.headers);
+    // console.log(typeof json_data);
+    // console.log(req.path);
     //Making axios request to service
-    api.get(req.path, json_data)
+    // api.get(req.path, json_data)
+    // .then(resp => {
+    //     console.log(resp.data)
+    //     res.send(resp.data)
+    // })
+    // .catch(err =>{console.log(err)})
+    console.log(req.body);
+    console.log(req.headers);
+    axios({
+        method: 'GET',
+        url: HEROKU_URL + req.path,
+        headers: req.headers
+    })
     .then(resp => {
         console.log(resp.data)
         res.send(resp.data)
