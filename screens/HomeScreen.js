@@ -193,6 +193,7 @@ export default class HomeScreen extends React.Component {
             width: 145,
             position: 'absolute',
             borderRadius: 12,
+            top:30
         },
         map: {
 
