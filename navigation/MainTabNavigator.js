@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
+import { Platform, Button } from 'react-native';
+import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator, HeaderBackButton } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 //import TabBarIcon2 from '../components/TabBarIcon2';
@@ -20,6 +20,7 @@ const HomeStack = createSwitchNavigator({
 
   Maps: {screen: HomeScreen},
   Star: { screen: Ratings },
+
 });
 
 
@@ -136,6 +137,8 @@ const LoginStack = createSwitchNavigator({
 }, {
     navigationOptions: {
         header: false,
+        headerBackTitle: 'some label'
+
     }
 });
 
@@ -158,7 +161,9 @@ const AllOtherStacks = createBottomTabNavigator({
     FindFriendsStack
 }, {
   initialRouteName: 'ProfileStack',
-  lazy: true
+  lazy: true,
+  headerBackTitle: 'some label'
+
 });
 
 
@@ -167,5 +172,6 @@ export default createStackNavigator({
   AllOtherStacks
 }, {
   initialRouteName: 'LoginStack',
-  lazy: false
+  lazy: false,
+  defaultNavigationOptions:{headerLeft: null}
 });
