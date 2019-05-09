@@ -47,7 +47,7 @@ console.disableYellowBox = true;
 
 
 export default class HomeScreen extends React.Component {
-    static navigationOptions = {title: "Your Maps",};
+    static DefaultNavigationOptions = {title: "Your Maps"};
     componentDidMount () {
         this.props.navigation.addListener('willFocus', (route) => {this.getmaps(); this.getmaps()});
     }
