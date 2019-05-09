@@ -9,21 +9,28 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import {StackNavigator} from 'react-navigation';
+import Icon from "react-native-vector-icons/Ionicons";
+import {Rating, AirbnbRating } from 'react-native-elements';
 const timer = require('react-native-timer');
+import StarRating from 'react-native-star-rating';
 
-
-
+const {height}=Dimensions.get('windows');
 export default class ProfilePage extends React.Component {
         constructor(props) {
             super(props);
 
             const { navigation } = this.props;
             const username = navigation.getParam('username', 'Blah');
+            const fname=navigate.getParam('fname', 'Blah');
+            const age=navigation.getParm('age', 'Blah');
+            const gender=navigation.getParm('gender', 'Blah');
+            const favBorough= navigation.getParam('favBorough', 'Blah');
             const access_token = navigation.getParam('access_token', 'Blah');
             const refresh_token = navigation.getParam('refresh_token', 'Blah');
 
@@ -31,9 +38,12 @@ export default class ProfilePage extends React.Component {
             {console.log(this.props.navigation.state.params)};
 
             this.state={
-                fname: '',
-                lname: '',
+                fname: fname,
+                screenHeight: 0,
                 username: username,
+                age: age,
+                gender: gender,
+                favBorough: favBorough,
                 access_token: access_token,
                 refresh_token: refresh_token
             }
@@ -72,91 +82,75 @@ export default class ProfilePage extends React.Component {
   }
 
   render() {
+    const scrollEnable = this.state.screenHeight > height;
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-         <Text> Hello {this.state.username} </Text>
-         <Text> Access Token  {this.state.access_token} </Text>
-
+      <ScrollView style={styles.container}
+         scrollEnabled = {scrollEnable}
+         onContentSizeChange= {this.onContentSizeChange}>
+        <View style ={styles.header}>       
+            <Text style={styles.text}> Hello {this.state.fname} </Text>
+            <View style= {{width: 50, backgroundColor: '#ffd200'}}/>         
+        </View>
+        <View style ={styles.secondLine}>
+            <View style= {{width: 20, backgroundColor: '#ffd200'}}/>            
+             <Text> {this.state.age} yrs</Text>
+             <Text> {this.state.gender}</Text>
+             <View style= {{width: 50, backgroundColor: '#ffd200'}}/>         
+            <View style= {{width: 50, backgroundColor: '#ffd200'}}/>            
+        </View>
+        <View style={styles.loc}>
+            <View style= {{width: 35, backgroundColor: '#ffd200'}}/>            
+            <Text> {this.state.favBorough} </Text>
+            <View style= {{width: 45, backgroundColor: '#ffd200'}}/>         
+            <View style= {{width: 45, backgroundColor: '#ffd200'}}/>   
+        </View>
+        <Text> Access Token  {this.state.access_token} </Text>
+         
          <Button
               onPress={this.logoutToLogin}
               title="Logout"
          />
         </ScrollView>
-      </View>
     );
   }
+  onContentSizeChange = (contentWidth, contentHeight) => {
+      this.setState({screenHeight: contentHeight});
+  };
 
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    margin: 10,
+    flexDirection: 'column'
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  text: {
-      alignSelf: 'center',
-      color: 'black',
-      height: 40,
-
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-
-
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingBottom: 5,
+	},
+    secondLine: {
+        fontSize: 12,
+        color: '#808080',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingBottom: 5,
+ 
+    },
+    loc: {
+        fontSize: 12,
+        color: '#808080',
+        borderBottomColor: '#696969',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingBottom: 5,
+ 
+    },
+    text: {
+        fontSize: 40,
+		color: '#000000',
+		fontWeight: 'bold',
+    },
 });
