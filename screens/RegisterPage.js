@@ -15,7 +15,8 @@ import {
     FlatList,
 	} from 'react-native';
 
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
+
 
 export default class RegisterPage extends React.Component {
     constructor(props){
@@ -70,12 +71,17 @@ export default class RegisterPage extends React.Component {
                      onPress={this.register}>
                     <Text style={styles.buttonText}> Register</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                     style={styles.btn}
+                     onPress={ () => {this.props.navigation.navigate('Home')} }>
+                    <Text style={styles.buttonText}> Cancel</Text>
+                </TouchableOpacity>
 
             </View>
         );
     }
 
-    verifyRegistration = (user, pass) => {
+    verifyRegistration = () => {
       fetch("http://localhost:3000/users/register", {
         method: 'POST',
         headers: {
@@ -83,8 +89,13 @@ export default class RegisterPage extends React.Component {
           "Content-Type": 'application/json',
         },
         body: JSON.stringify({
-          username: user,
-          password: pass,
+          username: this.state.username,
+          password: this.state.password,
+          fname: this.state.fname,
+          lname: this.state.lname,
+          age: this.state.age,
+          gender: this.state.gender,
+          favBorough: this.state.favBorough,
         }),
       })
       .then((response) => {

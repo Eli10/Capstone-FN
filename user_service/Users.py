@@ -26,8 +26,13 @@ gmaps = googlemaps.Client(key=os.environ["GOOGLE_MAPS_API_KEY"])
 
 
 class User:
-	def __init__(self, username):
+	def __init__(self, username=None, fname=None, lname=None, age=None, gender=None, favBorough=None):
 		self.username = username
+		self.fname = fname
+		self.lname = lname
+		self.age = age
+		self.gender = gender
+		self.favBorough = favBorough
 
 	"""Class Method that checks if user exists in DB
 
@@ -64,7 +69,7 @@ class User:
     """
 	def register(self, password):
 		if not self.find():
-			user = Node('User', username=self.username, password=bcrypt.encrypt(password))
+			user = Node('User', username=self.username, fname=self.fname, lname=self.lname, age=self.age, gender=self.gender, favBorough=self.favBorough, password=bcrypt.encrypt(password))
 			graph.create(user)
 			return True
 		else:
@@ -136,3 +141,25 @@ class User:
 		else:
 			cleaned_results = [u["username"] for u in results]
 			return cleaned_results
+
+	"""Class Method returns user data
+
+    :returns: dict of user information
+    """
+	def return_profile(self):
+		# MATCH (u:User {username:'Bob'})-[]-(m:Map), (u)-[r:GAVE_REVIEW]-(res:Restaurant) return u,m,r
+		results = graph.data("MATCH (u:User {username:'"+self.username+"'}) return u as user" )
+		if results == None or results == []:
+			return {"age": '', "username": '', "fname": '', "lname":'', "gender":'', "favBorough":''}
+		else:
+			profile = {}
+			for r in results:
+				profile["age"] =  r["user"]["age"]
+				profile["username"] = r["user"]["username"]
+				profile["fname"] = r["user"]["fname"]
+				profile["lname"] = r["user"]["lname"]
+				profile["gender"] = r["user"]["gender"]
+				profile["favBorough"] = r["user"]["favBorough"]
+			return profile
+			# cleaned_results = [u["username"] for u in results]
+			# return cleaned_results
