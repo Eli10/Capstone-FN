@@ -39,7 +39,7 @@ export default class RegisterPage extends React.Component {
                     keyExtractor={ (x,i) => x.username}
             />
 
-                <Text style={styles.header}>Register Page</Text>
+                <Text style={styles.header}>REGISTER</Text>
                 <TextInput style = {styles.textInput}
                         placeholder= "First Name"
                         onChangeText= { (fname) => this.setState ( {fname} ) }
@@ -114,43 +114,51 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-        paddingTop: 100,
+    paddingTop: 100,
 		alignItems: 'center',
 		justifyContent: 'center',
 		paddingLeft: 40,
-		paddingRight: 40,
+    paddingRight: 40,
 	},
 	header: {
-		fontSize: 24,
-		marginBottom: 100,
-		color: '#fff',
+		fontSize: 30,
+		// marginBottom: 100,
+		color: 'black',
 		fontWeight: 'bold',
         paddingBottom: 10,
         marginBottom: 10,
         borderBottomColor: '#199187',
         borderBottomWidth: 1,
         alignItems: 'center',
+        alignSelf: 'center'
 	},
 	textInput: {
-        alignSelf: 'stretch',
-        height: 40,
+        alignSelf: 'center',
+        height: 50,
         color: '#000000',
         marginBottom: 10,
         borderBottomColor: '#696969',
         borderBottomWidth: 1,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        width: 350
 	},
 	btn: {
-		alignSelf: 'stretch',
-		backgroundColor: '#6495ed',
-		padding: 20,
+		alignSelf: 'center',
+		backgroundColor: 'black',
+		padding: 5,
 		alignItems: 'center',
-        marginHorizontal: 40,
+    marginHorizontal: 40,
+    borderRadius: 50,
+    width: 150,
 	},
     buttonText: {
-        color: '#fff'
+        color: 'white',
+        fontSize: 20
     },
     register: {
         alignSelf: 'stretch',
         flex: 1,
+        backgroundColor: '#FFA500'
     },
 });

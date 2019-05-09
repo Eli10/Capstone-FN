@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  BackHandler,
 } from 'react-native';
 
 import { WebBrowser } from 'expo';
@@ -38,7 +39,7 @@ export default class FriendScreen extends React.Component {
     }
   constructor(props) {
     super(props);
-
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'Blah');
     const access_token = navigation.getParam('access_token', 'Blah');
@@ -56,8 +57,18 @@ export default class FriendScreen extends React.Component {
 
   componentWillMount() {
     this.getFriends();
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+
   }
 
+ componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+ }
+
+    handleBackButtonClick() {
+        this.props.navigation.goBack(null);
+        return true;
+    }
   getFriends = () => {
     var friendDD = [];
     fetch (`http://localhost:3000/maps/follow/${this.state.username}`,
@@ -192,6 +203,7 @@ const styles = StyleSheet.create({
        width: 145,
        position: 'absolute',
        borderRadius: 12,
+       top:30
 
   },
   map: {
