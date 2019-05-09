@@ -139,21 +139,24 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	container: {
+
 		flex: 1,
-        paddingTop: 100,
+    paddingTop: 100,
+    justifyContent: 'center',
 		alignItems: 'center',
-        alignContent: 'center',
-        backgroundColor: '#FF8C00',
+    alignContent: 'center',
+    backgroundColor: '#FF8C00',
+
 	},
 	header: {
 		fontSize: 24,
-		marginBottom: 100,
+		marginBottom: 50,
 		color: '#000000',
 		fontWeight: 'bold',
 	},
 	textInput: {
         alignSelf: 'stretch',
-        height: 50,
+        height: 40,
         marginHorizontal: 40,
         backgroundColor: "white",
         borderRadius: 10,
