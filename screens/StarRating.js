@@ -34,15 +34,16 @@ export default class App extends Component {
         super(props);
 
         const {navigation} = this.props;
-        const username = navigation.getParam('username', 'Blah');
-        const access_token = navigation.getParam('access_token', 'Blah');
-        const refresh_token = navigation.getParam('refresh_token', 'Blah');
+        const username = navigation.getParam('user');
+        // const refresh_token = navigation.getParam('refresh_token', 'Blah');
 
         const resName = navigation.getParam('restname');
         const resAddr = navigation.getParam('restAddr');
         const pageCode = navigation.getParam('PAGEID');
+        const access_token = navigation.getParam('token');
         console.log(resName);
         console.log(resAddr);
+        console.log(`Review Page token: ${access_token}`);
 
         this.state = {
             generalStarCount: 0,
@@ -50,7 +51,7 @@ export default class App extends Component {
             wordcount: '',
             username: username,
             access_token: access_token,
-            refresh_token: refresh_token,
+            // refresh_token: refresh_token,
             resName: resName,
             resAddr: resAddr,
             pageCode: pageCode,
@@ -72,7 +73,7 @@ export default class App extends Component {
     }
 
     getRestaurantId = () => {
-      let url = 'http://10.0.2.2:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
+      let url = 'http://localhost:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
 
       console.log(url);
       fetch(url, {
@@ -93,7 +94,7 @@ export default class App extends Component {
 
     getRatings = (resId) => {
 
-        let url = 'http://10.0.2.2:3000/reviews/restaurant/' + resId;
+        let url = 'http://localhost:3000/reviews/restaurant/' + resId;
         console.log(url);
         fetch(url, {
             method: 'GET',
@@ -114,7 +115,7 @@ export default class App extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '.concat(this.state.access_token)
         };
-        fetch('http://10.0.2.2:3000/reviews', {
+        fetch('http://localhost:3000/reviews', {
             method: 'POST',
             headers: header,
             body: JSON.stringify({
@@ -184,7 +185,7 @@ export default class App extends Component {
 
 
     render() {
-      
+
         return (
             <View style={styles.container}>
 
