@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -18,10 +19,12 @@ import {Rating, AirbnbRating } from 'react-native-elements';
 import StarRating from 'react-native-star-rating';
 
 import {StackNavigator} from 'react-navigation';
+import Icon from "react-native-vector-icons/Ionicons";
+import {Rating, AirbnbRating } from 'react-native-elements';
 const timer = require('react-native-timer');
+import StarRating from 'react-native-star-rating';
 
-
-
+const {height}=Dimensions.get('windows');
 export default class ProfilePage extends React.Component {
         constructor(props) {
             super(props);
@@ -39,8 +42,8 @@ export default class ProfilePage extends React.Component {
             {console.log(this.props.navigation.state.params)};
 
             this.state={
-                fname: '',
-                lname: '',
+                fname: fname,
+                screenHeight: 0,
                 username: username,
                 age: 0,
                 gender: 'Unknown',
@@ -152,6 +155,7 @@ export default class ProfilePage extends React.Component {
   }
 
   render() {
+    const scrollEnable = this.state.screenHeight > height;
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
          <View style ={styles.header}>
@@ -213,6 +217,9 @@ export default class ProfilePage extends React.Component {
         </ScrollView>
     );
   }
+  onContentSizeChange = (contentWidth, contentHeight) => {
+      this.setState({screenHeight: contentHeight});
+  };
 
 }
 

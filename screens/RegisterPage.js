@@ -13,17 +13,23 @@ import {
 	KeyboardAvoidingView,
     AsyncStorage,
     FlatList,
+    Alert,
+    Dimensions,
+    Picker,
 	} from 'react-native';
 
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 
+const {height}=Dimensions.get('windows');
 export default class RegisterPage extends React.Component {
     constructor(props){
         super(props);
         this.state={
+            screenHeight: 0,
             username: '',
             password: '',
+            cPassword: '',
             fname: '',
             lname: '',
             age: 0,
@@ -33,8 +39,11 @@ export default class RegisterPage extends React.Component {
     }
 
     render() {
+         const scrollEnable = this.state.screenHeight > height;
          return (
-            <View style= {styles.register}>
+            <ScrollView style={styles.register}
+                scrollEnabled={scrollEnable}
+                onContentSizeChange={this.onContentSizeChange}>
                 <Text style={styles.header}>REGISTER</Text>
                 <TextInput style = {styles.textInput}
                         placeholder= "First Name"
@@ -48,14 +57,20 @@ export default class RegisterPage extends React.Component {
                         placeholder= "Age"
                         onChangeText= { (age) => this.setState ( {age} ) }
                         underlineColorAndroid= {'transparent'}/>
-                <TextInput style = {styles.textInput}
-                        placeholder= "Gender"
-                        onChangeText= { (gender) => this.setState ( {gender} ) }
-                        underlineColorAndroid= {'transparent'}/>
+                   <Text style= {styles.txt}>Gender</Text>               
+                    <Picker style= {styles.picker}
+                        selectedValue= {this.state.gender}
+                        onValueChange={ (gender) => this.setState({gender: gender}) }
+                         mode="dialog">
+                        <Picker.Item label = "Male" value = "Male" />
+                        <Picker.Item label = "Female" value = "Female"/>
+                        <Picker.Item label = "Other" value = "Other"/>
+                 </Picker>
                 <TextInput style = {styles.textInput}
                         placeholder= "Favorite Borough"
                         onChangeText= { (favBorough) => this.setState ( {favBorough} ) }
-                        underlineColorAndroid= {'transparent'}/>
+                        underlineColorAndroid= {'transparent'}
+                        autoCapitalize = 'words'/>
                 <TextInput style = {styles.textInput}
                         placeholder= "Email/Username"
                         keyboardType='email-address'
@@ -66,6 +81,12 @@ export default class RegisterPage extends React.Component {
                         secureTextEntry={true}
                         onChangeText= { (password) => this.setState ( {password} ) }
                         underlineColorAndroid= {'transparent'}/>
+                <TextInput style = {styles.textInput}
+                        placeholder= "confirm password"
+                        secureTextEntry={true}
+                        onChangeText= { (cPassword) => this.setState ( {cPassword} ) }
+                        underlineColorAndroid= {'transparent'}
+                        autoCorrect={false}/>
                 <TouchableOpacity
                      style={styles.btn}
                      onPress={this.register}>
@@ -80,6 +101,9 @@ export default class RegisterPage extends React.Component {
             </View>
         );
     }
+    onContentSizeChange = (contentWidth, contentHeight) => {
+         this.setState({screenHeight: contentHeight});
+    };
 
     verifyRegistration = () => {
       fetch("http://localhost:3000/users/register", {
@@ -105,7 +129,7 @@ export default class RegisterPage extends React.Component {
           this.goToLogin();
         }
         else if (response.status == 202) {
-          alert("User is already registered");
+          Alert.alert(" ","User is already registered");
           this.goToLogin();
         }
       })
@@ -121,9 +145,17 @@ export default class RegisterPage extends React.Component {
         console.log(this.state.password);
         console.log(this.state.fname);
         console.log(this.state.lname);
-        this.verifyRegistration(this.state.username, this.state.password)
+        if (this.state.password == this.state.cPassword)
+        {
+            this.verifyRegistration(this.state.username, this.state.password)
+        }
+        else
+        {
+            Alert.alert(" ","Your passwords do not match, Please try again");
+        }
     }
 }
+
 
 
 const styles = StyleSheet.create({
@@ -139,17 +171,19 @@ const styles = StyleSheet.create({
     paddingRight: 40,
 	},
 	header: {
-		fontSize: 30,
-		// marginBottom: 100,
+		fontSize: 24,
 		color: 'black',
 		fontWeight: 'bold',
         paddingBottom: 10,
         marginBottom: 10,
         borderBottomColor: '#199187',
         borderBottomWidth: 1,
-        alignItems: 'center',
         alignSelf: 'center'
 	},
+    picker: {
+        width: 150,
+        alignSelf: 'center',
+    },
 	textInput: {
         alignSelf: 'center',
         height: 50,
@@ -166,9 +200,9 @@ const styles = StyleSheet.create({
 		backgroundColor: 'black',
 		padding: 5,
 		alignItems: 'center',
-    marginHorizontal: 40,
-    borderRadius: 50,
-    width: 150,
+        marginHorizontal: 40,
+        borderRadius: 50,
+        width: 150,
 	},
     buttonText: {
         color: 'white',
