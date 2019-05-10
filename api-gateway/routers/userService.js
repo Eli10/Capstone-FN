@@ -172,5 +172,28 @@ router.get('/users/friends/:username', (req, res) => {
     .catch(err =>{console.log(err)})
 })
 
+/**
+* This method takes a path string and a request.
+* If that request matches the path then it passes
+* the request to the proper service.
+* @param routeString This is the first paramter to http method
+* @param httpRequestObject  This is the second parameter to http method
+* @return json
+*/
+router.get('/users/:username', (req, res) => {
+    var json_data = req.body;
+    json_data['headers'] = req.headers;
+    console.log(json_data);
+    console.log(req.headers);
+    console.log(typeof json_data);
+    console.log(req.path);
+    //Making axios request to service
+    api.get(req.path, json_data)
+    .then(resp => {
+        console.log(resp.data)
+        res.send(resp.data)
+    })
+    .catch(err =>{console.log(err)})
+})
 
 module.exports = router

@@ -22,10 +22,15 @@ class createUser(Resource):
     """
 	def post(self):
 		req_data = request.get_json()
+		fname = req_data['fname']
+		lname = req_data['lname']
+		age = req_data['age']
+		gender = req_data['gender']
+		favBorough = req_data['favBorough']
 		username = req_data['username']
 		password = req_data['password']
 
-		if User(username).register(password):
+		if User(username, fname, lname, age, gender, favBorough).register(password):
 			access_token = create_access_token(identity = username)
 			refresh_token = create_refresh_token(identity = username)
 
@@ -47,7 +52,7 @@ class loginUser(Resource):
 		username = req_data['username']
 		password = req_data['password']
 
-		if User(username).verify_password(password):
+		if User(username=username).verify_password(password):
 			# session['username'] = username
 			access_token = create_access_token(identity = username)
 			refresh_token = create_refresh_token(identity = username)
@@ -84,7 +89,7 @@ class UserFollows(Resource):
 		username = req_data['username']
 		follow_user = req_data['follows']
 
-		if User(username).follow_user(follow_user):
+		if User(username=username).follow_user(follow_user):
 			return {'message':'Relationship created'}, 200
 		else:
 			return {'message': 'Relationship already created'}, 202
@@ -121,9 +126,20 @@ class UserFriends(Resource):
     """
 	@jwt_required
 	def get(self, username):
-		friends = User(username).return_friends()
+		friends = User(username=username).return_friends()
 		# print(friends)
 		return {'friends': friends}, 200
+
+class getUser(Resource):
+
+	"""Class Method handles returning user profile data
+
+    :returns: json
+    """
+	@jwt_required
+	def get(self, username):
+		profile = User(username=username).return_profile()
+		return {'profile': profile}, 200
 
 class HelloTest(Resource):
 
@@ -146,6 +162,7 @@ class testWork(Resource):
 api.add_resource(testWork, '/')
 api.add_resource(FindFriends, '/users/list')
 api.add_resource(createUser, '/users/register')
+api.add_resource(getUser, '/users/<string:username>')
 api.add_resource(loginUser, '/users/login')
 api.add_resource(UserFollows, '/users/follows')
 api.add_resource(UserFriends, '/users/friends/<string:username>')
