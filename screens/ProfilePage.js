@@ -46,7 +46,9 @@ export default class ProfilePage extends React.Component {
                 gender: 'Unknown',
                 favBorough: 'None',
                 access_token: access_token,
-                refresh_token: refresh_token
+                refresh_token: refresh_token,
+                userMaps: [],
+                userReviews: [],
             }
         }
 
@@ -56,7 +58,9 @@ export default class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    this.getUserProfile()
+    this.getUserProfile();
+    this.getMapsForUser();
+    this.getRatings();
     timer.setInterval(this, 'request-new-token', () => {
       console.log("need new token");
       this.getNewAccessToken()
@@ -65,6 +69,50 @@ export default class ProfilePage extends React.Component {
 
   componentWillUnmount() {
     timer.clearTimeout(this);
+  }
+
+  getMapsForUser = () => {
+    let url = 'http://localhost:3000/maps/name/' + this.state.username;
+    console.log(url);
+    var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
+    fetch(url, {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: header
+    })
+    .then((response) => response.json())
+    .then((resData) => {
+    this.setState({userMaps: resData.map_names});
+  })
+    .catch((error) => console.log(error))
+  }
+
+  renderSeparator = () => {
+      return (
+        <View
+          style={{
+            height: 1,
+            width: '100%',
+            backgroundColor: '#CED0CE',
+            marginLeft: '0%',
+          }}
+        />
+      );
+    };
+
+  getRatings = () => {
+
+      let url = 'http://localhost:3000/reviews/user/' + this.state.username;
+      console.log(url);
+      fetch(url, {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+      })
+      .then((response) => response.json())
+      .then((resData) => {this.setState({userReviews: resData.reviews});
+      })
+    .catch((error) => console.log(error))
   }
 
   getUserProfile = () => {
@@ -123,6 +171,45 @@ export default class ProfilePage extends React.Component {
             <View style= {{width: 45, backgroundColor: '#FF8C00'}}/>
             <View style= {{width: 45, backgroundColor: '#FF8C00'}}/>
         </View>
+
+        <View>
+          <Text>Maps</Text>
+          <FlatList
+            extraData={this.state}
+            data={this.state.userMaps}
+            renderItem={({ item }) =>
+
+            <TouchableOpacity>
+              <View>
+                <Text>{item}</Text>
+              </View>
+            </TouchableOpacity>
+
+            }
+            ItemSeparatorComponent={this.renderSeparator}
+          />
+        </View>
+
+        <View style={{paddingTop: 100}}>
+          <Text>Reviews</Text>
+          <FlatList
+            extraData={this.state}
+            data={this.state.userReviews}
+            renderItem={({ item }) =>
+
+            <TouchableOpacity>
+              <View>
+                <Text>Rating: {item.rating}</Text>
+                <Text>Comment: {item.review}</Text>
+              </View>
+            </TouchableOpacity>
+
+            }
+            ItemSeparatorComponent={this.renderSeparator}
+          />
+        </View>
+
+
         </ScrollView>
     );
   }
