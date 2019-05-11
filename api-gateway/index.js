@@ -31,4 +31,4 @@ app.use(router)
 
 console.log("Simple API Gateway run on localhost:3000")
 console.log("Yooo im here")
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 8080);

@@ -50,7 +50,7 @@ export default class DiscoverScreen extends React.Component {
 
   componentDidMount(){
     console.log('HEILLO');
-    fetch ('http://localhost:3000/restaurants/discover/' + this.state.username, {
+    fetch ('https://capstone-express-gateway.herokuapp.com/restaurants/discover/' + this.state.username, {
         method: 'GET',
         mode: 'no-cors',
         headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }

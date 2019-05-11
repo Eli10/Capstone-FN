@@ -41,9 +41,7 @@ export default class RegisterPage extends React.Component {
     render() {
          const scrollEnable = this.state.screenHeight > height;
          return (
-            <ScrollView style={styles.register}
-                scrollEnabled={scrollEnable}
-                onContentSizeChange={this.onContentSizeChange}>
+            <View style= {styles.register}>
                 <Text style={styles.header}>REGISTER</Text>
                 <TextInput style = {styles.textInput}
                         placeholder= "First Name"
@@ -57,20 +55,14 @@ export default class RegisterPage extends React.Component {
                         placeholder= "Age"
                         onChangeText= { (age) => this.setState ( {age} ) }
                         underlineColorAndroid= {'transparent'}/>
-                   <Text style= {styles.txt}>Gender</Text>               
-                    <Picker style= {styles.picker}
-                        selectedValue= {this.state.gender}
-                        onValueChange={ (gender) => this.setState({gender: gender}) }
-                         mode="dialog">
-                        <Picker.Item label = "Male" value = "Male" />
-                        <Picker.Item label = "Female" value = "Female"/>
-                        <Picker.Item label = "Other" value = "Other"/>
-                 </Picker>
+                <TextInput style = {styles.textInput}
+                        placeholder= "Gender"
+                        onChangeText= { (gender) => this.setState ( {gender} ) }
+                        underlineColorAndroid= {'transparent'}/>
                 <TextInput style = {styles.textInput}
                         placeholder= "Favorite Borough"
                         onChangeText= { (favBorough) => this.setState ( {favBorough} ) }
-                        underlineColorAndroid= {'transparent'}
-                        autoCapitalize = 'words'/>
+                        underlineColorAndroid= {'transparent'}/>
                 <TextInput style = {styles.textInput}
                         placeholder= "Email/Username"
                         keyboardType='email-address'
@@ -106,7 +98,7 @@ export default class RegisterPage extends React.Component {
     };
 
     verifyRegistration = () => {
-      fetch("http://localhost:3000/users/register", {
+      fetch("https://capstone-express-gateway.herokuapp.com/users/register", {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -171,14 +163,14 @@ const styles = StyleSheet.create({
     paddingRight: 40,
 	},
 	header: {
-		fontSize: 24,
+		fontSize: 30,
 		color: 'black',
 		fontWeight: 'bold',
         paddingBottom: 10,
         marginBottom: 10,
         borderBottomColor: '#199187',
         borderBottomWidth: 1,
-        alignSelf: 'center'
+        alignItems: 'center',
 	},
     picker: {
         width: 150,
@@ -200,9 +192,10 @@ const styles = StyleSheet.create({
 		backgroundColor: 'black',
 		padding: 5,
 		alignItems: 'center',
-        marginHorizontal: 40,
-        borderRadius: 50,
-        width: 150,
+    marginHorizontal: 40,
+    borderRadius: 50,
+    width: 150,
+
 	},
     buttonText: {
         color: 'white',

@@ -14,7 +14,7 @@ import "os"
 * Database Statments used for querying and execution.
 */
 
-var URI string = os.Getenv("NEO4J_GO_LANG_LOCAL_DB_CREDS")
+var URI string = os.Getenv("NEO4J_GO_LANG_HEROKU_DB_CREDS")
 
 const (
 	CreateNode                   = "CREATE (n:Map {name: {name}})"

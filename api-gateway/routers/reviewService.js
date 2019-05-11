@@ -6,8 +6,8 @@ const apiAdapter = require('./apiAdapter')
 * Local & Heroku Review Service URLs
 */
 const LOCAL_BASE_URL = 'http://127.0.0.1:5001'
-const HEROKU_URL = 'n/a'
-const api = apiAdapter(LOCAL_BASE_URL)
+const HEROKU_URL = 'https://capstone-review-service.herokuapp.com/'
+const api = apiAdapter(HEROKU_URL)
 
 /**
 * This method takes a path string and a request.
