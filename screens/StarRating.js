@@ -74,7 +74,6 @@ export default class App extends Component {
 
     getRestaurantId = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
-
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -307,7 +306,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'pink',
         height: 60,
-        width: Dimensions.get('window').width - 10,
         borderRadius:10,
         borderColor: 'black',
         borderWidth: 1,

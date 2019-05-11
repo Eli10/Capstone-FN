@@ -186,7 +186,7 @@ export default class SearchScreen extends React.Component {
     }
 
     googleNewRestaurants = (resName) => {
-        fetch ('http://localhost:3000/users/restaurant/search/'+resName,{
+        fetch ('https://capstone-express-gateway.herokuapp.com/users/restaurant/search/'+resName,{
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }

@@ -28,15 +28,7 @@ export default class Login extends React.Component {
             value: null,
         }
     }
-    // componentDidMount() {
-    //     this._loadInitalState().done;
-    // }
-    // _loadInitalState = async () => {
-    //     var value=await AsyncStorage.getItem('user');
-    //     if (value !== null) {
-    //         this.props.navigation.navigate('ProfilePage');
-    //     }
-    // }
+
     render() {
 	    return (
             <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
@@ -163,6 +155,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 10,
 	},
+    txt: {
+        alignSelf: 'center',
+        fontSize: 15,
+    },
 	btn: {
 		alignSelf: 'center',
 		backgroundColor: 'black',
