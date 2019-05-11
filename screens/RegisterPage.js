@@ -82,7 +82,7 @@ export default class RegisterPage extends React.Component {
     }
 
     verifyRegistration = () => {
-      fetch("http://localhost:3000/users/register", {
+      fetch("https://capstone-express-gateway.herokuapp.com/users/register", {
         method: 'POST',
         headers: {
           Accept: 'application/json',

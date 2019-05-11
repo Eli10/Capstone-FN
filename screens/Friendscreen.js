@@ -71,7 +71,7 @@ export default class FriendScreen extends React.Component {
     }
   getFriends = () => {
     var friendDD = [];
-    fetch (`http://localhost:3000/maps/follow/${this.state.username}`,
+    fetch (`https://capstone-express-gateway.herokuapp.com/maps/follow/${this.state.username}`,
       {
             method: 'GET',
             mode: 'no-cors',
@@ -95,7 +95,7 @@ export default class FriendScreen extends React.Component {
 
   popList2 = (index) => {
     var tempList = [];
-    let url = `http://localhost:3000/maps/follow/${this.state.username}`;
+    let url = `https://capstone-express-gateway.herokuapp.com/maps/follow/${this.state.username}`;
     console.log(index);
     console.log(url);
     fetch(url, {

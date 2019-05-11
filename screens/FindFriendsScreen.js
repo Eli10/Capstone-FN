@@ -34,7 +34,7 @@ export default class FindFriendsScreen extends React.Component {
     }
 
     populateFindFriendsList = () => {
-        fetch ('http://localhost:3000/users/list', {
+        fetch ('https://capstone-express-gateway.herokuapp.com/users/list', {
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -50,7 +50,7 @@ export default class FindFriendsScreen extends React.Component {
     }
 
     getUsersCurrentFriends = () => {
-        fetch ("http://localhost:3000/users/friends/"+this.state.username, {
+        fetch ("https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username, {
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -67,7 +67,7 @@ export default class FindFriendsScreen extends React.Component {
 
         console.log(`New friend to follow: ${userToFollow}`)
 
-        fetch ('http://localhost:3000/users/follows', {
+        fetch ('https://capstone-express-gateway.herokuapp.com/users/follows', {
             method: 'POST',
             mode: 'no-cors',
             headers: {

@@ -73,7 +73,7 @@ export default class App extends Component {
     }
 
     getRestaurantId = () => {
-      let url = 'http://localhost:3000/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
+      let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
 
       console.log(url);
       fetch(url, {
@@ -94,7 +94,7 @@ export default class App extends Component {
 
     getRatings = (resId) => {
 
-        let url = 'http://localhost:3000/reviews/restaurant/' + resId;
+        let url = 'https://capstone-express-gateway.herokuapp.com/reviews/restaurant/' + resId;
         console.log(url);
         fetch(url, {
             method: 'GET',
@@ -115,7 +115,7 @@ export default class App extends Component {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '.concat(this.state.access_token)
         };
-        fetch('http://localhost:3000/reviews', {
+        fetch('https://capstone-express-gateway.herokuapp.com/reviews', {
             method: 'POST',
             headers: header,
             body: JSON.stringify({

@@ -74,7 +74,7 @@ export default class Login extends React.Component {
 
   login = () => {
 
-      fetch('http://localhost:3000/users/login', {
+      fetch('https://capstone-express-gateway.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
               'Accept': 'application/json',

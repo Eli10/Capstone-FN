@@ -76,7 +76,7 @@ export default class HomeScreen extends React.Component {
     popList = (index) => {
         var tList = [];
         //console.log(index);
-        fetch (`http://localhost:3000/maps/${this.state.username}`, {
+        fetch (`https://capstone-express-gateway.herokuapp.com/maps/${this.state.username}`, {
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -93,7 +93,7 @@ export default class HomeScreen extends React.Component {
 
     getmaps = ()=> {
         var dropdownv = [];
-        fetch(`http://localhost:3000/maps/${this.state.username}`, {
+        fetch(`https://capstone-express-gateway.herokuapp.com/maps/${this.state.username}`, {
             method: 'GET',
             mode: 'no-cors',
             headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }

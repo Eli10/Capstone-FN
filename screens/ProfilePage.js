@@ -72,7 +72,7 @@ export default class ProfilePage extends React.Component {
   }
 
   getMapsForUser = () => {
-    let url = 'http://localhost:3000/maps/name/' + this.state.username;
+    let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.username;
     console.log(url);
     var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
     fetch(url, {
@@ -102,7 +102,7 @@ export default class ProfilePage extends React.Component {
 
   getRatings = () => {
 
-      let url = 'http://localhost:3000/reviews/user/' + this.state.username;
+      let url = 'https://capstone-express-gateway.herokuapp.com/reviews/user/' + this.state.username;
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -117,7 +117,7 @@ export default class ProfilePage extends React.Component {
 
   getUserProfile = () => {
     console.log("getting user profile")
-    fetch (`http://localhost:3000/users/${this.state.username}`, {
+    fetch (`https://capstone-express-gateway.herokuapp.com/users/${this.state.username}`, {
         method: 'GET',
         mode: 'no-cors',
         headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -137,7 +137,7 @@ export default class ProfilePage extends React.Component {
 
   getNewAccessToken = () => {
     console.log("getting new access token")
-    fetch ('http://localhost:3000/users/refresh-token', {
+    fetch ('https://capstone-express-gateway.herokuapp.com/users/refresh-token', {
         method: 'GET',
         mode: 'no-cors',
         headers: { 'Authorization': 'Bearer '.concat(this.state.refresh_token) }

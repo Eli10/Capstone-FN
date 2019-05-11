@@ -44,7 +44,7 @@ export default class SearchScreen extends React.Component {
     componentDidMount(){
       console.log('HEILLO');
 
-      fetch ('http://localhost:3000/restaurants',{
+      fetch ('https://capstone-express-gateway.herokuapp.com/restaurants',{
           method: 'GET',
           mode: 'no-cors',
           headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
@@ -59,7 +59,7 @@ export default class SearchScreen extends React.Component {
     }
 
     getMapsForUser = () => {
-      let url = 'http://localhost:3000/maps/name/' + this.state.defaultUser;
+      let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.defaultUser;
       console.log(url);
       var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
       fetch(url, {
@@ -75,7 +75,7 @@ export default class SearchScreen extends React.Component {
     }
 
     getRestaurantId = () => {
-      let url = 'http://localhost:3000/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
+      let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
       console.log(url);
       fetch(url, {
           method: 'GET',
@@ -96,7 +96,7 @@ export default class SearchScreen extends React.Component {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '.concat(this.state.access_token)
       };
-      fetch('http://localhost:3000/maps/contain', {
+      fetch('https://capstone-express-gateway.herokuapp.com/maps/contain', {
         method: 'POST',
         headers: header,
         body: JSON.stringify({
@@ -120,7 +120,7 @@ export default class SearchScreen extends React.Component {
 
     createNewMap = () => {
       console.log(this.state.defaultUser);
-      fetch('http://localhost:3000/maps/', {
+      fetch('https://capstone-express-gateway.herokuapp.com/maps/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
