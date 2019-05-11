@@ -52,6 +52,14 @@ Ex) bolt://neo4j:1234@127.0.0.1:7687
 Ex) Correct -> http://localhost:3000/login
     Wrong -> http://localhost:5000/login (Direct User Service URL)
 
+## PROD Services
+
+Gateway - https://capstone-express-gateway.herokuapp.com
+Maps - https://map-service.herokuapp.com
+User - https://test-user-api.herokuapp.com
+Restaurant - https://capstone-restaurant-service.herokuapp.com
+Review - https://capstone-review-service.herokuapp.com
+
 ## Current Endpoints
 
 Users
