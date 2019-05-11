@@ -14,22 +14,18 @@ import {
     AsyncStorage,
     FlatList,
     Alert,
-    Dimensions,
     Picker,
 	} from 'react-native';
 
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 
-const {height}=Dimensions.get('windows');
 export default class RegisterPage extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            screenHeight: 0,
             username: '',
             password: '',
-            cPassword: '',
             fname: '',
             lname: '',
             age: 0,
@@ -39,7 +35,6 @@ export default class RegisterPage extends React.Component {
     }
 
     render() {
-         const scrollEnable = this.state.screenHeight > height;
          return (
             <View style= {styles.register}>
                 <Text style={styles.header}>REGISTER</Text>
@@ -93,9 +88,6 @@ export default class RegisterPage extends React.Component {
             </View>
         );
     }
-    onContentSizeChange = (contentWidth, contentHeight) => {
-         this.setState({screenHeight: contentHeight});
-    };
 
     verifyRegistration = () => {
       fetch("https://capstone-express-gateway.herokuapp.com/users/register", {
@@ -137,14 +129,8 @@ export default class RegisterPage extends React.Component {
         console.log(this.state.password);
         console.log(this.state.fname);
         console.log(this.state.lname);
-        if (this.state.password == this.state.cPassword)
-        {
-            this.verifyRegistration(this.state.username, this.state.password)
-        }
-        else
-        {
-            Alert.alert(" ","Your passwords do not match, Please try again");
-        }
+        this.verifyRegistration(this.state.username, this.state.password);
+
     }
 }
 
@@ -172,10 +158,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         alignItems: 'center',
 	},
-    picker: {
-        width: 150,
-        alignSelf: 'center',
-    },
 	textInput: {
         alignSelf: 'center',
         height: 50,
