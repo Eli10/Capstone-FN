@@ -257,7 +257,7 @@ export default class SearchScreen extends React.Component {
           }
 
           return (
-            <View style={{top:40}}>
+            <View>
               <Modal
                  transparent={false}
                  animationType={"slide"}

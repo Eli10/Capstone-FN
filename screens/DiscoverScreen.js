@@ -41,8 +41,9 @@ export default class DiscoverScreen extends React.Component {
 
     this.state =
         {
-          markers : [],
+          markers : {},
           data: [],
+          resNameList: [],
           username: username,
           access_token: access_token,
           refresh_token: refresh_token,
@@ -51,7 +52,13 @@ export default class DiscoverScreen extends React.Component {
   }
 
   componentDidMount(){
-    console.log('HEILLO');
+    this.props.navigation.addListener('willFocus', (route) => {
+      this.getDiscoveredRestaurants();
+    });
+
+  }
+
+  getDiscoveredRestaurants = () => {
     fetch ('https://capstone-express-gateway.herokuapp.com/restaurants/discover/' + this.state.username, {
         method: 'GET',
         mode: 'no-cors',
@@ -60,7 +67,8 @@ export default class DiscoverScreen extends React.Component {
     .then((response) => response.json())
     .then((resData) => {
        console.log(resData.restaurants);
-      this.setState({data: resData.restaurants});
+       this.setState({data: resData.restaurants});
+       this.getRestaurantNameList();
     })
 
     .catch((error) => console.log(error))
@@ -76,15 +84,20 @@ export default class DiscoverScreen extends React.Component {
 
     for (var i = 0; i < this.state.data.length; i++){
       var currentRestaurant = this.state.data[i];
-      restaurantNameList.push(currentRestaurant.restaurant_name);
+      restaurantNameList.push(currentRestaurant.name);
     }
-     console.log(restaurantNameList);
-    return restaurantNameList;
+    console.log(restaurantNameList);
+    this.setState({resNameList: restaurantNameList});
   }
 
   popList = (index) => {
     // console.log(this.state.data[index]);
-    this.setState({markers: this.state.data[index]});
+    console.log(`Data: ${this.state.data}`);
+    console.log(`Index: ${index}`);
+    console.log(`Marker at Data: ${[ this.state.data[index] ]}`);
+    this.setState({markers: this.state.data[index] });
+    console.log(typeof this.state.markers);
+    console.log(Object.keys(this.state.markers));
   }
 
   render() {
@@ -93,13 +106,13 @@ export default class DiscoverScreen extends React.Component {
         <View style={styles.container}>
 
         <ModalDropdown
-    defaultValue = 'Here are Restuarants we selected for you'
-    style = {styles.MD}
-    options = {this.getRestaurantNameList()}
-    showsVerticalScrollIndicator = {true}
-    dropdownStyle = {{ height: 35 * listnames.length}}
-    onSelect={(index, value) => {this.popList(index);}}
-    />
+          defaultValue = 'Here are Restuarants we selected for you'
+          style = {styles.MD}
+          options = {this.state.resNameList}
+          showsVerticalScrollIndicator = {true}
+          dropdownStyle = {{ height: 35 * listnames.length}}
+          onSelect={(index, value) => {this.popList(index);}}
+          />
 
     <MapView
     style={styles.map}
@@ -107,18 +120,16 @@ export default class DiscoverScreen extends React.Component {
       latitude: 40.7128,
           longitude: -74.0060,
           latitudeDelta: 0.105,
-          longitudeDelta: 0.305,}}
-  >
+          longitudeDelta: 0.305,}}>
 
-    {this.state.markers.map(shop => (
-    <MapView.Marker
-      coordinate={{latitude: shop.lat,
-      longitude: shop.lon}}
-      title={shop.restaurant_name}
-      description={shop.markers.address}
-      />))}
+          <MapView.Marker
+            coordinate={{latitude: this.state.markers.lat,
+            longitude: this.state.markers.lon}}
+            title={this.state.markers.name}
+            description={this.state.markers.address}
+            />
 
-      </MapView>
+            </MapView>
 
 
       </View>
