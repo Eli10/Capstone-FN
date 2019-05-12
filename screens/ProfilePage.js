@@ -38,6 +38,7 @@ export default class ProfilePage extends React.Component {
                 age: 0,
                 gender: 'Unknown',
                 favBorough: 'None',
+                numOfFriends: 0,
                 access_token: access_token,
                 refresh_token: refresh_token,
                 userMaps: [],
@@ -53,6 +54,7 @@ export default class ProfilePage extends React.Component {
   componentDidMount() {
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUserProfile();
+      this.getNumOfFriends();
       this.getMapsForUser();
       this.getRatings();
     });
@@ -65,6 +67,22 @@ export default class ProfilePage extends React.Component {
 
   componentWillUnmount() {
     timer.clearTimeout(this);
+  }
+
+  getNumOfFriends = () => {
+    let url = 'https://capstone-express-gateway.herokuapp.com/users/friends/' + this.state.username;
+    console.log(url);
+    var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
+    fetch(url, {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: header
+    })
+    .then((response) => response.json())
+    .then((resData) => {
+    this.setState({numOfFriends: resData.friends.length});
+  })
+    .catch((error) => console.log(error))
   }
 
   getMapsForUser = () => {
@@ -162,6 +180,7 @@ export default class ProfilePage extends React.Component {
         </View>
         <View style={styles.loc}>
             <View style= {{width: 35}}/>
+            <Text>Friend Count: {this.state.numOfFriends} </Text>
             <Text> {this.state.favBorough} </Text>
             <View style= {{width: 45}}/>
             <View style= {{width: 45}}/>
@@ -218,7 +237,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
   	flexDirection: 'column',
-    top:30,
   },
   header: {
    flexDirection: 'row',
@@ -249,12 +267,10 @@ const styles = StyleSheet.create({
   mapTitle: {
     color:"#0047ab",
     fontSize: 32,
-    fontFamily: "Arial Rounded MT Bold",
   },
   mapNameContainer: {
     paddingTop: 5,
     paddingBottom: 5,
-    fontFamily: "Arial Rounded MT Bold",
   },
   mapName: {
     fontSize: 16,
