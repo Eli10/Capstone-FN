@@ -7,18 +7,31 @@ from flask_jwt_extended import (jwt_required, jwt_refresh_token_required, get_jw
 
 import os
 
+# === Review Service Api ===
+
+"""
+	Flask set up to get the Api running
+"""
 application = Flask(__name__)
 api = Api(application)
 
+"""
+	Set-up for JWT Authentication
+"""
 application.config['JWT_SECRET_KEY'] = os.environ["JWT_SECRET_KEY"]
 jwt = JWTManager(application)
 
 
 class createReview(Resource):
 
-	"""Class Method handles creating a review
+	## === createReview Function ===
 
-    :returns: json
+	"""
+	Resource Class Method that handles
+	creating a review
+
+    :returns: json contain confirmation of
+	review creation
     """
 	@jwt_required
 	def post(self):
@@ -37,10 +50,15 @@ class createReview(Resource):
 
 class restaurantReview(Resource):
 
-	"""Class Method handles geting restaurant reviews
+	## === restaurantReview Function ===
+
+	"""
+	Resource Class Method handles geting
+	restaurant reviews
 
 	:param restaurant_id: id of restaurant
-    :returns: json
+    :returns: json containing list of
+	restaurant objects
     """
 	@jwt_required
 	def get(self, restaurant_id):
@@ -52,10 +70,15 @@ class restaurantReview(Resource):
 
 class userReview(Resource):
 
-	"""Class Method handles geting user reviews
+	## === userReview Function ===
+
+	"""
+	Resource Class Method handles
+	geting user reviews
 
 	:param username: name of user
-    :returns: json
+    :returns: json containing reviews
+	by user
     """
 	@jwt_required
 	def get(self, username):
@@ -67,17 +90,23 @@ class userReview(Resource):
 
 class HelloTest(Resource):
 
-	"""Class Method handles hello message
+	## === HelloTest Function ===
+
+	"""
+	Resource Class Method handles hello message
 
     :returns: json
     """
 	def get(self):
 		return {'message': 'Hello'}, 200
 
-"""Registering routes to api
+## === API Routes ===
 
-:param HandlerClass: class of route handler
-:param route: name of route
+"""
+	Registering routes to api
+
+	:param HandlerClass: class of route handler
+	:param route: name of route
 """
 api.add_resource(createReview, '/reviews')
 api.add_resource(restaurantReview, '/reviews/restaurant/<int:restaurant_id>')

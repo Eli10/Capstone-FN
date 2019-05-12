@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	Image,
-    Platform,
+  Platform,
  	ScrollView,
  	StyleSheet,
 	Text,
@@ -11,10 +11,10 @@ import {
 	View,
 	Button,
 	KeyboardAvoidingView,
-    AsyncStorage,
-    FlatList,
-    Alert,
-    Picker,
+  AsyncStorage,
+  FlatList,
+  Alert,
+  Picker,
 	} from 'react-native';
 
 import { createStackNavigator, NavigationActions } from 'react-navigation';
@@ -74,16 +74,24 @@ export default class RegisterPage extends React.Component {
                         onChangeText= { (cPassword) => this.setState ( {cPassword} ) }
                         underlineColorAndroid= {'transparent'}
                         autoCorrect={false}/>
-                <TouchableOpacity
-                     style={styles.btn}
-                     onPress={this.register}>
-                    <Text style={styles.buttonText}> Register</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                     style={styles.btn}
-                     onPress={ () => {this.props.navigation.navigate('Home')} }>
-                    <Text style={styles.buttonText}> Cancel</Text>
-                </TouchableOpacity>
+
+
+                <View style={styles.overallButtonContainer}>
+                  <View>
+                    <TouchableOpacity
+                         style={styles.btn}
+                         onPress={this.register}>
+                        <Text style={styles.buttonText}> Register</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View>
+                    <TouchableOpacity
+                         style={styles.btn}
+                         onPress={ () => {this.props.navigation.navigate('Home')} }>
+                        <Text style={styles.buttonText}> Cancel</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
 
             </View>
         );
@@ -148,46 +156,51 @@ const styles = StyleSheet.create({
 		paddingLeft: 40,
     paddingRight: 40,
 	},
+  overallButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 	header: {
 		fontSize: 30,
 		color: 'black',
 		fontWeight: 'bold',
-        paddingBottom: 10,
-        marginBottom: 10,
-        borderBottomColor: '#199187',
-        borderBottomWidth: 1,
-        alignItems: 'center',
+    paddingBottom: 10,
+    marginBottom: 10,
+    borderBottomColor: '#199187',
+    borderBottomWidth: 1,
+    alignItems: 'center',
 	},
 	textInput: {
-        alignSelf: 'center',
-        height: 50,
-        color: '#000000',
-        marginBottom: 10,
-        borderBottomColor: '#696969',
-        borderBottomWidth: 1,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        width: 350
+    alignSelf: 'center',
+    height: 50,
+    color: '#000000',
+    marginBottom: 10,
+    borderBottomColor: '#696969',
+    borderBottomWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: 350
 	},
 	btn: {
 		alignSelf: 'center',
 		backgroundColor: 'black',
 		padding: 5,
 		alignItems: 'center',
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     borderRadius: 50,
-    width: 150,
+    width: 120,
 
 	},
-    buttonText: {
-        color: 'white',
-        fontSize: 20
-    },
-    register: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'stretch',
-        flex: 1,
-        backgroundColor: '#FFA500'
-    },
+  buttonText: {
+    color: 'white',
+    fontSize: 20
+  },
+  register: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    flex: 1,
+    backgroundColor: '#FFA500',
+  },
 });

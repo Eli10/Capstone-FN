@@ -185,50 +185,48 @@ export default class HomeScreen extends React.Component {
 
 
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: '#fff',
-            position: 'relative',
-        },
-        customView: {
-            width: 140,
-            height: 140,
-        },
-
-        MD : {
-            justifyContent: 'center',
-            padding: 10,
-            backgroundColor: '#98FB98',
-            width: 145,
-            position: 'absolute',
-            borderRadius: 12,
-            top:30
-        },
-        map: {
-
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: Dimensions.get('window').height - 40,
-            width: Dimensions.get('window').width,
-            paddingTop: 100,
-            borderColor: 'black',
-            borderStyle: 'solid',
-            borderWidth: 5,
-            position: 'relative',
-            zIndex: -1
-        },
-            plainView: {
-            width: 'auto',
-            backgroundColor: 'white',
-            paddingHorizontal: 6,
-            paddingVertical: 6,
-            borderRadius: 12,
-            alignItems: 'center',
-            textAlign: 'center',
-            marginHorizontal: 10,
-            marginVertical: 10,
-            },
-    });
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        position: 'relative',
+    },
+    customView: {
+        width: 140,
+        height: 140,
+    },
+    MD: {
+        justifyContent: 'center',
+        padding: 10,
+        backgroundColor: '#98FB98',
+        width: 145,
+        position: 'absolute',
+        borderRadius: 12,
+        top:30
+    },
+    map: {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: Dimensions.get('window').height - 40,
+        width: Dimensions.get('window').width,
+        paddingTop: 100,
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: 5,
+        position: 'relative',
+        zIndex: -1
+    },
+    plainView: {
+        width: 'auto',
+        backgroundColor: 'white',
+        paddingHorizontal: 6,
+        paddingVertical: 6,
+        borderRadius: 12,
+        alignItems: 'center',
+        textAlign: 'center',
+        marginHorizontal: 10,
+        marginVertical: 10,
+    },
+});

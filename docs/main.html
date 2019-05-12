@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>main.go</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>main.go</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="o">/**</span>
+<span class="o">*</span> <span class="n">The</span> <span class="n">Restaurant</span> <span class="n">Micoservice</span>
+<span class="o">*</span> <span class="n">All</span> <span class="n">restaurant</span> <span class="n">requests</span> <span class="n">come</span> <span class="n">through</span> <span class="n">here</span><span class="o">.</span>
+<span class="o">*</span>
+<span class="o">*</span> <span class="nd">@author</span>  <span class="n">Elijah</span> <span class="n">Augustin</span>
+<span class="o">*</span> <span class="nd">@version</span> <span class="mf">1.0</span>
+<span class="o">*</span> <span class="nd">@since</span>   <span class="mi">2019</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">01</span>
+<span class="o">*/</span>
+<span class="n">package</span> <span class="n">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s2">&quot;log&quot;</span>
+	<span class="s2">&quot;net/http&quot;</span>
+	<span class="s2">&quot;encoding/json&quot;</span>
+	<span class="s2">&quot;os&quot;</span>
+	<span class="s2">&quot;fmt&quot;</span>
+	<span class="s2">&quot;strings&quot;</span>
+
+	<span class="s2">&quot;restaurant_service/handlers&quot;</span>
+	<span class="s2">&quot;restaurant_service/types&quot;</span>
+
+	<span class="s2">&quot;github.com/gorilla/mux&quot;</span>
+	<span class="n">jwt</span> <span class="s2">&quot;github.com/dgrijalva/jwt-go&quot;</span>
+<span class="p">)</span>
+
+<span class="o">/**</span>
+<span class="o">*</span> <span class="n">JWT</span> <span class="n">Secret</span> <span class="n">Key</span>
+<span class="o">*/</span>
+<span class="n">var</span> <span class="n">envKey</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s2">&quot;JWT_SECRET_KEY&quot;</span><span class="p">)</span>
+<span class="n">var</span> <span class="n">mySigningKey</span> <span class="o">=</span> <span class="p">[]</span><span class="n">byte</span><span class="p">(</span><span class="n">envKey</span><span class="p">)</span>
+
+<span class="o">/**</span>
+<span class="o">*</span> <span class="n">This</span> <span class="n">method</span> <span class="n">takes</span> <span class="n">a</span> <span class="n">http</span> <span class="n">request</span><span class="o">.</span>
+<span class="o">*</span> <span class="n">First</span> <span class="n">checks</span> <span class="k">if</span> <span class="n">request</span> <span class="n">has</span> <span class="n">a</span> <span class="n">authenticaion</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">headers</span><span class="o">.</span>
+<span class="o">*</span> <span class="n">Then</span> <span class="n">authenticates</span> <span class="n">the</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">header</span><span class="o">.</span>
+<span class="o">*</span> <span class="nd">@param</span> <span class="n">httpRequest</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">first</span> <span class="n">paramter</span> <span class="n">to</span> <span class="n">isAuthorized</span> <span class="n">method</span>
+<span class="o">*</span> <span class="nd">@return</span> <span class="n">httpHandler</span> <span class="n">Another</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">request</span>
+<span class="o">*/</span>
+<span class="n">func</span> <span class="n">isAuthorized</span><span class="p">(</span><span class="n">endpoint</span> <span class="n">func</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">))</span> <span class="n">http</span><span class="o">.</span><span class="n">Handler</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="n">HandlerFunc</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">Header</span><span class="p">[</span><span class="s2">&quot;Authorization&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+
+						<span class="n">authorization_values</span> <span class="p">:</span><span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">Header</span><span class="p">[</span><span class="s2">&quot;Authorization&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+						<span class="n">token_values</span> <span class="p">:</span><span class="o">=</span> <span class="n">strings</span><span class="o">.</span><span class="n">Fields</span><span class="p">(</span><span class="n">authorization_values</span><span class="p">)</span>
+						<span class="k">if</span> <span class="n">token_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;Bearer&quot;</span> <span class="p">{</span>
+							<span class="o">//</span> <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">NewEncoder</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">Authorized</span><span class="p">{</span><span class="n">Message</span><span class="p">:</span> <span class="s2">&quot;Token Error. Missing Bearer identifier.&quot;</span><span class="p">})</span>
+						<span class="p">}</span>
+
+						<span class="n">jwt_token</span> <span class="p">:</span><span class="o">=</span> <span class="n">token_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+						<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">)</span>
+
+            <span class="n">token</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">token</span> <span class="o">*</span><span class="n">jwt</span><span class="o">.</span><span class="n">Token</span><span class="p">)</span> <span class="p">(</span><span class="n">interface</span><span class="p">{},</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="n">_</span><span class="p">,</span> <span class="n">ok</span> <span class="p">:</span><span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">Method</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="n">jwt</span><span class="o">.</span><span class="n">SigningMethodHMAC</span><span class="p">);</span> <span class="err">!</span><span class="n">ok</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s2">&quot;There was an error&quot;</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="n">mySigningKey</span><span class="p">,</span> <span class="n">nil</span>
+            <span class="p">})</span>
+
+            <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+								<span class="n">json</span><span class="o">.</span><span class="n">NewEncoder</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">Authorized</span><span class="p">{</span><span class="n">Message</span><span class="p">:</span> <span class="s2">&quot;Token Error. Not Authorized&quot;</span><span class="p">})</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">Valid</span> <span class="p">{</span>
+                <span class="n">endpoint</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+						<span class="n">json</span><span class="o">.</span><span class="n">NewEncoder</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">Encode</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">Authorized</span><span class="p">{</span><span class="n">Message</span><span class="p">:</span> <span class="s2">&quot;Not Authorized&quot;</span><span class="p">})</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="o">/**</span>
+<span class="o">*</span> <span class="n">This</span> <span class="n">our</span> <span class="n">main</span> <span class="n">method</span><span class="o">.</span> <span class="n">Entrypoint</span> <span class="n">to</span> <span class="n">the</span> <span class="n">API</span>
+<span class="o">*</span> <span class="n">Has</span> <span class="n">many</span> <span class="n">Handlers</span> <span class="k">for</span> <span class="n">different</span> <span class="n">routes</span>
+<span class="o">*/</span>
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">router</span> <span class="p">:</span><span class="o">=</span> <span class="n">mux</span><span class="o">.</span><span class="n">NewRouter</span><span class="p">()</span>
+
+	<span class="o">//</span> <span class="n">Test</span> <span class="n">Hello</span>
+	<span class="n">router</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="s2">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">isAuthorized</span><span class="p">(</span><span class="n">handlers</span><span class="o">.</span><span class="n">GetHello</span><span class="p">))</span><span class="o">.</span><span class="n">Methods</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+
+	<span class="o">//</span> <span class="n">Returns</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">restaurants</span> <span class="nb">object</span> <span class="k">with</span> <span class="p">({</span><span class="n">restaurant_name</span> <span class="ow">and</span> <span class="n">address</span><span class="p">})</span> <span class="k">for</span> <span class="n">searching</span> <span class="n">purposes</span>
+	<span class="n">router</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="s2">&quot;/restaurants&quot;</span><span class="p">,</span> <span class="n">isAuthorized</span><span class="p">(</span><span class="n">handlers</span><span class="o">.</span><span class="n">GetRestaurantListHandler</span><span class="p">))</span><span class="o">.</span><span class="n">Methods</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+
+	<span class="o">//</span> <span class="n">Returns</span> <span class="n">restaurant</span> <span class="n">data</span> <span class="k">for</span> <span class="n">a</span> <span class="n">restaurant</span> <span class="n">name</span> <span class="n">given</span>
+	<span class="n">router</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="s2">&quot;/restaurants/{restaurant_name}&quot;</span><span class="p">,</span> <span class="n">isAuthorized</span><span class="p">(</span><span class="n">handlers</span><span class="o">.</span><span class="n">GetRestaurantHandler</span><span class="p">))</span><span class="o">.</span><span class="n">Methods</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+
+	<span class="o">//</span> <span class="n">Returns</span> <span class="n">Node</span> <span class="n">Id</span> <span class="k">for</span> <span class="n">a</span> <span class="n">restaurant</span> <span class="n">using</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">address</span>
+	<span class="n">router</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="s2">&quot;/restaurants/id/{restaurant_name}/{address}&quot;</span><span class="p">,</span> <span class="n">isAuthorized</span><span class="p">(</span><span class="n">handlers</span><span class="o">.</span><span class="n">GetRestaurantIdHandler</span><span class="p">))</span><span class="o">.</span><span class="n">Methods</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+
+	<span class="o">//</span> <span class="n">Return</span> <span class="n">possible</span> <span class="n">restaurant</span> <span class="k">for</span> <span class="n">user</span> <span class="n">to</span> <span class="n">add</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">map</span>
+	<span class="n">router</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="s2">&quot;/restaurants/discover/{username}&quot;</span><span class="p">,</span> <span class="n">isAuthorized</span><span class="p">(</span><span class="n">handlers</span><span class="o">.</span><span class="n">GetDiscoveredRestaurantHandler</span><span class="p">))</span><span class="o">.</span><span class="n">Methods</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+
+	<span class="n">port</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s2">&quot;PORT&quot;</span><span class="p">)</span> <span class="o">//</span><span class="n">Get</span> <span class="n">port</span> <span class="kn">from</span> <span class="nn">.env</span> <span class="nn">file</span><span class="p">,</span> <span class="n">we</span> <span class="n">did</span> <span class="ow">not</span> <span class="n">specify</span> <span class="nb">any</span> <span class="n">port</span> <span class="n">so</span> <span class="n">this</span> <span class="n">should</span> <span class="k">return</span> <span class="n">an</span> <span class="n">empty</span> <span class="n">string</span> <span class="n">when</span> <span class="n">tested</span> <span class="n">locally</span>
+	<span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="p">{</span>
+		<span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;8001&quot;</span> <span class="o">//</span><span class="n">localhost</span>
+	<span class="p">}</span>
+
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+
+	<span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">port</span><span class="p">,</span> <span class="n">router</span><span class="p">))</span> <span class="o">//</span><span class="n">Launch</span> <span class="n">the</span> <span class="n">app</span><span class="p">,</span> <span class="n">visit</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span><span class="o">/</span><span class="n">api</span>
+	<span class="o">//</span> <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+	<span class="o">//</span> 	<span class="n">fmt</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+	<span class="o">//</span> <span class="p">}</span>
+
+
+	<span class="o">//</span> <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s2">&quot;:8000&quot;</span><span class="p">,</span> <span class="n">router</span><span class="p">))</span>
+<span class="p">}</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

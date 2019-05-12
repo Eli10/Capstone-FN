@@ -8,17 +8,33 @@ create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity
 
 import os
 
+
+# === User Service Api ===
+
+"""
+	Flask set up to get the Api running
+"""
 application = Flask(__name__)
 api = Api(application)
 
+"""
+	Set-up for JWT Authentication
+"""
 application.config['JWT_SECRET_KEY'] = os.environ["JWT_SECRET_KEY"]
 jwt = JWTManager(application)
 
 class createUser(Resource):
 
-	"""Class Method handles registering a user
+	## === createUser Function ===
 
-    :returns: json
+	"""
+	Resource Class Method that handles registering a user
+	Check if user already exists or not to avoid
+	creating duplicate Users.
+
+    :returns: json containing confirmation message,
+	access_token for further api requests and
+	resfresh_token for obtaining a new access_token
     """
 	def post(self):
 		req_data = request.get_json()
@@ -43,9 +59,15 @@ class createUser(Resource):
 
 class loginUser(Resource):
 
-	"""Class Method handles logging in a user
+	## === loginUser Function ===
 
-    :returns: json
+	"""
+	Resource Class Method that handles logging in a user.
+	Check the hashed password against the database
+
+    :returns: json containing confirmation message,
+	access_token for further api requests and
+	resfresh_token for obtaining a new access_token
     """
 	def post(self):
 		req_data = request.get_json()
@@ -53,7 +75,6 @@ class loginUser(Resource):
 		password = req_data['password']
 
 		if User(username=username).verify_password(password):
-			# session['username'] = username
 			access_token = create_access_token(identity = username)
 			refresh_token = create_refresh_token(identity = username)
 			return {
@@ -66,9 +87,13 @@ class loginUser(Resource):
 
 class NewAccessToken(Resource):
 
-	"""Class Method handles refreshing jwt access tokens
+	## === NewAccessToken Function ===
 
-    :returns: json
+	"""
+	Resource Class Method handles refreshing
+	jwt access tokens.
+    :returns: json containing new access token
+	for api requests
     """
 	@jwt_refresh_token_required
 	def get(self):
@@ -79,9 +104,14 @@ class NewAccessToken(Resource):
 
 class UserFollows(Resource):
 
-	"""Class Method handles creating user to user relationship
+	## === UserFollows Function ===
 
-    :returns: json
+	"""
+	Resource Class Method handles creating
+	user to user relationship.
+	Check if the relationship already exists
+	before creation
+    :returns: json contain confirmation of relationship
     """
 	@jwt_required
 	def post(self):
@@ -96,9 +126,14 @@ class UserFollows(Resource):
 
 class PlaceSearch(Resource):
 
-	"""Class Method handles searching for new restaurant not in the DB for a user
+	## === PlaceSearch Function ===
 
-    :returns: json
+	"""
+	Resource Class Method handles searching
+	for new restaurants currently not in
+	the DB for a user
+
+    :returns: json containing result of the search
     """
 	def get(self, restaurant_name):
 		search_results = User.user_google_search(restaurant_name)
@@ -107,9 +142,13 @@ class PlaceSearch(Resource):
 
 class FindFriends(Resource):
 
-	"""Class Method handles returning all users
+	## === FindFriends Function ===
 
-    :returns: json
+	"""
+	Resource Class Method handles returning
+	all users in database.
+
+    :returns: json containing list of all users
     """
 	@jwt_required
 	def get(self):
@@ -120,21 +159,28 @@ class FindFriends(Resource):
 
 class UserFriends(Resource):
 
-	"""Class Method handles returning all friends of a user
+	## === UserFriends Function ===
 
-    :returns: json
+	"""
+	Resource Class Method handles returning
+	all friends of a user
+
+    :returns: json conataining list of friend objects
     """
 	@jwt_required
 	def get(self, username):
 		friends = User(username=username).return_friends()
-		# print(friends)
 		return {'friends': friends}, 200
 
 class getUser(Resource):
 
-	"""Class Method handles returning user profile data
+	## === getUser Function ===
 
-    :returns: json
+	"""
+	Resource Class Method that handles
+	returning user profile data
+
+    :returns: json contain user information
     """
 	@jwt_required
 	def get(self, username):
@@ -143,7 +189,10 @@ class getUser(Resource):
 
 class HelloTest(Resource):
 
-	"""Class Method handles hello message
+	## === HelloTest Function ===
+
+	"""
+	Resource Class Method handles hello message
 
     :returns: json
     """
@@ -151,13 +200,25 @@ class HelloTest(Resource):
 		return {'message': 'Hello'}, 200
 
 class testWork(Resource):
+
+	## === testWork Function ===
+
+	"""
+	Resource Class Method for testing
+	the status of the Api
+
+    :returns: json
+    """
 	def get(self):
 		return {'message': 'Working'}, 200
 
-"""Registering routes to api
+## === API Routes ===
 
-:param HandlerClass: class of route handler
-:param route: name of route
+"""
+	Registering routes to api
+
+	:param HandlerClass: class of route handler
+	:param route: name of route
 """
 api.add_resource(testWork, '/')
 api.add_resource(FindFriends, '/users/list')
