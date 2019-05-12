@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       marginLeft: "5%",
       color:"#0047ab",
-      fontFamily: "Arial Rounded MT Bold",
   },
     icon: {
         position: 'absolute',
