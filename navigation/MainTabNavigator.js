@@ -174,13 +174,12 @@ export default createStackNavigator({
   initialRouteName: 'LoginStack',
   lazy: false,
   defaultNavigationOptions:{
-      headerLeft: (<View></View>),
-      headerRight: (<View></View>),
           title:'Food Network',
-          headerTitleStyle :{
+          headerTitleStyle: {
+            textAlign: 'center',
+            flexGrow:1,
             alignSelf:'center',
-            left:65,
-          },
-  }
-  }
+            },
+      },
+  },
 );
