@@ -41,7 +41,7 @@ export default class DiscoverScreen extends React.Component {
 
     this.state =
     {
-      markers : {},
+      markers : [],
       data: [],
       resNameList: [],
       username: username,
@@ -95,21 +95,12 @@ export default class DiscoverScreen extends React.Component {
     console.log(`Data: ${this.state.data}`);
     console.log(`Index: ${index}`);
     console.log(`Marker at Data: ${[ this.state.data[index] ]}`);
-    this.setState({markers: this.state.data[index] });
-    console.log(typeof this.state.markers);
-    console.log(Object.keys(this.state.markers));
+
+    var restaurantList = [];
+    restaurantList.push(this.state.data[index]);
+    this.setState({markers: restaurantList });
   }
 
-  returnMarkerItem = () => {
-    return (
-      <MapView.Marker
-      coordinate={{
-        latitude: this.state.markers.lat,
-        longitude: this.state.markers.lon}}
-        title={this.state.markers.name}
-        description={this.state.markers.address}
-      />);
-  }
 
   render() {
     // console.log(this.state.data);
@@ -133,7 +124,16 @@ export default class DiscoverScreen extends React.Component {
         latitudeDelta: 0.105,
         longitudeDelta: 0.305,}}>
 
-          {this.returnMarkerItem()}
+        {this.state.markers.map(shop => (
+        <MapView.Marker
+            coordinate={{latitude: shop.lat,
+            longitude: shop.lon}}
+            title={shop.name}
+            description={shop.address} >
+            </MapView.Marker>
+          ))
+
+        }
 
           </MapView>
 
