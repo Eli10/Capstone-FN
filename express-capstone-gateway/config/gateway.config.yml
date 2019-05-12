@@ -26,7 +26,7 @@ apiEndpoints:
       - '/restaurants/discover/:username'
     methods: ["GET"]
   reviewApi:
-    host: https://capstone-review-service.herokuapp.com
+    host: capstone-express-gateway.herokuapp.com
     paths:
       - '/reviews'
       - '/reviews/restaurant/:restaurant_name'

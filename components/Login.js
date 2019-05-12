@@ -47,18 +47,25 @@ export default class Login extends React.Component {
                         secureTextEntry={true}
                         underlineColorAndroid='transparent'
                     />
-                    <TouchableOpacity
-                         style={styles.btn}
-                         onPress={this.login} >
-                        <Text style={styles.text}>Login</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.btn}
-                        onPress={ ()=> {
-                            this.props.navigation.navigate('RegisterPage');
-                        } }>
-                        <Text style={styles.text}>Register</Text>
-                    </TouchableOpacity>
+
+                    <View style={styles.overallButtonContainer}>
+                      <View>
+                        <TouchableOpacity
+                             style={styles.btn}
+                             onPress={this.login} >
+                            <Text style={styles.text}>Login</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View>
+                        <TouchableOpacity
+                            style={styles.btn}
+                            onPress={ ()=> {
+                                this.props.navigation.navigate('RegisterPage');
+                            } }>
+                            <Text style={styles.text}>Register</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
                 </View>
             </KeyboardAvoidingView>
  	    );
@@ -82,46 +89,20 @@ export default class Login extends React.Component {
            console.log(res.status)
            if (res.status < 400) {
              Alert.alert("Login Successful");
-             // this.props.navigation.navigate('ProfilePage', {username: this.state.username});
            }
             return res.json()
           })
-           // console.log(res.status)
-           // if (res.status < 400) {
-           //   // console.log(res.json())
-           //   Alert.alert();
-           //   this.props.navigation.navigate('ProfilePage', {username: this.state.username});
-           // }
          .then((resData) => {
            console.log(resData)
            this.props.navigation.setParams({
             test: 'From Loggingin Page'
           });
-
-           // this.props.navigation.navigate('AllOtherStacks', {
-           //   username: this.state.username,
-           //   access_token: resData['access_token'],
-           //   refresh_token: resData['refresh_token']
-           // });
-
            this.props.navigation.navigate({
               routeName: "AllOtherStacks",
               params: { username: this.state.username,
               access_token: resData['access_token'],
               refresh_token: resData['refresh_token'] }
             });
-
-          //  this.props.navigation.navigate(NavigationActions.navigate({
-          //     routeName: 'AllOtherStacks',
-          //     params: {
-          //         username: this.state.username,
-          //         access_token: resData['access_token'],
-          //         refresh_token: resData['refresh_token']
-          //     }
-          //   }
-          // ));
-
-
          })
   }
 }
@@ -132,15 +113,19 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	container: {
-
 		flex: 1,
     paddingTop: 100,
     justifyContent: 'center',
 		alignItems: 'center',
     alignContent: 'center',
-    backgroundColor: '#FF8C00',
+    backgroundColor: '#FFA500',
 
 	},
+  overallButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 	header: {
 		fontSize: 24,
 		marginBottom: 50,
@@ -148,30 +133,30 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	textInput: {
-        alignSelf: 'stretch',
-        height: 40,
-        marginHorizontal: 40,
-        backgroundColor: "white",
-        borderRadius: 10,
-        marginBottom: 10,
+    alignSelf: 'stretch',
+    height: 40,
+    marginHorizontal: 40,
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginBottom: 10,
 	},
     txt: {
-        alignSelf: 'center',
-        fontSize: 15,
+    alignSelf: 'center',
+    fontSize: 15,
     },
 	btn: {
 		alignSelf: 'center',
 		backgroundColor: 'black',
 		alignItems: 'center',
-        marginHorizontal: 40,
-        borderRadius: 50,
-        width: 120,
+    marginHorizontal: 20,
+    borderRadius: 50,
+    width: 120,
 	},
-    text: {
-        alignSelf: 'center',
-        color: '#fff',
-        fontSize: 20,
-        padding: 10,
+  text: {
+    alignSelf: 'center',
+    color: '#fff',
+    fontSize: 20,
+    padding: 10,
 
-    }
+  }
 });

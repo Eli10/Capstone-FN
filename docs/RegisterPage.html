@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>RegisterPage.js</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>RegisterPage.js</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span>
+	<span class="nx">Image</span><span class="p">,</span>
+    <span class="nx">Platform</span><span class="p">,</span>
+ 	<span class="nx">ScrollView</span><span class="p">,</span>
+ 	<span class="nx">StyleSheet</span><span class="p">,</span>
+	<span class="nx">Text</span><span class="p">,</span>
+ 	<span class="nx">AppRegistry</span><span class="p">,</span>
+	<span class="nx">TextInput</span><span class="p">,</span>
+	<span class="nx">TouchableOpacity</span><span class="p">,</span>
+	<span class="nx">View</span><span class="p">,</span>
+	<span class="nx">Button</span><span class="p">,</span>
+	<span class="nx">KeyboardAvoidingView</span><span class="p">,</span>
+    <span class="nx">AsyncStorage</span><span class="p">,</span>
+    <span class="nx">FlatList</span><span class="p">,</span>
+    <span class="nx">Alert</span><span class="p">,</span>
+    <span class="nx">Picker</span><span class="p">,</span>
+	<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-native&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">createStackNavigator</span><span class="p">,</span> <span class="nx">NavigationActions</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-navigation&#39;</span><span class="p">;</span>
+
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">RegisterPage</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+        <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="o">=</span><span class="p">{</span>
+            <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">fname</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">lname</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">age</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">gender</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">favBorough</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">register</span><span class="p">}</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">header</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">REGISTER</span><span class="o">&lt;</span><span class="err">/Text&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;First Name&quot;</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">fname</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">fname</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;Last Name&quot;</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">lname</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">lname</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;Age&quot;</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">age</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">age</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;Gender&quot;</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">gender</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">gender</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;Favorite Borough&quot;</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">favBorough</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">favBorough</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;Email/Username&quot;</span>
+                        <span class="nx">keyboardType</span><span class="o">=</span><span class="s1">&#39;email-address&#39;</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">username</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">username</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;password&quot;</span>
+                        <span class="nx">secureTextEntry</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">password</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">password</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TextInput</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">textInput</span><span class="p">}</span>
+                        <span class="nx">placeholder</span><span class="o">=</span> <span class="s2">&quot;confirm password&quot;</span>
+                        <span class="nx">secureTextEntry</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span>
+                        <span class="nx">onChangeText</span><span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nx">cPassword</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span> <span class="p">(</span> <span class="p">{</span><span class="nx">cPassword</span><span class="p">}</span> <span class="p">)</span> <span class="p">}</span>
+                        <span class="nx">underlineColorAndroid</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;transparent&#39;</span><span class="p">}</span>
+                        <span class="nx">autoCorrect</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span><span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TouchableOpacity</span>
+                     <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">btn</span><span class="p">}</span>
+                     <span class="nx">onPress</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">register</span><span class="p">}</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonText</span><span class="p">}</span><span class="o">&gt;</span> <span class="nx">Register</span><span class="o">&lt;</span><span class="err">/Text&gt;</span>
+                <span class="o">&lt;</span><span class="err">/TouchableOpacity&gt;</span>
+                <span class="o">&lt;</span><span class="nx">TouchableOpacity</span>
+                     <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">btn</span><span class="p">}</span>
+                     <span class="nx">onPress</span><span class="o">=</span><span class="p">{</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;Home&#39;</span><span class="p">)}</span> <span class="p">}</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonText</span><span class="p">}</span><span class="o">&gt;</span> <span class="nx">Cancel</span><span class="o">&lt;</span><span class="err">/Text&gt;</span>
+                <span class="o">&lt;</span><span class="err">/TouchableOpacity&gt;</span>
+
+            <span class="o">&lt;</span><span class="err">/View&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">verifyRegistration</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;https://capstone-express-gateway.herokuapp.com/users/register&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">Accept</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+          <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+          <span class="nx">username</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+          <span class="nx">password</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">password</span><span class="p">,</span>
+          <span class="nx">fname</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">fname</span><span class="p">,</span>
+          <span class="nx">lname</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">lname</span><span class="p">,</span>
+          <span class="nx">age</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span>
+          <span class="nx">gender</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gender</span><span class="p">,</span>
+          <span class="nx">favBorough</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">favBorough</span><span class="p">,</span>
+        <span class="p">}),</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;User was created&quot;</span><span class="p">);</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">goToLogin</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">202</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">Alert</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="s2">&quot;User is already registered&quot;</span><span class="p">);</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">goToLogin</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+
+    <span class="nx">goToLogin</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;im here 2&quot;</span><span class="p">)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;Home&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">register</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">fname</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">lname</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">verifyRegistration</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+<span class="kr">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+	<span class="nx">wrapper</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="nx">container</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">paddingTop</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+		<span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+		<span class="nx">justifyContent</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+		<span class="nx">paddingLeft</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="nx">paddingRight</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="nx">header</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">fontSize</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+		<span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+		<span class="nx">fontWeight</span><span class="o">:</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+        <span class="nx">paddingBottom</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">marginBottom</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">borderBottomColor</span><span class="o">:</span> <span class="s1">&#39;#199187&#39;</span><span class="p">,</span>
+        <span class="nx">borderBottomWidth</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="nx">textInput</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">alignSelf</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+        <span class="nx">marginBottom</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">borderBottomColor</span><span class="o">:</span> <span class="s1">&#39;#696969&#39;</span><span class="p">,</span>
+        <span class="nx">borderBottomWidth</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+        <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">width</span><span class="o">:</span> <span class="mi">350</span>
+	<span class="p">},</span>
+	<span class="nx">btn</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">alignSelf</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+		<span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+		<span class="nx">padding</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+		<span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">150</span><span class="p">,</span>
+
+	<span class="p">},</span>
+    <span class="nx">buttonText</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+        <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">20</span>
+    <span class="p">},</span>
+    <span class="nx">register</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="nx">justifyContent</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="nx">alignSelf</span><span class="o">:</span> <span class="s1">&#39;stretch&#39;</span><span class="p">,</span>
+        <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#FFA500&#39;</span>
+    <span class="p">},</span>
+<span class="p">});</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

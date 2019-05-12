@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>SearchMaps.js</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>SearchMaps.js</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">Image</span><span class="p">,</span>
+  <span class="nx">Platform</span><span class="p">,</span>
+  <span class="nx">ScrollView</span><span class="p">,</span>
+  <span class="nx">StyleSheet</span><span class="p">,</span>
+  <span class="nx">Text</span><span class="p">,</span>
+  <span class="nx">TouchableOpacity</span><span class="p">,</span>
+  <span class="nx">View</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-native&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">WebBrowser</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;expo&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">MonoText</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../components/StyledText&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">SearchScreen</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kr">static</span> <span class="nx">navigationOptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">header</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">container</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">ScrollView</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">container</span><span class="p">}</span> <span class="nx">contentContainerStyle</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">contentContainer</span><span class="p">}</span><span class="o">&gt;</span>
+          
+
+         <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span> <span class="nx">PLEASE</span> <span class="nx">EDIT</span> <span class="nx">ME</span> <span class="o">&lt;</span><span class="err">/Text&gt;</span>
+          
+        <span class="o">&lt;</span><span class="err">/ScrollView&gt;</span>
+
+       
+      <span class="o">&lt;</span><span class="err">/View&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">_maybeRenderDevelopmentModeWarning</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">learnMoreButton</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleLearnMorePress</span><span class="p">}</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">helpLinkText</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="nx">Learn</span> <span class="nx">more</span>
+        <span class="o">&lt;</span><span class="err">/Text&gt;</span>
+      <span class="p">);</span>
+
+      <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">developmentModeText</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="nx">Development</span> <span class="nx">mode</span> <span class="nx">is</span> <span class="nx">enabled</span><span class="p">,</span> <span class="nx">your</span> <span class="nx">app</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">slower</span> <span class="nx">but</span> <span class="nx">you</span> <span class="nx">can</span> <span class="nx">use</span> <span class="nx">useful</span> <span class="nx">development</span>
+          <span class="nx">tools</span><span class="p">.</span> <span class="p">{</span><span class="nx">learnMoreButton</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="err">/Text&gt;</span>
+      <span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">developmentModeText</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="nx">You</span> <span class="nx">are</span> <span class="nx">not</span> <span class="k">in</span> <span class="nx">development</span> <span class="nx">mode</span><span class="p">,</span> <span class="nx">your</span> <span class="nx">app</span> <span class="nx">will</span> <span class="nx">run</span> <span class="nx">at</span> <span class="nx">full</span> <span class="nx">speed</span><span class="p">.</span>
+        <span class="o">&lt;</span><span class="err">/Text&gt;</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleLearnMorePress</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">WebBrowser</span><span class="p">.</span><span class="nx">openBrowserAsync</span><span class="p">(</span><span class="s1">&#39;https://docs.expo.io/versions/latest/guides/development-mode&#39;</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">_handleHelpPress</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">WebBrowser</span><span class="p">.</span><span class="nx">openBrowserAsync</span><span class="p">(</span>
+      <span class="s1">&#39;https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes&#39;</span>
+    <span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#fff&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">developmentModeText</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">marginBottom</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;rgba(0,0,0,0.4)&#39;</span><span class="p">,</span>
+    <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nx">lineHeight</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span>
+    <span class="nx">textAlign</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">contentContainer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">paddingTop</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">welcomeContainer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nx">marginBottom</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">welcomeImage</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nx">height</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="nx">resizeMode</span><span class="o">:</span> <span class="s1">&#39;contain&#39;</span><span class="p">,</span>
+    <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">marginLeft</span><span class="o">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">getStartedContainer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">homeScreenFilename</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">marginVertical</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">codeHighlightText</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;rgba(96,100,109, 0.8)&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">codeHighlightContainer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;rgba(0,0,0,0.05)&#39;</span><span class="p">,</span>
+    <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">paddingHorizontal</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">getStartedText</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;rgba(96,100,109, 1)&#39;</span><span class="p">,</span>
+    <span class="nx">lineHeight</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+    <span class="nx">textAlign</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+
+ 
+  <span class="nx">navigationFilename</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">helpContainer</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">helpLink</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">paddingVertical</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">helpLinkText</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#2e78b7&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
