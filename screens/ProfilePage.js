@@ -193,17 +193,13 @@ export default class ProfilePage extends React.Component {
             data={this.state.userReviews}
             renderItem={({ item }) =>
 
-            <TouchableOpacity>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <Text>Restaurant: {item.name}</Text>
-                <Text>Rating: {item.rating}</Text>
-                <Text>Comment: {item.review}</Text>
-              </View>
-            </TouchableOpacity>
+              <TouchableOpacity>
+                <View style={styles.mapNameContainer}>
+                  <Text style={styles.reviewText}> Restaurant: {item.restaurant_name}</Text>
+                  <Text style={styles.reviewText}> Rating: {item.rating}</Text>
+                  <Text style={styles.reviewText}> Comment: {item.review}</Text>
+                </View>
+              </TouchableOpacity>
 
             }
             ItemSeparatorComponent={this.renderSeparator}
@@ -261,6 +257,10 @@ const styles = StyleSheet.create({
     fontFamily: "Arial Rounded MT Bold",
   },
   mapName: {
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  reviewText: {
     fontSize: 16,
     marginLeft: 10,
   },

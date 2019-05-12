@@ -1,6 +1,16 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, List} from 'react-native';
+import {
+    View,
+    Text,
+    FlatList,
+    ActivityIndicator,
+    StyleSheet,
+    TouchableOpacity,
+    Modal,
+    List,
+    ScrollView
+} from 'react-native';
 import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
@@ -100,65 +110,70 @@ export default class FindFriendsScreen extends React.Component {
 
     render() {
         return(
-            <View>
+            <ScrollView style={{
+              top: 40,
+            }}>
                <FlatList
                       data={this.state.tempFriends}
                       renderItem={({ item }) =>
 
                        <TouchableOpacity onPress={() => {console.log('Touched Button')}}>
-                        <View>
-                          <Text style={styles.name}>{item.username}</Text>
-                          <Button style={styles.btn}
-                            onPress={() => { this.followNewFriend(item.username) }}
-                            icon={
-                              <Icon
-                                name="add-circle-outline"
-                                size={15}
-                                color="black"
-                              />
-                            }
-                            type="outline"
-                            iconLeft
-                            title="Add Friend"
-                            />
+                        <View style={styles.listContainer}>
+                            <View style={{
+                                flex:"column"
+                            }}>
+                                <Text style={styles.name}>{item.username}</Text>
+                                <Text style={styles.name}>Favorite Borough: {item.favBorough}</Text>
+                            </View>
+                          <View style={styles.addFriendContainer}>
+                              <Button
+                                onPress={() => { this.followNewFriend(item.username) }}
+                                type="outline"
+                                iconLeft
+                                title="Add Friend"
+                                />
+                         </View>
                         </View>
                        </TouchableOpacity>
 
                       }
                       ItemSeparatorComponent={this.renderSeparator}
                     />
-           </View>
+           </ScrollView>
         )
     }
 }
 
 const styles = StyleSheet.create({
-
-    name: {
-      fontSize: 20,
-      marginLeft:10,
-    },
-
-    btn : {
-        marginTop:10,
-        marginBottom:10,
-        paddingTop:0.1,
-        paddingBottom:0.1,
-        marginLeft: 120,
-        marginRight: 120,
-        backgroundColor:'white',
-        borderRadius:50,
-        borderWidth: 0.2,
-        borderColor: 'blue'
-    },
-
+  listContainer: {
+        paddingTop: 5,
+        paddingBottom: 5,
+        fontFamily: "Arial Rounded MT Bold",
+        flexDirection: 'row',
+  },
+  addFriendContainer: {
+      marginTop:10,
+      marginBottom:10,
+      marginLeft: "30%",
+      paddingTop:0.1,
+      paddingBottom:0.1,
+      backgroundColor:'white',
+      borderRadius:50,
+      borderWidth: 0.2,
+      borderColor: 'blue'
+  },
+  name: {
+      fontSize: 16,
+      marginLeft: "5%",
+      color:"#0047ab",
+      fontFamily: "Arial Rounded MT Bold",
+  },
     icon: {
         position: 'absolute',
         left:18,
         top:9,
         fontSize:30,
       },
-
       wrapper: {
         padding:5,
       }
