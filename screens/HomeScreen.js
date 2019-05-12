@@ -1,3 +1,9 @@
+/*
+    Author: Cesar Guzman
+    Purpose: HomeScreen.js implements the first tab on the tabbar, showing the user their maps and their respective
+    map markers
+
+*/
 import React from 'react';
 import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
@@ -5,7 +11,6 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import StarRating from 'react-native-star-rating';
 
 
-//you are bob for tesgting
 
 import {
     Picker,
@@ -42,13 +47,17 @@ var pageID0 = 100;
 console.disableYellowBox = true;
 
 
-//refer to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality
-
+//refered to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality
+//for modal dropdowns
 
 
 export default class HomeScreen extends React.Component {
     static DefaultNavigationOptions = {title: "Your Maps"};
     componentDidMount () {
+        //this function is the implementation of the "on tab refresh", as it calls the getmaps function as soon
+        //as soon as the component mounts, i.e. as soon as it is viewed by the user
+        //this allows for maps generated in other tabs to be made available in the
+        //in their latest form by users who click back to the homescreen-yourmaps tab
         this.props.navigation.addListener('willFocus', (route) => {this.getmaps(); this.getmaps()});
     }
     navigationOptions = {title: 'My Maps',};
@@ -56,6 +65,7 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
 
+        //parameters for endpoint access are passed throughout the app using the react native navigation prop
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'Blah');
         const access_token = navigation.getParam('access_token', 'Blah');

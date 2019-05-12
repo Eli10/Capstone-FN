@@ -1,3 +1,8 @@
+/**
+Author:Jasmine Wong
+ file: this file implements the search maps (3rd icon on tab bar) that allows for searching and adding of restaurants
+ to maps
+ **/
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
