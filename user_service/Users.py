@@ -5,8 +5,12 @@ import uuid
 import os
 import googlemaps
 
-# For Connecting to Heroku
 
+# === DB Connections ===
+
+"""
+	For Connecting to NEO4j PROD DB on Heroku
+"""
 graphenedb_url = os.environ.get("GRAPHENEDB_BOLT_URL", 'blah')
 graphenedb_user = os.environ.get("GRAPHENEDB_BOLT_USER", 'blah')
 graphenedb_pass = os.environ.get("GRAPHENEDB_BOLT_PASSWORD", 'blah')
@@ -14,18 +18,28 @@ authenticate(graphenedb_url.strip("bolt://").replace("24787", "24780"), graphene
 graph = Graph(graphenedb_url, user=graphenedb_user, password=graphenedb_pass, bolt = True, secure = True, http_port = 24789, https_port = 24780)
 
 
-#For Connecting to local host instance
+"""
+	For Connecting to local host instance
+"""
 # graph = Graph(bolt=True, host=os.environ.get("NEO4J_PYTHON_HOST", 'n/a'), user=os.environ.get("NEO4J_PYTHON_USER", 'n/a'), password=os.environ.get("NEO4J_PYTHON_PASS", 'n/a'))
 
-
-# For Connecting to EC2 instance
-# authenticate("52.91.176.33:7473", "neo4j", "i-0b894b0a765ce3877")
-# graph = Graph("http://52.91.176.33:7474/db/data", user="neo4j", password="i-0b894b0a765ce3877", secure=False)
-
+"""
+	Google Maps Object for querying New Restaurants
+"""
 gmaps = googlemaps.Client(key=os.environ["GOOGLE_MAPS_API_KEY"])
 
+# === User Model for UserService API ===
 
 class User:
+	"""
+		Constructor Method - Must Supply
+		1. Username
+		2. First Name
+		3. Last Name
+		4. Age
+		5. Gender
+		6. Favorite Borough
+	"""
 	def __init__(self, username=None, fname=None, lname=None, age=None, gender=None, favBorough=None):
 		self.username = username
 		self.fname = fname
@@ -34,23 +48,20 @@ class User:
 		self.gender = gender
 		self.favBorough = favBorough
 
-	"""Class Method that checks if user exists in DB
+	"""
+	Class Method that checks if user exists in DB
 
     :returns: User Object
     """
 	def find(self):
-		# print(dir(graph))
-		# user_to_find = Node("User", username=self.username)
 		user_to_find = graph.find_one("User", property_key="username", property_value=self.username)
 		print(user_to_find)
 		if user_to_find == None:
 			return None
 		return user_to_find
-		# user = graph.exists(user_to_find)
-		# print("USER FOUND???: {}".format(user))
-		# return user
 
-	"""Static Method that returns all users in DB
+	"""
+	Static Method that returns all users in DB
 
     :returns: list of users
     """
@@ -62,7 +73,8 @@ class User:
 			return []
 		return all_users_list
 
-	"""Class Method that registers a user
+	"""
+	Class Method that registers a user
 
 	:param password: password of user
     :returns: boolean
@@ -75,7 +87,9 @@ class User:
 		else:
 			return False
 
-	"""Class Method that verifies user password with what is in the DB
+	"""
+	Class Method that verifies user password
+	with what is in the DB
 
 	:param password: password of user
     :returns: boolean
@@ -88,7 +102,8 @@ class User:
 		else:
 			return False
 
-	"""Class Method creates user to user relationship
+	"""
+	Class Method creates user to user relationship
 
 	:param follow_username: name of user to follow
     :returns: boolean
@@ -98,16 +113,17 @@ class User:
 		user_to_follow = User(follow_username).find()
 
 		follow_relationship = Relationship(primary_user, "FOLLOWS", user_to_follow)
-		# graph.create does not return anything
 		if graph.match_one(start_node=primary_user, rel_type="FOLLOWS", end_node=user_to_follow, bidirectional=True) != None:
 			return False
 		else:
 			graph.create(follow_relationship)
 			return True
 
-	"""Static Method search for new restaurants
+	"""
+	Static Method search for new restaurants
 
-	:param restaurant_name: name of restaurant to search for
+	:param restaurant_name: name of
+	restaurant to search for
     :returns: list of restaurants
     """
 	@staticmethod
@@ -129,7 +145,9 @@ class User:
 			graph.create(restaurant_node)
 		return search_results
 
-	"""Class Method returns all user nodes connected to a iser
+	"""
+	Class Method that returns all other
+	user nodes connected to a user
 
     :returns: list of usernames
     """
@@ -142,12 +160,12 @@ class User:
 			cleaned_results = [u["username"] for u in results]
 			return cleaned_results
 
-	"""Class Method returns user data
+	"""
+	Class Method that returns user data
 
     :returns: dict of user information
     """
 	def return_profile(self):
-		# MATCH (u:User {username:'Bob'})-[]-(m:Map), (u)-[r:GAVE_REVIEW]-(res:Restaurant) return u,m,r
 		results = graph.data("MATCH (u:User {username:'"+self.username+"'}) return u as user" )
 		if results == None or results == []:
 			return {"age": '', "username": '', "fname": '', "lname":'', "gender":'', "favBorough":''}
@@ -161,5 +179,3 @@ class User:
 				profile["gender"] = r["user"]["gender"]
 				profile["favBorough"] = r["user"]["favBorough"]
 			return profile
-			# cleaned_results = [u["username"] for u in results]
-			# return cleaned_results

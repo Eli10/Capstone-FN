@@ -25,10 +25,6 @@ export default class ProfilePage extends React.Component {
 
             const { navigation } = this.props;
             const username = navigation.getParam('username', 'Blah');
-            // const fname = navigation.getParam('fname', 'Blah');
-            // const age = navigation.getParam('age', 'Blah');
-            // const gender = navigation.getParam('gender', 'Blah');
-            // const favBorough = navigation.getParam('favBorough', 'Blah');
             const access_token = navigation.getParam('access_token', 'Blah');
             const refresh_token = navigation.getParam('refresh_token', 'Blah');
 
@@ -55,9 +51,12 @@ export default class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    this.getUserProfile();
-    this.getMapsForUser();
-    this.getRatings();
+    this.props.navigation.addListener('willFocus', (route) => {
+      this.getUserProfile();
+      this.getMapsForUser();
+      this.getRatings();
+    });
+
     timer.setInterval(this, 'request-new-token', () => {
       console.log("need new token");
       this.getNewAccessToken()
@@ -151,50 +150,56 @@ export default class ProfilePage extends React.Component {
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
          <View style ={styles.header}>
-             <Text style={styles.text}> Hello {this.state.fname} </Text>
-            <View style= {{width: 50, backgroundColor: '#FF8C00'}}/>
+             <Text style={styles.text}> {this.state.fname} {this.state.lname}</Text>
+            <View style= {{width: 50}}/>
         </View>
         <View style ={styles.secondLine}>
-            <View style= {{width: 20, backgroundColor: '#FF8C00'}}/>
+            <View style= {{width: 20}}/>
              <Text> {this.state.age} yrs</Text>
              <Text> {this.state.gender}</Text>
-             <View style= {{width: 50, backgroundColor: '#FF8C00'}}/>
-            <View style= {{width: 50, backgroundColor: '#FF8C00'}}/>
+             <View style= {{width: 50}}/>
+            <View style= {{width: 50}}/>
         </View>
         <View style={styles.loc}>
-            <View style= {{width: 35, backgroundColor: '#FF8C00'}}/>
+            <View style= {{width: 35}}/>
             <Text> {this.state.favBorough} </Text>
-            <View style= {{width: 45, backgroundColor: '#FF8C00'}}/>
-            <View style= {{width: 45, backgroundColor: '#FF8C00'}}/>
+            <View style= {{width: 45}}/>
+            <View style= {{width: 45}}/>
         </View>
 
         <View>
-          <Text>Maps</Text>
+          <View>
+            <Text style={styles.mapTitle}>Maps</Text>
+          </View>
           <FlatList
             extraData={this.state}
             data={this.state.userMaps}
             renderItem={({ item }) =>
 
             <TouchableOpacity>
-              <View>
-                <Text>{item}</Text>
+              <View style={styles.mapNameContainer}>
+                <Text style={styles.mapName}>{item}</Text>
               </View>
             </TouchableOpacity>
-
             }
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
 
         <View style={{paddingTop: 100}}>
-          <Text>Reviews</Text>
+          <Text style={styles.mapTitle}>Reviews</Text>
           <FlatList
             extraData={this.state}
             data={this.state.userReviews}
             renderItem={({ item }) =>
 
             <TouchableOpacity>
-              <View>
+              <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Text>Restaurant: {item.name}</Text>
                 <Text>Rating: {item.rating}</Text>
                 <Text>Comment: {item.review}</Text>
               </View>
@@ -220,31 +225,43 @@ const styles = StyleSheet.create({
     top:30,
   },
   header: {
-       flexDirection: 'row',
-       justifyContent: 'space-around',
-       paddingBottom: 5,
- },
-   secondLine: {
-       fontSize: 12,
-       color: '#808080',
-       flexDirection: 'row',
-       justifyContent: 'space-around',
-       paddingBottom: 5,
-
-    },
-   loc: {
-       fontSize: 12,
-       color: '#808080',
-       borderBottomColor: '#696969',
-       borderBottomWidth: 1,
-       flexDirection: 'row',
-       justifyContent: 'space-around',
-       paddingBottom: 5,
-
-    },
-   text: {
-       fontSize: 40,
+   flexDirection: 'row',
+   justifyContent: 'space-around',
+   paddingBottom: 5,
+  },
+  secondLine: {
+   fontSize: 12,
+   color: '#808080',
+   flexDirection: 'row',
+   justifyContent: 'space-around',
+   paddingBottom: 5,
+  },
+  loc: {
+   fontSize: 12,
+   color: '#808080',
+   borderBottomColor: '#696969',
+   borderBottomWidth: 1,
+   flexDirection: 'row',
+   justifyContent: 'space-around',
+   paddingBottom: 5,
+  },
+  text: {
+   fontSize: 40,
    color: '#000000',
    fontWeight: 'bold',
-   },
+  },
+  mapTitle: {
+    color:"#0047ab",
+    fontSize: 32,
+    fontFamily: "Arial Rounded MT Bold",
+  },
+  mapNameContainer: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    fontFamily: "Arial Rounded MT Bold",
+  },
+  mapName: {
+    fontSize: 16,
+    marginLeft: 10,
+  },
 });

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>HomeScreen.js</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>HomeScreen.js</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">MapView</span> <span class="nx">from</span> <span class="s1">&#39;react-native-maps&#39;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Header</span><span class="p">,</span><span class="nx">createStackNavigator</span><span class="p">,</span> <span class="nx">createAppContainer</span><span class="p">,</span> <span class="nx">StackNavigator</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-navigation&#39;</span>
+<span class="kr">import</span> <span class="nx">ModalDropdown</span> <span class="nx">from</span> <span class="s1">&#39;react-native-modal-dropdown&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">StarRating</span> <span class="nx">from</span> <span class="s1">&#39;react-native-star-rating&#39;</span><span class="p">;</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>you are bob for tesgting</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kr">import</span> <span class="p">{</span>
+    <span class="nx">Picker</span><span class="p">,</span>
+    <span class="nx">Button</span><span class="p">,</span>
+    <span class="nx">Image</span><span class="p">,</span>
+    <span class="nx">Platform</span><span class="p">,</span>
+    <span class="nx">ScrollView</span><span class="p">,</span>
+    <span class="nx">StyleSheet</span><span class="p">,</span>
+    <span class="nx">Text</span><span class="p">,</span>
+    <span class="nx">TouchableOpacity</span><span class="p">,</span>
+    <span class="nx">View</span><span class="p">,</span>
+    <span class="nx">AppRegistry</span><span class="p">,</span>
+    <span class="nx">Dimensions</span><span class="p">,</span>
+    <span class="nx">Component</span><span class="p">,</span>
+    <span class="nx">Alert</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-native&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">WebBrowser</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;expo&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">MonoText</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../components/StyledText&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">RestaurantList</span> <span class="nx">from</span> <span class="s1">&#39;../assets/files/TestRestaurants.json&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">RNPickerSelect</span> <span class="nx">from</span> <span class="s1">&#39;react-native-picker-select&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">menu</span> <span class="nx">from</span> <span class="s1">&#39;../components/DropDownClassForHomeScreen.js&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">restaurantObject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">listnames</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">restList</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">pageID0</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">RestaurantList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">listnames</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">RestaurantList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">listname</span><span class="p">);</span>
+        <span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">disableYellowBox</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>refer to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">HomeScreen</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="kr">static</span> <span class="nx">DefaultNavigationOptions</span> <span class="o">=</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Your Maps&quot;</span><span class="p">};</span>
+    <span class="nx">componentDidMount</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;willFocus&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">route</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">getmaps</span><span class="p">();</span> <span class="k">this</span><span class="p">.</span><span class="nx">getmaps</span><span class="p">()});</span>
+    <span class="p">}</span>
+    <span class="nx">navigationOptions</span> <span class="o">=</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;My Maps&#39;</span><span class="p">,};</span>
+
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span>
+
+        <span class="kr">const</span> <span class="p">{</span> <span class="nx">navigation</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+        <span class="kr">const</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;Blah&#39;</span><span class="p">);</span>
+        <span class="kr">const</span> <span class="nx">access_token</span> <span class="o">=</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;access_token&#39;</span><span class="p">,</span> <span class="s1">&#39;Blah&#39;</span><span class="p">);</span>
+        <span class="kr">const</span> <span class="nx">refresh_token</span> <span class="o">=</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">,</span> <span class="s1">&#39;Blah&#39;</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Your Maps State User: </span><span class="si">${</span><span class="nx">username</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Your Maps State Token: </span><span class="si">${</span><span class="nx">access_token</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span>
+            <span class="p">{</span>
+                <span class="nx">markers</span> <span class="o">:</span> <span class="nx">restList</span><span class="p">,</span>
+                <span class="nx">dropdownlist</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+                <span class="nx">username</span><span class="o">:</span> <span class="nx">username</span><span class="p">,</span>
+                <span class="nx">access_token</span><span class="o">:</span> <span class="nx">access_token</span><span class="p">,</span>
+                <span class="nx">refresh_token</span><span class="o">:</span> <span class="nx">refresh_token</span><span class="p">,</span>
+            <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">popList</span> <span class="o">=</span> <span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">tList</span> <span class="o">=</span> <span class="p">[];</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>console.log(index);</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">fetch</span> <span class="p">(</span><span class="sb">`https://capstone-express-gateway.herokuapp.com/maps/</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+            <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;no-cors&#39;</span><span class="p">,</span>
+            <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Authorization&#39;</span><span class="o">:</span> <span class="s1">&#39;Bearer &#39;</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">access_token</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">resData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>console.log(resData.maps[0].restaurants);</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">markers</span> <span class="o">:</span> <span class="nx">resData</span><span class="p">.</span><span class="nx">maps</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">restaurants</span><span class="p">})</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>console.log(this.state.markers)</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="p">})</span>
+        <span class="p">.</span>   <span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">))</span>
+    <span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>this marker popilates the initial dropdown</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">getmaps</span> <span class="o">=</span> <span class="p">()=&gt;</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">dropdownv</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="nx">fetch</span><span class="p">(</span><span class="sb">`https://capstone-express-gateway.herokuapp.com/maps/</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+            <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;no-cors&#39;</span><span class="p">,</span>
+            <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Authorization&#39;</span><span class="o">:</span> <span class="s1">&#39;Bearer &#39;</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">access_token</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">})</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">resData</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">resData</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">dropdownv</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">resData</span><span class="p">.</span><span class="nx">maps</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
+                <span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>console.log(dropdownv);
+console.log(&ldquo;here now&rdquo;);</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="p">})</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">))</span>
+            <span class="p">.</span><span class="nx">done</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">dropdownlist</span> <span class="o">:</span> <span class="nx">dropdownv</span><span class="p">})</span>
+    <span class="p">}</span>
+
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kr">const</span> <span class="p">{</span><span class="nx">navigate</span><span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">;</span>
+
+
+        <span class="k">return</span> <span class="p">(</span>
+
+
+           <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">container</span><span class="p">}</span><span class="o">&gt;</span>
+               <span class="o">&lt;</span><span class="nx">ModalDropdown</span>
+                   <span class="nx">defaultValue</span> <span class="o">=</span> <span class="s1">&#39;Please select a Map&#39;</span>
+                   <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">MD</span><span class="p">}</span>
+                   <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">dropdownlist</span><span class="p">}</span>
+                   <span class="nx">dropdownStyle</span> <span class="o">=</span> <span class="p">{{</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">35</span> <span class="o">*</span> <span class="nx">listnames</span><span class="p">.</span><span class="nx">length</span><span class="p">}}</span>
+                   <span class="nx">onSelect</span><span class="o">=</span><span class="p">{(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">popList</span><span class="p">(</span><span class="nx">index</span><span class="p">)}}</span>
+               <span class="o">/&gt;</span>
+
+
+               <span class="o">&lt;</span><span class="nx">MapView</span>
+                <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">map</span><span class="p">}</span>
+                <span class="nx">initialRegion</span><span class="o">=</span><span class="p">{{</span>
+                  <span class="nx">latitude</span><span class="o">:</span> <span class="mf">40.7128</span><span class="p">,</span>
+                  <span class="nx">longitude</span><span class="o">:</span> <span class="o">-</span><span class="mf">74.0060</span><span class="p">,</span>
+                  <span class="nx">latitudeDelta</span><span class="o">:</span> <span class="mf">0.355</span><span class="p">,</span>
+                  <span class="nx">longitudeDelta</span><span class="o">:</span> <span class="mf">0.355</span><span class="p">,</span>
+              <span class="p">}}</span>
+            <span class="o">&gt;</span>
+
+
+            <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">markers</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">shop</span> <span class="p">=&gt;</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">MapView</span><span class="p">.</span><span class="nx">Marker</span>
+                <span class="nx">coordinate</span><span class="o">=</span><span class="p">{{</span><span class="nx">latitude</span><span class="o">:</span> <span class="nx">shop</span><span class="p">.</span><span class="nx">lat</span><span class="p">,</span>
+                <span class="nx">longitude</span><span class="o">:</span> <span class="nx">shop</span><span class="p">.</span><span class="nx">lon</span><span class="p">}}</span>
+                <span class="nx">title</span><span class="o">=</span><span class="p">{</span><span class="nx">shop</span><span class="p">.</span><span class="nx">restaurant_name</span><span class="p">}</span>
+                <span class="nx">description</span><span class="o">=</span><span class="p">{</span><span class="nx">shop</span><span class="p">.</span><span class="nx">address</span><span class="p">}</span> <span class="o">&gt;</span>
+
+                <span class="o">&lt;</span><span class="nx">MapView</span><span class="p">.</span><span class="nx">Callout</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">plainView</span><span class="p">}</span>
+                 <span class="nx">tooltip</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;Star&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">restname</span><span class="o">:</span> <span class="nx">shop</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+                     <span class="nx">PAGEID</span><span class="o">:</span> <span class="nx">pageID0</span><span class="p">,</span>
+                     <span class="nx">restAddr</span><span class="o">:</span> <span class="nx">shop</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+                     <span class="nx">token</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">access_token</span><span class="p">,</span>
+                     <span class="nx">user</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span> <span class="p">})}</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">styles</span><span class="o">=</span><span class="p">{{</span><span class="nx">textAlign</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,}}</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">shop</span><span class="p">.</span><span class="nx">name</span><span class="p">}{</span><span class="s2">&quot;\n&quot;</span><span class="p">}{</span><span class="nx">shop</span><span class="p">.</span><span class="nx">address</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/Text&gt;</span>
+                    <span class="o">&lt;</span><span class="err">/View&gt;</span>
+                <span class="o">&lt;</span><span class="err">/MapView.Callout&gt;</span>
+            <span class="o">&lt;</span><span class="err">/MapView.Marker&gt;</span>
+            <span class="p">))}</span>
+            <span class="o">&lt;</span><span class="err">/MapView&gt;</span>
+
+
+
+        <span class="o">&lt;</span><span class="err">/View&gt;</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+
+
+    <span class="kr">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+        <span class="nx">container</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">flex</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#fff&#39;</span><span class="p">,</span>
+            <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;relative&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">customView</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">width</span><span class="o">:</span> <span class="mi">140</span><span class="p">,</span>
+            <span class="nx">height</span><span class="o">:</span> <span class="mi">140</span><span class="p">,</span>
+        <span class="p">},</span>
+
+        <span class="nx">MD</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="nx">justifyContent</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="nx">padding</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#98FB98&#39;</span><span class="p">,</span>
+            <span class="nx">width</span><span class="o">:</span> <span class="mi">145</span><span class="p">,</span>
+            <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+            <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nx">top</span><span class="o">:</span><span class="mi">30</span>
+        <span class="p">},</span>
+        <span class="nx">map</span><span class="o">:</span> <span class="p">{</span>
+
+            <span class="nx">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">left</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">right</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">bottom</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">height</span><span class="o">:</span> <span class="nx">Dimensions</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">).</span><span class="nx">height</span> <span class="o">-</span> <span class="mi">40</span><span class="p">,</span>
+            <span class="nx">width</span><span class="o">:</span> <span class="nx">Dimensions</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">).</span><span class="nx">width</span><span class="p">,</span>
+            <span class="nx">paddingTop</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="nx">borderColor</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+            <span class="nx">borderStyle</span><span class="o">:</span> <span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+            <span class="nx">borderWidth</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;relative&#39;</span><span class="p">,</span>
+            <span class="nx">zIndex</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">},</span>
+            <span class="nx">plainView</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+            <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+            <span class="nx">paddingHorizontal</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nx">paddingVertical</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nx">alignItems</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="nx">textAlign</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nx">marginVertical</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="p">},</span>
+    <span class="p">});</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
