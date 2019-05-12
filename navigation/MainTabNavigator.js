@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, Button } from 'react-native';
+import { Platform, Button, View, Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator, HeaderBackButton } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -173,5 +173,14 @@ export default createStackNavigator({
 }, {
   initialRouteName: 'LoginStack',
   lazy: false,
-  defaultNavigationOptions:{}
-});
+  defaultNavigationOptions:{
+      headerLeft: (<View></View>),
+      headerRight: (<View></View>),
+          title:'Food Network',
+          headerTitleStyle :{
+            alignSelf:'center',
+            left:65,
+          },
+  }
+  }
+);
