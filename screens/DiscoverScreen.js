@@ -100,6 +100,17 @@ export default class DiscoverScreen extends React.Component {
     console.log(Object.keys(this.state.markers));
   }
 
+  returnMarkerItem = () => {
+    return (
+      <MapView.Marker
+      coordinate={{
+        latitude: this.state.markers.lat,
+        longitude: this.state.markers.lon}}
+        title={this.state.markers.name}
+        description={this.state.markers.address}
+      />);
+  }
+
   render() {
     // console.log(this.state.data);
     return (
@@ -122,12 +133,7 @@ export default class DiscoverScreen extends React.Component {
         latitudeDelta: 0.105,
         longitudeDelta: 0.305,}}>
 
-        <MapView.Marker
-        coordinate={{latitude: this.state.markers.lat,
-          longitude: this.state.markers.lon}}
-          title={this.state.markers.name}
-          description={this.state.markers.address}
-          />
+          {this.returnMarkerItem()}
 
           </MapView>
 
