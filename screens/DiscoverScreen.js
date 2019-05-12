@@ -59,7 +59,7 @@ export default class DiscoverScreen extends React.Component {
     })
     .then((response) => response.json())
     .then((resData) => {
-      // console.log(resData.restaurants);
+       console.log(resData.restaurants);
       this.setState({data: resData.restaurants});
     })
 
@@ -78,7 +78,7 @@ export default class DiscoverScreen extends React.Component {
       var currentRestaurant = this.state.data[i];
       restaurantNameList.push(currentRestaurant.restaurant_name);
     }
-    // console.log(restaurantNameList);
+     console.log(restaurantNameList);
     return restaurantNameList;
   }
 
@@ -145,7 +145,7 @@ export default class DiscoverScreen extends React.Component {
             width: Dimensions.get('window').width,
             position: 'absolute',
             borderRadius: 12,
-            top: 30,
+
         },
         map: {
 
