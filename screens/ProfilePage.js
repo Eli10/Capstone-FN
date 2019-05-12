@@ -271,6 +271,11 @@ const styles = StyleSheet.create({
   mapNameContainer: {
     paddingTop: 5,
     paddingBottom: 5,
+    backgroundColor: '#F0FFFF',
+    margin: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000000'
   },
   mapName: {
     fontSize: 16,
