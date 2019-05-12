@@ -339,7 +339,6 @@ export default class SearchScreen extends React.Component {
 
 const styles = StyleSheet.create({
   restaurant_name: {
-    fontFamily: 'Verdana',
     fontSize: 20,
     fontWeight: 'bold'
   },
