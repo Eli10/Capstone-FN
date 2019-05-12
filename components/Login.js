@@ -33,7 +33,7 @@ export default class Login extends React.Component {
 	    return (
             <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
                 <View style={styles.container} >
-                  <Text style ={styles.header}>FOOD NETWORK</Text>
+                  <Text style ={styles.header}>Welcome to Foodie!</Text>
                     <TextInput
                         style={ styles.textInput }
                         placeholder='Username'

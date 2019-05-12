@@ -179,7 +179,6 @@ export default createStackNavigator({
             textAlign: 'center',
             flexGrow:1,
             alignSelf:'center',
-            fontFamily:'Roboto'
             },
           headerLeft:null,
       },

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="835b3a0d-ee76-4b3c-abd1-4fef5f503fb2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../navigation/MainTabNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../navigation/MainTabNavigator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../components/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+            <state relative-caret-position="487">
+              <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -40,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../navigation/MainTabNavigator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1166">
-              <caret line="179" column="23" lean-forward="true" selection-start-line="179" selection-start-column="23" selection-end-line="179" selection-end-column="23" />
+            <state relative-caret-position="1190">
+              <caret line="180" column="31" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#307#354#0" expanded="true" />
@@ -160,13 +160,13 @@
         <option value="$PROJECT_DIR$/RegisterPage.js" />
         <option value="$PROJECT_DIR$/../map_service/main.go" />
         <option value="$PROJECT_DIR$/ProfilePage.js" />
-        <option value="$PROJECT_DIR$/../components/Login.js" />
         <option value="$PROJECT_DIR$/SearchScreen.js" />
         <option value="$PROJECT_DIR$/StarRating.js" />
         <option value="$PROJECT_DIR$/DiscoverScreen.js" />
         <option value="$PROJECT_DIR$/HomeScreen.js" />
         <option value="$PROJECT_DIR$/Friendscreen.js" />
         <option value="$PROJECT_DIR$/../navigation/MainTabNavigator.js" />
+        <option value="$PROJECT_DIR$/../components/Login.js" />
       </list>
     </option>
   </component>
@@ -218,7 +218,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63552000" />
+    <option name="totallyTimeSpent" value="63650000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1602" y="0" width="1598" height="1718" extended-state="4" />
@@ -325,16 +325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../components/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RegisterPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1896">
@@ -398,11 +388,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../navigation/MainTabNavigator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1166">
-          <caret line="179" column="23" lean-forward="true" selection-start-line="179" selection-start-column="23" selection-end-line="179" selection-end-column="23" />
+        <state relative-caret-position="1190">
+          <caret line="180" column="31" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#307#354#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../components/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
