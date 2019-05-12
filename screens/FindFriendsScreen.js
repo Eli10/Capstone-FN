@@ -112,9 +112,7 @@ export default class FindFriendsScreen extends React.Component {
 
     render() {
         return(
-            <ScrollView style={{
-              top: 40,
-            }}>
+            <ScrollView>
                <FlatList
                       data={this.state.tempFriends}
                       renderItem={({ item }) =>
@@ -150,7 +148,6 @@ const styles = StyleSheet.create({
   listContainer: {
         paddingTop: 5,
         paddingBottom: 5,
-        fontFamily: "Arial Rounded MT Bold",
         flexDirection: 'row',
   },
   addFriendContainer: {
