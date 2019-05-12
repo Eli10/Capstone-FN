@@ -1,3 +1,9 @@
+/*
+    Author: Cesar Guzman
+    Purpose: Friendscreen.js is a functional clone of HomeScreen.js that displays the maps of friends
+
+*/
+
 import React from 'react';
 import {
   Image,
@@ -203,7 +209,7 @@ const styles = StyleSheet.create({
        width: 145,
        position: 'absolute',
        borderRadius: 12,
-       
+
 
   },
   map: {
