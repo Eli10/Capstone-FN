@@ -173,5 +173,5 @@ export default createStackNavigator({
 }, {
   initialRouteName: 'LoginStack',
   lazy: false,
-  defaultNavigationOptions:{header: null}
+  defaultNavigationOptions:{}
 });

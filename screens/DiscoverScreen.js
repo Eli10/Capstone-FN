@@ -45,6 +45,7 @@ export default class DiscoverScreen extends React.Component {
           username: username,
           access_token: access_token,
           refresh_token: refresh_token,
+
         }
   }
 
@@ -108,12 +109,13 @@ export default class DiscoverScreen extends React.Component {
           longitudeDelta: 0.305,}}
   >
 
+    {this.state.markers.map(shop => (
     <MapView.Marker
-      coordinate={{latitude: this.state.markers.lat,
-      longitude: this.state.markers.lon}}
-      title={this.state.markers.restaurant_name}
-      description={this.state.markers.address}
-      />
+      coordinate={{latitude: shop.lat,
+      longitude: shop.lon}}
+      title={shop.restaurant_name}
+      description={shop.markers.address}
+      />))}
 
       </MapView>
 

@@ -172,6 +172,11 @@ export default class App extends Component {
                 refresh_token: this.state.refresh_token
             })
         } else {
+            this.props.navigation.navigate('Friends', {
+                username: this.state.username,
+                access_token: this.state.access_token,
+                refresh_token: this.state.refresh_token
+            })
             this.props.navigation.navigate('Profile', {
                 username: this.state.username,
                 access_token: this.state.access_token,
@@ -310,6 +315,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         margin: 5,
+        width: Dimensions.get('window').width - 20,
 
 
     },
