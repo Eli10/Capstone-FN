@@ -39,8 +39,10 @@ export default class FindFriendsScreen extends React.Component {
 
     componentDidMount(){
       console.log('HEILLO');
-      this.getUsersCurrentFriends();
-      this.populateFindFriendsList();
+      this.props.navigation.addListener('willFocus', (route) => {
+        this.getUsersCurrentFriends();
+        this.populateFindFriendsList();
+      });
     }
 
     populateFindFriendsList = () => {
