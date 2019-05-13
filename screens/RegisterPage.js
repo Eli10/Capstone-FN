@@ -149,7 +149,7 @@ export default class RegisterPage extends ValidationComponent {
     }
   }
 }
-
+/*style sheets for textinput for registration page*/
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,

@@ -220,11 +220,15 @@ export default class ProfilePage extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
+         <TouchableOpacity
+              onPress={this.logoutToLogin}
+              <Text>Logout</Text>
+         />
         </ScrollView>
     );
   }
 }
-
+/*style sheets for profile and review display*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,

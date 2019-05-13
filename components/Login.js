@@ -92,7 +92,7 @@ export default class Login extends React.Component {
       })
     }
  }
-
+/*style sheets for text input for login page*/
 const styles = StyleSheet.create({
     wrapper: {
       flex: 1,

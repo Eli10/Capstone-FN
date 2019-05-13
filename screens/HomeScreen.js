@@ -9,9 +9,6 @@ import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
 import ModalDropdown from 'react-native-modal-dropdown';
 import StarRating from 'react-native-star-rating';
-
-
-
 import {
     Picker,
     Button,
@@ -38,14 +35,7 @@ var restaurantObject = ['', '', '', ''];
 var restList = [];
 var pageID0 = 100;
 
-
-
 console.disableYellowBox = true;
-
-
-//refered to https://github.com/sohobloo/react-native-modal-dropdown/issues/198 to keep building functionality
-//for modal dropdowns
-
 
 export default class HomeScreen extends React.Component {
     static DefaultNavigationOptions = {title: "Your Maps"};
@@ -73,8 +63,6 @@ export default class HomeScreen extends React.Component {
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
         console.log(`Your Maps State User: ${username}`);
         console.log(`Your Maps State Token: ${access_token}`);
-
-
         /*
         markers is the list that wll have coords and restaurant names
         dropdown list will be the names of the markers that is populated by getmaps
