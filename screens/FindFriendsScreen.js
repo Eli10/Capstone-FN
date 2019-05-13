@@ -1,6 +1,6 @@
 /**
 Author:Jasmine Wong
- file: this file implements the find friends (6th icon on tab bar) that allows for adding 
+ file: this file implements the find friends (6th icon on tab bar) that allows for adding
  users who use the app, but are not the user's friends
  **/
 import React from 'react';
@@ -37,7 +37,7 @@ export default class FindFriendsScreen extends React.Component {
   componentDidMount(){
     //as soon as the Find Friends tab is loaded,
     //the getUsersCurrentFriends and populateFindFriendsList
-    //functions are called 
+    //functions are called
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUsersCurrentFriends();
       this.populateFindFriendsList();
@@ -116,10 +116,11 @@ export default class FindFriendsScreen extends React.Component {
       <ScrollView>
           <FlatList
               data={this.state.tempFriends}
+              
               renderItem={({ item }) =>
               <TouchableOpacity onPress={() => {console.log('Touched Button')}}>
                   <View style={styles.listContainer}>
-                  <View style={{ flex:"column"}}>
+                  <View style={{ flexDirection:"column"}}>
                     <Text style={styles.name}>{item.username}</Text>
                     <Text style={styles.name}>Favorite Borough: {item.favBorough}</Text>
                   </View>
