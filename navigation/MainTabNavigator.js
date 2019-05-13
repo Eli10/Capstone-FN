@@ -1,3 +1,8 @@
+/**
+ Author:Everyone
+ file: this file implements bottom tab navigator and the path names to be accessed
+ during navigation
+ **/
 import React from 'react';
 import { Platform, Button, View, Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator, HeaderBackButton } from 'react-navigation';
@@ -16,6 +21,8 @@ import Maps from '../screens/HomeScreen';
 import Ratings from '../screens/StarRating';
 import FindFriendsScreen from '../screens/FindFriendsScreen';
 
+
+//navigation name and creation of 'your maps' page
 const HomeStack = createSwitchNavigator({
 
   Maps: {screen: HomeScreen},
@@ -45,6 +52,7 @@ const backtomap= createSwitchNavigator ({
     },
 );
 
+//initially created for navigation from starrating to profile page
 const hackeryfromRating = createSwitchNavigator ({
 
         Star: {screen: Ratings},
@@ -52,6 +60,7 @@ const hackeryfromRating = createSwitchNavigator ({
     },
 );
 
+//navigation name and creation of 'friends' maps' page
 const FriendStack = createSwitchNavigator({
     Friends: {screen: FriendScreen},
     Star: {screen: Ratings}
@@ -67,12 +76,13 @@ FriendStack.navigationOptions = {
     ),
 };
 
+//navigation name and creation of 'friends' maps' page
 const SearchStack = createSwitchNavigator({
     Search: SearchScreen,
 });
 
 SearchStack.navigationOptions = {
-    tabBarLabel: 'Search Maps',
+    tabBarLabel: 'Search',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
@@ -81,7 +91,7 @@ SearchStack.navigationOptions = {
     ),
 };
 
-//SETTINGS NEED TO BE EDITED PLS SEE DISCOVERSCREEEN.JS IN SCREENS FOLDER
+//navigation name and creation of 'Discover' page
 const DiscoverStack = createSwitchNavigator({
     Discover: DiscoverScreen,
 });
@@ -96,7 +106,7 @@ DiscoverStack.navigationOptions = {
     ),
 };
 
-//SETTINGS NEED TO BE EDITED PLS SEE FINDFRIENDSSCREEN.JS IN SCREENS FOLDER
+//navigation name and creation of 'Find Friends' page
 const FindFriendsStack = createSwitchNavigator({
     FindFriends: FindFriendsScreen,
 });
@@ -112,6 +122,7 @@ FindFriendsStack.navigationOptions = {
     ),
 };
 
+//navigation name and creation of 'Profile' page
 const ProfileStack = createSwitchNavigator({
     Profile: ProfilePage,
 }, {
@@ -130,16 +141,10 @@ ProfileStack.navigationOptions = {
     ),
 };
 
-//SETTINGS NEED TO BE EDITED PLS SEE PROFILEPAGE.JS IN SCREENS FOLDER
+//navigation name and creation of 'Login' page
 const LoginStack = createSwitchNavigator({
     Home: { screen: Login},
     RegisterPage: { screen: RegisterPage }
-}, {
-    navigationOptions: {
-        header: false,
-        headerBackTitle: 'some label'
-
-    }
 });
 
 LoginStack.navigationOptions = {
@@ -152,6 +157,7 @@ LoginStack.navigationOptions = {
     ),
 };
 
+//navigation name and creation of Bottom Tab
 const AllOtherStacks = createBottomTabNavigator({
     HomeStack,
     FriendStack,
@@ -166,7 +172,7 @@ const AllOtherStacks = createBottomTabNavigator({
 
 });
 
-
+//creation of top level navigator where header is defined
 export default createStackNavigator({
   LoginStack,
   AllOtherStacks
