@@ -1,3 +1,7 @@
+/**
+Author: Alina Zhong
+ file: this file implements the front end for logining in
+ **/
 import React from 'react';
 import {
   Image,

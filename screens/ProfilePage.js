@@ -1,3 +1,7 @@
+/**
+Author: Alina Zhong
+ file: this file implements the profile page, which is the fifth tab on the icon bar, as well as the page the login sends you to when you successfully login
+ **/
 import React from 'react';
 import {
   Image,

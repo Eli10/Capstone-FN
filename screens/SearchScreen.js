@@ -13,15 +13,12 @@ export default class SearchScreen extends React.Component {
     static navigationOptions = {
         title: 'Search for Restaurants',
     };
-
     constructor(props) {
         super(props);
-
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'Blah');
         const access_token = navigation.getParam('access_token', 'Blah');
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
-
         this.state = {
             loading: false,
             data: [],
@@ -42,12 +39,10 @@ export default class SearchScreen extends React.Component {
             refresh_token: refresh_token,
         };
     }
-
     componentDidMount(){
       //this function calls the restaurants endpoint to pull all the restaurants in the database
       //as soon as this page is loaded
       //the restaurants are saved into the data prop
-
       fetch ('https://capstone-express-gateway.herokuapp.com/restaurants',{
           method: 'GET',
           mode: 'no-cors',
@@ -68,7 +63,6 @@ export default class SearchScreen extends React.Component {
       //this function calls the maps/name/ endpoint to pull all the users' maps
 
       let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.defaultUser;
-      console.log(url);
       var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
       fetch(url, {
           method: 'GET',
@@ -86,9 +80,7 @@ export default class SearchScreen extends React.Component {
       //this function is called when a user is trying to add a restaurant to
       //an existing map or to a new map
       //this function calls the restaurants/id/ endpoint to obtain the restaurant's id 
-
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
-      console.log(url);
       fetch(url, {
           method: 'GET',
           mode: 'no-cors',
@@ -103,9 +95,6 @@ export default class SearchScreen extends React.Component {
     addToExistingMap = (map) => { 
       //this function calls the maps/contain endpoint to add the selected restaurant
       //to an existing map using the restaurant's id
-
-      console.log(map);
-      console.log(this.state.temporaryRestaurantId);
       var header = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -126,16 +115,12 @@ export default class SearchScreen extends React.Component {
       //a new map
       //a dialog box with pop up for the user to create a new map
       this.setState({ dialogVisible: true });
-
     };
-
     handleClose = () => {
       //this function is called when the user closes the create new map
       //dialog box, either by creating or cancelling
-
       this.setState({ dialogVisible: false });
     };
-
     createNewMapName= () => {
       //tthis function calls the showDialog function
 
@@ -145,8 +130,6 @@ export default class SearchScreen extends React.Component {
     createNewMap = () => {
       //this function called the maps/ endpoint to create a relationship between
       //the user and the new map the user created
-
-      console.log(this.state.defaultUser);
       fetch('https://capstone-express-gateway.herokuapp.com/maps/', {
         method: 'POST',
         headers: {
@@ -160,70 +143,54 @@ export default class SearchScreen extends React.Component {
         }),
         });
     }
-
     createMapAndAddRestaurant = () => {
       //this is the general function called that calls all related functions
       //needed to create a new map and add the selected restaurant to the new map
 
       this.createNewMap();
       this.handleClose();
-      console.log(this.state.temporaryMapName);
       this.addToExistingMap(this.state.temporaryMapName);
     }
-
     renderSeparator = () => {
       //this function is the stylistic component of each item rendered in the flatlist
       //that displays the restaurant search results
-
-        return (
+      return (
           <View
-            style={{
-              height: 1,
-              width: '100%',
-              backgroundColor: '#CED0CE',
-              marginLeft: '0%',
-            }}
+              style={{
+                height: 1,
+                width: '100%',
+                backgroundColor: '#CED0CE',
+                marginLeft: '0%',
+              }}
           />
         );
       };
-
     searchFilterFunction = text => {
       //this function dictates how restaurants are searched
       //the information in the search input is matched the restaurant names
       //results are filtered as the user is typing 
-
         this.setState({
             value: text,
         });
-
-        console.log(text);
-        console.log(this.state.data);
-
         const newData = this.state.data.filter(item => {
           const itemData = `${item.name.toUpperCase()}`;
           // const itemData = `${item.name.toUpperCase()} ${item.type.toUpperCase()}`;
           const textData = text.toUpperCase();
           return itemData.includes(textData);
         });
-
         this.setState({
             currentDataList: newData,
         });
     };
-
     searchForRestaurant = (resName) => {
       //based on user input in search bar, the restaurant is searched for in the database
       //if the restaurant is not in the database, the user input is searched in google
-
         var resNameList = this.state.data.map(res => res.name);
-
         isRestaurantInList = resNameList.includes(resName);
-
         if (!isRestaurantInList) {
             this.googleNewRestaurants(resName);
         }
     }
-
     googleNewRestaurants = (resName) => {
       //this function calles the restaurant/search endpoint if a search input 
       //cannot be found in the database, and instead the retaurant is searched 
@@ -239,13 +206,10 @@ export default class SearchScreen extends React.Component {
             this.setState({data: this.state.data.concat(resData.results)});
             this.searchFilterFunction(resName);
         })
-
         .catch((error) => console.log(error))
     }
-
     renderHeader = () => {
       //this is the header that displays the search bar at the top of the search page
-
         return (
             <SearchBar
                 placeholder="Type..."
@@ -255,7 +219,6 @@ export default class SearchScreen extends React.Component {
                 />
         );
     };
-
     showModal(visible) {
       //this function is called after a user selects a restaurant to 
       //show a modal that gives the user the option to add the restaurant
@@ -263,33 +226,25 @@ export default class SearchScreen extends React.Component {
 
       this.setState({ModalVisible: visible});
     }
-
     onPressShow(item) {
       //this function is called when a user selects a restaurant
       //this function calls showModal
-
       this.showModal(true);
       this.setState({modalData: item});
     };
-
     showMapModal(visible) {
       //this function is called when a user wants to add a restaurant
       //to an exisiting map the user has a relationship with
       //this modal shows the list of available current maps
-
-      console.log(visible);
       this.setState({MapModalVisible: visible});
     }
-
     onPressShowMap(){
       //this function is called when a user wants to add a restaurant
       //to an existing map
       //this function calls showMapModal to show the list of maps on a modal
-
       this.showMapModal(true);
       this.setState({mapModalData: this.state.userMaps});
     }
-
     showMap = () => {
       //this function is called when a user clicks 'Add to an existing map'
       //on the modal that pops up after the user clicks on a restaurant
@@ -298,7 +253,6 @@ export default class SearchScreen extends React.Component {
       this.showModal(!this.state.ModalVisible);
       this.onPressShowMap();
     }
-
     render() {
         if (this.state.loading) {
             return (
@@ -306,9 +260,8 @@ export default class SearchScreen extends React.Component {
                 <ActivityIndicator />
               </View>
             );
-          }
-
-          return (
+        }
+        return (
             <View>
               <Modal
                  transparent={false}
@@ -318,27 +271,22 @@ export default class SearchScreen extends React.Component {
                  <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                   <View>
                      <Text style={styles.restaurant_name}>{this.state.modalData.name}</Text>
-                    <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
-
-
-                    <Button title="Add to an existing map" onPress = { () => {this.showMap(); this.getRestaurantId()}}/>
-                    <Button title="Create a new map" onPress= { () => {this.createNewMapName(); this.getRestaurantId()}}/>
-                    <Dialog.Container visible={this.state.dialogVisible}>
-                      <Dialog.Title>Create a New Map</Dialog.Title>
-                      <Dialog.Description>
-                        Enter the map name.
-                      </Dialog.Description>
-                      <Dialog.Input onChangeText={(text) => this.setState({temporaryMapName: text})}/>
-                      <Dialog.Button label="Cancel" onPress={this.handleClose} />
-                      <Dialog.Button label="Add restaurant to map" onPress={this.createMapAndAddRestaurant}/>
+                     <Text style={styles.resaturant_address}> Address: {this.state.modalData.address}</Text>
+                     <Button title="Add to an existing map" onPress = { () => {this.showMap(); this.getRestaurantId()}}/>
+                     <Button title="Create a new map" onPress= { () => {this.createNewMapName(); this.getRestaurantId()}}/>
+                     <Dialog.Container visible={this.state.dialogVisible}>
+                        <Dialog.Title>Create a New Map</Dialog.Title>
+                        <Dialog.Description>
+                            Enter the map name.
+                        </Dialog.Description>
+                        <Dialog.Input onChangeText={(text) => this.setState({temporaryMapName: text})}/>
+                        <Dialog.Button label="Cancel" onPress={this.handleClose} />
+                        <Dialog.Button label="Add restaurant to map" onPress={this.createMapAndAddRestaurant}/>
                     </Dialog.Container>
-
-
                     <Button  title="Go back" onPress={() => { this.showModal(!this.state.ModalVisible)} } />
                   </View>
-                </View>
+                 </View>
               </Modal>
-
               <Modal
                  transparent={false}
                  animationType={"slide"}
@@ -348,38 +296,31 @@ export default class SearchScreen extends React.Component {
                     <Text>hello</Text>
                     <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                     <FlatList
-                    contentContainerStyle={{ flex:1, justifyContent: 'center', alignItems: 'center' }}
+                      contentContainerStyle={{ flex:1, justifyContent: 'center', alignItems: 'center' }}
                       data={this.state.userMaps}
                       renderItem={({ item }) =>
-
                       <TouchableOpacity onPress={() => { this.addToExistingMap(item) }}>
                         <View>
                           <Text style={styles.restaurant_name}>{item}</Text>
-
                         </View>
                       </TouchableOpacity>
-
                       }
                       ItemSeparatorComponent={this.renderSeparator}
                     />
                     </View>
                     <Button  title="Go back" onPress={() => { this.showMapModal(!this.state.MapModalVisible); this.showModal(!this.state.ModalVisible) } } />
-                </View>
+                 </View>
               </Modal>
-
               <FlatList
                 extraData={this.state}
                 data={this.state.currentDataList}
                 renderItem={({ item }) =>
-
                 <TouchableOpacity onPress={() => { this.onPressShow(item) }}>
                   <View>
                     <Text style={styles.restaurant_name}>{item.name}</Text>
                     <Text style={styles.resaturant_address}> Address: {item.address}</Text>
-
                   </View>
                 </TouchableOpacity>
-
                 }
                 ItemSeparatorComponent={this.renderSeparator}
                 ListHeaderComponent={this.renderHeader}
@@ -388,12 +329,10 @@ export default class SearchScreen extends React.Component {
           );
     }
 }
-
 /*
 this is the styling sheet for how the restaurant name and address are displayed
 in the flatlist
  */
-
 const styles = StyleSheet.create({
   restaurant_name: {
     fontSize: 20,

@@ -1,3 +1,7 @@
+/**
+Author:Alina Zhong
+ file: this file implements the register screen found when clicking on the register button on the login screen
+ **/
 import React from 'react';
 import {
   Image,

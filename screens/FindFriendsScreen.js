@@ -20,13 +20,11 @@ export default class FindFriendsScreen extends React.Component {
   };
   constructor(props){
     super(props);
-
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'Blah');
     const access_token = navigation.getParam('access_token', 'Blah');
     const refresh_token = navigation.getParam('refresh_token', 'Blah');
     console.log(username);
-
     this.state = {
       tempFriends: [],
       usersCurrentFriends: [],
@@ -40,7 +38,6 @@ export default class FindFriendsScreen extends React.Component {
     //as soon as the Find Friends tab is loaded,
     //the getUsersCurrentFriends and populateFindFriendsList
     //functions are called 
-
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUsersCurrentFriends();
       this.populateFindFriendsList();
@@ -49,7 +46,6 @@ export default class FindFriendsScreen extends React.Component {
 
   populateFindFriendsList = () => {
     //this function calls the users/list endpoint to find all the users in the app
-
     fetch ('https://capstone-express-gateway.herokuapp.com/users/list', {
       method: 'GET',
       mode: 'no-cors',
@@ -84,9 +80,6 @@ export default class FindFriendsScreen extends React.Component {
   followNewFriend = (userToFollow) => {
     //this function calls the users/follows endpoint when a user requests to
     //follow a new friend
-
-    console.log(`New friend to follow: ${userToFollow}`)
-
     fetch ('https://capstone-express-gateway.herokuapp.com/users/follows', {
       method: 'POST',
       mode: 'no-cors',
@@ -102,12 +95,10 @@ export default class FindFriendsScreen extends React.Component {
     })
     .then((response) => console.log(`Now Following: ${userToFollow}`))
     .catch((error) => console.log(error))
-
   }
 
   renderSeparator = () => {
     //this function styles the header of the page (above the list of potential friends)
-
     return (
       <View
       style={{
@@ -123,41 +114,36 @@ export default class FindFriendsScreen extends React.Component {
   render() {
     return(
       <ScrollView>
-      <FlatList
-      data={this.state.tempFriends}
-      renderItem={({ item }) =>
-
-      <TouchableOpacity onPress={() => {console.log('Touched Button')}}>
-      <View style={styles.listContainer}>
-      <View style={{
-        flex:"column"
-      }}>
-      <Text style={styles.name}>{item.username}</Text>
-      <Text style={styles.name}>Favorite Borough: {item.favBorough}</Text>
-      </View>
-      <View style={styles.addFriendContainer}>
-      <Button
-      onPress={() => { this.followNewFriend(item.username) }}
-      type="outline"
-      iconLeft
-      title="Add Friend"
-      />
-      </View>
-      </View>
-      </TouchableOpacity>
-
-    }
-    ItemSeparatorComponent={this.renderSeparator}
-    />
-    </ScrollView>
-  )
-}
+          <FlatList
+              data={this.state.tempFriends}
+              renderItem={({ item }) =>
+              <TouchableOpacity onPress={() => {console.log('Touched Button')}}>
+                  <View style={styles.listContainer}>
+                  <View style={{ flex:"column"}}>
+                    <Text style={styles.name}>{item.username}</Text>
+                    <Text style={styles.name}>Favorite Borough: {item.favBorough}</Text>
+                  </View>
+                  <View style={styles.addFriendContainer}>
+                      <Button
+                          onPress={() => { this.followNewFriend(item.username) }}
+                          type="outline"
+                          iconLeft
+                          title="Add Friend"
+                      />
+                  </View>
+                  </View>
+              </TouchableOpacity>
+              }
+              ItemSeparatorComponent={this.renderSeparator}
+              />
+      </ScrollView>
+    )
+  }
 }
 
 /*
 this is the styling sheet for how the friends are displayed in the flatlist
  */
-
 const styles = StyleSheet.create({
   listContainer: {
     paddingTop: 5,

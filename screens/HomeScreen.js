@@ -48,21 +48,16 @@ export default class HomeScreen extends React.Component {
         //in their latest form by users who click back to the
         // homescreen-yourmaps tab
         //the componentdidmount event listener runs the getmaps function that populates the
-
         this.props.navigation.addListener('willFocus', (route) => {this.getmaps();});
     }
-
     constructor(props) {
         super(props)
-
         //parameters for endpoint access are passed throughout the app
         // using the react native navigation prop
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'Blah');
         const access_token = navigation.getParam('access_token', 'Blah');
         const refresh_token = navigation.getParam('refresh_token', 'Blah');
-        console.log(`Your Maps State User: ${username}`);
-        console.log(`Your Maps State Token: ${access_token}`);
         /*
         markers is the list that wll have coords and restaurant names
         dropdown list will be the names of the markers that is populated by getmaps
@@ -76,7 +71,6 @@ export default class HomeScreen extends React.Component {
                 refresh_token: refresh_token,
             }
     };
-
     /*
     popList() is called when a map name in the dropdown
     is chosen, it used a get request on the maps endpoint
@@ -85,7 +79,6 @@ export default class HomeScreen extends React.Component {
      */
     popList = (index) => {
         var tList = [];
-        //console.log(index);
         fetch (`https://capstone-express-gateway.herokuapp.com/maps/${this.state.username}`, {
             method: 'GET',
             mode: 'no-cors',
@@ -93,14 +86,10 @@ export default class HomeScreen extends React.Component {
         })
         .then((response) => response.json())
         .then((resData) => {
-            //console.log(resData.maps[0].restaurants);
             this.setState({markers : resData.maps[index].restaurants})
-            //console.log(this.state.markers)
         })
         .   catch((error) => console.log(error))
     }
-
-
     /*getmaps() loads the initial dropdown as stated above, using the same
     get request as popList but only taking the map names from the return JSON object,
     which contains mapnames as well as restaurant names and coords
@@ -117,82 +106,57 @@ export default class HomeScreen extends React.Component {
                 for (var i = 0; i < resData.maps.length; i++) {
                     dropdownv.push(resData.maps[i].name);
                 }
-                console.log(dropdownv);
-                console.log("here now");
-                //console.log("here now");
-
             })
             .catch((error) => console.log(error))
             .done();
         this.setState({dropdownlist : dropdownv})
     }
-
-
     render() {
-
         var x = 1;
         const {navigate} = this.props.navigation;
-
-
         return (
-
-
            <View style={styles.container}>
                <ModalDropdown
                    defaultValue = 'Please select a Map'
                    style = {styles.MD}
                    options = {this.state.dropdownlist}
                    dropdownStyle = {{ height:'auto'}}
-                   onSelect={(index, value) => {this.popList(index)}}
-               />
-
-
-               <MapView
-                style={styles.map}
-                initialRegion={{
-                  latitude: 40.7128,
-                  longitude: -74.0060,
-                  latitudeDelta: 0.355,
-                  longitudeDelta: 0.355,
-              }}
-            >
-
-
-            {this.state.markers.map(shop => (
-            <MapView.Marker
-                coordinate={{latitude: shop.lat,
-                longitude: shop.lon}}
-                title={shop.restaurant_name}
-                description={shop.address} >
-
-                <MapView.Callout style={styles.plainView}
-                 tooltip onPress={() => navigate('Star', {restname: shop.name,
-                     PAGEID: pageID0,
-                     restAddr: shop.address,
-                     token: this.state.access_token,
-                     user: this.state.username })}>
-                    <View styles={{textAlign: 'center',}}>
-                    <Text>{shop.name}{"\n"}{shop.address}</Text>
-                    </View>
-                </MapView.Callout>
-            </MapView.Marker>
-            ))}
-            </MapView>
-
-
-
-        </View>
+                   onSelect={(index, value) => {this.popList(index)}}/>
+                   <MapView
+                        style={styles.map}
+                        initialRegion={{
+                        latitude: 40.7128,
+                        longitude: -74.0060,
+                        latitudeDelta: 0.355,
+                        longitudeDelta: 0.355, }}>
+                        {this.state.markers.map(shop => (
+                        <MapView.Marker
+                            coordinate={{latitude: shop.lat,
+                            longitude: shop.lon}}
+                            title={shop.restaurant_name}
+                            description={shop.address} >
+                            <MapView.Callout style={styles.plainView}
+                                tooltip onPress={() => navigate('Star', {restname: shop.name,
+                                PAGEID: pageID0,
+                                restAddr: shop.address,
+                                token: this.state.access_token,
+                                user: this.state.username })}>
+                                <View styles={{textAlign: 'center',}}>
+                                    <Text>{shop.name}{"\n"}{shop.address}</Text>
+                                </View>
+                            </MapView.Callout>
+                        </MapView.Marker>
+                        ))}
+                   </MapView>
+           </View>
         );
-      }
+    }
 }
-
 
 /*
 this is the styling sheet for the general view, the dropdown menu, the mapview,
 and the text bubbles generated by pressing markers
  */
-
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -206,7 +170,6 @@ const styles = StyleSheet.create({
         width: 145,
         position: 'absolute',
         borderRadius: 12,
-
     },
     map: {
         top: 0,

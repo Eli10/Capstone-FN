@@ -10,7 +10,6 @@ import {
   Dimensions,
 } from 'react-native';
 
-
 import { WebBrowser } from 'expo';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { MonoText } from '../components/StyledText';
@@ -20,7 +19,6 @@ import RestaurantList from '../assets/files/TestRestaurants.json';
 var restaurantObject = ['', '', '', ''];
 var listnames = [];
 var restList = [];
-
 
 for(var i = 0; i < RestaurantList.length; i++)
 {
@@ -32,13 +30,11 @@ export default class DiscoverScreen extends React.Component {
   static navigationOptions = {title: "Discover New Restaurants",};
   constructor(props) {
     super(props);
-
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'Blah');
     const access_token = navigation.getParam('access_token', 'Blah');
     const refresh_token = navigation.getParam('refresh_token', 'Blah');
     console.log(username);
-
     this.state =
     {
       markers : [],
@@ -70,7 +66,6 @@ export default class DiscoverScreen extends React.Component {
       this.setState({data: resData.restaurants});
       this.getRestaurantNameList();
     })
-
     .catch((error) => console.log(error))
   }
 
@@ -91,60 +86,44 @@ export default class DiscoverScreen extends React.Component {
   }
 
   popList = (index) => {
-    // console.log(this.state.data[index]);
-    console.log(`Data: ${this.state.data}`);
-    console.log(`Index: ${index}`);
-    console.log(`Marker at Data: ${[ this.state.data[index] ]}`);
-
     var restaurantList = [];
     restaurantList.push(this.state.data[index]);
     this.setState({markers: restaurantList });
   }
 
-
   render() {
-    // console.log(this.state.data);
     return (
       <View style={styles.container}>
-
-      <ModalDropdown
-      defaultValue = 'Here are Restuarants we selected for you'
-      style = {styles.MD}
-      options = {this.state.resNameList}
-      showsVerticalScrollIndicator = {true}
-      dropdownStyle = {{ height: 35 * listnames.length}}
-      onSelect={(index, value) => {this.popList(index);}}
-      />
-
-      <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: 40.7128,
-        longitude: -74.0060,
-        latitudeDelta: 0.105,
-        longitudeDelta: 0.305,}}>
-
-        {this.state.markers.map(shop => (
-        <MapView.Marker
-            coordinate={{latitude: shop.lat,
-            longitude: shop.lon}}
-            title={shop.name}
-            description={shop.address} >
-            </MapView.Marker>
-          ))
-
-        }
-
+          <ModalDropdown
+              defaultValue = 'Here are Restuarants we selected for you'
+              style = {styles.MD}
+              options = {this.state.resNameList}
+              showsVerticalScrollIndicator = {true}
+              dropdownStyle = {{ height: 35 * listnames.length}}
+              onSelect={(index, value) => {this.popList(index);}}
+          />
+          <MapView
+              style={styles.map}
+              initialRegion={{
+              latitude: 40.7128,
+              longitude: -74.0060,
+              latitudeDelta: 0.105,
+              longitudeDelta: 0.305,}}>
+              {this.state.markers.map(shop => (
+              <MapView.Marker
+                  coordinate={{latitude: shop.lat,
+                  longitude: shop.lon}}
+                  title={shop.name}
+                  description={shop.address} >
+              </MapView.Marker>
+              ))}
           </MapView>
+      </View>
+    );
+  }
+}
 
-
-          </View>
-        );
-      }
-
-    }
-
-    const styles = StyleSheet.create({
+const styles = StyleSheet.create({
       container: {
         flex: 1,
         backgroundColor: '#fff',
@@ -154,7 +133,6 @@ export default class DiscoverScreen extends React.Component {
         width: 140,
         height: 140,
       },
-
       MD : {
         justifyContent: 'center',
         padding: 10,
@@ -162,10 +140,8 @@ export default class DiscoverScreen extends React.Component {
         width: Dimensions.get('window').width,
         position: 'absolute',
         borderRadius: 12,
-
       },
       map: {
-
         top: 0,
         left: 0,
         right: 0,
@@ -190,4 +166,4 @@ export default class DiscoverScreen extends React.Component {
         marginHorizontal: 10,
         marginVertical: 10,
       },
-    });
+});

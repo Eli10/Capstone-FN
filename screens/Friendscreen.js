@@ -33,10 +33,7 @@ for(var i = 0; i < RestaurantList.length; i++)
   listnames.push(RestaurantList[i].listname);
 }
 
-
-
 console.disableYellowBox = true;
-
 
 export default class FriendScreen extends React.Component {
   static navigationOptions = {title: "Friends' Maps",};
@@ -50,7 +47,6 @@ export default class FriendScreen extends React.Component {
     const username = navigation.getParam('username', 'Blah');
     const access_token = navigation.getParam('access_token', 'Blah');
     const refresh_token = navigation.getParam('refresh_token', 'Blah');
-
     this.state =
         {
           markers2 : [],
@@ -60,17 +56,13 @@ export default class FriendScreen extends React.Component {
           friendsMaps: [],
         }
   };
-
   componentWillMount() {
     this.getFriends();
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-
   }
-
  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
  }
-
     handleBackButtonClick() {
         this.props.navigation.goBack(null);
         return true;
@@ -89,20 +81,15 @@ export default class FriendScreen extends React.Component {
         })
     .then((response) => response.json())
     .then((frenData) => {
-
-      //console.log(frenData)
       for(var i = 0; i < frenData.maps.length; i++)
       {
         friendDD.push(frenData.maps[i].name);
       }
-      //console.log(friendDD.length);
       this.setState({friendsMaps : friendDD});
-
     })
     .catch((error) => console.log(error))
     .done();
   }
-
     /*
       popList2() is called when a map name in the dropdown
       is chosen, it used a get request on the maps endpoint
@@ -112,8 +99,6 @@ export default class FriendScreen extends React.Component {
   popList2 = (index) => {
     var tempList = [];
     let url = `https://capstone-express-gateway.herokuapp.com/maps/follow/${this.state.username}`;
-    console.log(index);
-    console.log(url);
     fetch(url, {
           method: 'GET',
           mode: 'no-cors',
@@ -121,25 +106,15 @@ export default class FriendScreen extends React.Component {
       })
     .then((response) => response.json())
     .then((resData2) => {
-    // console.log(resData2.maps[index].restaurants);
-    //console.log("i have made it here");
     this.setState({markers2 : resData2.maps[index].restaurants});
-    // console.log(this.state.markers2);
     })
     .catch((error) => console.log(error))
-
-
     }
 
-
   render() {
-
     const {navigate} = this.props.navigation;
-
-
     return (
       <View style={styles.container}>
-
         <ModalDropdown
             defaultValue = 'Please select a List'
             style = {styles.MD}
@@ -147,67 +122,46 @@ export default class FriendScreen extends React.Component {
             onSelect={(index, value) => {this.popList2(index)}}
             dropdownStyle = {{ height: 35 * this.state.friendsMaps.length}}
         />
-
-
         <MapView
-           style={styles.map}
-          initialRegion={{
-               latitude: 40.7128,
-              longitude: -74.0060,
-              latitudeDelta: 0.105,
-              longitudeDelta: 0.305,}}
-  >
-
-  {console.log(this.state.markers2)}
-
-    {this.state.markers2.map(shop => (
-    <MapView.Marker
-      coordinate={{latitude: shop.lat,
-        longitude: shop.lon}}
-      title={shop.name}
-      description={shop.address}
-      >
-
-      <MapView.Callout style={styles.plainView}
-                       tooltip onPress={() => navigate('Star', {
-                         restname: shop.name,
-                         PAGEID: pageID1,
-                         restAddr: shop.address,
-                         token: this.state.access_token,
-                         user: this.state.username })}>
-        <View styles={{textAlign: 'center',}}>
-          <Text>{shop.name}{"\n"}{shop.address}</Text>
-        </View>
-      </MapView.Callout>
-    </MapView.Marker>
-    ))}
-      </MapView>
-
-
+            style={styles.map}
+            initialRegion={{
+            latitude: 40.7128,
+            longitude: -74.0060,
+            latitudeDelta: 0.105,
+            longitudeDelta: 0.305,}}>
+            {this.state.markers2.map(shop => (
+            <MapView.Marker
+                coordinate={{latitude: shop.lat,
+                longitude: shop.lon}}
+                title={shop.name}
+                description={shop.address}>
+                <MapView.Callout style={styles.plainView}
+                    tooltip onPress={() => navigate('Star', {
+                    restname: shop.name,
+                    PAGEID: pageID1,
+                    restAddr: shop.address,
+                    token: this.state.access_token,
+                    user: this.state.username })}>
+                    <View styles={{textAlign: 'center',}}>
+                        <Text>{shop.name}{"\n"}{shop.address}</Text>
+                    </View>
+                </MapView.Callout>
+            </MapView.Marker>
+            ))}
+        </MapView>
       </View>
     );
   }
-
   popList = (index) => {
   var tList = [];
   for(var i = 0; i < RestaurantList[index].list.length; i++)
 {
-
   tList.push(RestaurantList[index].list[i]);
-
-
-
 }
-
-//console.log(tList);
 return tList;
 }
 
-
 }
-
-
-
 /*
 this is the styling sheet for the general view, the dropdown menu, the mapview,
 and the text bubbles generated by pressing markers
@@ -217,16 +171,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-
-     MD : {
-       justifyContent: 'center',
-       padding: 10,
-       backgroundColor: '#98FB98',
-       width: 145,
-       position: 'absolute',
-       borderRadius: 12,
-
-
+  MD : {
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#98FB98',
+    width: 145,
+    position: 'absolute',
+    borderRadius: 12,
   },
   map: {
     top: 0,

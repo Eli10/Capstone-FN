@@ -2,7 +2,6 @@
  Author:Cesar Guzman
  file: this file implements the star(pizza) rating functionality seen from your maps and friends maps
  **/
-
 import React, { Component } from 'react';
 import {FlatList,
   ScrollView,
@@ -15,7 +14,6 @@ import {FlatList,
   View,
   Button,
   Alert } from 'react-native';
-
   import StarRating from 'react-native-star-rating';
   import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
   import Icon from "react-native-vector-icons/Ionicons";
@@ -24,24 +22,16 @@ import {FlatList,
   var {MAXHstar, MAXWstar} = Dimensions.get('window');
   var textheight = MAXHstar / 4;
   var textwid = MAXWstar - 20;
-
-
   export default class App extends Component {
-
     constructor(props) {
       super(props);
 
       const {navigation} = this.props;
       const username = navigation.getParam('user');
-      // const refresh_token = navigation.getParam('refresh_token', 'Blah');
-
       const resName = navigation.getParam('restname');
       const resAddr = navigation.getParam('restAddr');
       const pageCode = navigation.getParam('PAGEID');
       const access_token = navigation.getParam('token');
-      console.log(resName);
-      console.log(resAddr);
-      console.log(`Review Page token: ${access_token}`);
 
       this.state = {
         generalStarCount: 0,
@@ -49,7 +39,6 @@ import {FlatList,
         wordcount: '',
         username: username,
         access_token: access_token,
-        // refresh_token: refresh_token,
         resName: resName,
         resAddr: resAddr,
         pageCode: pageCode,
@@ -66,9 +55,6 @@ import {FlatList,
         friendsReviews: []
       };
     }
-
-    //this function refreshes the users current friends and restaurant IDs for fresh reviews
-    //friends are added
     componentDidMount() {
       this.props.navigation.addListener('willFocus', (route) => {
         this.getUsersCurrentFriends();
@@ -76,10 +62,8 @@ import {FlatList,
       });
 
     }
-
-    //getRestaurantId gets restaurant IDs to return their ratings
     getRestaurantId = () => {
-      let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
+      let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' +   this.state.resAddr;
       console.log(url);
       fetch(url, {
         method: 'GET',
@@ -89,19 +73,13 @@ import {FlatList,
       .then((response) => response.json())
       .then((resData) => {
         this.setState({temporaryRestaurantId: resData.id});
-        console.log(resData);
-        console.log(resData.id);
-        console.log(resData.id);
         this.getRatings(this.state.temporaryRestaurantId)
       })
       .catch((error) => console.log(error))
     }
-
     //getRatings accepts a restaurant (the current restaurant) and loads its ratings and reviews
     getRatings = (resId) => {
-
       let url = 'https://capstone-express-gateway.herokuapp.com/reviews/restaurant/' + resId;
-      console.log(url);
       fetch(url, {
         method: 'GET',
         mode: 'no-cors',
@@ -118,11 +96,8 @@ import {FlatList,
     .catch((error) => console.log(error))
   }
 
-
   //postrating is called on the save-rating button press
   postRating = () => {
-
-    console.log(`Rest ID: ${this.state.temporaryRestaurantId}`);
     var header = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -137,7 +112,6 @@ import {FlatList,
         restaurant_name: this.state.resName,
         comment: this.state.wordcount,
         rating: this.state.customStarCount,
-
       }),
     })
     .catch(err => console.log(err))
@@ -146,7 +120,6 @@ import {FlatList,
   //returns users friends in the event that a friend is added in the current session
   getUsersCurrentFriends = () => {
     let url = "https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username;
-    console.log(url);
     fetch (url, {
       method: 'GET',
       mode: 'no-cors',
@@ -154,15 +127,11 @@ import {FlatList,
     })
     .then((response) => response.json())
     .then((resData) => {
-      console.log('Friends');
-      console.log(resData.friends);
       this.setState({usersCurrentFriends: resData.friends});
     })
     .catch((error) => console.log(error))
   }
-
   onGeneralStarRatingPress(rating) {
-
     this.setState({
       generalStarCount: rating,
     });
@@ -176,7 +145,6 @@ import {FlatList,
 
   storeText = (text) => {
     this.setState({newRating: text});
-    console.log(this.state.newRating);
   }
 
   //this function is called when the cancel button is pressed, returns the
@@ -199,14 +167,11 @@ import {FlatList,
 
   //this button shows a dialogue letting the user know that their rating was saved
   SavedRating = (x) => {
-    console.log(`Rating ${this.state.newRating}`);
     this.postRating();
     Alert.alert(
       "Rating Saved",
       "Your Rating and Review has been submitted and will be added to this Restaurant's list of reviews",
       [
-
-
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ],
       {cancelable: false},);
@@ -234,129 +199,103 @@ import {FlatList,
           refresh_token: this.state.refresh_token
         })
       }
-
-
     }
 
-
     render() {
-
       return (
         <View style={styles.container}>
-
-
-        <Text style={styles.rating}> Submit a Rating, Leave a Review! </Text>
-
-
-        <StarRating
-
-        disabled={false}
-        emptyStar="md-pizza"
-        fullStar="md-pizza"
-
-        iconSet="Ionicons"
-        maxStars={5}
-        rating={this.state.customStarCount}
-        selectedStar={rating => this.onCustomStarRatingPress(rating)}
-        fullStarColor="red"
-
-        emptyStarColor="#BCBABA"
-
-        starPadding={30}
-        />
-        <TextInput
-        // Inherit any props passed to it; e.g., multiline, numberOfLines below
-        editable={true}
-        maxLength={130}
-        style={styles.inputbox}
-        placeholder='Enter Text Here, Press the Button Below to Submit'
-        multiline={true}
-        onChangeText={(wordcount) => {this.setState({wordcount})}}
-
-
-        />
-        <Text color={'white'}>
-        Characters Remaining: {130 - this.state.wordcount.length}/130
-        </Text>
-        <Text> {"\n"} </Text>
-
-        <View style={styles.overallButtonContainer}>
-        <Button style={styles.button}
-        title="Press to Save Rating"
-        color="#DC143C"
-        onPress={() => {
-          this.SavedRating(this.state.pageCode)
-        }}
-        />
-
-        <Button style={styles.button2}
-                title="Cancel"
-                color="blue"
-                onPress={() => {
-                  this.cancel(this.state.pageCode)
-                }}
-        />
-
-        </View>
-        <Text> {"\n"} </Text>
-          <Text style={styles.reviewTitle}>Friends Reviews</Text>
-          <ScrollView style={{borderRadius: 10,}}>
-          {
-            this.state.friendsReviews.map((item, index) => (
-              <View key={item.username} style={styles.item}>
-              <Text style={{textVerticalAlign: 'top'}}>
-              <Text style={styles.reviewUsername}>{item.username} :</Text>
-              </Text>
-              <StarRating
-              disabled={true}
-              emptyStar="md-pizza"
-              fullStar="md-pizza"
-              iconSet="Ionicons"
-              maxStars={item.rating}
-              rating={this.state.customStarCount}
-              fullStarColor="red"
-              starSize={20}
-              emptyStarColor="red"
-              />
-              <Text>{"\n"}</Text>
-              <Text style={styles.reviewComment}>{item.review}</Text>
-
-              </View>
-            ))
-          }
-          </ScrollView>
-
-        <Text style={styles.reviewTitle}>Others Reviews</Text>
-        <ScrollView style={{borderRadius: 10,}}>
-        {
-          this.state.Reviews.map((item, index) => (
-            <View key={item.username} style={styles.item}>
-            <Text style={{textVerticalAlign: 'top'}}>
-            <Text style={styles.reviewUsername}>{item.username} :</Text>
-            </Text>
-            <StarRating
-            disabled={true}
-            emptyStar="md-pizza"
-            fullStar="md-pizza"
-            iconSet="Ionicons"
-            maxStars={item.rating}
-            rating={this.state.customStarCount}
-            fullStarColor="red"
-            starSize={20}
-            emptyStarColor="red"
-            />
-            <Text>{"\n"}</Text>
-            <Text style={styles.reviewComment}>{item.review}</Text>
-
-            </View>
-          ))
-        }
-        </ScrollView>
+                <Text style={styles.rating}> Submit a Rating, Leave a Review! </Text>
+                <StarRating
+                    disabled={false}
+                    emptyStar="md-pizza"
+                    fullStar="md-pizza"
+                    iconSet="Ionicons"
+                    maxStars={5}
+                    rating={this.state.customStarCount}
+                    selectedStar={rating => this.onCustomStarRatingPress(rating)}
+                    fullStarColor="red"
+                    emptyStarColor="#BCBABA"
+                    starPadding={30}
+                />
+                <TextInput
+                    // Inherit any props passed to it; e.g., multiline, numberOfLines below
+                    editable={true}
+                    maxLength={130}
+                    style={styles.inputbox}
+                    placeholder='Enter Text Here, Press the Button Below to Submit'
+                    multiline={true}
+                    onChangeText={(wordcount) => {this.setState({wordcount})}}
+                />
+                <Text color={'white'}>
+                    Characters Remaining: {130 - this.state.wordcount.length}/130
+                </Text>
+                <Text> {"\n"} </Text>
+                <View style={styles.overallButtonContainer}>
+                    <Button style={styles.button}
+                        title="Press to Save Rating"
+                        color="#DC143C"
+                        onPress={() => {
+                        this.SavedRating(this.state.pageCode)}}
+                    />
+                    <Button style={styles.button2}
+                        title="Cancel"
+                        color="blue"
+                        onPress={() => {
+                        this.cancel(this.state.pageCode)
+                        }}
+                    />
+                </View>
+                <Text> {"\n"} </Text>
+                <Text style={styles.reviewTitle}>Friends Reviews</Text>
+                <ScrollView style={{borderRadius: 10,}}>
+                    {this.state.friendsReviews.map((item, index) => (
+                    <View key={item.username} style={styles.item}>
+                        <Text style={{textVerticalAlign: 'top'}}>
+                            <Text style={styles.reviewUsername}>{item.username} :</Text>
+                        </Text>
+                        <StarRating
+                            disabled={true}
+                            emptyStar="md-pizza"
+                            fullStar="md-pizza"
+                            iconSet="Ionicons"
+                            maxStars={item.rating}
+                            rating={this.state.customStarCount}
+                            fullStarColor="red"
+                            starSize={20}
+                            emptyStarColor="red"
+                        />
+                        <Text>{"\n"}</Text>
+                        <Text style={styles.reviewComment}>{item.review}</Text>
+                    </View>
+                    ))}
+                </ScrollView>
+                <Text style={styles.reviewTitle}>Others Reviews</Text>
+                <ScrollView style={{borderRadius: 10,}}>
+                {this.state.Reviews.map((item, index) => (
+                    <View key={item.username} style={styles.item}>
+                        <Text style={{textVerticalAlign: 'top'}}>
+                            <Text style={styles.reviewUsername}>{item.username} :</Text>
+                        </Text>
+                        <StarRating
+                            disabled={true}
+                            emptyStar="md-pizza"
+                            fullStar="md-pizza"
+                            iconSet="Ionicons"
+                            maxStars={item.rating}
+                            rating={this.state.customStarCount}
+                            fullStarColor="red"
+                            starSize={20}
+                            emptyStarColor="red"
+                        />
+                        <Text>{"\n"}</Text>
+                        <Text style={styles.reviewComment}>{item.review}</Text>
+                    </View>
+                    ))}
+                </ScrollView>
         </View>
       );
     }
   }
-
 
   const styles = StyleSheet.create({
     container: {
@@ -381,8 +320,7 @@ import {FlatList,
       borderWidth: 3,
       borderRadius:10,
       margin: 5,
-      width: Dimensions.get('window').width / 4
-      ,
+      width: Dimensions.get('window').width / 4,
     },
     rating: {
       fontWeight: 'bold',
@@ -398,15 +336,12 @@ import {FlatList,
       borderColor: 'black',
       borderRadius:10,
       borderWidth: 1,
-
     },
     reviewTitle: {
       color:"#0047ab",
       fontSize: 28,
     },
     item: {
-
-
       flexDirection: 'row',
       backgroundColor: 'pink',
       height: 60,
@@ -415,15 +350,12 @@ import {FlatList,
       borderWidth: 1,
       margin: 5,
       width: Dimensions.get('window').width - 20,
-
-
     },
     reviewUsername: {
       textAlignVertical:'top',
       textAlign:'left',
       margin:10,
       position:'relative'
-
     },
     reviewComment:{
       textAlignVertical:'bottom',
@@ -433,7 +365,6 @@ import {FlatList,
       alignItems: 'flex-start',
       top: 20,
       margin:5,
-
     },
     overallButtonContainer: {
       flexDirection: 'row',
