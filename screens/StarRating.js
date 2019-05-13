@@ -1,4 +1,7 @@
-
+/**
+ Author:Cesar Guzman
+ file: this file implements the star(pizza) rating functionality seen from your maps and friends maps
+ **/
 
 import React, { Component } from 'react';
 import {FlatList,
@@ -64,6 +67,8 @@ import {FlatList,
       };
     }
 
+    //this function refreshes the users current friends and restaurant IDs for fresh reviews
+    //friends are added
     componentDidMount() {
       this.props.navigation.addListener('willFocus', (route) => {
         this.getUsersCurrentFriends();
@@ -72,6 +77,7 @@ import {FlatList,
 
     }
 
+    //getRestaurantId gets restaurant IDs to return their ratings
     getRestaurantId = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' + this.state.resAddr;
       console.log(url);
@@ -91,6 +97,7 @@ import {FlatList,
       .catch((error) => console.log(error))
     }
 
+    //getRatings accepts a restaurant (the current restaurant) and loads its ratings and reviews
     getRatings = (resId) => {
 
       let url = 'https://capstone-express-gateway.herokuapp.com/reviews/restaurant/' + resId;
@@ -111,6 +118,8 @@ import {FlatList,
     .catch((error) => console.log(error))
   }
 
+
+  //postrating is called on the save-rating button press
   postRating = () => {
 
     console.log(`Rest ID: ${this.state.temporaryRestaurantId}`);
@@ -134,6 +143,7 @@ import {FlatList,
     .catch(err => console.log(err))
   }
 
+  //returns users friends in the event that a friend is added in the current session
   getUsersCurrentFriends = () => {
     let url = "https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username;
     console.log(url);
@@ -169,6 +179,8 @@ import {FlatList,
     console.log(this.state.newRating);
   }
 
+  //this function is called when the cancel button is pressed, returns the
+   //user to their original page
   cancel = (x) => {
     if (x == 100) {
       this.props.navigation.navigate('Maps', {
@@ -184,6 +196,8 @@ import {FlatList,
       })
     }
   }
+
+  //this button shows a dialogue letting the user know that their rating was saved
   SavedRating = (x) => {
     console.log(`Rating ${this.state.newRating}`);
     this.postRating();
