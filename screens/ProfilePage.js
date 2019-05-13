@@ -22,15 +22,12 @@ import StarRating from 'react-native-star-rating';
 export default class ProfilePage extends React.Component {
         constructor(props) {
             super(props);
-
             const { navigation } = this.props;
             const username = navigation.getParam('username', 'Blah');
             const access_token = navigation.getParam('access_token', 'Blah');
             const refresh_token = navigation.getParam('refresh_token', 'Blah');
-
             {console.log("Profile Params")};
             {console.log(this.props.navigation.state.params)};
-
             this.state={
                 fname: '',
                 lname: '',
@@ -45,12 +42,12 @@ export default class ProfilePage extends React.Component {
                 userReviews: [],
             }
         }
-
+/*logs out and redirects to login page*/
   logoutToLogin = () => {
     console.log("Trying to logout");
     this.props.navigation.navigate("Home");
   }
-
+/*pulls user profile info from backend*/
   componentDidMount() {
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUserProfile();
@@ -58,17 +55,18 @@ export default class ProfilePage extends React.Component {
       this.getMapsForUser();
       this.getRatings();
     });
-
+/*gets new user token*/
     timer.setInterval(this, 'request-new-token', () => {
       console.log("need new token");
       this.getNewAccessToken()
     }, 720000)
   }
 
+/*clears user token*/
   componentWillUnmount() {
     timer.clearTimeout(this);
   }
-
+/*gets number of friends from backend*/
   getNumOfFriends = () => {
     let url = 'https://capstone-express-gateway.herokuapp.com/users/friends/' + this.state.username;
     console.log(url);
@@ -84,7 +82,7 @@ export default class ProfilePage extends React.Component {
   })
     .catch((error) => console.log(error))
   }
-
+/*fetches user map info from backend*/
   getMapsForUser = () => {
     let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.username;
     console.log(url);
@@ -100,7 +98,7 @@ export default class ProfilePage extends React.Component {
   })
     .catch((error) => console.log(error))
   }
-
+/*renders each map separate*/
   renderSeparator = () => {
       return (
         <View
@@ -114,6 +112,7 @@ export default class ProfilePage extends React.Component {
       );
     };
 
+/*fetches user review info from backend*/
   getRatings = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/reviews/user/' + this.state.username;
       console.log(url);
@@ -128,6 +127,7 @@ export default class ProfilePage extends React.Component {
     .catch((error) => console.log(error))
   }
 
+/*fetches user profile info from backend*/
   getUserProfile = () => {
     console.log("getting user profile")
     fetch (`https://capstone-express-gateway.herokuapp.com/users/${this.state.username}`, {
@@ -148,6 +148,7 @@ export default class ProfilePage extends React.Component {
     .catch((error) => console.log(error))
   }
 
+/*creates new access token*/
   getNewAccessToken = () => {
     console.log("getting new access token")
     fetch ('https://capstone-express-gateway.herokuapp.com/users/refresh-token', {
@@ -185,7 +186,6 @@ export default class ProfilePage extends React.Component {
             <View style= {{width: 45}}/>
             <View style= {{width: 45}}/>
         </View>
-
         <View>
           <View>
             <Text style={styles.mapTitle}>Maps</Text>
@@ -194,7 +194,6 @@ export default class ProfilePage extends React.Component {
             extraData={this.state}
             data={this.state.userMaps}
             renderItem={({ item }) =>
-
             <TouchableOpacity>
               <View style={styles.mapNameContainer}>
                 <Text style={styles.mapName}>{item}</Text>
@@ -204,14 +203,12 @@ export default class ProfilePage extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-
         <View style={{paddingTop: 100}}>
           <Text style={styles.mapTitle}>Reviews</Text>
           <FlatList
             extraData={this.state}
             data={this.state.userReviews}
             renderItem={({ item }) =>
-
               <TouchableOpacity>
                 <View style={styles.mapNameContainer}>
                   <Text style={styles.reviewText}> Restaurant: {item.restaurant_name}</Text>
@@ -219,17 +216,13 @@ export default class ProfilePage extends React.Component {
                   <Text style={styles.reviewText}> Comment: {item.review}</Text>
                 </View>
               </TouchableOpacity>
-
             }
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-
-
         </ScrollView>
     );
   }
-
 }
 
 const styles = StyleSheet.create({

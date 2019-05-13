@@ -18,7 +18,6 @@ import {
 import { createStackNavigator } from 'react-navigation';
 import { NavigationActions } from "react-navigation";
 
-
 export default class Login extends React.Component {
   constructor(props)    {
     super(props);
@@ -28,51 +27,41 @@ export default class Login extends React.Component {
       value: null,
     }
   }
-
   render() {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
-      <View style={styles.container} >
-      <Text style ={styles.header}>Welcome to Foodie!</Text>
-      <TextInput
-      style={ styles.textInput }
-      placeholder='Username'
-      keyboardType='email-address'
-      onChangeText={ (username) => this.setState( {username}) }
-      underlineColorAndroid='transparent'
-      />
-      <TextInput
-      style={styles.textInput} placeholder='Password'
-      onChangeText={ (password) => this.setState( {password}) }
-      secureTextEntry={true}
-      underlineColorAndroid='transparent'
-      />
-
-      <View style={styles.overallButtonContainer}>
-      <View>
-      <TouchableOpacity
-      style={styles.btn}
-      onPress={this.login} >
-      <Text style={styles.text}>Login</Text>
-      </TouchableOpacity>
-      </View>
-      <View>
-      <TouchableOpacity
-      style={styles.btn}
-      onPress={ ()=> {
-        this.props.navigation.navigate('RegisterPage');
-      } }>
-      <Text style={styles.text}>Register</Text>
-      </TouchableOpacity>
-      </View>
-      </View>
-      </View>
+           <View style={styles.container} >
+              <Text style ={styles.header}>Welcome to Foodie!</Text>
+              <TextInput
+                  style={ styles.textInput }
+                  placeholder='Username'
+                  keyboardType='email-address'
+                  onChangeText={ (username) => this.setState( {username}) }
+                  underlineColorAndroid='transparent'
+              />
+              <TextInput
+                  style={styles.textInput} placeholder='Password'
+                  onChangeText={ (password) => this.setState( {password}) }
+                  secureTextEntry={true}
+                  underlineColorAndroid='transparent'
+              />
+              <View style={styles.overallButtonContainer}>
+                  <TouchableOpacity
+                       style={styles.btn}
+                       onPress={this.login}>
+                       <Text style={styles.text}>Login</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                       style={styles.btn}
+                       onPress={ ()=> {this.props.navigation.navigate('RegisterPage') } }>
+                        <Text style={styles.text}>Register</Text>
+                  </TouchableOpacity>
+            </View>
       </KeyboardAvoidingView>
     );
   }
-
+/*fetches login info from backend, and if login is successful, creates token and navigates to profile page*/
   login = () => {
-
     fetch('https://capstone-express-gateway.herokuapp.com/users/login', {
       method: 'POST',
       headers: {
@@ -83,17 +72,14 @@ export default class Login extends React.Component {
         username: this.state.username,
         password: this.state.password,
       })
-    })
+     })
     .then( (res) => {
-
-      console.log(res.status)
       if (res.status < 400) {
-        Alert.alert("Login Successful");
+        Alert.alert(" ","Login Successful");
       }
       return res.json()
     })
     .then((resData) => {
-      console.log(resData)
       this.props.navigation.setParams({
         test: 'From Loggingin Page'
       });
@@ -105,10 +91,9 @@ export default class Login extends React.Component {
         });
       })
     }
-  }
+ }
 
-
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     wrapper: {
       flex: 1,
     },
@@ -140,10 +125,6 @@ export default class Login extends React.Component {
       borderRadius: 10,
       marginBottom: 10,
     },
-    txt: {
-      alignSelf: 'center',
-      fontSize: 15,
-    },
     btn: {
       alignSelf: 'center',
       backgroundColor: 'black',
@@ -157,6 +138,5 @@ export default class Login extends React.Component {
       color: '#fff',
       fontSize: 20,
       padding: 10,
-
     }
-  });
+});
