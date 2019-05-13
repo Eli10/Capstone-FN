@@ -20,8 +20,6 @@ import {
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import ValidationComponent from 'react-native-form-validator';
 
-
-
 export default class RegisterPage extends ValidationComponent {
   constructor(props){
     super(props);
@@ -36,7 +34,7 @@ export default class RegisterPage extends ValidationComponent {
       error: false,
     }
   }
-
+/*checks if all submitted information is valid before sending to backend*/
   _onSubmit = () => {
     this.validate({
       fname: {minlength: 1, maxlength: 12, required: true},
@@ -51,69 +49,61 @@ export default class RegisterPage extends ValidationComponent {
   render() {
     return (
       <View style= {styles.register}>
-      <Text style={styles.header}>REGISTER</Text>
-      <TextInput style = {styles.textInput}
-      placeholder= "First Name"
-      onChangeText= { (fname) => this.setState ( {fname} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "Last Name"
-      onChangeText= { (lname) => this.setState ( {lname} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "Age"
-      onChangeText= { (age) => this.setState ( {age} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "Gender"
-      onChangeText= { (gender) => this.setState ( {gender} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "Favorite Borough"
-      onChangeText= { (favBorough) => this.setState ( {favBorough} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "Email/Username"
-      keyboardType='email-address'
-      onChangeText= { (username) => this.setState ( {username} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "password"
-      secureTextEntry={true}
-      onChangeText= { (password) => this.setState ( {password} ) }
-      underlineColorAndroid= {'transparent'}/>
-      <TextInput style = {styles.textInput}
-      placeholder= "confirm password"
-      secureTextEntry={true}
-      onChangeText= { (cPassword) => this.setState ( {cPassword} ) }
-      underlineColorAndroid= {'transparent'}
-      autoCorrect={false}/>
-
-
-      <View style={styles.overallButtonContainer}>
-        <View>
-          <TouchableOpacity
-          style={styles.btn}
-          onPress={this.register}>
-            <Text style={styles.buttonText}> Register</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity
-          style={styles.btn}
-          onPress={ () => {this.props.navigation.navigate('Home')} }>
-            <Text style={styles.buttonText}> Cancel</Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.header}>REGISTER</Text>
+          <TextInput style = {styles.textInput}
+              placeholder= "First Name"
+              onChangeText= { (fname) => this.setState ( {fname} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "Last Name"
+              onChangeText= { (lname) => this.setState ( {lname} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "Age"
+              onChangeText= { (age) => this.setState ( {age} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "Gender"
+              onChangeText= { (gender) => this.setState ( {gender} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "Favorite Borough"
+              onChangeText= { (favBorough) => this.setState ( {favBorough} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "Email/Username"
+              keyboardType='email-address'
+              onChangeText= { (username) => this.setState ( {username} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "password"
+              secureTextEntry={true}
+              onChangeText= { (password) => this.setState ( {password} ) }
+              underlineColorAndroid= {'transparent'}/>
+          <TextInput style = {styles.textInput}
+              placeholder= "confirm password"
+              secureTextEntry={true}
+              onChangeText= { (cPassword) => this.setState ( {cPassword} ) }
+              underlineColorAndroid= {'transparent'}
+              autoCorrect={false}/>
+          <View style={styles.overallButtonContainer}>
+              <TouchableOpacity
+                  style={styles.btn}
+                  onPress={this.register}>
+                  <Text style={styles.buttonText}> Register</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={styles.btn}
+                  onPress={ () => {this.props.navigation.navigate('Home')} }>   
+                  <Text style={styles.buttonText}> Cancel</Text>
+              </TouchableOpacity>
+          </View>
       </View>
-
-      <Text>{this.getErrorMessages()}</Text>
-
-
+          <Text>{this.getErrorMessages()}</Text>
       </View>
     );
   }
-
+/*checks if entered information is in database, and if not, creates a user profile*/
   verifyRegistration = () => {
     fetch("https://capstone-express-gateway.herokuapp.com/users/register", {
       method: 'POST',
@@ -143,29 +133,23 @@ export default class RegisterPage extends ValidationComponent {
       }
     })
   }
-
+/*navigates to login page*/
   goToLogin = () => {
-    console.log("im here 2")
     this.props.navigation.navigate('Home');
   }
-
+/*creates a user profile if all fields are valid*/
   register = () => {
-    console.log(this.state.username);
-    console.log(this.state.password);
-    console.log(this.state.fname);
-    console.log(this.state.lname);
-    if (this._onSubmit()) {
+    if(this.state.password !== this.state.cPassword)
+    {
+       Alert.alert(" ","Your passwords do not match, try again");
+    } else if (this._onSubmit()) {
       this.verifyRegistration(this.state.username, this.state.password);
     } else {
       this.setState({error: true})
     }
-
-
   }
 }
-
-
-
+/*style sheets for textinput for registration page*/
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -212,7 +196,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 50,
     width: 120,
-
   },
   buttonText: {
     color: 'white',

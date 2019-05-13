@@ -19,9 +19,7 @@ export default class menu extends Component
 {
     constructor(props) 
     {
-        super(props);
-        
-
+        super(props);    
         this.inputRefs = 
         {
             firstTextInput: null,
@@ -29,7 +27,6 @@ export default class menu extends Component
             list1: null,
             lastTextInput: null,
         };
-
       this.state = {
         numbers: [
         {
