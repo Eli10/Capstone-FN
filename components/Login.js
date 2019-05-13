@@ -79,24 +79,32 @@ export default class Login extends React.Component {
       })
      })
     .then( (res) => {
-      if (res.status < 400) {
-        Alert.alert(" ","Login Successful");
+      let isValid = this.navigatetoHome(res);
+      if (isValid) {
+        return res.json()
+      } else {
+        Alert.alert(" ","Unvalid Login");
       }
-      return res.json()
     })
-    .then((resData) => {
-      this.props.navigation.setParams({
-        test: 'From Loggingin Page'
-      });
+    .then( (resData) => {
       this.props.navigation.navigate({
         routeName: "AllOtherStacks",
         params: { username: this.state.username,
           access_token: resData['access_token'],
           refresh_token: resData['refresh_token'] }
         });
-      })
+    });
     }
- }
+
+  navigatetoHome = (response) => {
+    if (response.status < 400) {
+      Alert.alert(" ","Login Successful");
+      return true;
+    }
+    return false;
+  }
+
+  }
 /*style sheets for text input for login page*/
 const styles = StyleSheet.create({
     wrapper: {

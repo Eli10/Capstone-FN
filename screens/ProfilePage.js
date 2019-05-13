@@ -32,6 +32,7 @@ export default class ProfilePage extends React.Component {
             const refresh_token = navigation.getParam('refresh_token', 'Blah');
             {console.log("Profile Params")};
             {console.log(this.props.navigation.state.params)};
+            console.log(username);
             this.state={
                 fname: '',
                 lname: '',
@@ -224,9 +225,14 @@ export default class ProfilePage extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-         <TouchableOpacity onPress={this.logoutToLogin}>
-              <Text>Logout</Text>
-         </TouchableOpacity>
+
+
+           <TouchableOpacity onPress={this.logoutToLogin}>
+              <View style={styles.logoutContainer}>
+                <Text style={styles.logoutText}>Logout</Text>
+              </View>
+           </TouchableOpacity>
+
         </ScrollView>
     );
   }
@@ -284,5 +290,19 @@ const styles = StyleSheet.create({
   reviewText: {
     fontSize: 16,
     marginLeft: 10,
+  },
+  logoutText: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
+  },
+  logoutContainer: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: '#B22222',
+    margin: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
   },
 });
