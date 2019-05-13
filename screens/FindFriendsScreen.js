@@ -1,19 +1,18 @@
+/**
+Author:Jasmine Wong
+ file: this file implements the find friends (6th icon on tab bar) that allows for adding 
+ users who use the app, but are not the user's friends
+ **/
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import {
   View,
   Text,
   FlatList,
-  ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
-  Modal,
-  List,
   ScrollView
 } from 'react-native';
 import {Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import axios from 'axios';
 
 export default class FindFriendsScreen extends React.Component {
   static navigationOptions = {
@@ -38,7 +37,10 @@ export default class FindFriendsScreen extends React.Component {
   }
 
   componentDidMount(){
-    console.log('HEILLO');
+    //as soon as the Find Friends tab is loaded,
+    //the getUsersCurrentFriends and populateFindFriendsList
+    //functions are called 
+
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUsersCurrentFriends();
       this.populateFindFriendsList();
@@ -46,6 +48,8 @@ export default class FindFriendsScreen extends React.Component {
   }
 
   populateFindFriendsList = () => {
+    //this function calls the users/list endpoint to find all the users in the app
+
     fetch ('https://capstone-express-gateway.herokuapp.com/users/list', {
       method: 'GET',
       mode: 'no-cors',
@@ -62,6 +66,8 @@ export default class FindFriendsScreen extends React.Component {
   }
 
   getUsersCurrentFriends = () => {
+    //this function calls the users/friends endpoint to find all the user's friends in the app
+
     fetch ("https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username, {
       method: 'GET',
       mode: 'no-cors',
@@ -76,6 +82,8 @@ export default class FindFriendsScreen extends React.Component {
   }
 
   followNewFriend = (userToFollow) => {
+    //this function calls the users/follows endpoint when a user requests to
+    //follow a new friend
 
     console.log(`New friend to follow: ${userToFollow}`)
 
@@ -98,6 +106,8 @@ export default class FindFriendsScreen extends React.Component {
   }
 
   renderSeparator = () => {
+    //this function styles the header of the page (above the list of potential friends)
+
     return (
       <View
       style={{
@@ -143,6 +153,10 @@ export default class FindFriendsScreen extends React.Component {
   )
 }
 }
+
+/*
+this is the styling sheet for how the friends are displayed in the flatlist
+ */
 
 const styles = StyleSheet.create({
   listContainer: {
