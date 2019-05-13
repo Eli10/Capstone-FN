@@ -98,11 +98,10 @@ export default class RegisterPage extends ValidationComponent {
               </TouchableOpacity>
               <TouchableOpacity
                   style={styles.btn}
-                  onPress={ () => {this.props.navigation.navigate('Home')} }>   
+                  onPress={ () => {this.props.navigation.navigate('Home')} }>
                   <Text style={styles.buttonText}> Cancel</Text>
               </TouchableOpacity>
           </View>
-      </View>
           <Text>{this.getErrorMessages()}</Text>
       </View>
     );

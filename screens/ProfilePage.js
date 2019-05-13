@@ -224,10 +224,9 @@ export default class ProfilePage extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-         <TouchableOpacity
-              onPress={this.logoutToLogin}
+         <TouchableOpacity onPress={this.logoutToLogin}>
               <Text>Logout</Text>
-         />
+         </TouchableOpacity>
         </ScrollView>
     );
   }
