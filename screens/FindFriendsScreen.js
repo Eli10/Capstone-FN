@@ -149,11 +149,12 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
   },
   addFriendContainer: {
     marginTop:10,
     marginBottom:10,
-    marginLeft: "30%",
     paddingTop:0.1,
     paddingBottom:0.1,
     backgroundColor:'white',
@@ -163,7 +164,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    marginLeft: "5%",
     color:"#0047ab",
   },
   icon: {
