@@ -61,6 +61,7 @@ export default class Login extends React.Component {
                         <Text style={styles.text}>Register</Text>
                   </TouchableOpacity>
             </View>
+            </View>
       </KeyboardAvoidingView>
     );
   }
