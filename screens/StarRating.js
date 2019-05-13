@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import {FlatList,
   ScrollView,
@@ -23,13 +21,8 @@ import {FlatList,
   var textwid = MAXWstar - 20;
 
 
-
-
-
   export default class App extends Component {
-    componentDidMount () {
-      this.props.navigation.addListener('willFocus', (route) => {this.getRatings()});
-    }
+
     constructor(props) {
       super(props);
 
@@ -63,12 +56,17 @@ import {FlatList,
             "rating": 5,
             "review": "No one has reviewed this restaurant yet...be the first!"
           },
-        ]
+        ],
+        usersCurrentFriends: [],
+        friendsReviews: []
       };
     }
 
     componentDidMount() {
-      this.getRestaurantId()
+      this.props.navigation.addListener('willFocus', (route) => {
+        this.getUsersCurrentFriends();
+        this.getRestaurantId();
+      });
 
     }
 
@@ -101,8 +99,13 @@ import {FlatList,
         headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
       })
       .then((response) => response.json())
-      .then((resData) => {this.setState({Reviews: resData.reviews});
-    })
+      .then((resData) => {
+        let resReviews = resData.reviews;
+        let friendReviewsList = resReviews.filter(review => this.state.usersCurrentFriends.includes(review.username) );
+        let otherReviews = resReviews.filter(review => !(this.state.usersCurrentFriends.includes(review.username)) );
+        this.setState({Reviews: otherReviews});
+        this.setState({friendsReviews: friendReviewsList});
+      })
     .catch((error) => console.log(error))
   }
 
@@ -127,6 +130,23 @@ import {FlatList,
       }),
     })
     .catch(err => console.log(err))
+  }
+
+  getUsersCurrentFriends = () => {
+    let url = "https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username;
+    console.log(url);
+    fetch (url, {
+      method: 'GET',
+      mode: 'no-cors',
+      headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+    })
+    .then((response) => response.json())
+    .then((resData) => {
+      console.log('Friends');
+      console.log(resData.friends);
+      this.setState({usersCurrentFriends: resData.friends});
+    })
+    .catch((error) => console.log(error))
   }
 
   onGeneralStarRatingPress(rating) {
@@ -239,6 +259,34 @@ import {FlatList,
 
         />
         <Text> {"\n"} </Text>
+          <Text style={styles.reviewTitle}>Friends Reviews</Text>
+          <ScrollView style={{borderRadius: 10,}}>
+          {
+            this.state.friendsReviews.map((item, index) => (
+              <View key={item.username} style={styles.item}>
+              <Text style={{textVerticalAlign: 'top'}}>
+              <Text style={styles.reviewUsername}>{item.username} :</Text>
+              </Text>
+              <StarRating
+              disabled={true}
+              emptyStar="md-pizza"
+              fullStar="md-pizza"
+              iconSet="Ionicons"
+              maxStars={item.rating}
+              rating={this.state.customStarCount}
+              fullStarColor="red"
+              starSize={20}
+              emptyStarColor="red"
+              />
+              <Text>{"\n"}</Text>
+              <Text style={styles.reviewComment}>{item.review}</Text>
+
+              </View>
+            ))
+          }
+          </ScrollView>
+
+        <Text style={styles.reviewTitle}>Others Reviews</Text>
         <ScrollView style={{borderRadius: 10,}}>
         {
           this.state.Reviews.map((item, index) => (
@@ -304,6 +352,10 @@ import {FlatList,
       borderRadius:10,
       borderWidth: 1,
 
+    },
+    reviewTitle: {
+      color:"#0047ab",
+      fontSize: 32,
     },
     item: {
 

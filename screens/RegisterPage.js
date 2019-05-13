@@ -18,9 +18,11 @@ import {
 } from 'react-native';
 
 import { createStackNavigator, NavigationActions } from 'react-navigation';
+import ValidationComponent from 'react-native-form-validator';
 
 
-export default class RegisterPage extends React.Component {
+
+export default class RegisterPage extends ValidationComponent {
   constructor(props){
     super(props);
     this.state={
@@ -31,7 +33,19 @@ export default class RegisterPage extends React.Component {
       age: 0,
       gender: '',
       favBorough: '',
+      error: false,
     }
+  }
+
+  _onSubmit = () => {
+    this.validate({
+      fname: {minlength: 1, maxlength: 12, required: true},
+      lname: {minlength: 1, maxlength: 12, required: true},
+      username: {minlength: 1, maxlength: 12, required: true},
+      age: {numbers: true},
+      gender : {minlength: 1, maxlength: 12, required: true},
+      favBorough: {minlength: 1, maxlength: 12, required: true},
+    })
   }
 
   render() {
@@ -77,21 +91,24 @@ export default class RegisterPage extends React.Component {
 
 
       <View style={styles.overallButtonContainer}>
-      <View>
-      <TouchableOpacity
-      style={styles.btn}
-      onPress={this.register}>
-      <Text style={styles.buttonText}> Register</Text>
-      </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+          style={styles.btn}
+          onPress={this.register}>
+            <Text style={styles.buttonText}> Register</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+          style={styles.btn}
+          onPress={ () => {this.props.navigation.navigate('Home')} }>
+            <Text style={styles.buttonText}> Cancel</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View>
-      <TouchableOpacity
-      style={styles.btn}
-      onPress={ () => {this.props.navigation.navigate('Home')} }>
-      <Text style={styles.buttonText}> Cancel</Text>
-      </TouchableOpacity>
-      </View>
-      </View>
+
+      <Text>{this.getErrorMessages()}</Text>
+
 
       </View>
     );
@@ -137,7 +154,12 @@ export default class RegisterPage extends React.Component {
     console.log(this.state.password);
     console.log(this.state.fname);
     console.log(this.state.lname);
-    this.verifyRegistration(this.state.username, this.state.password);
+    if (this._onSubmit()) {
+      this.verifyRegistration(this.state.username, this.state.password);
+    } else {
+      this.setState({error: true})
+    }
+
 
   }
 }
