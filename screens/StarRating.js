@@ -204,6 +204,7 @@ import {FlatList,
     render() {
       return (
         <View style={styles.container}>
+                <View style={{justifyContent:'center', alignItems:'center'}}>
                 <Text style={styles.rating}> Submit a Rating, Leave a Review! </Text>
                 <StarRating
                     disabled={false}
@@ -230,6 +231,7 @@ import {FlatList,
                     Characters Remaining: {130 - this.state.wordcount.length}/130
                 </Text>
                 <Text> {"\n"} </Text>
+                </View>
                 <View style={styles.overallButtonContainer}>
                     <Button style={styles.button}
                         title="Press to Save Rating"
@@ -246,8 +248,8 @@ import {FlatList,
                     />
                 </View>
                 <Text> {"\n"} </Text>
-                <Text style={styles.reviewTitle}>Friends Reviews</Text>
                 <ScrollView style={{borderRadius: 10,}}>
+                  <View style={{justifyContent: 'center', alignItems:'center'}}>
                     {this.state.friendsReviews.map((item, index) => (
                     <View key={item.username} style={styles.item}>
                         <Text style={{textVerticalAlign: 'top'}}>
@@ -268,11 +270,8 @@ import {FlatList,
                         <Text style={styles.reviewComment}>{item.review}</Text>
                     </View>
                     ))}
-                </ScrollView>
-                <Text style={styles.reviewTitle}>Others Reviews</Text>
-                <ScrollView style={{borderRadius: 10,}}>
                 {this.state.Reviews.map((item, index) => (
-                    <View key={item.username} style={styles.item}>
+                    <View key={item.username} style={styles.item2}>
                         <Text style={{textVerticalAlign: 'top'}}>
                             <Text style={styles.reviewUsername}>{item.username} :</Text>
                         </Text>
@@ -291,7 +290,8 @@ import {FlatList,
                         <Text style={styles.reviewComment}>{item.review}</Text>
                     </View>
                     ))}
-                </ScrollView>
+                  </View>
+            </ScrollView>
         </View>
       );
     }
@@ -300,9 +300,7 @@ import {FlatList,
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#EBD8D8',
+      backgroundColor: 'white',
     },
     star: {
       paddingHorizontal: 6,
@@ -310,8 +308,7 @@ import {FlatList,
     },
     button: {
       paddingTop: 85,
-      borderColor: 'black',
-      borderWidth: 3,
+      paddingRight:5,
       borderRadius:10,
     },
     button2: {
@@ -344,7 +341,17 @@ import {FlatList,
     item: {
       flexDirection: 'row',
       backgroundColor: 'pink',
-      height: 60,
+      height: 75,
+      borderRadius:10,
+      borderColor: 'black',
+      borderWidth: 1,
+      margin: 5,
+      width: Dimensions.get('window').width - 20,
+    },
+    item2: {
+      flexDirection: 'row',
+      backgroundColor: '#F0FFFF',
+      height: 75,
       borderRadius:10,
       borderColor: 'black',
       borderWidth: 1,
@@ -355,7 +362,7 @@ import {FlatList,
       textAlignVertical:'top',
       textAlign:'left',
       margin:10,
-      position:'relative'
+      position:'relative',
     },
     reviewComment:{
       textAlignVertical:'bottom',
@@ -368,6 +375,8 @@ import {FlatList,
     },
     overallButtonContainer: {
       flexDirection: 'row',
-      alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 10,
+      alignItems:'center',
+      margin:5,
     }});
