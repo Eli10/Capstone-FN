@@ -167,6 +167,21 @@ import {FlatList,
     console.log(this.state.newRating);
   }
 
+  cancel = (x) => {
+    if (x == 100) {
+      this.props.navigation.navigate('Maps', {
+        username: this.state.username,
+        access_token: this.state.access_token,
+        refresh_token: this.state.refresh_token
+      })
+    } else {
+      this.props.navigation.navigate('Friends', {
+        username: this.state.username,
+        access_token: this.state.access_token,
+        refresh_token: this.state.refresh_token
+      })
+    }
+  }
   SavedRating = (x) => {
     console.log(`Rating ${this.state.newRating}`);
     this.postRating();
@@ -248,16 +263,25 @@ import {FlatList,
         Characters Remaining: {130 - this.state.wordcount.length}/130
         </Text>
         <Text> {"\n"} </Text>
+
+        <View style={styles.overallButtonContainer}>
         <Button style={styles.button}
-
-
         title="Press to Save Rating"
         color="#DC143C"
         onPress={() => {
           this.SavedRating(this.state.pageCode)
         }}
-
         />
+
+        <Button style={styles.button2}
+                title="Cancel"
+                color="blue"
+                onPress={() => {
+                  this.cancel(this.state.pageCode)
+                }}
+        />
+
+        </View>
         <Text> {"\n"} </Text>
           <Text style={styles.reviewTitle}>Friends Reviews</Text>
           <ScrollView style={{borderRadius: 10,}}>
@@ -330,12 +354,19 @@ import {FlatList,
       opacity: 0,
     },
     button: {
-
       paddingTop: 85,
       borderColor: 'black',
       borderWidth: 3,
-
       borderRadius:10,
+    },
+    button2: {
+      paddingTop: 85,
+      borderColor: 'black',
+      borderWidth: 3,
+      borderRadius:10,
+      margin: 5,
+      width: Dimensions.get('window').width / 4
+      ,
     },
     rating: {
       fontWeight: 'bold',
@@ -355,7 +386,7 @@ import {FlatList,
     },
     reviewTitle: {
       color:"#0047ab",
-      fontSize: 32,
+      fontSize: 28,
     },
     item: {
 
@@ -387,4 +418,9 @@ import {FlatList,
       top: 20,
       margin:5,
 
+    },
+    overallButtonContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
     }});
