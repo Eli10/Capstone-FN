@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="835b3a0d-ee76-4b3c-abd1-4fef5f503fb2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Friendscreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Friendscreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StarRating.js" beforeDir="false" afterPath="$PROJECT_DIR$/StarRating.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../navigation/MainTabNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../navigation/MainTabNavigator.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,10 +40,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Friendscreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2616">
+            <state relative-caret-position="-2056">
               <caret line="109" column="35" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -54,13 +53,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../navigation/MainTabNavigator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="180" column="31" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
+            <state relative-caret-position="494">
+              <caret line="174" column="16" lean-forward="true" selection-start-line="174" selection-start-column="16" selection-end-line="174" selection-end-column="16" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#160#186#0" expanded="true" />
                 <element signature="e#307#354#0" expanded="true" />
               </folding>
             </state>
@@ -103,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SearchScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4896">
-              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+            <state>
+              <caret selection-end-line="5" selection-end-column="9" />
               <folding>
                 <element signature="e#16#42#0" expanded="true" />
               </folding>
@@ -150,7 +149,6 @@
       <find>local</find>
       <find>stackna</find>
       <find>coord</find>
-      <find>loca</find>
       <find>resd</find>
       <find>profile</find>
       <find>localhost</find>
@@ -158,6 +156,7 @@
       <find>net</find>
       <find>listname</find>
       <find>listnames</find>
+      <find>loca</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -175,11 +174,11 @@
         <option value="$PROJECT_DIR$/ProfilePage.js" />
         <option value="$PROJECT_DIR$/SearchScreen.js" />
         <option value="$PROJECT_DIR$/DiscoverScreen.js" />
-        <option value="$PROJECT_DIR$/../navigation/MainTabNavigator.js" />
         <option value="$PROJECT_DIR$/../components/Login.js" />
         <option value="$PROJECT_DIR$/HomeScreen.js" />
         <option value="$PROJECT_DIR$/StarRating.js" />
         <option value="$PROJECT_DIR$/Friendscreen.js" />
+        <option value="$PROJECT_DIR$/../navigation/MainTabNavigator.js" />
       </list>
     </option>
   </component>
@@ -232,7 +231,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68834000" />
+    <option name="totallyTimeSpent" value="69612000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3200" y="-2" width="1920" height="1080" extended-state="6" />
@@ -335,33 +334,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SearchScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4896">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          <folding>
-            <element signature="e#16#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DiscoverScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="628">
           <caret line="136" selection-start-line="136" selection-end-line="136" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../navigation/MainTabNavigator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="180" column="31" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#307#354#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -399,11 +377,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Friendscreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2616">
+        <state relative-caret-position="-2056">
           <caret line="109" column="35" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SearchScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="5" selection-end-column="9" />
+          <folding>
+            <element signature="e#16#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../navigation/MainTabNavigator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="174" column="16" lean-forward="true" selection-start-line="174" selection-start-column="16" selection-end-line="174" selection-end-column="16" />
+          <folding>
+            <element signature="e#160#186#0" expanded="true" />
+            <element signature="e#307#354#0" expanded="true" />
           </folding>
         </state>
       </provider>
