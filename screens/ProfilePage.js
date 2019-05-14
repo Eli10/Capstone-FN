@@ -29,6 +29,7 @@ export default class ProfilePage extends React.Component {
         constructor(props) {
             super(props);
             const { navigation } = this.props;
+            const { navigate } = this.props.navigation;
             const username = navigation.getParam('username', 'Blah');
             const access_token = navigation.getParam('access_token', 'Blah');
             const refresh_token = navigation.getParam('refresh_token', 'Blah');
@@ -161,7 +162,8 @@ export default class ProfilePage extends React.Component {
                   {text: 'Dismiss'}, {text:'Delete Comment', onPress: () =>
                       {
                           this.getRestaurantId(name,add);
-                          navigate('Maps', {
+                          this.props.navigation.navigate('Maps', {
+                            
                           token: this.state.access_token,
                           user: this.state.username })
                       }}
