@@ -161,7 +161,7 @@ import {FlatList,
         refresh_token: this.state.refresh_token
       })
     }
-    else {
+    else if (x == 102) {
       this.props.navigation.navigate('Discover', {
         username: this.state.username,
         access_token: this.state.access_token,
