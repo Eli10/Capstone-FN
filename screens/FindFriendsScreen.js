@@ -123,7 +123,7 @@ export default class FindFriendsScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return(
-      <ScrollView>
+      <ScrollView style={{backgroundColor:'rgb(246,192,99)'}}>
           <FlatList
               data={this.state.tempFriends}
               
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue'
   },
   name: {
-    fontSize: 12,
+    fontSize: 16,
     color:"#0047ab",
   },
   icon: {
