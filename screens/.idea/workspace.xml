@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="835b3a0d-ee76-4b3c-abd1-4fef5f503fb2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/ProfilePage.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StarRating.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="188" column="10" lean-forward="true" selection-start-line="184" selection-start-column="38" selection-end-line="188" selection-end-column="10" />
+            <state relative-caret-position="629">
+              <caret line="188" column="10" lean-forward="true" selection-start-line="184" selection-start-column="8" selection-end-line="188" selection-end-column="10" />
               <folding>
                 <element signature="e#132#173#0" expanded="true" />
               </folding>
@@ -74,18 +73,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ProfilePage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="963">
-              <caret line="334" column="23" selection-start-line="334" selection-start-column="23" selection-end-line="334" selection-end-column="23" />
-              <folding>
-                <element signature="e#186#212#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SearchScreen.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,6 +80,18 @@
               <caret line="152" column="73" lean-forward="true" selection-start-line="152" selection-start-column="73" selection-end-line="152" selection-end-column="73" />
               <folding>
                 <element signature="e#156#182#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ProfilePage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="784">
+              <caret line="267" column="17" selection-start-line="267" selection-start-column="17" selection-end-line="267" selection-end-column="17" />
+              <folding>
+                <element signature="e#186#212#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,10 +127,10 @@
       <find>add to</find>
       <find>console</find>
       <find>onpres</find>
-      <find>first</find>
       <find>marginl</find>
-      <find>addto</find>
       <find>NAME</find>
+      <find>first</find>
+      <find>addto</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -203,12 +202,12 @@
       <workItem from="1555874416371" duration="11256000" />
       <workItem from="1557266260638" duration="2037000" />
       <workItem from="1557783369757" duration="473000" />
-      <workItem from="1557783890026" duration="26436000" />
+      <workItem from="1557783890026" duration="27011000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99072000" />
+    <option name="totallyTimeSpent" value="99647000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1602" y="0" width="1598" height="1718" extended-state="4" />
@@ -353,16 +352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StarRating.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="188" column="10" lean-forward="true" selection-start-line="184" selection-start-column="38" selection-end-line="188" selection-end-column="10" />
-          <folding>
-            <element signature="e#132#173#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HomeScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1163">
@@ -370,6 +359,16 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#164#190#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StarRating.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="188" column="10" lean-forward="true" selection-start-line="184" selection-start-column="8" selection-end-line="188" selection-end-column="10" />
+          <folding>
+            <element signature="e#132#173#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -386,8 +385,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProfilePage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="963">
-          <caret line="334" column="23" selection-start-line="334" selection-start-column="23" selection-end-line="334" selection-end-column="23" />
+        <state relative-caret-position="784">
+          <caret line="267" column="17" selection-start-line="267" selection-start-column="17" selection-end-line="267" selection-end-column="17" />
           <folding>
             <element signature="e#186#212#0" expanded="true" />
           </folding>

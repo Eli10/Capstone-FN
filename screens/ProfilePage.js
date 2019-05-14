@@ -261,7 +261,11 @@ export default class ProfilePage extends React.Component {
             extraData={this.state}
             data={this.state.userMaps}
             renderItem={({ item }) =>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Maps', {
+                username: this.state.username,
+                access_token: this.state.access_token,
+                refresh_token: this.state.refresh_token
+            })}}>
               <View style={styles.mapNameContainer}>
                 <Text style={styles.mapName}>{item}</Text>
               </View>
