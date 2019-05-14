@@ -125,10 +125,10 @@ export default class HomeScreen extends React.Component {
                    <MapView
                         style={styles.map}
                         initialRegion={{
-                        latitude: 40.7128,
-                        longitude: -74.0060,
-                        latitudeDelta: 0.355,
-                        longitudeDelta: 0.355, }}>
+                            latitude: 40.7128,
+                            longitude: -74.0060,
+                            latitudeDelta: 0.105,
+                            longitudeDelta: 0.305,}}>
                         {this.state.markers.map(shop => (
                         <MapView.Marker
                             coordinate={{latitude: shop.lat,

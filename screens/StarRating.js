@@ -47,9 +47,6 @@ import {FlatList,
         newRating: "",
         Reviews: [
           {
-            "username": "Hey It's Us!",
-            "rating": 5,
-            "review": "No one has reviewed this restaurant yet...be the first!"
           },
         ],
         usersCurrentFriends: [],
@@ -319,7 +316,7 @@ import {FlatList,
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'white',
+      backgroundColor: 'rgb(246,192,99)',
     },
     star: {
       paddingHorizontal: 6,

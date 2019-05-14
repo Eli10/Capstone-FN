@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Dimensions
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -213,7 +214,7 @@ export default class ProfilePage extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-        <View style={{paddingTop: 100}}>
+        <View style={{paddingTop: 100, alignItems:'center'}}>
           <Text style={styles.mapTitle}>Reviews</Text>
           <FlatList
             extraData={this.state}
@@ -255,8 +256,8 @@ export default class ProfilePage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
   	flexDirection: 'column',
+    backgroundColor:'rgb(246,192,99)',
   },
   header: {
    flexDirection: 'row',
@@ -287,6 +288,7 @@ const styles = StyleSheet.create({
   mapTitle: {
     color:"#0047ab",
     fontSize: 32,
+    textAlign:'center',
   },
   mapNameContainer: {
     paddingTop: 5,
@@ -309,9 +311,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#000000',
         flexDirection:'row',
-        height:80,
+        height:120,
         position:'relative',
-        marginLeft:0
+        marginLeft:0,
+        width: Dimensions.get('window').width - 10,
     },
   mapName: {
     fontSize: 16,
@@ -330,10 +333,7 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     position:'absolute',
     flex:1,
-
-
-
-
+    top:2,
  },
   logoutText: {
     fontSize: 20,
