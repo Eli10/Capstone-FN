@@ -215,11 +215,24 @@ export default class ProfilePage extends React.Component {
             data={this.state.userReviews}
             renderItem={({ item }) =>
               <TouchableOpacity>
-                <View style={styles.mapNameContainer}>
-                  <Text style={styles.reviewText}> Restaurant: {item.restaurant_name}</Text>
-                  <Text style={styles.reviewText}> Rating: {item.rating}</Text>
-                  <Text style={styles.reviewText}> Comment: {item.review}</Text>
+                <View style={styles.mapNameContainer2}>
+                  <Text style={styles.reviewText}> Rating:</Text>
+                      <StarRating
+                          disabled={true}
+                          emptyStar="md-pizza"
+                          fullStar="md-pizza"
+                          iconSet="Ionicons"
+                          maxStars={item.rating}
+                          rating={this.state.customStarCount}
+                          fullStarColor="red"
+                          starSize={20}
+                          emptyStarColor="red"
+                      />
+                  <Text style={styles.reviewText2}> {'\nRestaurant: '}
+                  {item.restaurant_name}{'\n'}
+                  {'Comment: '}{item.review}</Text>
                 </View>
+
               </TouchableOpacity>
             }
             ItemSeparatorComponent={this.renderSeparator}
@@ -281,16 +294,46 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#000000'
+    borderColor: '#000000',
+    flexDirection:'row',
+    textAlign:'left',
+      justifyContent:'flex-start',
   },
+    mapNameContainer2: {
+        paddingTop: 5,
+        paddingBottom: 5,
+        backgroundColor: '#F0FFFF',
+        margin: 5,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#000000',
+        flexDirection:'row',
+        height:80,
+        position:'relative',
+        marginLeft:0
+    },
   mapName: {
     fontSize: 16,
     marginLeft: 10,
   },
   reviewText: {
     fontSize: 16,
-    marginLeft: 10,
+    paddingTop: 0,
+    marginLeft:2,
+
   },
+ reviewText2: {
+    fontSize: 16,
+    marginLeft:5,
+    justifyContent:'flex-start',
+    paddingTop: 0,
+    position:'absolute',
+    flex:1,
+
+
+
+
+ },
   logoutText: {
     fontSize: 20,
     color: 'white',
