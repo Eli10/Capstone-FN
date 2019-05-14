@@ -193,6 +193,11 @@ export default class ProfilePage extends React.Component {
         </View>
         <View>
           <View>
+            <TouchableOpacity onPress={this.logoutToLogin}>
+              <View style={styles.logoutContainer}>
+                  <Text style={styles.logoutText}>Logout</Text>
+              </View>
+            </TouchableOpacity>
             <Text style={styles.mapTitle}>Maps</Text>
           </View>
           <FlatList
@@ -240,11 +245,7 @@ export default class ProfilePage extends React.Component {
         </View>
 
 
-           <TouchableOpacity onPress={this.logoutToLogin}>
-              <View style={styles.logoutContainer}>
-                <Text style={styles.logoutText}>Logout</Text>
-              </View>
-           </TouchableOpacity>
+
 
         </ScrollView>
     );
@@ -279,7 +280,7 @@ const styles = StyleSheet.create({
    paddingBottom: 5,
   },
   text: {
-   fontSize: 40,
+   fontSize: 30,
    color: '#000000',
    fontWeight: 'bold',
   },

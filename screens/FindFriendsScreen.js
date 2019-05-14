@@ -10,7 +10,8 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import {Button} from 'react-native-elements';
 
@@ -31,6 +32,7 @@ export default class FindFriendsScreen extends React.Component {
       username: username,
       access_token: access_token,
       refresh_token: refresh_token,
+
     };
   }
 
@@ -57,6 +59,13 @@ export default class FindFriendsScreen extends React.Component {
       var filteredUserList = resData.users.filter(user => user.username != this.state.username);
       var filteredFriendsList = filteredUserList.filter(user => this.state.usersCurrentFriends.includes(user.username) == false);
       this.setState({tempFriends: filteredFriendsList});
+      if(this.state.tempFriends.length == 0)
+      {
+        Alert.alert("Oops!",
+            "Looks like you've added everyone under the sun! Please come back later.",[
+              {text: 'Dismiss'},
+            ],{cancelable: false},);
+      }
     })
     .catch((error) => console.log(error))
   }
@@ -112,6 +121,7 @@ export default class FindFriendsScreen extends React.Component {
   };
 
   render() {
+    const {navigate} = this.props.navigation;
     return(
       <ScrollView>
           <FlatList
@@ -126,7 +136,14 @@ export default class FindFriendsScreen extends React.Component {
                   </View>
                   <View style={styles.addFriendContainer}>
                       <Button
-                          onPress={() => { this.followNewFriend(item.username) }}
+                          onPress={() => { this.followNewFriend(item.username);
+                          navigate('Friends', {
+                            token: this.state.access_token,
+                            user: this.state.username });
+                          Alert.alert("Friend Added",
+                            "Lets check out your new friend's maps",[
+                              {text: 'Dismiss'},
+                            ],{cancelable: false},);}}
                           type="outline"
                           iconLeft
                           title="Add Friend"
@@ -164,7 +181,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue'
   },
   name: {
-    fontSize: 16,
+    fontSize: 12,
     color:"#0047ab",
   },
   icon: {

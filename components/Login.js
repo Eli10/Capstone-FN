@@ -84,7 +84,7 @@ export default class Login extends React.Component {
       if (isValid) {
         return res.json()
       } else {
-        Alert.alert(" ","Unvalid Login");
+        Alert.alert(" ","Invalid Username or Password");
       }
     })
     .then( (resData) => {
