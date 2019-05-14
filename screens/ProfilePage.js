@@ -316,23 +316,23 @@ const styles = StyleSheet.create({
     backgroundColor:'rgb(246,192,99)',
   },
   header: {
-   flexDirection: 'row',
+   alignItems:'center',
    justifyContent: 'space-around',
    paddingBottom: 5,
   },
   secondLine: {
    fontSize: 12,
    color: '#808080',
-   flexDirection: 'row',
    justifyContent: 'space-around',
    paddingBottom: 5,
+   alignItems:'center'
   },
   loc: {
    fontSize: 12,
    color: '#808080',
    borderBottomColor: '#696969',
    borderBottomWidth: 1,
-   flexDirection: 'row',
+   alignItems:'center',
    justifyContent: 'space-around',
    paddingBottom: 5,
   },
@@ -340,6 +340,7 @@ const styles = StyleSheet.create({
    fontSize: 30,
    color: '#000000',
    fontWeight: 'bold',
+   textAlign: 'center',
   },
   mapTitle: {
     color:"#0047ab",
