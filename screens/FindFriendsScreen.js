@@ -126,7 +126,7 @@ export default class FindFriendsScreen extends React.Component {
       <ScrollView style={{backgroundColor:'rgb(246,192,99)'}}>
           <FlatList
               data={this.state.tempFriends}
-              
+
               renderItem={({ item }) =>
               <TouchableOpacity onPress={() => {console.log('Touched Button')}}>
                   <View style={styles.listContainer}>
@@ -164,11 +164,16 @@ this is the styling sheet for how the friends are displayed in the flatlist
  */
 const styles = StyleSheet.create({
   listContainer: {
-    paddingTop: 5,
-    paddingBottom: 5,
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: '#F0FFFF',
+    margin: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
   },
   addFriendContainer: {
     marginTop:10,
@@ -178,11 +183,14 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     borderRadius:50,
     borderWidth: 0.2,
-    borderColor: 'blue'
+    borderColor: 'blue',
+    marginRight: 10,
   },
   name: {
     fontSize: 16,
     color:"#0047ab",
+    marginLeft: 10,
+    top: 3,
   },
   icon: {
     position: 'absolute',
