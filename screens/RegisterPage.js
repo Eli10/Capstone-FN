@@ -65,17 +65,17 @@ export default class RegisterPage extends ValidationComponent {
               onChangeText= { (favBorough) => this.setState ( {favBorough} ) }
               underlineColorAndroid= {'transparent'}/>
           <TextInput style = {styles.textInput}
-              placeholder= "Email/Username"
-              keyboardType='email-address'
+              placeholder= "Username"
+              keyboardType='username'
               onChangeText= { (username) => this.setState ( {username} ) }
               underlineColorAndroid= {'transparent'}/>
           <TextInput style = {styles.textInput}
-              placeholder= "password"
+              placeholder= "Password"
               secureTextEntry={true}
               onChangeText= { (password) => this.setState ( {password} ) }
               underlineColorAndroid= {'transparent'}/>
           <TextInput style = {styles.textInput}
-              placeholder= "Confirm password"
+              placeholder= "Confirm Password"
               secureTextEntry={true}
               onChangeText= { (cPassword) => this.setState ( {cPassword} ) }
               underlineColorAndroid= {'transparent'}/>
