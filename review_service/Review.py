@@ -84,5 +84,5 @@ class Review:
     """
     @staticmethod
     def get_reviews_for_user(user):
-        query = "MATCH (u:User)-[c:GAVE_REVIEW]-(r:Restaurant) WHERE u.username = '{}' RETURN u.username as username, r.name as restaurant_name, c.rating as rating, c.review as review".format(user)
+        query = "MATCH (u:User)-[c:GAVE_REVIEW]-(r:Restaurant) WHERE u.username = '{}' RETURN u.username as username, r.name as restaurant_name, r.address as restaurant_address, c.rating as rating, c.review as review".format(user)
         return graph.data(query)
