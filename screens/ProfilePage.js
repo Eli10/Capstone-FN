@@ -13,7 +13,8 @@ import {
   TouchableOpacity,
   View,
   FlatList,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -118,6 +119,59 @@ export default class ProfilePage extends React.Component {
       );
     };
 
+    deleteReview = (usern, resID) => {
+            var header = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '.concat(this.state.access_token)
+            };
+            fetch('https://capstone-express-gateway.herokuapp.com/reviews', {
+                method: 'DELETE',
+                headers: header,
+                body: JSON.stringify({
+                    username: this.state.username,
+                    restaurant_id: resID,
+                }),
+            })
+                .then((response) => response.json())
+                .catch(err => console.log(err))
+        }
+
+
+    getRestaurantId = (name,add) => {
+        //this function is called when a user is trying to add a restaurant to
+        //an existing map or to a new map
+        //this function calls the restaurants/id/ endpoint to obtain the restaurant's id
+        let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + name + '/' + add;
+        fetch(url, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
+        })
+            .then((response) => response.json())
+            .then((resData) => {this.deleteReview(this.state.username, resData.id)}
+            )
+            .catch((error) => console.log(error))
+    }
+
+  deleteHandler = (name,add) =>{
+        var usern = this.state.username;
+          Alert.alert("Delete",
+              "Delete this comment?",[
+                  {text: 'Dismiss'}, {text:'Delete Comment', onPress: () =>
+                      {
+                          this.getRestaurantId(name,add);
+                          navigate('Maps', {
+                          token: this.state.access_token,
+                          user: this.state.username })
+                      }}
+              ],{cancelable: false},);
+
+
+
+  }
+
+
 /*fetches user review info from backend*/
   getRatings = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/reviews/user/' + this.state.username;
@@ -128,7 +182,7 @@ export default class ProfilePage extends React.Component {
           headers: { 'Authorization': 'Bearer '.concat(this.state.access_token) }
       })
       .then((response) => response.json())
-      .then((resData) => {this.setState({userReviews: resData.reviews});
+      .then((resData) => {this.setState({userReviews: resData.reviews})
       })
     .catch((error) => console.log(error))
   }
@@ -156,7 +210,7 @@ export default class ProfilePage extends React.Component {
 
 /*creates new access token*/
   getNewAccessToken = () => {
-    console.log("getting new access token")
+    console.log("getting new access token");
     fetch ('https://capstone-express-gateway.herokuapp.com/users/refresh-token', {
         method: 'GET',
         mode: 'no-cors',
@@ -165,7 +219,7 @@ export default class ProfilePage extends React.Component {
     .then((response) => response.json())
     .then((resData) => {
       this.setState({access_token: resData.access_token});
-      this.props.navigation.setParams({access_token: resData.access_token})
+      this.props.navigation.setParams({access_token: resData.access_token});
       console.log(this.state.access_token)
     })
     .catch((error) => console.log(error))
@@ -220,7 +274,7 @@ export default class ProfilePage extends React.Component {
             extraData={this.state}
             data={this.state.userReviews}
             renderItem={({ item }) =>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=> {this.deleteHandler(item.restaurant_name, item.restaurant_address)}}>
                 <View style={styles.mapNameContainer2}>
                   <Text style={styles.reviewText}> Rating:</Text>
                       <StarRating
