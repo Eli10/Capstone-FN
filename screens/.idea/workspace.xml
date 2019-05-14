@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="835b3a0d-ee76-4b3c-abd1-4fef5f503fb2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/FindFriendsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/FindFriendsScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SearchScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/SearchScreen.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StarRating.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="968">
-              <caret line="318" column="39" selection-start-line="318" selection-start-column="39" selection-end-line="318" selection-end-column="39" />
+            <state relative-caret-position="185">
+              <caret line="188" column="10" lean-forward="true" selection-start-line="184" selection-start-column="38" selection-end-line="188" selection-end-column="10" />
               <folding>
                 <element signature="e#132#173#0" expanded="true" />
               </folding>
@@ -39,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Friendscreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="130" column="36" lean-forward="true" selection-start-line="126" selection-start-column="12" selection-end-line="130" selection-end-column="36" />
+            <state relative-caret-position="792">
+              <caret line="104" column="81" lean-forward="true" selection-start-line="104" selection-start-column="81" selection-end-line="104" selection-end-column="81" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -51,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HomeScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="877">
-              <caret line="135" column="56" lean-forward="true" selection-start-line="135" selection-start-column="56" selection-end-line="135" selection-end-column="56" />
+            <state relative-caret-position="1163">
+              <caret line="88" column="65" selection-start-line="88" selection-start-column="65" selection-end-line="88" selection-end-column="65" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#164#190#0" expanded="true" />
@@ -61,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FindFriendsScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="768">
-              <caret line="180" column="23" lean-forward="true" selection-start-line="180" selection-start-column="23" selection-end-line="180" selection-end-column="23" />
+            <state relative-caret-position="726">
+              <caret line="139" column="26" selection-start-line="139" selection-start-column="26" selection-end-line="141" selection-end-column="57" />
               <folding>
                 <element signature="e#174#200#0" expanded="true" />
               </folding>
@@ -76,10 +78,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProfilePage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1416">
-              <caret line="313" column="17" selection-start-line="313" selection-start-column="17" selection-end-line="313" selection-end-column="17" />
+            <state relative-caret-position="728">
+              <caret line="163" column="40" lean-forward="true" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="40" />
               <folding>
                 <element signature="e#186#212#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SearchScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="152" column="73" lean-forward="true" selection-start-line="152" selection-start-column="73" selection-end-line="152" selection-end-column="73" />
+              <folding>
+                <element signature="e#156#182#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,8 +103,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nav</find>
-      <find>this.state.re</find>
       <find>_</find>
       <find>maps</find>
       <find>if</find>
@@ -113,9 +125,13 @@
       <find>flex</find>
       <find>col</find>
       <find>12</find>
-      <find>unvali</find>
       <find>colu</find>
+      <find>unvali</find>
+      <find>add to</find>
+      <find>console</find>
+      <find>onpres</find>
       <find>first</find>
+      <find>addto</find>
       <find>marginl</find>
     </findStrings>
   </component>
@@ -131,22 +147,22 @@
         <option value="$PROJECT_DIR$/ghmfghm" />
         <option value="$PROJECT_DIR$/RegisterPage.js" />
         <option value="$PROJECT_DIR$/../map_service/main.go" />
-        <option value="$PROJECT_DIR$/SearchScreen.js" />
         <option value="$PROJECT_DIR$/DiscoverScreen.js" />
         <option value="$PROJECT_DIR$/Friendscreen.js" />
         <option value="$PROJECT_DIR$/../navigation/MainTabNavigator.js" />
         <option value="$PROJECT_DIR$/../components/Login.js" />
-        <option value="$PROJECT_DIR$/HomeScreen.js" />
         <option value="$PROJECT_DIR$/StarRating.js" />
-        <option value="$PROJECT_DIR$/ProfilePage.js" />
         <option value="$PROJECT_DIR$/FindFriendsScreen.js" />
+        <option value="$PROJECT_DIR$/HomeScreen.js" />
+        <option value="$PROJECT_DIR$/ProfilePage.js" />
+        <option value="$PROJECT_DIR$/SearchScreen.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="-2" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="1602" />
+    <option name="width" value="1598" />
+    <option name="height" value="1718" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -188,15 +204,15 @@
       <workItem from="1555874416371" duration="11256000" />
       <workItem from="1557266260638" duration="2037000" />
       <workItem from="1557783369757" duration="473000" />
-      <workItem from="1557783890026" duration="18595000" />
+      <workItem from="1557783890026" duration="25558000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91231000" />
+    <option name="totallyTimeSpent" value="98194000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-2" width="3200" height="1720" extended-state="6" />
+    <frame x="1602" y="0" width="1598" height="1718" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49880382" weight="0.31165487" />
@@ -223,13 +239,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/FakeReviews" />
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="389" column="8" selection-start-line="389" selection-start-column="8" selection-end-line="389" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ghmfghm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1044">
@@ -297,16 +306,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SearchScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding>
-            <element signature="e#156#182#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DiscoverScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
@@ -328,20 +327,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="298" column="8" selection-start-line="298" selection-start-column="8" selection-end-line="298" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FindFriendsScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="139" column="26" selection-start-line="139" selection-start-column="26" selection-end-line="141" selection-end-column="57" />
+          <folding>
+            <element signature="e#174#200#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Friendscreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="130" column="36" lean-forward="true" selection-start-line="126" selection-start-column="12" selection-end-line="130" selection-end-column="36" />
+        <state relative-caret-position="792">
+          <caret line="104" column="81" lean-forward="true" selection-start-line="104" selection-start-column="81" selection-end-line="104" selection-end-column="81" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/StarRating.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="188" column="10" lean-forward="true" selection-start-line="184" selection-start-column="38" selection-end-line="188" selection-end-column="10" />
+          <folding>
+            <element signature="e#132#173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/HomeScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="877">
-          <caret line="135" column="56" lean-forward="true" selection-start-line="135" selection-start-column="56" selection-end-line="135" selection-end-column="56" />
+        <state relative-caret-position="1163">
+          <caret line="88" column="65" selection-start-line="88" selection-start-column="65" selection-end-line="88" selection-end-column="65" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#164#190#0" expanded="true" />
@@ -349,32 +375,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StarRating.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="968">
-          <caret line="318" column="39" selection-start-line="318" selection-start-column="39" selection-end-line="318" selection-end-column="39" />
-          <folding>
-            <element signature="e#132#173#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProfilePage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1416">
-          <caret line="313" column="17" selection-start-line="313" selection-start-column="17" selection-end-line="313" selection-end-column="17" />
+        <state relative-caret-position="728">
+          <caret line="163" column="40" lean-forward="true" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="40" />
           <folding>
             <element signature="e#186#212#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FindFriendsScreen.js">
+    <entry file="file://$PROJECT_DIR$/SearchScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="180" column="23" lean-forward="true" selection-start-line="180" selection-start-column="23" selection-end-line="180" selection-end-column="23" />
+        <state relative-caret-position="960">
+          <caret line="152" column="73" lean-forward="true" selection-start-line="152" selection-start-column="73" selection-end-line="152" selection-end-column="73" />
           <folding>
-            <element signature="e#174#200#0" expanded="true" />
+            <element signature="e#156#182#0" expanded="true" />
           </folding>
         </state>
       </provider>

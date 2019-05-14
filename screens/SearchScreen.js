@@ -50,7 +50,7 @@ export default class SearchScreen extends React.Component {
       })
       .then((response) => response.json())
       .then((resData) => {
-        console.log(resData.restaurants);
+        //console.log(resData.restaurants);
         this.setState({data: resData.restaurants});
       })
 
@@ -75,6 +75,7 @@ export default class SearchScreen extends React.Component {
     })
       .catch((error) => console.log(error))
     }
+
 
     getRestaurantId = () => {
       //this function is called when a user is trying to add a restaurant to
@@ -107,7 +108,15 @@ export default class SearchScreen extends React.Component {
           mapname: map,
           restaurant_id: this.state.temporaryRestaurantId,
         }),
-      });
+      }).then((res) => {
+          console.log(res.status)
+          this.props.navigation.navigate('Profile', {
+          username: this.state.username,
+          access_token: this.state.access_token,
+          refresh_token: this.state.refresh_token})
+      })
+
+
     }
 
     showDialog = () => {
@@ -141,7 +150,7 @@ export default class SearchScreen extends React.Component {
           username: this.state.defaultUser,
           mapname: this.state.temporaryMapName,
         }),
-        });
+        }).then( () => this.addToExistingMap(this.state.temporaryMapName))
     }
     createMapAndAddRestaurant = () => {
       //this is the general function called that calls all related functions
@@ -149,7 +158,8 @@ export default class SearchScreen extends React.Component {
 
       this.createNewMap();
       this.handleClose();
-      this.addToExistingMap(this.state.temporaryMapName);
+
+
     }
     renderSeparator = () => {
       //this function is the stylistic component of each item rendered in the flatlist
@@ -299,11 +309,8 @@ export default class SearchScreen extends React.Component {
                       contentContainerStyle={{ flex:1, justifyContent: 'center', alignItems: 'center' }}
                       data={this.state.userMaps}
                       renderItem={({ item }) =>
-                      <TouchableOpacity onPress={() => { this.addToExistingMap(item) }}>
-                        <View>
-                          <Text style={styles.restaurant_name}>{item}</Text>
-                        </View>
-                      </TouchableOpacity>
+                      <Button onPress={() => { this.addToExistingMap(item) }} title={item}>
+                      </Button>
                       }
                       ItemSeparatorComponent={this.renderSeparator}
                     />
