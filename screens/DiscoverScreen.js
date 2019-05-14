@@ -12,6 +12,7 @@ import {
 
 import { WebBrowser } from 'expo';
 import ModalDropdown from 'react-native-modal-dropdown';
+import StarRating from 'react-native-star-rating';
 import { MonoText } from '../components/StyledText';
 import MapView from 'react-native-maps'
 import RestaurantList from '../assets/files/TestRestaurants.json';
@@ -19,6 +20,7 @@ import RestaurantList from '../assets/files/TestRestaurants.json';
 var restaurantObject = ['', '', '', ''];
 var listnames = [];
 var restList = [];
+var pageID2 = 102;
 
 for(var i = 0; i < RestaurantList.length; i++)
 {
@@ -92,6 +94,7 @@ export default class DiscoverScreen extends React.Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
           <ModalDropdown
@@ -115,6 +118,17 @@ export default class DiscoverScreen extends React.Component {
                   longitude: shop.lon}}
                   title={shop.name}
                   description={shop.address} >
+                  <MapView.Callout style={styles.plainView}
+                      tooltip onPress={() => navigate('Star', {
+                      restname: shop.name,
+                      PAGEID: pageID2,
+                      restAddr: shop.address,
+                      token: this.state.access_token,
+                      user: this.state.username })}>
+                      <View styles={{textAlign: 'center',}}>
+                          <Text>{shop.name}{"\n"}{shop.address}</Text>
+                      </View>
+                  </MapView.Callout>
               </MapView.Marker>
               ))}
           </MapView>

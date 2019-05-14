@@ -32,6 +32,7 @@ import {FlatList,
       const resAddr = navigation.getParam('restAddr');
       const pageCode = navigation.getParam('PAGEID');
       const access_token = navigation.getParam('token');
+      console.log(`PAGE CODE ${pageCode}`);
 
       this.state = {
         generalStarCount: 0,
@@ -156,8 +157,15 @@ import {FlatList,
         access_token: this.state.access_token,
         refresh_token: this.state.refresh_token
       })
-    } else {
+    } else if (x== 101) {
       this.props.navigation.navigate('Friends', {
+        username: this.state.username,
+        access_token: this.state.access_token,
+        refresh_token: this.state.refresh_token
+      })
+    }
+    else {
+      this.props.navigation.navigate('Discover', {
         username: this.state.username,
         access_token: this.state.access_token,
         refresh_token: this.state.refresh_token
@@ -187,8 +195,19 @@ import {FlatList,
           access_token: this.state.access_token,
           refresh_token: this.state.refresh_token
         })
-      } else {
+      } else if (x == 101) {
         this.props.navigation.navigate('Friends', {
+          username: this.state.username,
+          access_token: this.state.access_token,
+          refresh_token: this.state.refresh_token
+        })
+        this.props.navigation.navigate('Profile', {
+          username: this.state.username,
+          access_token: this.state.access_token,
+          refresh_token: this.state.refresh_token
+        })
+      } else if (x == 102) {
+        this.props.navigation.navigate('Discover', {
           username: this.state.username,
           access_token: this.state.access_token,
           refresh_token: this.state.refresh_token
