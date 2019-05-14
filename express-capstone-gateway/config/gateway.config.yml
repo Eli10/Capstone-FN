@@ -31,7 +31,7 @@ apiEndpoints:
       - '/reviews'
       - '/reviews/restaurant/:restaurant_name'
       - '/reviews/user/:username'
-    methods: ["POST", "GET"]
+    methods: ["POST", "GET", "DELETE"]
   mapApi:
     host: capstone-express-gateway.herokuapp.com
     paths:

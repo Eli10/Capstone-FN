@@ -47,6 +47,26 @@ class createReview(Resource):
 		else:
 			return {'message': "Already reviewed restaurant"}, 200
 
+	## === deleteReview Function ===
+
+	"""
+	Resource Class Method that handles
+	creating a review
+
+    :returns: json contain confirmation of
+	review creation
+    """
+	@jwt_required
+	def delete(self):
+		req_data = request.get_json()
+		username = req_data['username']
+		restaurant_id = req_data['restaurant_id']
+
+		if Review.delete_rating(username, restaurant_id):
+			return {'message': "Review deleted"}, 200
+		else:
+			return {'message': "No review to delete"}, 200
+
 
 class restaurantReview(Resource):
 

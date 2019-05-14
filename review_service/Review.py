@@ -53,6 +53,19 @@ class Review:
             return True
 
     """
+    Static Method deletes a user review for a restaurant
+
+    - :param username: name of user
+    - :param restaurant_id: id of restaurant
+    - :returns: boolean
+    """
+    @staticmethod
+    def delete_rating(username, restaurant_id):
+        query = """MATCH (u:User)-[r:GAVE_REVIEW]-(res:Restaurant) WHERE u.username='{}' and id(res)={} DELETE r""".format(username, restaurant_id)
+        graph.run(query)
+        return True
+
+    """
     Static Method that gets user reviews for a restaurant
 
     :param restaurant_id: id of restaurant
