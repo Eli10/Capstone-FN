@@ -93,7 +93,7 @@ SearchStack.navigationOptions = {
 
 //navigation name and creation of 'Discover' page
 const DiscoverStack = createSwitchNavigator({
-    Discover: DiscoverScreen,
+    Discover: {screen: DiscoverScreen},
 });
 
 DiscoverStack.navigationOptions = {
