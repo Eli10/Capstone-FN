@@ -61,6 +61,7 @@ export default class Login extends React.Component {
                         <Text style={styles.text}>Register</Text>
                   </TouchableOpacity>
             </View>
+            <Text style={{padding: 10, textAlign: 'center'}}>If you forgot your password, Please email us support@foodiemaps.com</Text>
             </View>
       </KeyboardAvoidingView>
     );
