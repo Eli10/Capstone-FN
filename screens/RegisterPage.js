@@ -30,6 +30,7 @@ export default class RegisterPage extends ValidationComponent {
     this.state={
       username: '',
       password: '',
+      cPassword: '',
       fname: '',
       lname: '',
       age: 0,
@@ -37,17 +38,6 @@ export default class RegisterPage extends ValidationComponent {
       favBorough: '',
       error: false,
     }
-  }
-/*checks if all submitted information is valid before sending to backend*/
-  _onSubmit = () => {
-    this.validate({
-      fname: {minlength: 1, maxlength: 12, required: true},
-      lname: {minlength: 1, maxlength: 12, required: true},
-      username: {minlength: 1, maxlength: 12, required: true},
-      age: {numbers: true},
-      gender : {minlength: 1, maxlength: 12, required: true},
-      favBorough: {minlength: 1, maxlength: 12, required: true},
-    })
   }
 
   render() {
@@ -85,11 +75,10 @@ export default class RegisterPage extends ValidationComponent {
               onChangeText= { (password) => this.setState ( {password} ) }
               underlineColorAndroid= {'transparent'}/>
           <TextInput style = {styles.textInput}
-              placeholder= "confirm password"
+              placeholder= "Confirm password"
               secureTextEntry={true}
               onChangeText= { (cPassword) => this.setState ( {cPassword} ) }
-              underlineColorAndroid= {'transparent'}
-              autoCorrect={false}/>
+              underlineColorAndroid= {'transparent'}/>
           <View style={styles.overallButtonContainer}>
               <TouchableOpacity
                   style={styles.btn}
@@ -103,6 +92,8 @@ export default class RegisterPage extends ValidationComponent {
               </TouchableOpacity>
           </View>
           <Text>{this.getErrorMessages()}</Text>
+          <Text>{this.isFieldInError()}</Text>
+          <Text>{this.getErrorsInField()}</Text>
       </View>
     );
   }
@@ -142,10 +133,18 @@ export default class RegisterPage extends ValidationComponent {
   }
 /*creates a user profile if all fields are valid*/
   register = () => {
-    if(this.state.password !== this.state.cPassword)
-    {
-       Alert.alert(" ","Your passwords do not match, try again");
-    } else if (this._onSubmit()) {
+    if (this.state.cPassword !== this.state.password) {
+      Alert.alert(" ","Your passwords do not match, try again");
+    }
+    else if (this.validate({
+      fname: {minlength: 1, maxlength: 12, required: true},
+      lname: {minlength: 1, maxlength: 12, required: true},
+      username: {minlength: 1, maxlength: 12, required: true},
+      password: {minlength: 1, maxlength: 100, required: true},
+      age: {numbers: true, required: true },
+      gender : {minlength: 1, maxlength: 12, required: true},
+      favBorough: {minlength: 1, maxlength: 12, required: true},
+    })) {
       this.verifyRegistration(this.state.username, this.state.password);
     } else {
       this.setState({error: true})
