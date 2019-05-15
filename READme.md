@@ -87,7 +87,7 @@ Restaurant
 - GET /restaurants/discover/{username}
 
 Reviews
-- POST /reviews
+- POST, DELETE /reviews
 - GET /reviews/restaurant/{restaurant_name}
 - GET /reviews/user/{username}
 
