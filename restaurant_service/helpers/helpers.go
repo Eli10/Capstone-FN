@@ -9,9 +9,10 @@ import (
 	"github.com/johnnadratowski/golang-neo4j-bolt-driver/structures/graph"
 )
 
-/**
-* This method creates a connection to the Neo4j DB
-* @return bolt.Conn Connection to DB
+/*
+This method creates a connection to the Neo4j DB
+
+@return bolt.Conn Connection to DB
 */
 func CreateConnection() bolt.Conn {
 	driver := bolt.NewDriver()
@@ -20,11 +21,14 @@ func CreateConnection() bolt.Conn {
 	return con
 }
 
-/**
-* This method prepares a query string for execution in the DB.
-* @param query The String representing the query
-* @param bolt.Conn Connection to DB
-* @return bolt.Stmt Statement to run in the DB
+/*
+This method prepares a query string for execution in the DB.
+
+@param query The String representing the query
+
+@param bolt.Conn Connection to DB
+
+@return bolt.Stmt Statement to run in the DB
 */
 func PrepareStatement(query string, con bolt.Conn) bolt.Stmt {
 	st, err := con.PrepareNeo(query)
@@ -32,9 +36,10 @@ func PrepareStatement(query string, con bolt.Conn) bolt.Stmt {
 	return st
 }
 
-/**
-* This method handles any error when preparing or executing statments.
-* @param err The Error object
+/*
+This method handles any error when preparing or executing statments.
+
+@param err The Error object
 */
 func HandleError(err error) {
 	if err != nil {
@@ -43,16 +48,19 @@ func HandleError(err error) {
 	}
 }
 
-/**
-* This method allows you to consume rows one-by-one, as they
-* come off the bolt stream. This is more efficient especially
-* if you're only looking for a particular row/set of rows, as
-*you don't need to load up the entire dataset into memory
-* @param bolt.Rows Rows representing the result of the query
-* @param bolt.Stmt Statement to run in the DB
-* @return interface{} This represents the rows you want to keep
+/*
+This method allows you to consume rows one-by-one, as they
+come off the bolt stream. This is more efficient especially
+if you're only looking for a particular row/set of rows, as
+you don't need to load up the entire dataset into memory
+
+@param bolt.Rows Rows representing the result of the query
+
+@param bolt.Stmt Statement to run in the DB
+
+@return interface{} This represents the rows you want to keep
 */
-func ConsumeRows(rows bolt.Rows, st bolt.Stmt) ( interface{}, []interface{}) {
+func ConsumeRows(rows bolt.Rows, st bolt.Stmt) (interface{}, []interface{}) {
 	data, _, err := rows.NextNeo()
 	HandleError(err)
 	fmt.Println(data)
@@ -62,12 +70,14 @@ func ConsumeRows(rows bolt.Rows, st bolt.Stmt) ( interface{}, []interface{}) {
 	return data[0], data[1].([]interface{})
 }
 
-/**
-* This method takes a list of restuarant row results from the DB
-* and formats each row into a Restuarant Object that can be
-* show in JSON.
-* @param rows Row Results from a query executed
-* @return RestaurantList A list of Restaurant Objects
+/*
+This method takes a list of restuarant row results from the DB
+and formats each row into a Restuarant Object that can be
+show in JSON.
+
+@param rows Row Results from a query executed
+
+@return RestaurantList A list of Restaurant Objects
 */
 func CreateRestaurantList(list []interface{}) []types.Restaurant {
 	var restaurant_list []types.Restaurant
@@ -78,21 +88,23 @@ func CreateRestaurantList(list []interface{}) []types.Restaurant {
 		fmt.Println("DATA", restaurant_data)
 		fmt.Printf("Type of the Data: %T\n", restaurant_data)
 		restaurant_list = append(restaurant_list, types.Restaurant{
-											Name: restaurant_data["name"].(string),
-											Address: restaurant_data["address"].(string),
-											Lat: restaurant_data["lat"].(float64),
-											Lon: restaurant_data["lon"].(float64)})
+			Name:    restaurant_data["name"].(string),
+			Address: restaurant_data["address"].(string),
+			Lat:     restaurant_data["lat"].(float64),
+			Lon:     restaurant_data["lon"].(float64)})
 	}
 
 	return restaurant_list
 }
 
-/**
-* This method takes a row result from the DB
-* and formats the row into a Restuarant Object that can be
-* show in JSON.
-* @param rows Row Results from a query executed
-* @return Restaurant A Restaurant Objects
+/*
+This method takes a row result from the DB
+and formats the row into a Restuarant Object that can be
+show in JSON.
+
+@param rows Row Results from a query executed
+
+@return Restaurant A Restaurant Objects
 */
 func CreateRestaurant(data interface{}) types.Restaurant {
 	var res types.Restaurant
@@ -102,15 +114,17 @@ func CreateRestaurant(data interface{}) types.Restaurant {
 	fmt.Printf("Type of the Data: %T\n", restaurant_data)
 	res.Name = restaurant_data["name"].(string)
 	res.Address = restaurant_data["address"].(string)
-	res.Lat =  restaurant_data["lat"].(float64)
-	res.Lon =  restaurant_data["lon"].(float64)
+	res.Lat = restaurant_data["lat"].(float64)
+	res.Lon = restaurant_data["lon"].(float64)
 	return res
 }
 
-/**
-* This method query the DB for a List of Restaurant Names
-* @param bolt.Stmt Statement to run in the DB
-* @return bolt.Rows Rows representing the result of the query
+/*
+This method query the DB for a List of Restaurant Names
+
+@param bolt.Stmt Statement to run in the DB
+
+@return bolt.Rows Rows representing the result of the query
 */
 func QueryRestaurantNameList(st bolt.Stmt) bolt.Rows {
 	rows, err := st.QueryNeo(map[string]interface{}{})
@@ -118,11 +132,14 @@ func QueryRestaurantNameList(st bolt.Stmt) bolt.Rows {
 	return rows
 }
 
-/**
-* This method query the DB for a Restaurant By Name
-* @param bolt.Stmt Statement to run in the DB
-* @param RestaurantObject Object representing the restuarant
-* @return bolt.Rows Rows representing the result of the query
+/*
+This method query the DB for a Restaurant By Name
+
+@param bolt.Stmt Statement to run in the DB
+
+@param RestaurantObject Object representing the restuarant
+
+@return bolt.Rows Rows representing the result of the query
 */
 func QueryRestaurantName(st bolt.Stmt, obj types.Restaurant) bolt.Rows {
 	rows, err := st.QueryNeo(map[string]interface{}{"restaurant_name": obj.Name})
@@ -130,14 +147,17 @@ func QueryRestaurantName(st bolt.Stmt, obj types.Restaurant) bolt.Rows {
 	return rows
 }
 
-/**
-* This method allows you to consume rows one-by-one, as they
-* come off the bolt stream. This is more efficient especially
-* if you're only looking for a particular row/set of rows, as
-*you don't need to load up the entire dataset into memory
-* @param bolt.Rows Rows representing the result of the query
-* @param bolt.Stmt Statement to run in the DB
-* @return interface{} This represents the rows you want to keep
+/*
+This method allows you to consume rows one-by-one, as they
+come off the bolt stream. This is more efficient especially
+if you're only looking for a particular row/set of rows, as
+you don't need to load up the entire dataset into memory
+
+@param bolt.Rows Rows representing the result of the query
+
+@param bolt.Stmt Statement to run in the DB
+
+@return interface{} This represents the rows you want to keep
 */
 func ConsumeRestaurant(rows bolt.Rows, st bolt.Stmt) interface{} {
 	data, _, err := rows.All()
@@ -151,14 +171,17 @@ func ConsumeRestaurant(rows bolt.Rows, st bolt.Stmt) interface{} {
 	return data
 }
 
-/**
-* This method allows you to consume rows one-by-one, as they
-* come off the bolt stream. This is more efficient especially
-* if you're only looking for a particular row/set of rows, as
-*you don't need to load up the entire dataset into memory
-* @param bolt.Rows Rows representing the result of the query
-* @param bolt.Stmt Statement to run in the DB
-* @return interface{} This represents the rows you want to keep
+/*
+This method allows you to consume rows one-by-one, as they
+come off the bolt stream. This is more efficient especially
+if you're only looking for a particular row/set of rows, as
+you don't need to load up the entire dataset into memory
+
+@param bolt.Rows Rows representing the result of the query
+
+@param bolt.Stmt Statement to run in the DB
+
+@return interface{} This represents the rows you want to keep
 */
 func ConsumeRestaurantNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 	data, _, err := rows.All()
@@ -173,11 +196,14 @@ func ConsumeRestaurantNameRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 
 }
 
-/**
-* This method query the DB for the id of a restuarant
-* @param bolt.Stmt Statement to run in the DB
-* @param RestuarantObject Object representing the restaurant
-* @return bolt.Rows Rows representing the result of the query
+/*
+This method query the DB for the id of a restuarant
+
+@param bolt.Stmt Statement to run in the DB
+
+@param RestuarantObject Object representing the restaurant
+
+@return bolt.Rows Rows representing the result of the query
 */
 func QueryRestaurantID(st bolt.Stmt, obj types.Restaurant) bolt.Rows {
 	rows, err := st.QueryNeo(map[string]interface{}{"restaurant_name": obj.Name, "address": obj.Address})
@@ -186,14 +212,17 @@ func QueryRestaurantID(st bolt.Stmt, obj types.Restaurant) bolt.Rows {
 
 }
 
-/**
-* This method allows you to consume rows one-by-one, as they
-* come off the bolt stream. This is more efficient especially
-* if you're only looking for a particular row/set of rows, as
-*you don't need to load up the entire dataset into memory
-* @param bolt.Rows Rows representing the result of the query
-* @param bolt.Stmt Statement to run in the DB
-* @return interface{} This represents the rows you want to keep
+/*
+This method allows you to consume rows one-by-one, as they
+come off the bolt stream. This is more efficient especially
+if you're only looking for a particular row/set of rows, as
+you don't need to load up the entire dataset into memory
+
+@param bolt.Rows Rows representing the result of the query
+
+@param bolt.Stmt Statement to run in the DB
+
+@return interface{} This represents the rows you want to keep
 */
 func ConsumeRestaurantIDRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 	data, _, err := rows.NextNeo()
@@ -208,11 +237,14 @@ func ConsumeRestaurantIDRows(rows bolt.Rows, st bolt.Stmt) interface{} {
 
 }
 
-/**
-* This method query the DB for a recommended restuarant
-* @param bolt.Stmt Statement to run in the DB
-* @param UserObject Object representing the user
-* @return bolt.Rows Rows representing the result of the query
+/*
+This method query the DB for a recommended restuarant
+
+@param bolt.Stmt Statement to run in the DB
+
+@param UserObject Object representing the user
+
+@return bolt.Rows Rows representing the result of the query
 */
 func QueryDiscover(st bolt.Stmt, obj types.User) bolt.Rows {
 	rows, err := st.QueryNeo(map[string]interface{}{"username": obj.Username})
