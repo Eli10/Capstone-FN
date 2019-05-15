@@ -12,20 +12,23 @@ import (
 	"github.com/gorilla/mux"
 )
 
-/**
-* This method takes a http request.
-* @param httpRequest This is the first paramter to GetHello method
-* @return json
+/*
+This method takes a http request from the /hello
+
+@param httpRequest This is the first paramter to GetHello method
+
+@return None
 */
 func GetHello(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.Hello{Message: "Hi", OtherMessage: "Yoo"})
 }
 
-/**
-* This method takes a http request.
-* Creates the relationship between Users and Maps
-* @param httpRequest This is the first paramter to CreateMapandUserMapRelationshipHandler method
-* @return None
+/*
+This method takes a http request from /maps/. Creates the relationship between Users and Maps
+
+@param httpRequest This is the first paramter to CreateMapandUserMapRelationshipHandler method
+
+@return None
 */
 func CreateMapandUserMapRelationshipHandler(w http.ResponseWriter, r *http.Request) {
 	var mr types.UserMapRelationship
@@ -36,10 +39,12 @@ func CreateMapandUserMapRelationshipHandler(w http.ResponseWriter, r *http.Reque
 	helpers.ExecuteUserMapStatement(st, mr)
 }
 
-/**
-* This method takes a http request.
-* @param httpRequest This is the first paramter to GetAllUserMapsHandler method
-* @return json Returns all the maps for a Users
+/*
+This method takes a http request from /maps/{username}
+
+@param httpRequest This is the first paramter to GetAllUserMapsHandler method
+
+@return json Returns all the maps for a Users
 */
 func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -61,10 +66,12 @@ func GetAllUserMapsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
 }
 
-/**
-* This method takes a http request.
-* @param httpRequest This is the first paramter to GetAllFriendsMapsHandler method
-* @return json Returns all the friend's maps for a Users
+/*
+This method takes a http request from /maps/follow/{username}
+
+@param httpRequest This is the first paramter to GetAllFriendsMapsHandler method
+
+@return json Returns all the friend's maps for a Users
 */
 func GetAllFriendsMapsHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -86,11 +93,12 @@ func GetAllFriendsMapsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.MapList{List: maplist})
 }
 
-/**
-* This method takes a http request.
-* Creates the Relationship between Maps and Restaurants
-* @param httpRequest This is the first paramter to MapsContainsHandler method
-* @return None
+/*
+This method takes a http request from /map/contain.Creates the Relationship between Maps and Restaurants
+
+@param httpRequest This is the first paramter to MapsContainsHandler method
+
+@return None
 */
 func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	var mapContains types.MapRestaurantRelationship
@@ -100,11 +108,12 @@ func MapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
-/**
-* This method takes a http request.
-* Removes the Relationship between Maps and Restaurants
-* @param httpRequest This is the first paramter to RemoveMapsContainsHandler method
-* @return None
+/*
+This method takes a DELETE http request from /maps/contain. Removes the Relationship between Maps and Restaurants
+
+@param httpRequest This is the first paramter to RemoveMapsContainsHandler method
+
+@return None
 */
 func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	var mapContains types.MapRestaurantRelationship
@@ -116,10 +125,12 @@ func RemoveMapsContainsHandler(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapContainsStatement(st, mapContains)
 }
 
-/**
-* This method takes a http request.
-* @param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
-* @return MapList a list of user map names
+/*
+This method takes a http request from /maps/name/{username}
+
+@param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
+
+@return MapList a list of user map names
 */
 func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -146,11 +157,12 @@ func GetAllUserMapNamesHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(mapList)
 }
 
-/**
-* This method takes a http request.
-* Creates a Map
-* @param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
-* @return None
+/*
+This method takes a POST http request from /map/{name} and creates a Map
+
+@param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
+
+@return None
 */
 func PostMap(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -161,11 +173,12 @@ func PostMap(w http.ResponseWriter, r *http.Request) {
 	helpers.ExecuteMapStatement(st, my_map)
 }
 
-/**
-* This method takes a http request.
-* Return a Map By name
-* @param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
-* @return json Map Object
+/*
+This method takes a GET http request from /map/{name} returns a Map By name
+
+@param httpRequest This is the first paramter to GetAllUserMapNamesHandler method
+
+@return json Map Object
 */
 func GetMap(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
