@@ -1,6 +1,27 @@
 # Food Network
 
 
+## Folder Structure
+
+- api-gateway - Local gateway for backend requests
+- assets - Assests used in components
+- components - contains Login component
+- constanats - More assets used in components
+- express-capstone-gateway - Production gateway for routing backend requests
+- map_service - Map service API
+- navigation - Navigation Components
+- restaurant_service - Restaurant Service API
+- review_service = Review Service API
+- screens - Other Components
+- user_service - User Service API
+- App.js - App Entrypoint
+- READme.md - Readme file
+- app.json - Configuration file
+- babel.config.js - Configuration file
+- package-lock.json - Dependency List file
+- package.json - Dependency List file
+
+
 
 ## Architecture
 
