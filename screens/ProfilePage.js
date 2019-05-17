@@ -1,9 +1,10 @@
-//Author: Alina Zhong
+// Author: Elijah Augustin & Cesar Guzman & Alina Zhong
 //
-// file: this file implements the profile page, which is the fifth tab on the icon bar, as well as the page the login sends you to when you successfully login
+// File: this file implements the profile page, which is the fifth tab on the icon bar,
+//
+// as well as the page the login sends you to when you successfully login
 //
 // all styling, star rating, and navigation functionality implemented by CG
-
 import React from 'react';
 import {
   Image,
@@ -52,12 +53,13 @@ export default class ProfilePage extends React.Component {
                 userReviews: [],
             }
         }
-/*logs out and redirects to login page*/
+  // Function logs out and redirects to login page
   logoutToLogin = () => {
     console.log("Trying to logout");
     this.props.navigation.navigate("Home");
   }
-/*pulls user profile info from backend*/
+
+  // Function pulls user profile info from backend
   componentDidMount() {
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUserProfile();
@@ -65,18 +67,19 @@ export default class ProfilePage extends React.Component {
       this.getMapsForUser();
       this.getRatings();
     });
-/*gets new user token*/
+
+    // Retrieves a new token every 15 minutes
     timer.setInterval(this, 'request-new-token', () => {
-      console.log("need new token");
       this.getNewAccessToken()
     }, 720000)
   }
 
-/*clears user token*/
+  // Lifecycle Method clears user token when logged out
   componentWillUnmount() {
     timer.clearTimeout(this);
   }
-/*gets number of friends from backend*/
+
+  // Function gets number of friends from backend
   getNumOfFriends = () => {
     let url = 'https://capstone-express-gateway.herokuapp.com/users/friends/' + this.state.username;
     console.log(url);
@@ -92,7 +95,8 @@ export default class ProfilePage extends React.Component {
   })
     .catch((error) => console.log(error))
   }
-/*fetches user map info from backend*/
+
+  // Function fetches user map info from backend
   getMapsForUser = () => {
     let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.username;
     console.log(url);
@@ -108,7 +112,8 @@ export default class ProfilePage extends React.Component {
   })
     .catch((error) => console.log(error))
   }
-/*renders each map separate*/
+
+  // Function renders each map separate
   renderSeparator = () => {
       return (
         <View
@@ -123,28 +128,33 @@ export default class ProfilePage extends React.Component {
     };
 
     deleteReview = (usern, resID) => {
-            var header = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '.concat(this.state.access_token)
-            };
-            fetch('https://capstone-express-gateway.herokuapp.com/reviews', {
-                method: 'DELETE',
-                headers: header,
-                body: JSON.stringify({
-                    username: this.state.username,
-                    restaurant_id: resID,
-                }),
-            })
-                .then((response) => response.json())
-                .catch(err => console.log(err))
+        var header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '.concat(this.state.access_token)
+        };
+        fetch('https://capstone-express-gateway.herokuapp.com/reviews', {
+            method: 'DELETE',
+            headers: header,
+            body: JSON.stringify({
+                username: this.state.username,
+                restaurant_id: resID,
+            }),
+        })
+            .then((response) => response.json())
+            .catch(err => console.log(err))
         }
 
-
+    // This function is called when a user is trying to add a restaurant to
+    //
+    // an existing map or to a new map
+    //
+    // this function calls the restaurants/id/ endpoint to obtain the restaurant's id
+    //
+    // @param name The name of the Restaurant
+    //
+    // @param add The address of the Restaurant
     getRestaurantId = (name,add) => {
-        //this function is called when a user is trying to add a restaurant to
-        //an existing map or to a new map
-        //this function calls the restaurants/id/ endpoint to obtain the restaurant's id
         let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + name + '/' + add;
         fetch(url, {
             method: 'GET',
@@ -157,26 +167,28 @@ export default class ProfilePage extends React.Component {
             .catch((error) => console.log(error))
     }
 
+  // Function that displays an alert to delete comments
+  //
+  // @param name The name of the restaurant
+  //
+  // @param add The address of the restaurant
   deleteHandler = (name,add) =>{
-        var usern = this.state.username;
-          Alert.alert("Delete",
-              "Delete this comment?",[
-                  {text: 'Dismiss'}, {text:'Delete Comment', onPress: () =>
-                      {
-                          this.getRestaurantId(name,add);
-                          this.props.navigation.navigate('Maps', {
+    var usern = this.state.username;
+    Alert.alert("Delete",
+        "Delete this comment?",[
+            {text: 'Dismiss'}, {text:'Delete Comment', onPress: () =>
+                {
+                    this.getRestaurantId(name,add);
+                    this.props.navigation.navigate('Maps', {
 
-                          token: this.state.access_token,
-                          user: this.state.username })
-                      }}
-              ],{cancelable: false},);
-
-
-
+                    token: this.state.access_token,
+                    user: this.state.username })
+                }}
+        ],{cancelable: false},);
   }
 
 
-/*fetches user review info from backend*/
+  // Function fetches user review info from backend
   getRatings = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/reviews/user/' + this.state.username;
       console.log(url);
@@ -191,9 +203,8 @@ export default class ProfilePage extends React.Component {
     .catch((error) => console.log(error))
   }
 
-/*fetches user profile info from backend*/
+  // Function fetches user profile info from backend
   getUserProfile = () => {
-    console.log("getting user profile")
     fetch (`https://capstone-express-gateway.herokuapp.com/users/${this.state.username}`, {
         method: 'GET',
         mode: 'no-cors',
@@ -212,9 +223,8 @@ export default class ProfilePage extends React.Component {
     .catch((error) => console.log(error))
   }
 
-/*creates new access token*/
+  // Function creates new access token
   getNewAccessToken = () => {
-    console.log("getting new access token");
     fetch ('https://capstone-express-gateway.herokuapp.com/users/refresh-token', {
         method: 'GET',
         mode: 'no-cors',
@@ -224,11 +234,13 @@ export default class ProfilePage extends React.Component {
     .then((resData) => {
       this.setState({access_token: resData.access_token});
       this.props.navigation.setParams({access_token: resData.access_token});
-      console.log(this.state.access_token)
     })
     .catch((error) => console.log(error))
   }
 
+  // This render function displays the profile page containing user map names
+  //
+  // as well as user reviews for restaurants
   render() {
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -302,15 +314,12 @@ export default class ProfilePage extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
-
-
-
-
         </ScrollView>
     );
   }
 }
-/*style sheets for profile and review display*/
+
+// Style sheets for profile and review display
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -360,19 +369,19 @@ const styles = StyleSheet.create({
     textAlign:'left',
     justifyContent:'flex-start',
   },
-    mapNameContainer2: {
-        paddingTop: 5,
-        paddingBottom: 5,
-        backgroundColor: '#F0FFFF',
-        margin: 5,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#000000',
-        flexDirection:'row',
-        height:120,
-        position:'relative',
-        marginLeft:0,
-        width: Dimensions.get('window').width - 10,
+  mapNameContainer2: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: '#F0FFFF',
+    margin: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
+    flexDirection:'row',
+    height:120,
+    position:'relative',
+    marginLeft:0,
+    width: Dimensions.get('window').width - 10,
     },
   mapName: {
     fontSize: 16,
@@ -382,9 +391,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingTop: 0,
     marginLeft:2,
-
   },
- reviewText2: {
+  reviewText2: {
     fontSize: 16,
     marginLeft:5,
     justifyContent:'flex-start',
@@ -392,7 +400,7 @@ const styles = StyleSheet.create({
     position:'absolute',
     flex:1,
     top:2,
- },
+  },
   logoutText: {
     fontSize: 20,
     color: 'white',
