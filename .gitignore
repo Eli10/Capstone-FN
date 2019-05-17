@@ -8,3 +8,5 @@ npm-debug.*
 /user_service/env
 /review_service/env
 /nbproject/private/
+doc
+docs

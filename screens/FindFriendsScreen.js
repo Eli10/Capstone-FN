@@ -1,8 +1,11 @@
-/**
-Author:Jasmine Wong
- file: this file implements the find friends (6th icon on tab bar) that allows for adding
- users who use the app, but are not the user's friends
- **/
+//Author:Jasmine Wong
+//
+//File: This file implements the find friends (6th icon on tab bar)
+//
+//that allows for adding users who use the app,
+//
+//but are not the user's friends
+
 import React from 'react';
 import {
   View,
@@ -36,18 +39,23 @@ export default class FindFriendsScreen extends React.Component {
     };
   }
 
+  //As soon as the Find Friends tab is loaded,
+  //
+  //the getUsersCurrentFriends and populateFindFriendsList
+  //
+  //functions are called
   componentDidMount(){
-    //as soon as the Find Friends tab is loaded,
-    //the getUsersCurrentFriends and populateFindFriendsList
-    //functions are called
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUsersCurrentFriends();
       this.populateFindFriendsList();
     });
   }
 
+  //this function calls the users/list endpoint to
+  //
+  //find all the users in the app
   populateFindFriendsList = () => {
-    //this function calls the users/list endpoint to find all the users in the app
+
     fetch ('https://capstone-express-gateway.herokuapp.com/users/list', {
       method: 'GET',
       mode: 'no-cors',
@@ -70,9 +78,10 @@ export default class FindFriendsScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
+  //This function calls the users/friends endpoint to find all
+  //
+  // the user's friends in the app
   getUsersCurrentFriends = () => {
-    //this function calls the users/friends endpoint to find all the user's friends in the app
-
     fetch ("https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username, {
       method: 'GET',
       mode: 'no-cors',
@@ -86,9 +95,12 @@ export default class FindFriendsScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
+  //This function calls the users/follows endpoint
+  //
+  //when a user requests to follow a new friend
+  //
+  // @param userToFollow username of user to follow
   followNewFriend = (userToFollow) => {
-    //this function calls the users/follows endpoint when a user requests to
-    //follow a new friend
     fetch ('https://capstone-express-gateway.herokuapp.com/users/follows', {
       method: 'POST',
       mode: 'no-cors',
@@ -106,8 +118,8 @@ export default class FindFriendsScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
+  //This function styles the header of the page (above the list of potential friends)
   renderSeparator = () => {
-    //this function styles the header of the page (above the list of potential friends)
     return (
       <View
       style={{
@@ -160,9 +172,7 @@ export default class FindFriendsScreen extends React.Component {
   }
 }
 
-/*
-this is the styling sheet for how the friends are displayed in the flatlist
- */
+// This is the styling sheet for how the friends are displayed in the flatlist
 const styles = StyleSheet.create({
   listContainer: {
     flexDirection: 'row',
