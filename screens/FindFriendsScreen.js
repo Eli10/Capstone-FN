@@ -5,7 +5,6 @@
 //that allows for adding users who use the app,
 //
 //but are not the user's friends
-
 import React from 'react';
 import {
   View,
@@ -39,11 +38,11 @@ export default class FindFriendsScreen extends React.Component {
     };
   }
 
-  //As soon as the Find Friends tab is loaded,
+  // As soon as the Find Friends tab is loaded,
   //
-  //the getUsersCurrentFriends and populateFindFriendsList
+  // the getUsersCurrentFriends and populateFindFriendsList
   //
-  //functions are called
+  // functions are called
   componentDidMount(){
     this.props.navigation.addListener('willFocus', (route) => {
       this.getUsersCurrentFriends();
@@ -51,9 +50,9 @@ export default class FindFriendsScreen extends React.Component {
     });
   }
 
-  //this function calls the users/list endpoint to
+  // This function calls the users/list endpoint to
   //
-  //find all the users in the app
+  // find all the users in the app
   populateFindFriendsList = () => {
 
     fetch ('https://capstone-express-gateway.herokuapp.com/users/list', {
@@ -63,7 +62,7 @@ export default class FindFriendsScreen extends React.Component {
     })
     .then((response) => response.json())
     .then((resData) => {
-      //Filter Friends List to Remove Current user logged in and current friends of user
+      // Filter Friends List to Remove Current user logged in and current friends of user
       var filteredUserList = resData.users.filter(user => user.username != this.state.username);
       var filteredFriendsList = filteredUserList.filter(user => this.state.usersCurrentFriends.includes(user.username) == false);
       this.setState({tempFriends: filteredFriendsList});
@@ -78,7 +77,7 @@ export default class FindFriendsScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
-  //This function calls the users/friends endpoint to find all
+  // This function calls the users/friends endpoint to find all
   //
   // the user's friends in the app
   getUsersCurrentFriends = () => {
@@ -95,9 +94,9 @@ export default class FindFriendsScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
-  //This function calls the users/follows endpoint
+  // This function calls the users/follows endpoint
   //
-  //when a user requests to follow a new friend
+  // when a user requests to follow a new friend
   //
   // @param userToFollow username of user to follow
   followNewFriend = (userToFollow) => {
@@ -118,7 +117,7 @@ export default class FindFriendsScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
-  //This function styles the header of the page (above the list of potential friends)
+  // This function styles the header of the page (above the list of potential friends)
   renderSeparator = () => {
     return (
       <View
@@ -132,7 +131,7 @@ export default class FindFriendsScreen extends React.Component {
     );
   };
 
-  //the navigation to friends maps from addfriend button press authored by CG
+  // The navigation to friends maps from addfriend button press authored by CG
   render() {
     const {navigate} = this.props.navigation;
     return(
