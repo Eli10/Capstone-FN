@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Foodie",
-    "slug": "AwesomeProject",
+    "slug": "https://github.com/jaznwong/Capstone-Food-Network"
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
