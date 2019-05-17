@@ -1,10 +1,10 @@
- //Author:EA and CG
- //
- //file: this file implements bottom tab navigator and the path names to be accessed
- //
- //during navigation
- //documentation: CG
-
+// Author:EA and CG
+//
+// File: this file implements bottom tab navigator and the path names to be accessed
+//
+// during navigation
+//
+// Documentation: CG
 import React from 'react';
 import { Platform, Button, View, Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator, HeaderBackButton } from 'react-navigation';
@@ -24,7 +24,7 @@ import Ratings from '../screens/StarRating';
 import FindFriendsScreen from '../screens/FindFriendsScreen';
 
 
-//navigation name and creation of 'your maps' page
+// Navigation name and creation of 'your maps' page
 const HomeStack = createSwitchNavigator({
 
   Maps: {screen: HomeScreen},
@@ -46,10 +46,8 @@ HomeStack.navigationOptions = {
         />
     ),
 };
-//this creates the navigation routes from star rating
-//
-//to the your maps page
 
+//This creates the navigation routes from star rating to the your maps page
 const backtomap= createSwitchNavigator ({
 
     Star: {screen: Ratings},
@@ -65,15 +63,15 @@ const hackeryfromRating = createSwitchNavigator ({
     },
 );
 
-//navigation name and creation of 'friends' maps' page
+// Navigation name and creation of 'friends' maps' page
 const FriendStack = createSwitchNavigator({
     Friends: {screen: FriendScreen},
     Star: {screen: Ratings}
 });
 
-//declareas the name for the friends mapas page and the
+// Declareas the name for the friends mapas page and the
 //
-//tab bar icons
+// tab bar icons
 FriendStack.navigationOptions = {
     tabBarLabel: 'Friends Maps',
     tabBarIcon: ({ focused }) => (
@@ -84,8 +82,7 @@ FriendStack.navigationOptions = {
     ),
 };
 
-//navigation name and creation of 'friends' maps' page
-//
+// Navigation name and creation of 'friends' maps' page
 const SearchStack = createSwitchNavigator({
     Search: SearchScreen,
 });
@@ -100,14 +97,12 @@ SearchStack.navigationOptions = {
     ),
 };
 
-//navigation name and creation of 'Discover' page
+// Navigation name and creation of 'Discover' page
 const DiscoverStack = createSwitchNavigator({
     Discover: {screen: DiscoverScreen},
 });
 
-//declares the name and tab icon for the Discover
-//
-//page
+// Declares the name and tab icon for the Discover page
 DiscoverStack.navigationOptions = {
     tabBarLabel: 'Discover',
     tabBarIcon: ({ focused }) => (
@@ -118,14 +113,12 @@ DiscoverStack.navigationOptions = {
     ),
 };
 
-//navigation name and creation of 'Find Friends' page
+// Navigation name and creation of 'Find Friends' page
 const FindFriendsStack = createSwitchNavigator({
     FindFriends: FindFriendsScreen,
 });
 
-//declares the name and tab icon for the Discover
-//
-//page
+// Declares the name and tab icon for the Discover page
 FindFriendsStack.navigationOptions = {
     tabBarLabel: 'Find Friends',
     tabBarIcon: ({ focused }) => (
@@ -137,7 +130,7 @@ FindFriendsStack.navigationOptions = {
     ),
 };
 
-//navigation name and creation of 'Profile' page
+// Navigation name and creation of 'Profile' page
 const ProfileStack = createSwitchNavigator({
     Profile: ProfilePage,
 }, {
@@ -146,10 +139,9 @@ const ProfileStack = createSwitchNavigator({
     }
 });
 
-//Declaration of name and creation of 'Profile' page
+// Declaration of name and creation of 'Profile' page
 //
-//and its tab bar icon
-
+// and its tab bar icon
 ProfileStack.navigationOptions = {
     tabBarLabel: 'Profile',
     tabBarIcon: ({ focused }) => (
@@ -166,9 +158,9 @@ const LoginStack = createSwitchNavigator({
     RegisterPage: { screen: RegisterPage }
 });
 
-//Declaration of name and creation of 'Profile' page
+// Declaration of name and creation of 'Profile' page
 //
-//and its tab bar icon
+// and its tab bar icon
 LoginStack.navigationOptions = {
     tabBarLabel: 'Login',
     tabBarIcon: ({ focused }) => (
@@ -179,9 +171,7 @@ LoginStack.navigationOptions = {
     ),
 };
 
-//stack name and creation of Bottom Tab
-//
-//
+// Stack name and creation of Bottom Tab
 const AllOtherStacks = createBottomTabNavigator({
     HomeStack,
     FriendStack,
