@@ -1,8 +1,0 @@
-
-    {this.state.markers.map(shop => (
-    <MapView.Marker
-      coordinate={{latitude: shop.lat,
-      longitude: shop.lon}}
-      title={shop.restaurant_name}
-      description={shop.markers.address}
-      />))}
