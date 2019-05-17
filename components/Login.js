@@ -1,7 +1,6 @@
-/**
-Author: Alina Zhong
- file: this file implements the front end for logining in
- **/
+// Author: Alina Zhong & Elijah Augustin
+//
+// File: this file implements the front end for logining in
 import React from 'react';
 import {
   Image,
@@ -31,6 +30,10 @@ export default class Login extends React.Component {
       value: null,
     }
   }
+
+  // This render function display the text input for username and password
+  //
+  // as well as the login and register buttons
   render() {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
@@ -66,7 +69,12 @@ export default class Login extends React.Component {
       </KeyboardAvoidingView>
     );
   }
-/*fetches login info from backend, and if login is successful, creates token and navigates to profile page*/
+
+  // Function fetches login info from backend, and if login is successful,
+  //
+  // creates token and navigates to profile page
+  //
+  // @author Elijah Augustin
   login = () => {
     fetch('https://capstone-express-gateway.herokuapp.com/users/login', {
       method: 'POST',
@@ -97,6 +105,13 @@ export default class Login extends React.Component {
     });
     }
 
+  // Function navigate user to Your Maps Page once they
+  //
+  // they have successfully  logged in
+  //
+  // @param response  The http reponse from /login endpoint
+  //
+  // @author Elijah Augustin
   navigatetoHome = (response) => {
     if (response.status < 400) {
       Alert.alert(" ","Login Successful");
@@ -106,7 +121,8 @@ export default class Login extends React.Component {
   }
 
   }
-/*style sheets for text input for login page*/
+
+// Style sheet for text input for login page
 const styles = StyleSheet.create({
     wrapper: {
       flex: 1,
