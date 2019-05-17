@@ -1,9 +1,7 @@
-/*
-    Author: Cesar Guzman
-    Purpose: Friendscreen.js is a functional clone of HomeScreen.js that displays the maps of friends
-
-*/
-
+//Author: Cesar Guzman
+//
+//Purpose: Friendscreen.js is a functional clone of HomeScreen.js
+//that displays the maps of friends
 import React from 'react';
 import {
   Image,
@@ -56,21 +54,23 @@ export default class FriendScreen extends React.Component {
           friendsMaps: [],
         }
   };
+
   componentWillMount() {
     this.getFriends();
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
- componentWillUnmount() {
+
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
- }
-    handleBackButtonClick() {
-        this.props.navigation.goBack(null);
-        return true;
-    }
-    /*getFriends() loads the initial dropdown as stated above, using the same
-      get request as popList but only taking the map names from the return JSON object,
-      which contains mapnames as well as restaurant names and coords
-       */
+  }
+
+  handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
+  }
+  //  getFriends() loads the initial dropdown as stated above, using the same
+  //  get request as popList but only taking the map names from the return JSON object,
+  //  which contains mapnames as well as restaurant names and coords
   getFriends = () => {
     var friendDD = [];
     fetch (`https://capstone-express-gateway.herokuapp.com/maps/follow/${this.state.username}`,
@@ -90,12 +90,15 @@ export default class FriendScreen extends React.Component {
     .catch((error) => console.log(error))
     .done();
   }
-    /*
-      popList2() is called when a map name in the dropdown
-      is chosen, it used a get request on the maps endpoint
-      to load the markers from its respective map.
-      This can be noted in line 126
-       */
+  //popList2() is called when a map name in the dropdown
+  //
+  //is chosen, it used a get request on the maps endpoint
+  //
+  //to load the markers from its respective map.
+  //
+  //This can be noted in line 126
+  //
+  // @param index The index of the Map in the MapList chosen
   popList2 = (index) => {
     var tempList = [];
     let url = `https://capstone-express-gateway.herokuapp.com/maps/follow/${this.state.username}`;
