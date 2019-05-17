@@ -1,13 +1,14 @@
-/**
- Author:Cesar Guzman
- file: this file implements the star(pizza) rating functionality seen from your
- maps and friends maps
-
- All functionality was authored by Cesar Guzman save for the credentialling
- on the navigation, the get restaurant ID function, getrating(), getuserscurrentfriends()
- and the postreview to post reviews
- which was done by Elijah Augustin
- **/
+// @Author:Cesar Guzman
+//
+// File: this file implements the star(pizza) rating functionality seen from your
+//
+// maps and friends maps
+//
+// All functionality was authored by Cesar Guzman save for the credentialling
+//
+// on the navigation, the get restaurant ID function, getrating(), getuserscurrentfriends()
+//
+// and the postreview to post reviews which was done by Elijah Augustin
 import React, { Component } from 'react';
 import {FlatList,
   ScrollView,
@@ -26,7 +27,7 @@ import {FlatList,
   import {Rating, AirbnbRating } from 'react-native-elements';
 
 
-  //sizing of the "star" icons author:CG
+  // Sizing of the "star" icons author:CG
   var {MAXHstar, MAXWstar} = Dimensions.get('window');
   var textheight = MAXHstar / 4;
   var textwid = MAXWstar - 20;
@@ -63,10 +64,13 @@ import {FlatList,
       };
     }
 
-    //this is the implemented refresh function
-    //refreshes the view and queries current friends and ResID when
-    //the star rating page is loaded
-    //author CG
+    // This is the implemented refresh function
+    //
+    // refreshes the view and queries current friends and ResID when
+    //
+    // the star rating page is loaded
+    //
+    // @author CG
     componentDidMount() {
       this.props.navigation.addListener('willFocus', (route) => {
         this.getUsersCurrentFriends();
@@ -75,8 +79,9 @@ import {FlatList,
 
     }
 
-    //gets the current restaurants ID to allow for review posting
-    //author: Elijah
+    // Function gets the current restaurants ID to allow for review posting
+    //
+    // @author: Elijah Augustin
     getRestaurantId = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' +   this.state.resAddr;
       console.log(url);
@@ -92,7 +97,10 @@ import {FlatList,
       })
       .catch((error) => console.log(error))
     }
-    //getRatings accepts a restaurant (the current restaurant) and loads its ratings and reviews
+
+    //Function getRatings() accepts a restaurant (the current restaurant) and loads its ratings and reviews
+    //
+    // @author Elijah Augustin
     getRatings = (resId) => {
       let url = 'https://capstone-express-gateway.herokuapp.com/reviews/restaurant/' + resId;
       fetch(url, {
@@ -111,8 +119,9 @@ import {FlatList,
     .catch((error) => console.log(error))
   }
 
-  //postrating is called on the save-rating button press
-   //author: elijah
+  // Function postRating is called on the save-rating button press
+  //
+  // @author: Elijah Augsutin
   postRating = () => {
     var header = {
       'Accept': 'application/json',
@@ -133,8 +142,11 @@ import {FlatList,
     .catch(err => console.log(err))
   }
 
-  //returns users friends in the event that a friend is added in the current session
-   //author elijah
+  // Function getUsersCurrentFriends() returns users friends in the event
+  //
+  // that a friend is added in the current session
+  //
+  // @author Elijah Augustin
   getUsersCurrentFriends = () => {
     let url = "https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username;
     fetch (url, {
@@ -148,32 +160,43 @@ import {FlatList,
     })
     .catch((error) => console.log(error))
   }
-  //sets current rating to whatever the user selects
-    //author CG
+
+  // Function sets current rating to whatever the user selects
+  //
+  // @author CG
   onGeneralStarRatingPress(rating) {
     this.setState({
       generalStarCount: rating,
     });
   }
 
+  // Function sets the maximum number of ratings a user can select
+  //
+  // @author CG
   onCustomStarRatingPress(rating) {
     this.setState({
       customStarCount: rating,
     });
   }
 
-  //stores the text of the review into the state
-    //author CG
+  // Function stores the text of the review into the state
+  //
+  // @author CG
   storeText = (text) => {
     this.setState({newRating: text});
   }
 
-  //this function is called when the cancel button is pressed, returns the
-   //user to their original page
-    //precondition:user wishes to return to the previous page
-    //postcondition: user is returned to their original page
-    //x is the PageID, which is used to decide what page they will be
-    //navigated to..author CG
+  // This function is called when the cancel button is pressed, returns the
+  //
+  // user to their original page
+  //
+  // @pre User wishes to return to the previous page
+  //
+  // @post User is returned to their original page
+  //
+  // @param x The PageID, which is used to decide what page they will be navigated to
+  //
+  // @author CG
   cancel = (x) => {
     if (x == 100) {
       this.props.navigation.navigate('Maps', {
@@ -197,15 +220,17 @@ import {FlatList,
     }
   }
 
-  /*this button shows a dialogue letting the user know that their rating was saved
-    then navigates them to their original page
-    PreCondition: User has chosen a number of pizza icons as their rating and has
-    left a review to be submitted
-    PostCondition: the users rating and review is saved and they are taken to their
-    original page
-
-    auhtor CG
-    */
+  // This function shows a dialogue letting the user know that their rating was saved
+  //
+  // then navigates them to their original page
+  //
+  // @pre User has chosen a number of pizza icons as their rating and has
+  //
+  // left a review to be submitted
+  //
+  // @post The users rating and review is saved and they are taken to their original page
+  //
+  // @author CG
   SavedRating = (x) => {
     this.postRating();
     Alert.alert(
@@ -252,10 +277,11 @@ import {FlatList,
       }
     }
 
-    //the render function displays the rating option, the textbox,
-    //cancel and submit review buttons and the current restaurant ratings
-    //author CG
-
+    // The render function displays the rating option, the textbox,
+    //
+    // cancel and submit review buttons and the current restaurant ratings
+    //
+    // @author CG
     render() {
       return (
         <View style={styles.container}>
@@ -352,8 +378,9 @@ import {FlatList,
     }
   }
 
-  //below is the styling for the implemented components above
-  //author CG
+  // StyleSheet for the implemented components above
+  //
+  // @author CG
   const styles = StyleSheet.create({
     container: {
       flex: 1,
