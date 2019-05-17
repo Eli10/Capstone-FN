@@ -106,7 +106,7 @@ export default class FriendScreen extends React.Component {
   //
   //to load the markers from its respective map.
   //
-  //This can be noted in line 126
+  //This can be noted in line 122
   //
   // @param index The index of the Map in the MapList chosen
   popList2 = (index) => {

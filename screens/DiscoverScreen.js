@@ -1,3 +1,10 @@
+/*
+  Author: Cesar Guzman
+  This page implements the s
+ */
+
+
+
 import React from 'react';
 import {
   Image,

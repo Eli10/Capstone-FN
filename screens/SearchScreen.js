@@ -41,8 +41,10 @@ export default class SearchScreen extends React.Component {
     }
     componentDidMount(){
       //this function calls the restaurants endpoint to pull all the restaurants in the database
-      //as soon as this page is loaded
-      //the restaurants are saved into the data prop
+      //
+      //as soon as this page is loaded and every time the page is loaded
+      //
+      //the restaurants are saved into the data prop as an array
       fetch ('https://capstone-express-gateway.herokuapp.com/restaurants',{
           method: 'GET',
           mode: 'no-cors',
@@ -59,8 +61,10 @@ export default class SearchScreen extends React.Component {
 
     getMapsForUser = () => {
       //this function is called when a user is trying to add a restaurant to a map
-      //after the user selects on a restaurant 
-      //this function calls the maps/name/ endpoint to pull all the users' maps
+      //
+      //after the user selects on a restaurant
+      //
+      //this function calls the maps/name/ endpoint to pull all the users' maps to add the new restaurant
 
       let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.defaultUser;
       var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
@@ -79,7 +83,9 @@ export default class SearchScreen extends React.Component {
 
     getRestaurantId = () => {
       //this function is called when a user is trying to add a restaurant to
+      //
       //an existing map or to a new map
+      //
       //this function calls the restaurants/id/ endpoint to obtain the restaurant's id 
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
       fetch(url, {
@@ -95,7 +101,10 @@ export default class SearchScreen extends React.Component {
 
     addToExistingMap = (map) => { 
       //this function calls the maps/contain endpoint to add the selected restaurant
+      //
       //to an existing map using the restaurant's id
+      //
+      //the "map" parameter is a temp name for a passed in restaurant id
       var header = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -120,9 +129,11 @@ export default class SearchScreen extends React.Component {
     }
 
     showDialog = () => {
-      //this function is called when the user wants add the restaurant to 
-      //a new map
-      //a dialog box with pop up for the user to create a new map
+      //this function is called when the user wants to add the restaurant to
+      //
+      //a new map a dialog box with pop up for the user to create a new map
+      //
+      //will appear
       this.setState({ dialogVisible: true });
     };
     handleClose = () => {
@@ -137,8 +148,9 @@ export default class SearchScreen extends React.Component {
     };
 
     createNewMap = () => {
-      //this function called the maps/ endpoint to create a relationship between
-      //the user and the new map the user created
+      //this function called the maps/ endpoint to create a relationship
+      //
+      //between the user and the new map the user created
       fetch('https://capstone-express-gateway.herokuapp.com/maps/', {
         method: 'POST',
         headers: {
@@ -154,6 +166,7 @@ export default class SearchScreen extends React.Component {
     }
     createMapAndAddRestaurant = () => {
       //this is the general function called that calls all related functions
+      //
       //needed to create a new map and add the selected restaurant to the new map
 
       this.createNewMap();
@@ -163,7 +176,8 @@ export default class SearchScreen extends React.Component {
     }
     renderSeparator = () => {
       //this function is the stylistic component of each item rendered in the flatlist
-      //that displays the restaurant search results
+      //
+      //that displays the restaurant search results after a search made
       return (
           <View
               style={{
@@ -177,8 +191,10 @@ export default class SearchScreen extends React.Component {
       };
     searchFilterFunction = text => {
       //this function dictates how restaurants are searched
+      //
       //the information in the search input is matched the restaurant names
-      //results are filtered as the user is typing 
+      //
+      //with  a regex functionality. Results are filtered as the user is typing
         this.setState({
             value: text,
         });
@@ -194,7 +210,12 @@ export default class SearchScreen extends React.Component {
     };
     searchForRestaurant = (resName) => {
       //based on user input in search bar, the restaurant is searched for in the database
+      //
       //if the restaurant is not in the database, the user input is searched in google
+      //
+      //resname is the passed in restaurant name
+      //
+      //precondition: a valid restaurant name is passed in as a parameter
         var resNameList = this.state.data.map(res => res.name);
         isRestaurantInList = resNameList.includes(resName);
         if (!isRestaurantInList) {
@@ -202,8 +223,10 @@ export default class SearchScreen extends React.Component {
         }
     }
     googleNewRestaurants = (resName) => {
-      //this function calles the restaurant/search endpoint if a search input 
-      //cannot be found in the database, and instead the retaurant is searched 
+      //this function calls the restaurant/search endpoint if a search input
+      //
+      //cannot be found in the database, and instead the retaurant is searched
+      //
       //for on Google
 
         fetch ('https://capstone-express-gateway.herokuapp.com/users/restaurant/search/'+resName,{
@@ -230,8 +253,10 @@ export default class SearchScreen extends React.Component {
         );
     };
     showModal(visible) {
-      //this function is called after a user selects a restaurant to 
+      //this function is called after a user selects a restaurant to
+      //
       //show a modal that gives the user the option to add the restaurant
+      //
       //to a current map, new map, or to go back
 
       this.setState({ModalVisible: visible});
@@ -244,24 +269,39 @@ export default class SearchScreen extends React.Component {
     };
     showMapModal(visible) {
       //this function is called when a user wants to add a restaurant
+      //
       //to an exisiting map the user has a relationship with
+      //
       //this modal shows the list of available current maps
       this.setState({MapModalVisible: visible});
     }
     onPressShowMap(){
       //this function is called when a user wants to add a restaurant
+      //
       //to an existing map
+      //
       //this function calls showMapModal to show the list of maps on a modal
       this.showMapModal(true);
       this.setState({mapModalData: this.state.userMaps});
     }
     showMap = () => {
       //this function is called when a user clicks 'Add to an existing map'
+      //
       //on the modal that pops up after the user clicks on a restaurant
+      //
+      //post condition: user's maps are shown
 
       this.getMapsForUser();
       this.showModal(!this.state.ModalVisible);
       this.onPressShowMap();
+
+      /*
+      this render function displays the initial search bar at the top of the page
+
+      and also displays the search results and the dialogue/options that are open to the
+
+      user when they have to create a  new map or add a restaurant to an existing map
+       */
     }
     render() {
         if (this.state.loading) {
@@ -338,7 +378,9 @@ export default class SearchScreen extends React.Component {
 }
 /*
 this is the styling sheet for how the restaurant name and address are displayed
+
 in the flatlist
+
  */
 const styles = StyleSheet.create({
   restaurant_name: {

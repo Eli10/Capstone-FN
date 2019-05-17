@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="835b3a0d-ee76-4b3c-abd1-4fef5f503fb2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/FindFriendsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/FindFriendsScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscoverScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/DiscoverScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Friendscreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Friendscreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/HomeScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StarRating.js" beforeDir="false" afterPath="$PROJECT_DIR$/StarRating.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SearchScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/SearchScreen.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/../components/Login.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1814">
-              <caret line="101" column="18" lean-forward="true" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="18" />
+              <caret line="102" column="18" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -43,10 +42,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Friendscreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="128" column="3" lean-forward="true" selection-start-line="128" selection-start-column="3" selection-end-line="132" selection-end-column="7" />
+            <state relative-caret-position="2220">
+              <caret line="74" column="62" selection-start-line="74" selection-start-column="62" selection-end-line="74" selection-end-column="62" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#128#154#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,24 +55,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HomeScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-598">
-              <caret line="121" column="6" selection-start-line="121" selection-start-column="6" selection-end-line="121" selection-end-column="6" />
+            <state relative-caret-position="2926">
+              <caret line="133" column="6" selection-start-line="133" selection-start-column="6" selection-end-line="133" selection-end-column="6" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#164#190#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SearchScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2902">
+              <caret line="300" column="59" selection-start-line="300" selection-start-column="59" selection-end-line="300" selection-end-column="59" />
+              <folding>
+                <element signature="e#156#182#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProfilePage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+              <folding>
+                <element signature="e#186#212#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ProfilePage.js">
+        <entry file="file://$PROJECT_DIR$/DiscoverScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding>
-                <element signature="e#186#212#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="84">
+              <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -125,23 +145,22 @@
         <option value="$PROJECT_DIR$/ghmfghm" />
         <option value="$PROJECT_DIR$/RegisterPage.js" />
         <option value="$PROJECT_DIR$/../map_service/main.go" />
-        <option value="$PROJECT_DIR$/DiscoverScreen.js" />
         <option value="$PROJECT_DIR$/../navigation/MainTabNavigator.js" />
         <option value="$PROJECT_DIR$/../components/Login.js" />
-        <option value="$PROJECT_DIR$/SearchScreen.js" />
         <option value="$PROJECT_DIR$/StarRating.js" />
-        <option value="$PROJECT_DIR$/Friendscreen.js" />
         <option value="$PROJECT_DIR$/HomeScreen.js" />
         <option value="$PROJECT_DIR$/FindFriendsScreen.js" />
         <option value="$PROJECT_DIR$/ProfilePage.js" />
+        <option value="$PROJECT_DIR$/Friendscreen.js" />
+        <option value="$PROJECT_DIR$/SearchScreen.js" />
+        <option value="$PROJECT_DIR$/DiscoverScreen.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="3200" />
     <option name="y" value="-2" />
-    <option name="width" value="1920" />
-    <option name="height" value="540" />
+    <option name="width" value="3200" />
+    <option name="height" value="1720" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -152,7 +171,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../components/Login.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/DiscoverScreen.js" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -183,15 +202,15 @@
       <workItem from="1555874416371" duration="11256000" />
       <workItem from="1557266260638" duration="2037000" />
       <workItem from="1557783369757" duration="473000" />
-      <workItem from="1557783890026" duration="30888000" />
+      <workItem from="1557783890026" duration="32487000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103524000" />
+    <option name="totallyTimeSpent" value="105123000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3200" y="-2" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="-2" width="3200" height="1720" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49880382" weight="0.31165487" />
@@ -285,13 +304,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DiscoverScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="133" selection-start-line="133" selection-end-line="133" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../api-gateway/routers/mapService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -302,7 +314,7 @@
     <entry file="file://$PROJECT_DIR$/../components/Login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1814">
-          <caret line="101" column="18" lean-forward="true" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="18" />
+          <caret line="102" column="18" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -323,26 +335,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Friendscreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="128" column="3" lean-forward="true" selection-start-line="128" selection-start-column="3" selection-end-line="132" selection-end-column="7" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SearchScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="152" column="73" lean-forward="true" selection-start-line="152" selection-start-column="73" selection-end-line="152" selection-end-column="73" />
-          <folding>
-            <element signature="e#156#182#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FindFriendsScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
@@ -355,11 +347,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HomeScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-598">
-          <caret line="121" column="6" selection-start-line="121" selection-start-column="6" selection-end-line="121" selection-end-column="6" />
+        <state relative-caret-position="2926">
+          <caret line="133" column="6" selection-start-line="133" selection-start-column="6" selection-end-line="133" selection-end-column="6" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#164#190#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -367,10 +358,38 @@
     <entry file="file://$PROJECT_DIR$/ProfilePage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
-          <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding>
             <element signature="e#186#212#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Friendscreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2220">
+          <caret line="74" column="62" selection-start-line="74" selection-start-column="62" selection-end-line="74" selection-end-column="62" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#128#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SearchScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2902">
+          <caret line="300" column="59" selection-start-line="300" selection-start-column="59" selection-end-line="300" selection-end-column="59" />
+          <folding>
+            <element signature="e#156#182#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DiscoverScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
         </state>
       </provider>
     </entry>
