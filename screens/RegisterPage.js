@@ -1,7 +1,8 @@
-/**
-Author:Alina Zhong
- file: this file implements the register screen found when clicking on the register button on the login screen
- **/
+// Author:Alina Zhong & Elijah Augustin
+//
+// File: this file implements the register screen found when
+//
+// clicking on the register button on the login screen
 import React from 'react';
 import {
   Image,
@@ -40,6 +41,7 @@ export default class RegisterPage extends ValidationComponent {
     }
   }
 
+  // The render function generates the registration form
   render() {
     return (
       <View style= {styles.register}>
@@ -97,7 +99,8 @@ export default class RegisterPage extends ValidationComponent {
       </View>
     );
   }
-/*checks if entered information is in database, and if not, creates a user profile*/
+
+  // Function checks if entered information is in database, and if not, creates a user profile
   verifyRegistration = () => {
     fetch("https://capstone-express-gateway.herokuapp.com/users/register", {
       method: 'POST',
@@ -127,11 +130,13 @@ export default class RegisterPage extends ValidationComponent {
       }
     })
   }
-/*navigates to login page*/
+
+ //Function navigates to login page
   goToLogin = () => {
     this.props.navigation.navigate('Home');
   }
-/*creates a user profile if all fields are valid*/
+
+  // Function creates a user profile if all fields are valid*/
   register = () => {
     if (this.state.cPassword !== this.state.password) {
       Alert.alert(" ","Your passwords do not match, try again");
@@ -151,7 +156,8 @@ export default class RegisterPage extends ValidationComponent {
     }
   }
 }
-/*style sheets for textinput for registration page*/
+
+//Style sheets for textinput for registration page
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
