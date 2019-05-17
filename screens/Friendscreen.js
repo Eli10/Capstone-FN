@@ -1,7 +1,7 @@
 /*
     Author: Cesar Guzman
     Purpose: Friendscreen.js is a functional clone of HomeScreen.js that displays the maps of friends
-
+    credential passing for navigation was done by EA
 */
 
 import React from 'react';
@@ -28,6 +28,8 @@ var listnames = [];
 var restList = [];
 var pageID1 = 101;
 
+
+
 for(var i = 0; i < RestaurantList.length; i++)
 {
   listnames.push(RestaurantList[i].listname);
@@ -38,6 +40,7 @@ console.disableYellowBox = true;
 export default class FriendScreen extends React.Component {
   static navigationOptions = {title: "Friends' Maps",};
     componentDidMount () {
+        //the refresh function for this page, gets the mapnames that belong to friends
         this.props.navigation.addListener('willFocus', (route) => {this.getFriends()});
     }
   constructor(props) {
@@ -70,6 +73,12 @@ export default class FriendScreen extends React.Component {
     /*getFriends() loads the initial dropdown as stated above, using the same
       get request as popList but only taking the map names from the return JSON object,
       which contains mapnames as well as restaurant names and coords
+
+      pre: friends have map lists that are not empty
+      post:user will be able to see their friends map markers for
+      a selected list
+
+      auth:CG
        */
   getFriends = () => {
     var friendDD = [];
@@ -93,8 +102,14 @@ export default class FriendScreen extends React.Component {
     /*
       popList2() is called when a map name in the dropdown
       is chosen, it used a get request on the maps endpoint
-      to load the markers from its respective map.
-      This can be noted in line 126
+      to load the markers from its respective map. The requested JSON object is converted
+      to map markers in the render function
+
+
+      pre:user sees a list whose markers they would like to populate on the map
+      post: user can see the selected map's markers on the mapscreen
+
+      auth:CG
        */
   popList2 = (index) => {
     var tempList = [];
@@ -110,6 +125,12 @@ export default class FriendScreen extends React.Component {
     })
     .catch((error) => console.log(error))
     }
+
+    /* the render function implements the mapview which shows the loaded markers from
+    above as well as the drop down to select the maps, and the marker dialogues which
+    can be pressed to be forwarded to the rating and review page
+
+     */
 
   render() {
     const {navigate} = this.props.navigation;
