@@ -1,8 +1,9 @@
-/**
-Author:Jasmine Wong
- file: this file implements the search maps (3rd icon on tab bar) that allows for searching and adding of restaurants
- to maps
- **/
+//Author:Jasmine Wong
+//
+// file: this file implements the search maps (3rd icon on tab bar) that allows for searching and adding of restaurants
+//
+// to maps
+
 import React from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -376,12 +377,12 @@ export default class SearchScreen extends React.Component {
           );
     }
 }
-/*
-this is the styling sheet for how the restaurant name and address are displayed
 
-in the flatlist
+//this is the styling sheet for how the restaurant name and address are displayed
+//
+//in the flatlist
+//
 
- */
 const styles = StyleSheet.create({
   restaurant_name: {
     fontSize: 20,
