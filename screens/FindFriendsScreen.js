@@ -132,6 +132,7 @@ export default class FindFriendsScreen extends React.Component {
     );
   };
 
+  //the navigation to friends maps from addfriend button press authored by CG
   render() {
     const {navigate} = this.props.navigation;
     return(

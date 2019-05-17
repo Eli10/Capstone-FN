@@ -2,7 +2,9 @@
 //
 //Purpose: HomeScreen.js implements the first tab on the tabbar,
 //
-//showing the user their maps and their respective map markers
+//showing the user their maps and their respective map markers.
+//
+// All functionality authored by CG save for the credential passing on navigation which was done by EA.
 import React from 'react';
 import MapView from 'react-native-maps'
 import {Header,createStackNavigator, createAppContainer, StackNavigator} from 'react-navigation'
@@ -124,6 +126,12 @@ export default class HomeScreen extends React.Component {
         console.log(dropdownv)
         this.setState({dropdownlist : dropdownv})
     }
+
+    /* the render function implements the mapview which shows the loaded markers from
+   above as well as the drop down to select the maps, and the marker dialogues which
+   can be pressed to be forwarded to the rating and review page
+
+    */
     render() {
         var x = 1;
         const {navigate} = this.props.navigation;

@@ -1,6 +1,12 @@
 /**
  Author:Cesar Guzman
- file: this file implements the star(pizza) rating functionality seen from your maps and friends maps
+ file: this file implements the star(pizza) rating functionality seen from your
+ maps and friends maps
+
+ All functionality was authored by Cesar Guzman save for the credentialling
+ on the navigation, the get restaurant ID function, getrating(), getuserscurrentfriends()
+ and the postreview to post reviews
+ which was done by Elijah Augustin
  **/
 import React, { Component } from 'react';
 import {FlatList,
@@ -19,9 +25,12 @@ import {FlatList,
   import Icon from "react-native-vector-icons/Ionicons";
   import {Rating, AirbnbRating } from 'react-native-elements';
 
+
+  //sizing of the "star" icons author:CG
   var {MAXHstar, MAXWstar} = Dimensions.get('window');
   var textheight = MAXHstar / 4;
   var textwid = MAXWstar - 20;
+
   export default class App extends Component {
     constructor(props) {
       super(props);
@@ -53,6 +62,11 @@ import {FlatList,
         friendsReviews: []
       };
     }
+
+    //this is the implemented refresh function
+    //refreshes the view and queries current friends and ResID when
+    //the star rating page is loaded
+    //author CG
     componentDidMount() {
       this.props.navigation.addListener('willFocus', (route) => {
         this.getUsersCurrentFriends();
@@ -60,6 +74,9 @@ import {FlatList,
       });
 
     }
+
+    //gets the current restaurants ID to allow for review posting
+    //author: Elijah
     getRestaurantId = () => {
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.resName + '/' +   this.state.resAddr;
       console.log(url);
@@ -95,6 +112,7 @@ import {FlatList,
   }
 
   //postrating is called on the save-rating button press
+   //author: elijah
   postRating = () => {
     var header = {
       'Accept': 'application/json',
@@ -116,6 +134,7 @@ import {FlatList,
   }
 
   //returns users friends in the event that a friend is added in the current session
+   //author elijah
   getUsersCurrentFriends = () => {
     let url = "https://capstone-express-gateway.herokuapp.com/users/friends/"+this.state.username;
     fetch (url, {
@@ -129,6 +148,8 @@ import {FlatList,
     })
     .catch((error) => console.log(error))
   }
+  //sets current rating to whatever the user selects
+    //author CG
   onGeneralStarRatingPress(rating) {
     this.setState({
       generalStarCount: rating,
@@ -141,12 +162,18 @@ import {FlatList,
     });
   }
 
+  //stores the text of the review into the state
+    //author CG
   storeText = (text) => {
     this.setState({newRating: text});
   }
 
   //this function is called when the cancel button is pressed, returns the
    //user to their original page
+    //precondition:user wishes to return to the previous page
+    //postcondition: user is returned to their original page
+    //x is the PageID, which is used to decide what page they will be
+    //navigated to..author CG
   cancel = (x) => {
     if (x == 100) {
       this.props.navigation.navigate('Maps', {
@@ -170,7 +197,15 @@ import {FlatList,
     }
   }
 
-  //this button shows a dialogue letting the user know that their rating was saved
+  /*this button shows a dialogue letting the user know that their rating was saved
+    then navigates them to their original page
+    PreCondition: User has chosen a number of pizza icons as their rating and has
+    left a review to be submitted
+    PostCondition: the users rating and review is saved and they are taken to their
+    original page
+
+    auhtor CG
+    */
   SavedRating = (x) => {
     this.postRating();
     Alert.alert(
@@ -216,6 +251,10 @@ import {FlatList,
         })
       }
     }
+
+    //the render function displays the rating option, the textbox,
+    //cancel and submit review buttons and the current restaurant ratings
+    //author CG
 
     render() {
       return (
@@ -313,6 +352,8 @@ import {FlatList,
     }
   }
 
+  //below is the styling for the implemented components above
+  //author CG
   const styles = StyleSheet.create({
     container: {
       flex: 1,
