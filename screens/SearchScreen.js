@@ -1,8 +1,8 @@
-/**
-Author:Jasmine Wong
- file: this file implements the search maps (3rd icon on tab bar) that allows for searching and adding of restaurants
- to maps
- **/
+// Author:Jasmine Wong & Elijah Augustin
+//
+// File: this file implements the search maps (3rd icon on tab bar)
+//
+//that allows for searching and adding of restaurants to maps
 import React from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -39,12 +39,13 @@ export default class SearchScreen extends React.Component {
             refresh_token: refresh_token,
         };
     }
+
+    // This function calls the restaurants endpoint to pull all the restaurants in the database
+    //
+    // as soon as this page is loaded and every time the page is loaded.
+    //
+    // The restaurants are saved into the data prop as an array
     componentDidMount(){
-      //this function calls the restaurants endpoint to pull all the restaurants in the database
-      //
-      //as soon as this page is loaded and every time the page is loaded
-      //
-      //the restaurants are saved into the data prop as an array
       fetch ('https://capstone-express-gateway.herokuapp.com/restaurants',{
           method: 'GET',
           mode: 'no-cors',
@@ -52,20 +53,18 @@ export default class SearchScreen extends React.Component {
       })
       .then((response) => response.json())
       .then((resData) => {
-        //console.log(resData.restaurants);
         this.setState({data: resData.restaurants});
       })
 
       .catch((error) => console.log(error))
     }
 
+    // This function is called when a user is trying to add a restaurant to a map
+    //
+    // after the user selects on a restaurant
+    //
+    // This function calls the maps/name/ endpoint to pull all the users' maps to add the new restaurant
     getMapsForUser = () => {
-      //this function is called when a user is trying to add a restaurant to a map
-      //
-      //after the user selects on a restaurant
-      //
-      //this function calls the maps/name/ endpoint to pull all the users' maps to add the new restaurant
-
       let url = 'https://capstone-express-gateway.herokuapp.com/maps/name/' + this.state.defaultUser;
       var header = { 'Authorization': 'Bearer '.concat(this.state.access_token) };
       fetch(url, {
@@ -81,12 +80,12 @@ export default class SearchScreen extends React.Component {
     }
 
 
+    // This function is called when a user is trying to add a restaurant to
+    //
+    // an existing map or to a new map
+    //
+    // This function calls the restaurants/id/ endpoint to obtain the restaurant's id
     getRestaurantId = () => {
-      //this function is called when a user is trying to add a restaurant to
-      //
-      //an existing map or to a new map
-      //
-      //this function calls the restaurants/id/ endpoint to obtain the restaurant's id 
       let url = 'https://capstone-express-gateway.herokuapp.com/restaurants/id/' + this.state.modalData.name + '/' + this.state.modalData.address;
       fetch(url, {
           method: 'GET',
@@ -99,12 +98,13 @@ export default class SearchScreen extends React.Component {
       .catch((error) => console.log(error))
     }
 
-    addToExistingMap = (map) => { 
-      //this function calls the maps/contain endpoint to add the selected restaurant
-      //
-      //to an existing map using the restaurant's id
-      //
-      //the "map" parameter is a temp name for a passed in restaurant id
+
+    // This function calls the maps/contain endpoint to add the selected restaurant
+    //
+    // to an existing map using the restaurant's id
+    //
+    // @pre map The temp name for a selected map
+    addToExistingMap = (map) => {
       var header = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -124,33 +124,33 @@ export default class SearchScreen extends React.Component {
           access_token: this.state.access_token,
           refresh_token: this.state.refresh_token})
       })
-
-
     }
 
+    // This function is called when the user wants to add the restaurant to
+    //
+    // a new map a dialog box with pop up for the user to create a new map
+    //
+    //will appear
     showDialog = () => {
-      //this function is called when the user wants to add the restaurant to
-      //
-      //a new map a dialog box with pop up for the user to create a new map
-      //
-      //will appear
       this.setState({ dialogVisible: true });
     };
+
+    // This function is called when the user closes the create new map
+    //
+    // dialog box, either by creating or cancelling
     handleClose = () => {
-      //this function is called when the user closes the create new map
-      //dialog box, either by creating or cancelling
       this.setState({ dialogVisible: false });
     };
-    createNewMapName= () => {
-      //tthis function calls the showDialog function
 
+    // This function calls the showDialog function
+    createNewMapName= () => {
       this.showDialog();
     };
 
+    // This function called the maps/ endpoint to create a relationship
+    //
+    // between the user and the new map the user created
     createNewMap = () => {
-      //this function called the maps/ endpoint to create a relationship
-      //
-      //between the user and the new map the user created
       fetch('https://capstone-express-gateway.herokuapp.com/maps/', {
         method: 'POST',
         headers: {
@@ -164,20 +164,19 @@ export default class SearchScreen extends React.Component {
         }),
         }).then( () => this.addToExistingMap(this.state.temporaryMapName))
     }
-    createMapAndAddRestaurant = () => {
-      //this is the general function called that calls all related functions
-      //
-      //needed to create a new map and add the selected restaurant to the new map
 
+    // This is the general function called that calls all related functions
+    //
+    // needed to create a new map and add the selected restaurant to the new map
+    createMapAndAddRestaurant = () => {
       this.createNewMap();
       this.handleClose();
-
-
     }
+
+    // This function is the stylistic component of each item rendered in the flatlist
+    //
+    //that displays the restaurant search results after a search made
     renderSeparator = () => {
-      //this function is the stylistic component of each item rendered in the flatlist
-      //
-      //that displays the restaurant search results after a search made
       return (
           <View
               style={{
@@ -189,12 +188,13 @@ export default class SearchScreen extends React.Component {
           />
         );
       };
+
+    // This function dictates how restaurants are searched
+    //
+    // the information in the search input is matched the restaurant names
+    //
+    // with  a regex functionality. Results are filtered as the user is typing
     searchFilterFunction = text => {
-      //this function dictates how restaurants are searched
-      //
-      //the information in the search input is matched the restaurant names
-      //
-      //with  a regex functionality. Results are filtered as the user is typing
         this.setState({
             value: text,
         });
@@ -208,27 +208,28 @@ export default class SearchScreen extends React.Component {
             currentDataList: newData,
         });
     };
+
+    // Based on user input in search bar, the restaurant is searched for in the database
+    //
+    // if the restaurant is not in the database, the user input is searched in google
+    //
+    // @param resName Restaurant name
+    //
+    // @pre a valid restaurant name is passed in as a parameter
     searchForRestaurant = (resName) => {
-      //based on user input in search bar, the restaurant is searched for in the database
-      //
-      //if the restaurant is not in the database, the user input is searched in google
-      //
-      //resname is the passed in restaurant name
-      //
-      //precondition: a valid restaurant name is passed in as a parameter
         var resNameList = this.state.data.map(res => res.name);
         isRestaurantInList = resNameList.includes(resName);
         if (!isRestaurantInList) {
             this.googleNewRestaurants(resName);
         }
     }
-    googleNewRestaurants = (resName) => {
-      //this function calls the restaurant/search endpoint if a search input
-      //
-      //cannot be found in the database, and instead the retaurant is searched
-      //
-      //for on Google
 
+    // This function calls the restaurant/search endpoint if a search input
+    //
+    // cannot be found in the database, and instead the retaurant is searched
+    //
+    // for on Google
+    googleNewRestaurants = (resName) => {
         fetch ('https://capstone-express-gateway.herokuapp.com/users/restaurant/search/'+resName,{
             method: 'GET',
             mode: 'no-cors',
@@ -241,8 +242,9 @@ export default class SearchScreen extends React.Component {
         })
         .catch((error) => console.log(error))
     }
+
+    // This is the header that displays the search bar at the top of the search page
     renderHeader = () => {
-      //this is the header that displays the search bar at the top of the search page
         return (
             <SearchBar
                 placeholder="Type..."
@@ -252,57 +254,57 @@ export default class SearchScreen extends React.Component {
                 />
         );
     };
-    showModal(visible) {
-      //this function is called after a user selects a restaurant to
-      //
-      //show a modal that gives the user the option to add the restaurant
-      //
-      //to a current map, new map, or to go back
 
+    // This function is called after a user selects a restaurant to
+    //
+    // show a modal that gives the user the option to add the restaurant
+    //
+    // to a current map, new map, or to go back
+    showModal(visible) {
       this.setState({ModalVisible: visible});
     }
+
+    // This function is called when a user selects a restaurant
     onPressShow(item) {
-      //this function is called when a user selects a restaurant
-      //this function calls showModal
+      // This function calls showModal
       this.showModal(true);
       this.setState({modalData: item});
     };
+
+    // This function is called when a user wants to add a restaurant
+    //
+    // to an exisiting map the user has a relationship with
     showMapModal(visible) {
-      //this function is called when a user wants to add a restaurant
-      //
-      //to an exisiting map the user has a relationship with
-      //
-      //this modal shows the list of available current maps
+
+      // This modal shows the list of available current maps
       this.setState({MapModalVisible: visible});
     }
+
+    // This function is called when a user wants to add a restaurant
+    //
+    // to an existing map
     onPressShowMap(){
-      //this function is called when a user wants to add a restaurant
-      //
-      //to an existing map
-      //
-      //this function calls showMapModal to show the list of maps on a modal
+      // This function calls showMapModal to show the list of maps on a modal
       this.showMapModal(true);
       this.setState({mapModalData: this.state.userMaps});
     }
-    showMap = () => {
-      //this function is called when a user clicks 'Add to an existing map'
-      //
-      //on the modal that pops up after the user clicks on a restaurant
-      //
-      //post condition: user's maps are shown
 
+    // This function is called when a user clicks 'Add to an existing map'
+    //
+    //on the modal that pops up after the user clicks on a restaurant
+    //
+    //post condition: user's maps are shown
+    showMap = () => {
       this.getMapsForUser();
       this.showModal(!this.state.ModalVisible);
       this.onPressShowMap();
-
-      /*
-      this render function displays the initial search bar at the top of the page
-
-      and also displays the search results and the dialogue/options that are open to the
-
-      user when they have to create a  new map or add a restaurant to an existing map
-       */
     }
+
+    // This render function displays the initial search bar at the top of the page
+    //
+    // and also displays the search results and the dialogue/options that are open to the
+    //
+    // user when they have to create a  new map or add a restaurant to an existing map
     render() {
         if (this.state.loading) {
             return (
@@ -376,12 +378,10 @@ export default class SearchScreen extends React.Component {
           );
     }
 }
-/*
-this is the styling sheet for how the restaurant name and address are displayed
 
-in the flatlist
-
- */
+// This is the styling sheet for how the restaurant name and address are displayed
+//
+// in the flatlist
 const styles = StyleSheet.create({
   restaurant_name: {
     fontSize: 20,
