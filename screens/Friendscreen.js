@@ -71,7 +71,6 @@ export default class FriendScreen extends React.Component {
     this.props.navigation.goBack(null);
     return true;
   }
- }
   handleBackButtonClick() {
       this.props.navigation.goBack(null);
       return true;
