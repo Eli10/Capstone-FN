@@ -1,13 +1,8 @@
-
 //  Author: Cesar Guzman
 //
-//This page implements the DiscoverScreen functionality
+// This page implements the DiscoverScreen functionality
 //
-//and functions similarly to Home and Friend Screen
-
-
-
-
+// and functions similarly to Home and Friend Screen
 import React from 'react';
 import {
   Image,
@@ -58,6 +53,7 @@ export default class DiscoverScreen extends React.Component {
 
     }
   }
+
   // This function is the implementation of the "on tab refresh",
   //
   // as it calls the getDiscoveredFunctions function as soon
@@ -82,7 +78,6 @@ export default class DiscoverScreen extends React.Component {
   //get discoveredRestaurants accesses the restaurants/discover endpoint
   //
   //and pulls restaurants in friends maps that the user does not have
-  //
   getDiscoveredRestaurants = () => {
     fetch ('https://capstone-express-gateway.herokuapp.com/restaurants/discover/' + this.state.username, {
       method: 'GET',
@@ -98,16 +93,15 @@ export default class DiscoverScreen extends React.Component {
     .catch((error) => console.log(error))
   }
 
-  //the below function returns a list of restaurant names that follow
+  // The below function returns a list of restaurant names that follow
   //
-  //the pattern described in the above comment
+  // the pattern described in the above comment
   //
-  //the list of names populates the dropdown
+  // The list of names populates the dropdown
   //
   //author: JW
   //
   getRestaurantNameList = () => {
-    //console.log('g');
     var restaurantNameList = [];
 
     if (this.state.data == null) {
@@ -122,27 +116,26 @@ export default class DiscoverScreen extends React.Component {
     this.setState({resNameList: restaurantNameList});
   }
 
-  //poplist() takes the chosen index of the dropdown list and
+  // poplist() takes the chosen index of the dropdown list and
   //
-  //populates th chosen restaurant on the map
+  // populates th chosen restaurant on the map
   //
-  //by setting the state's markers
+  // by setting the state's markers
   //
-  //author:CG
-
+  // author:CG
   popList = (index) => {
     var restaurantList = [];
     restaurantList.push(this.state.data[index]);
     this.setState({markers: restaurantList });
   }
 
-  //the render function deploys the drop down menu
+  // The render function deploys the drop down menu
   //
-  //and the map that encompasses the entirety of the page
+  // and the map that encompasses the entirety of the page
   //
-  //as well as the marker that shows the restaurant once an option is loaded
+  // as well as the marker that shows the restaurant once an option is loaded
   //
-  //author CG
+  // author CG
   render() {
     const {navigate} = this.props.navigation;
     return (
@@ -187,14 +180,9 @@ export default class DiscoverScreen extends React.Component {
   }
 }
 
-//the below style sheet styles the maps and the dropdown
+// The below style sheet styles the maps and the dropdownfor the page,
 //
-//for the page, as well as the dialogue boxes for when a marker is
-//
-//chosen
-
-
-
+// as well as the dialogue boxes for when a marker ischosen
 const styles = StyleSheet.create({
       container: {
         flex: 1,
